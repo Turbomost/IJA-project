@@ -15,4 +15,6 @@
     <Button text="Hello!" onAction="#onHelloButtonClick"/>
     <Label fx:id="FileOpenButton"/>
     <Button text="Load File" onAction="#onFileOpenButtonClick"/>
+    <Label fx:id="NewProjectButton"/>
+    <Button text="New Project" onAction="#onNewProjectButtonClick"/>
 </VBox>

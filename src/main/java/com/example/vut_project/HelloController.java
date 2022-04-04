@@ -13,6 +13,7 @@ import java.util.jar.JarFile;
 public class HelloController {
     @FXML
     public Label FileOpenButton;
+    public Label NewProjectButton;
     @FXML
     private Label welcomeText;
 
@@ -38,5 +39,10 @@ public class HelloController {
                     System.out.println("Need to be a xml file");
                 }
             }
+    }
+    @FXML
+    protected void onNewProjectButtonClick(){
+        ProjectLayout projectLayout = new ProjectLayout();
+        projectLayout.CreateProjectLayout();
     }
 }
