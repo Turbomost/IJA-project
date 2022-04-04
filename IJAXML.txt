@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program package="Package_Name">
+	<element type="class" name="Class_Name">
+		<arg type="primarykey">primary_key</arg>
+		<arg type="attribute">attribute_name</arg>
+		<arg type="attribute">another_attribute_name</arg>
+		<arg type="function">foo</arg>
+		<arg type="function">bar</arg>
+	</element>
+	<element type="class" name="Vaskovo_faro">
+		<arg type="primarykey">znacka</arg>
+		<arg type="attribute">fraba</arg>
+		<arg type="attribute">motor</arg>
+		<arg type="function">pridat</arg>
+		<arg type="function">zamknút</arg>
+		<arg type="function">ísť_rovno</arg>
+	</element>
+	<element type="constraint" name="Kolesa">
+		<arg type="primarykey">pk</arg>
+		<arg type="attribute">fraba</arg>
+		<arg type="attribute">prenumatiky</arg>
+		<arg type="attribute">priemer</arg>
+	</element>
+	<element type="constraint" name="Constraint_name">
+		<arg mandatory="null" class="Class_name">N:M</arg>
+		<arg mandatory="null" class="Class_name">N:M</arg>
+	</element>
+	<element type="constraint" name="ma_namontovane">
+		<arg mandatory="notnull" class="Vaskovo_faro">1</arg>
+		<arg mandatory="null" class="Kolesá">N:M</arg>
+	</element>
+	<element type="generalize" name="class_name">
+		<arg type="parent"></arg> 
+		<arg type="child"></arg>
+		<arg type="child"></arg>
+	</element>	
+</program>
+		
+				
