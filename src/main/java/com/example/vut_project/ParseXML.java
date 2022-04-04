@@ -10,7 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ParseXML {
-    private static final String FILENAME = "C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\IJAXML.txt";
+    private static String FILENAME = "";
+
+    public void input_file_from_button(String file_path){
+        FILENAME = file_path;
+    }
 
     public void start_parse(){
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -55,15 +59,15 @@ public class ParseXML {
                             String result_cardinality = "";
                             System.out.println("ATTC> " + genclass.getNodeValue());     //Attached To Class - class name
                             //System.out.println("MAND> " + mandatory.getNodeValue());    //mandatory on physical class side (null - 0, notnull - 1)
-                            //#System.out.println("CARD> " + fieldNode.getTextContent());  //cardinality on physical class side (1 or N:M)
+                            //System.out.println("CARD> " + fieldNode.getTextContent());  //cardinality on physical class side (1 or N:M)
                             //concat mandatory
                             if(mandatory.getNodeValue() == "null"){
                                 result_cardinality += "0..";
                             }
-                            else if(mandatory.getNodeValue() != "notnull"){
+                            else if(mandatory.getNodeValue() != "null"){
                                 result_cardinality += "1..";
                             }else{
-                                System.out.println("ERROR missing cardinality");
+                                System.out.println("ERROR missing cardinality while parsing XML");
                             }
                             result_cardinality += fieldNode.getTextContent();
                             System.out.println("CARD> " + result_cardinality);
@@ -71,7 +75,6 @@ public class ParseXML {
                     }
                 }
             }
-
         }catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
