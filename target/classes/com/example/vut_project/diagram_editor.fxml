@@ -16,7 +16,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#onFileOpenButtonClick" text="Open Project" />
-                  <MenuItem mnemonicParsing="false" onAction="#onNewProjectButtonClick" text="New Project" />
+                  <MenuItem mnemonicParsing="false" onAction="#onNewProjectButtonClick" text="New Project in new window" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -54,7 +54,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#onMiddleButtonClick" text="New" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#onMiddleButtonClick" text="New Diagram" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>

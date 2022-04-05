@@ -16,7 +16,7 @@
                 <Menu mnemonicParsing="false" text="File">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#onFileOpenButtonClick" text="Open Project" />
-                        <MenuItem mnemonicParsing="false" onAction="#onNewProjectButtonClick" text="New Project" />
+                        <MenuItem mnemonicParsing="false" onAction="#onNewProjectButtonClick" text="New Project in new window" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
@@ -34,7 +34,7 @@
         </MenuBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-            <Button mnemonicParsing="false" text="Button" onAction="#onAddDiagramButtonClick" />
+            <Button mnemonicParsing="false" text="Unlock object" onAction="#onAddDiagramButtonClick" />
         </items>
       </ToolBar>
       <AnchorPane prefHeight="336.0" prefWidth="600.0">

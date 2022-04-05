@@ -31,8 +31,8 @@ public class HelloController{
     private Label AddDiagramButton;
     @FXML
     private Label welcomeText;
-    private Rectangle rectangle = new Rectangle();
-    private AnchorPane anchorPane = new AnchorPane();
+    @FXML
+    private Rectangle rectangle;
 
     DraggableMarker draggableMaker = new DraggableMarker();
 
@@ -89,6 +89,5 @@ public class HelloController{
         System.out.println("Released");
         System.out.println("init");
         draggableMaker.makeDraggable(rectangle);
-        draggableMaker.makeDraggable(anchorPane);
     }
 }
