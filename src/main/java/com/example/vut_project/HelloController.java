@@ -1,21 +1,40 @@
 package com.example.vut_project;
 
-import eu.hansolo.tilesfx.events.AlarmEvent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FilenameFilter;
-import java.util.jar.JarFile;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HelloController {
+public class HelloController{
+    private Stage stage;
+    private Parent root;
+    private Scene scene;
     @FXML
-    public Label FileOpenButton;
-    public Label NewProjectButton;
+    private Label FileOpenButton;
+    private Label NewProjectButton;
+    @FXML
+    private Label AddDiagramButton;
     @FXML
     private Label welcomeText;
+    private Rectangle rectangle = new Rectangle();
+    private AnchorPane anchorPane = new AnchorPane();
+
+    DraggableMarker draggableMaker = new DraggableMarker();
 
     @FXML
     protected void onHelloButtonClick() {
@@ -41,8 +60,35 @@ public class HelloController {
             }
     }
     @FXML
-    protected void onNewProjectButtonClick(){
-        ProjectLayout projectLayout = new ProjectLayout();
-        projectLayout.CreateProjectLayout();
+    protected void onNewProjectButtonClick() throws Exception{
+        Stage stage = new Stage();
+        Pane Pane = null;
+        Pane = FXMLLoader.load(getClass().getResource("new_project_view.fxml"));
+        Scene scene = new Scene(Pane);
+        stage.setTitle("New Project");
+        stage.setScene(scene);
+        stage.show();
+
+    }
+    @FXML
+    public void onMiddleButtonClick(ActionEvent event) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("new_project_view.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        assert root != null;
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    public void onAddDiagramButtonClick(ActionEvent event) {
+        System.out.println("Released");
+        System.out.println("init");
+        draggableMaker.makeDraggable(rectangle);
+        draggableMaker.makeDraggable(anchorPane);
     }
 }
