@@ -8,9 +8,12 @@ import javax.xml.stream.events.Attribute;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParseXML {
     private static String FILENAME = "";
+
 
     public void input_file_from_button(String file_path){
         FILENAME = file_path;
@@ -37,14 +40,15 @@ public class ParseXML {
                     //parsing element information
                     System.out.println("type : "  + eElement.getAttribute("type")); //element type such as : class || constraint || generalization
                     System.out.println("name : " + eElement.getAttribute("name")); //class name for example : vaškovo_fáro || kolesá
+                    //TODO -> CALL FOO from CONTROLLER -> CREATE CLASS AND SET ITS NAME
                     for (int j = 0; j < fieldNodes.getLength(); j++){ //for each argument
                         Node fieldNode = fieldNodes.item(j);
                         NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
                         Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
                         Node mandatory = attributes.getNamedItem("mandatory");
-
                         Node genclass = attributes.getNamedItem("class");
                         if (arg != null){
+                            //TODO -> FILL CLASS WITH ITS ATTRIBUTES
                             if (arg.getTextContent().equals("primarykey")) {
                                 System.out.println("PK>   " + fieldNode.getTextContent());
                             }
@@ -69,6 +73,7 @@ public class ParseXML {
                             }else{
                                 System.out.println("ERROR missing cardinality while parsing XML");
                             }
+                            //TODO -> SET CARDINALITY (AS ATTRIBUTE) TO CLASS
                             result_cardinality += fieldNode.getTextContent();
                             System.out.println("CARD> " + result_cardinality);
                         }

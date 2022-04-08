@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -34,12 +35,14 @@
         </MenuBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-            <Button mnemonicParsing="false" text="Unlock object" onAction="#onAddDiagramButtonClick" />
+            <Button mnemonicParsing="false" onAction="#onAddDiagramButtonClick" text="Unlock object" />
+            <Button mnemonicParsing="false" onAction="#onNewElementClick" text="New Element" />
         </items>
       </ToolBar>
       <AnchorPane prefHeight="336.0" prefWidth="600.0">
          <children>
-            <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="101.0" layoutX="241.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" width="118.0" />
+            <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="101.0" layoutX="241.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="118.0" />
+            <Group fx:id="workSpaceGroup" layoutX="52.0" layoutY="80.0" />
          </children>
       </AnchorPane>
     </children>
