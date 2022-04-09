@@ -8,9 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -24,7 +22,7 @@ import java.util.List;
 
 public class HelloController{
     public Group workSpaceGroup; //workspace group - contains all Class Diagrams displayed in application
-    public List <Class_Diagram_Element_Shape> Class_Diagram_Element_Shape_List = new ArrayList<>(); //list of all class diagram shapes created in workspace by Add Element button
+    public List<Node> Class_Diagram_Element_Shape_List = new ArrayList<Node>(); //list of all nodes (aka. class diagram shapes) created in workspace by Add Element button
     @FXML
     //bunch of stages and scenes and panes xD
     private Stage stage;
@@ -102,24 +100,11 @@ public class HelloController{
         }
 
         public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
-            System.out.println("CLICK");
-            Class_Diagram_Element_Shape r = new Class_Diagram_Element_Shape(50, 50 ,120,150); //create CD element
-            Class_Diagram_Element_Shape_List.add(r); //add new class diagram element to list
-            draggableMaker.makeDraggable(r);        //give element power to move
-            workSpaceGroup.getChildren().add(FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")));
-            ObservableList<Node> allChildren = workSpaceGroup.getChildren();
-            int lastAddedElement = allChildren.size() - 1;
-            Node id = workSpaceGroup.getChildren().get(lastAddedElement);
-            draggableMaker.makeDraggable(id);
-            //Class_Diagram_Element_Shape.add(id);
-        }
-
-        public class Class_Diagram_Element_Shape extends Rectangle{ //crating own shape to create in diagram
-            public Class_Diagram_Element_Shape(int x, int y, int w, int h){
-                this.setLayoutX(x);
-                this.setLayoutY(y);
-                this.setWidth(w);
-                this.setHeight(h);
-            }
+            workSpaceGroup.getChildren().add(FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml"))); //load Class diagram shape from fxml file and add it to scene
+            ObservableList<Node> allChildren = workSpaceGroup.getChildren(); //get all nodes from scene (node is every Class Diagram)
+            int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
+            Node id = workSpaceGroup.getChildren().get(lastAddedElement);   //take id of new added node (aka. element aka. Class Diagram)
+            draggableMaker.makeDraggable(id);                               //make it draggable
+            Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams)
         }
 }
