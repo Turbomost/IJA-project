@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="com.example.vut_project.HelloController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.vut_project.HelloController">
     <children>
         <MenuBar>
             <menus>
@@ -37,9 +37,13 @@
         <items>
             <Button mnemonicParsing="false" onAction="#onAddDiagramButtonClick" text="Unlock object" />
             <Button mnemonicParsing="false" onAction="#onNewElementClick" text="New Element" />
+            <Button mnemonicParsing="false" text="Add Attribute" />
+            <Button mnemonicParsing="false" text="Remove Attribute" />
+            <Button mnemonicParsing="false" text="Add Function" />
+            <Button mnemonicParsing="false" text="Remove Function" />
         </items>
       </ToolBar>
-      <AnchorPane prefHeight="336.0" prefWidth="600.0">
+      <AnchorPane prefHeight="740.0" prefWidth="1600.0">
          <children>
             <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="101.0" layoutX="241.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="118.0" />
             <Group fx:id="workSpaceGroup" layoutX="52.0" layoutY="80.0" />
