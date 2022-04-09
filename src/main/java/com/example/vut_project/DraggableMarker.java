@@ -9,15 +9,13 @@ public class DraggableMarker {
 
     public void makeDraggable(Node node){
         node.setOnMousePressed(mouseEvent -> {
-            System.out.println("event");
             mouseAnchorX = mouseEvent.getX();
             mouseAnchorY = mouseEvent.getY();
         });
 
         node.setOnMouseDragged(mouseEvent -> {
-            System.out.println("drag");
-            node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
+            node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX - 50);
+            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 150);
         });
     }
 }

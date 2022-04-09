@@ -48,8 +48,23 @@ public class HelloController{
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
+    protected void displayLoadedProjectFromXMLFile() throws Exception{
+        this.displayNewProjectScene();
+        //TODO display all Class Diagrams
+    }
+
+    protected void displayNewProjectScene() throws Exception{
+        stage = new Stage();
+        pane = FXMLLoader.load(getClass().getResource("new_project_view.fxml"));
+        scene = new Scene(pane);
+        stage.setTitle("New Project");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @FXML
-    protected void onFileOpenButtonClick(){
+    protected void onFileOpenButtonClick() throws Exception {
         ParseXML parse = new ParseXML();
         FileChooser fileChooser = new FileChooser();
         File result = fileChooser.showOpenDialog(null);  //select file to open
@@ -60,6 +75,7 @@ public class HelloController{
                 if (lowercaseName.endsWith(".xml")){
                     parse.input_file_from_button(path);
                     parse.start_parse();
+                    this.displayLoadedProjectFromXMLFile();
                 }else{
                     AlertBox alert = new AlertBox();
                     alert.display("Error", "You need to choose XML file format");
@@ -69,16 +85,10 @@ public class HelloController{
     }
         @FXML
         protected void onNewProjectButtonClick() throws Exception{ //stage in new window
-            stage = new Stage();
-            pane = FXMLLoader.load(getClass().getResource("new_project_view.fxml"));
-            scene = new Scene(pane);
-            stage.setTitle("New Project");
-            stage.setScene(scene);
-            stage.show();
+            this.displayNewProjectScene();
         }
         @FXML
         public void onMiddleButtonClick(ActionEvent event) throws IOException { //stage in same window
-
             Parent root = null;
             Stackpane = new StackPane();
             try {
@@ -92,8 +102,8 @@ public class HelloController{
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-
         }
+
         @FXML
         public void onAddDiagramButtonClick(ActionEvent event) { //redundant function, can be erased, but erase also rectangle
             draggableMaker.makeDraggable(rectangle);
@@ -107,4 +117,5 @@ public class HelloController{
             draggableMaker.makeDraggable(id);                               //make it draggable
             Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams)
         }
+
 }
