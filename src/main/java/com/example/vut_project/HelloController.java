@@ -1,5 +1,6 @@
 package com.example.vut_project;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +8,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -98,12 +101,17 @@ public class HelloController{
             draggableMaker.makeDraggable(rectangle);
         }
 
-        public void onNewElementClick(ActionEvent event) throws NullPointerException{ //Creating new element (class diagram) after button click
+        public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
             System.out.println("CLICK");
-            Class_Diagram_Element_Shape r = new Class_Diagram_Element_Shape(50, 50 ,30,30); //create CD element
+            Class_Diagram_Element_Shape r = new Class_Diagram_Element_Shape(50, 50 ,120,150); //create CD element
             Class_Diagram_Element_Shape_List.add(r); //add new class diagram element to list
             draggableMaker.makeDraggable(r);        //give element power to move
-            workSpaceGroup.getChildren().add(r);    //display it on scene
+            workSpaceGroup.getChildren().add(FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")));
+            ObservableList<Node> allChildren = workSpaceGroup.getChildren();
+            int lastAddedElement = allChildren.size() - 1;
+            Node id = workSpaceGroup.getChildren().get(lastAddedElement);
+            draggableMaker.makeDraggable(id);
+            //Class_Diagram_Element_Shape.add(id);
         }
 
         public class Class_Diagram_Element_Shape extends Rectangle{ //crating own shape to create in diagram
