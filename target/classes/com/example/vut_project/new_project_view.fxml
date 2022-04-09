@@ -37,10 +37,10 @@
         <items>
             <Button mnemonicParsing="false" onAction="#onAddDiagramButtonClick" text="Unlock object" />
             <Button mnemonicParsing="false" onAction="#onNewElementClick" text="New Element" />
-            <Button mnemonicParsing="false" text="Add Attribute" />
-            <Button mnemonicParsing="false" text="Remove Attribute" />
-            <Button mnemonicParsing="false" text="Add Function" />
-            <Button mnemonicParsing="false" text="Remove Function" />
+            <Button mnemonicParsing="false" onAction="#onAddAttributeClick" text="Add Attribute" />
+            <Button mnemonicParsing="false" onAction="#onRemoveAttributeClick" text="Remove Attribute" />
+            <Button mnemonicParsing="false" onAction="#onAddFunctionClick" text="Add Function" />
+            <Button mnemonicParsing="false" onAction="#onRemoveFunctionClick" text="Remove Function" />
         </items>
       </ToolBar>
       <AnchorPane prefHeight="740.0" prefWidth="1600.0">

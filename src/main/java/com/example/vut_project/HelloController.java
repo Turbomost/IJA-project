@@ -1,9 +1,9 @@
 package com.example.vut_project;
 
-import javafx.beans.Observable;
+import com.example.vut_project.controller.AlertBox;
+import com.example.vut_project.controller.DraggableMarker;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -11,8 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -116,9 +114,26 @@ public class HelloController{
         public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
             workSpaceGroup.getChildren().add(FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml"))); //load Class diagram shape from fxml file and add it to scene
             ObservableList<Node> allChildren = workSpaceGroup.getChildren(); //get all nodes from scene (node is every Class Diagram)
-            int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
+                int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
             Node id = workSpaceGroup.getChildren().get(lastAddedElement);   //take id of new added node (aka. element aka. Class Diagram)
             draggableMaker.makeDraggable(id);                               //make it draggable
             Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams)
         }
+
+    @FXML
+    public void onAddAttributeClick(ActionEvent actionEvent) throws Exception{
+
+    }
+
+    @FXML
+    public void onRemoveAttributeClick(ActionEvent actionEvent) throws Exception{
+    }
+
+    @FXML
+    public void onAddFunctionClick(ActionEvent actionEvent) throws Exception{
+    }
+
+    @FXML
+    public void onRemoveFunctionClick(ActionEvent actionEvent) throws Exception{
+    }
 }

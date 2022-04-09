@@ -11,4 +11,6 @@ module com.example.vut_project {
 
     opens com.example.vut_project to javafx.fxml;
     exports com.example.vut_project;
+    exports com.example.vut_project.controller;
+    opens com.example.vut_project.controller to javafx.fxml;
 }

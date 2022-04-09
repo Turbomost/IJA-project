@@ -1,4 +1,4 @@
-package com.example.vut_project;
+package com.example.vut_project.controller;
 
 import javafx.scene.Node;
 
