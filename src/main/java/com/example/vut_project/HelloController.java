@@ -7,16 +7,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -51,6 +52,8 @@ public class HelloController{
     @FXML
     private TextField classNameTextField;
 
+    private int attributeFieldCounter  = 0;
+
     DraggableMarker draggableMaker = new DraggableMarker(); //class, that makes all objects movable
 
     @FXML
@@ -62,7 +65,7 @@ public class HelloController{
     protected void displayLoadedClassDiagramEntity(String classDiagramName) throws IOException {
         Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         ObservableList<Node> childrens = pane.getChildren();        //get all nodes of new pane (aka. Class Diagram entity)
-        Node id;                                                    //Just a node id to add to nodes list
+        Node id;                                                        //Just a node id to add to nodes list
         for (Node node : pane.getChildren()){                       //find TextField
             if(node instanceof TextField){
                 ((TextField)node).setText("TvojTatkoRecords");      //and set Class Diagram Name TODO replace for class diagram name
@@ -71,7 +74,7 @@ public class HelloController{
             }
         }
         projectSpace.getChildren().add(pane);                               //add it to project space pane
-        ObservableList<Node> allChildren = projectSpace.getChildren();  //get all nodes from scene (node is every Class Diagram)
+        ObservableList<Node> allChildren = projectSpace.getChildren();   //get all nodes from scene (node is every Class Diagram)
         int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
         id = projectSpace.getChildren().get(lastAddedElement);
         draggableMaker.makeDraggable(id);                               //make it draggable
@@ -143,8 +146,33 @@ public class HelloController{
         Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams
     }
 
+    @FXML
     public void onClassDiagramClick(MouseEvent mouseEvent) {
-        //VOID FOR NOW
+        Object source = mouseEvent.getSource();
+        //Pane clicked = (Pane) mouseEvent.getSource();
+        if(source instanceof GridPane){
+            System.out.println("CLICKED");
+            TextField[] textField = new TextField[15];
+            textField[attributeFieldCounter] = new TextField();
+            textField[attributeFieldCounter].setId("singleAttributeInClassDiagram");
+            textField[attributeFieldCounter].setPromptText("Attribute");
+            textField[attributeFieldCounter].setAlignment(Pos.CENTER_LEFT);
+            textField[attributeFieldCounter].setLayoutX(5);
+            textField[attributeFieldCounter].setLayoutY(5);
+            textField[attributeFieldCounter].setPadding(new Insets(5, 5, 5, 5));
+            ((GridPane) source).add(textField[attributeFieldCounter], 0, attributeFieldCounter);
+            attributeFieldCounter = attributeFieldCounter + 1;
+        }
+       /* for (Node node : k.getChildren()){
+            if (node instanceof GridPane){
+                int i = 0;
+                TextField[] textField = new TextField[15];
+                textField[i] = new TextField();
+                textField[i].setText("field");
+                ((GridPane) node).add(textField[i], 5, i);
+                i = i + 1;
+            }
+        }*/
     }
 
     public void onAddDiagramButtonClick(ActionEvent event) {
