@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -38,7 +39,7 @@ public class HelloController{
     public Pane pane;
     public Pane projectSpace;
     public StackPane Stackpane;
-
+    public AnchorPane newrectangle;
     //buttons
     @FXML
     private Label FileOpenButton;
@@ -47,8 +48,6 @@ public class HelloController{
     private Label AddDiagramButton;
     @FXML
     private Label welcomeText;
-    @FXML
-    private Rectangle rectangle; //DO NOT DELETE
     @FXML
     private TextField classNameTextField;
 
@@ -116,16 +115,18 @@ public class HelloController{
     }
 
     @FXML
-    public void onAddDiagramButtonClick(ActionEvent event) { //DO NOT DELETE
-        draggableMaker.makeDraggable(rectangle);
-    }
-
     public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
         Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
+        ObservableList<Node> childrens = pane.getChildren();
+        Node id;
+        id = (TextField) childrens.get(1);
+        if (id instanceof TextField) {
+            ((TextField) id).setText("TvojTatkoRecords");
+        }
         projectSpace.getChildren().addAll(pane);                               //add it to project space pane
         ObservableList<Node> allChildren = projectSpace.getChildren();  //get all nodes from scene (node is every Class Diagram)
         int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
-        Node id = projectSpace.getChildren().get(lastAddedElement);     //take id of new added node (aka. element aka. Class Diagram)
+        id = projectSpace.getChildren().get(lastAddedElement);
         draggableMaker.makeDraggable(id);                               //make it draggable
         Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams
     }
