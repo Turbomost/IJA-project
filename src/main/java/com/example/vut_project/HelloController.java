@@ -58,9 +58,24 @@ public class HelloController{
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-    protected void displayLoadedProjectFromXMLFile() throws Exception{
-        this.displayNewProjectScene();
-        //TODO display all Class Diagrams
+    //function to display single class diagram loaded from XML file
+    protected void displayLoadedClassDiagramEntity(String classDiagramName) throws IOException {
+        Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
+        ObservableList<Node> childrens = pane.getChildren();        //get all nodes of new pane (aka. Class Diagram entity)
+        Node id;                                                    //Just a node id to add to nodes list
+        for (Node node : pane.getChildren()){                       //find TextField
+            if(node instanceof TextField){
+                ((TextField)node).setText("TvojTatkoRecords");      //and set Class Diagram Name TODO replace for class diagram name
+                node.setLayoutX(10);
+                node.setLayoutY(10);
+            }
+        }
+        projectSpace.getChildren().add(pane);                               //add it to project space pane
+        ObservableList<Node> allChildren = projectSpace.getChildren();  //get all nodes from scene (node is every Class Diagram)
+        int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
+        id = projectSpace.getChildren().get(lastAddedElement);
+        draggableMaker.makeDraggable(id);                               //make it draggable
+        Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams
     }
 
     protected void displayNewProjectScene() throws Exception{
@@ -84,7 +99,8 @@ public class HelloController{
             if (lowercaseName.endsWith(".xml")){
                 parse.input_file_from_button(path);
                 parse.start_parse();
-                this.displayLoadedProjectFromXMLFile();
+                //TODO GET CLASS NAME AND SET IT TO CLASS
+                this.displayLoadedClassDiagramEntity("CLASS NAME");
             }else{
                 AlertBox alert = new AlertBox();
                 alert.display("Error", "You need to choose XML file format");
@@ -119,10 +135,6 @@ public class HelloController{
         Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         ObservableList<Node> childrens = pane.getChildren();
         Node id;
-        id = (TextField) childrens.get(1);
-        if (id instanceof TextField) {
-            ((TextField) id).setText("TvojTatkoRecords");
-        }
         projectSpace.getChildren().addAll(pane);                               //add it to project space pane
         ObservableList<Node> allChildren = projectSpace.getChildren();  //get all nodes from scene (node is every Class Diagram)
         int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
@@ -135,6 +147,9 @@ public class HelloController{
         //VOID FOR NOW
     }
 
+    public void onAddDiagramButtonClick(ActionEvent event) {
+
+    }
 
     @FXML
     public void onAddAttributeClick(ActionEvent actionEvent) throws Exception{
@@ -152,4 +167,6 @@ public class HelloController{
     @FXML
     public void onRemoveFunctionClick(ActionEvent actionEvent) throws Exception{
     }
+
+
 }

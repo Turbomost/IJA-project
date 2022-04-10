@@ -1,4 +1,6 @@
 package com.example.vut_project;
+import com.example.vut_project.controller.ClassDiagramController;
+import com.example.vut_project.controller.ElementController;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
@@ -11,9 +13,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParseXML {
+public class ParseXML extends HelloController {
     private static String FILENAME = "";
-
+    ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
 
     public void input_file_from_button(String file_path){
         FILENAME = file_path;
@@ -38,9 +40,11 @@ public class ParseXML {
                     System.out.println("------");
                     System.out.println("NEW ELEMENT");
                     //parsing element information
-                    System.out.println("type : "  + eElement.getAttribute("type")); //element type such as : class || constraint || generalization
-                    System.out.println("name : " + eElement.getAttribute("name")); //class name for example : vaškovo_fáro || kolesá
-                    //TODO -> CALL FOO from CONTROLLER -> CREATE CLASS AND SET ITS NAME
+                    String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
+                    String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
+                    if (elementType.equals("class")){ //creating class
+                        classDiagramController.createClass(elementName);
+                    }
                     for (int j = 0; j < fieldNodes.getLength(); j++){ //for each argument
                         Node fieldNode = fieldNodes.item(j);
                         NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
@@ -81,6 +85,8 @@ public class ParseXML {
                 }
             }
         }catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

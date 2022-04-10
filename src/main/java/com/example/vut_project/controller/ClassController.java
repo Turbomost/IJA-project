@@ -106,6 +106,8 @@ public class ClassController extends ElementController {
         return -1;
     }
 
+
+
     /**
      * Returns list of attributes
      *
