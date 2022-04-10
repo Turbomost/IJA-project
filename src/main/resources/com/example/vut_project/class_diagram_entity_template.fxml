@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="newrectangle" prefHeight="298.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="com.example.vut_project.HelloController">
+<AnchorPane fx:id="newrectangle" prefHeight="240.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="com.example.vut_project.HelloController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="300.0" onMouseClicked="#onClassDiagramClick" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="200.0" AnchorPane.leftAnchor="0.0" />
       <TextField fx:id="classNameTextField" layoutX="8.0" layoutY="9.0" promptText="Class Name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />

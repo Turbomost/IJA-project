@@ -13,9 +13,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
@@ -151,28 +150,31 @@ public class HelloController{
         Object source = mouseEvent.getSource();
         //Pane clicked = (Pane) mouseEvent.getSource();
         if(source instanceof GridPane){
-            System.out.println("CLICKED");
-            TextField[] textField = new TextField[15];
-            textField[attributeFieldCounter] = new TextField();
-            textField[attributeFieldCounter].setId("singleAttributeInClassDiagram");
-            textField[attributeFieldCounter].setPromptText("Attribute");
-            textField[attributeFieldCounter].setAlignment(Pos.CENTER_LEFT);
-            textField[attributeFieldCounter].setLayoutX(5);
-            textField[attributeFieldCounter].setLayoutY(5);
-            textField[attributeFieldCounter].setPadding(new Insets(5, 5, 5, 5));
-            ((GridPane) source).add(textField[attributeFieldCounter], 0, attributeFieldCounter);
-            attributeFieldCounter = attributeFieldCounter + 1;
-        }
-       /* for (Node node : k.getChildren()){
-            if (node instanceof GridPane){
-                int i = 0;
-                TextField[] textField = new TextField[15];
-                textField[i] = new TextField();
-                textField[i].setText("field");
-                ((GridPane) node).add(textField[i], 5, i);
-                i = i + 1;
+            if(mouseEvent.getButton()==MouseButton.SECONDARY) {
+                TextField[] textField = new TextField[15]; //field of attributes
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem menuItem1 = new MenuItem("Delete Attributes");
+                menuItem1.setId("ClassDiagramMenuItemDelete");
+                menuItem1.setOnAction(e -> onClassDiagramMenuItemDeleteClick(source));
+                contextMenu.getItems().addAll(menuItem1);
+                textField[attributeFieldCounter] = new TextField();
+                textField[attributeFieldCounter].setId("singleAttributeInClassDiagram");
+                textField[attributeFieldCounter].setPromptText("Attribute");
+                textField[attributeFieldCounter].setAlignment(Pos.CENTER_LEFT);
+                textField[attributeFieldCounter].setLayoutX(5);
+                textField[attributeFieldCounter].setLayoutY(5);
+                textField[attributeFieldCounter].setPadding(new Insets(5, 5, 5, 5));
+                textField[attributeFieldCounter].setContextMenu(contextMenu);
+                ((GridPane) source).add(textField[attributeFieldCounter], 0, attributeFieldCounter);
+                attributeFieldCounter = attributeFieldCounter + 1;
             }
-        }*/
+        }
+    }
+
+    @FXML
+    private void onClassDiagramMenuItemDeleteClick(Object source) {
+        ((GridPane) source).getChildren().clear();
+        attributeFieldCounter = 0;
     }
 
     public void onAddDiagramButtonClick(ActionEvent event) {
