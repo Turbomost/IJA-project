@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.vut_project.HelloController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="com.example.vut_project.HelloController">
     <children>
         <MenuBar>
             <menus>
@@ -35,19 +33,13 @@
         </MenuBar>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-            <Button mnemonicParsing="false" onAction="#onAddDiagramButtonClick" text="Unlock object" />
             <Button mnemonicParsing="false" onAction="#onNewElementClick" text="New Element" />
-            <Button mnemonicParsing="false" onAction="#onAddAttributeClick" text="Add Attribute" />
-            <Button mnemonicParsing="false" onAction="#onRemoveAttributeClick" text="Remove Attribute" />
-            <Button mnemonicParsing="false" onAction="#onAddFunctionClick" text="Add Function" />
-            <Button mnemonicParsing="false" onAction="#onRemoveFunctionClick" text="Remove Function" />
+            <Button mnemonicParsing="false" text="Add Attribute" />
+            <Button mnemonicParsing="false" text="Remove Attribute" />
+            <Button mnemonicParsing="false" text="Add Function" />
+            <Button mnemonicParsing="false" text="Remove Function" />
         </items>
       </ToolBar>
-      <AnchorPane prefHeight="740.0" prefWidth="1600.0">
-         <children>
-            <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="101.0" layoutX="241.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="118.0" />
-            <Group fx:id="workSpaceGroup" layoutX="52.0" layoutY="80.0" />
-         </children>
-      </AnchorPane>
+      <Pane fx:id="projectSpace" prefHeight="736.0" prefWidth="1600.0" />
     </children>
 </VBox>

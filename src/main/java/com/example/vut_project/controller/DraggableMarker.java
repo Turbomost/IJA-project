@@ -14,8 +14,8 @@ public class DraggableMarker {
         });
 
         node.setOnMouseDragged(mouseEvent -> {
-            node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX - 50);
-            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 150);
+            node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
+            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 60);
         });
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program package="Class_diagram">
+    <element type="class" name="Vaskovo_faro">
+        <arg type="primarykey">znacka</arg>
+        <arg type="attribute">fraba</arg>
+        <arg type="attribute">motor</arg>
+        <arg type="function">pridat</arg>
+        <arg type="function">zamknut</arg>
+        <arg type="function">ist_rovno</arg>
+    </element>
+</program>
