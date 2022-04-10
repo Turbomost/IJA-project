@@ -8,4 +8,14 @@
         <arg type="function">zamknut</arg>
         <arg type="function">ist_rovno</arg>
     </element>
+
+    <element type="class" name="Kikova_Sedma">
+        <arg type="primarykey">znacka</arg>
+        <arg type="attribute">fraba</arg>
+        <arg type="attribute">motor</arg>
+        <arg type="function">investovat</arg>
+        <arg type="function">objedat_dame_jidlo</arg>
+        <arg type="function">driftovat</arg>
+        <arg type="function">upozornit_danovy_urad</arg>
+    </element>
 </program>

@@ -2,14 +2,20 @@ package com.example.vut_project.controller;
 
 import java.util.ArrayList;
 
-// Class diagram stores classes ( TODO classifiers? )
+// Class diagram stores classes
+// Ještě česky pro Andyho
+// V Class diagramu je list classů
+// Slovensky
+// V Class digrame je list classov
 public class ClassDiagramController extends ElementController {
 
     private ArrayList<ClassController> classList;
+    private ArrayList<ClassifierController> classifierList;
 
     public ClassDiagramController(String name) {
         super(name);
         this.classList = new ArrayList<>();
+        this.classifierList = new ArrayList<>();
     }
 
     /**
@@ -33,12 +39,42 @@ public class ClassDiagramController extends ElementController {
      */
     public boolean deleteClass(ClassController name) {
         if (this.classList.contains(name)) {
-            return false;
+            this.classList.remove(name);
+            return true;
         }
-        this.classList.remove(name);
-        return true;
+        return false;
+    }
 
-        // TODO idk if this works
+    /**
+     * Finds classifier in diagram
+     * @param name of the classifier
+     * @return found classifier or null
+     */
+    public ClassifierController findClassifier(String name) {
+        for (ClassifierController Classifier : this.classifierList) {
+            if (Classifier.getName().equals(name)) {
+                return Classifier;
+            }
+        }
+
+        for (ClassController Classifier : this.classList) {
+            if (Classifier.getName().equals(name)) {
+                return Classifier;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns list of Class names
+     * @return string list
+     */
+    public ArrayList<String> return_list(){
+        ArrayList<String> list = new ArrayList<>();
+        for (ClassController Class : classList) {
+            list.add(Class.getName());
+        }
+        return list;
     }
 }
 

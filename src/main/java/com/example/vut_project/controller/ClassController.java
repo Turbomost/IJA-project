@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 // Class is one object in class diagram
 // It stores their AttributeList
-// TODO we probably still need some Classifier for other things other than classes
-public class ClassController extends ElementController {
+public class ClassController extends ClassifierController {
 
     private ArrayList<AttributeController> AttributeList;
     private boolean isAbstract = false;
@@ -81,10 +80,9 @@ public class ClassController extends ElementController {
      * @return true if successful, otherwise false
      */
     public boolean removeAttrPosition(int index) {
-        try{
+        try {
             this.AttributeList.remove(index);
-        }
-        catch (Exception E) {
+        } catch (Exception E) {
             return false;
         }
         return true;
@@ -105,8 +103,6 @@ public class ClassController extends ElementController {
         }
         return -1;
     }
-
-
 
     /**
      * Returns list of attributes

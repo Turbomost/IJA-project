@@ -1,4 +1,5 @@
 package com.example.vut_project;
+import com.example.vut_project.controller.ClassController;
 import com.example.vut_project.controller.ClassDiagramController;
 import com.example.vut_project.controller.ElementController;
 import org.w3c.dom.*;
@@ -21,7 +22,7 @@ public class ParseXML extends HelloController {
         FILENAME = file_path;
     }
 
-    public void start_parse(){
+    public ClassDiagramController start_parse(){
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -43,7 +44,7 @@ public class ParseXML extends HelloController {
                     String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
                     String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
                     if (elementType.equals("class")){ //creating class
-                        classDiagramController.createClass(elementName);
+                        ClassController new_class = classDiagramController.createClass(elementName);
                     }
                     for (int j = 0; j < fieldNodes.getLength(); j++){ //for each argument
                         Node fieldNode = fieldNodes.item(j);
@@ -89,5 +90,6 @@ public class ParseXML extends HelloController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return classDiagramController;
     }
 }
