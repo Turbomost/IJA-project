@@ -1,9 +1,6 @@
 package com.example.vut_project;
 
-import com.example.vut_project.controller.AlertBox;
-import com.example.vut_project.controller.ClassDiagramController;
-import com.example.vut_project.controller.ClassController;
-import com.example.vut_project.controller.DraggableMarker;
+import com.example.vut_project.controller.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -65,7 +62,7 @@ public class HelloController {
     //function to display single class diagram loaded from XML file
     protected void displayLoadedClassDiagramEntity(ClassDiagramController classDiagram) throws IOException {
 
-        for (String class_name : classDiagram.return_list()) {
+        for (ClassController class_name : classDiagram.return_list()) {
             AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
             Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
             ObservableList<Node> childrens = pane.getChildren();        //get all nodes of new pane (aka. Class Diagram entity)
@@ -73,13 +70,15 @@ public class HelloController {
             for (Node node : pane.getChildren()) {                       //find TextField
                 System.out.println(node);
                 if (node instanceof TextField) {
-                    ((TextField) node).setText(class_name);      //and set Class Diagram Name TODO replace for class diagram name
+                    ((TextField) node).setText(class_name.getName());      //and set Class Diagram Name TODO replace for class diagram name
                     node.setLayoutX(10);
                     node.setLayoutY(10);
                 }
                 if (node instanceof VBox) { //TODO for loop for attributes
                     ObservableList<String> attributes = FXCollections.observableArrayList(); //"Mamka", "Babka", "Dedko", "Vajcovod", "Tvoj Tatko", "Maroš", "Peder", "Ctibor", "Gábor", "Chvost", "Mrkva", "Dikobraz", "Bonsaj"
-                    attributes.add("ANDY");
+                    for (AttributeController attribute_name : class_name.getAttributes()){
+                        attributes.add(attribute_name.getName());
+                    }
 
                     ListView<String> listAttributeView = new ListView<String>(attributes);
                     listAttributeView.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);

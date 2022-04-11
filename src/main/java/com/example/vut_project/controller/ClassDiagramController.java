@@ -71,12 +71,8 @@ public class ClassDiagramController extends ElementController {
      *
      * @return string list
      */
-    public ArrayList<String> return_list() {
-        ArrayList<String> list = new ArrayList<>();
-        for (ClassController Class : classList) {
-            list.add(Class.getName());
-        }
-        return list;
+    public ArrayList<ClassController> return_list() {
+        return classList;
     }
 }
 
