@@ -1,19 +1,14 @@
 package com.example.vut_project;
 
 import com.example.vut_project.controller.AlertBox;
-import com.example.vut_project.ParseXML;
 import com.example.vut_project.controller.ClassDiagramController;
-import com.example.vut_project.controller.ClassifierController;
 import com.example.vut_project.controller.ClassController;
-import com.example.vut_project.controller.ElementController;
-import com.example.vut_project.controller.OperationController;
 import com.example.vut_project.controller.DraggableMarker;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,16 +17,15 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.cert.PolicyNode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class HelloController {
     public Group workSpaceGroup; //workspace group - contains all Class Diagrams displayed in application
@@ -59,6 +53,8 @@ public class HelloController {
     @FXML
     private TextField classNameTextField;
     private int attributeFieldCounter = 0;
+
+    String classNameToDelete = "default";
 
 
     @FXML
@@ -177,28 +173,25 @@ public class HelloController {
     @FXML
     public void onClassDiagramClick(MouseEvent mouseEvent) {
         Object source = mouseEvent.getSource();
+        AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
         //Pane clicked = (Pane) mouseEvent.getSource();
         if (source instanceof GridPane) {
             if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-                TextField[] textField = new TextField[15]; //field of attributes
-                ContextMenu contextMenu = new ContextMenu();
-                MenuItem menuItem1 = new MenuItem("Delete Attributes");
-                menuItem1.setId("ClassDiagramMenuItemDelete");
-                menuItem1.setOnAction(e -> onClassDiagramMenuItemDeleteClick(source));
-                contextMenu.getItems().addAll(menuItem1);
-                textField[attributeFieldCounter] = new TextField();
-                textField[attributeFieldCounter].setId("singleAttributeInClassDiagram");
-                textField[attributeFieldCounter].setPromptText("Attribute");
-                textField[attributeFieldCounter].setAlignment(Pos.CENTER_LEFT);
-                textField[attributeFieldCounter].setLayoutX(5);
-                textField[attributeFieldCounter].setLayoutY(5);
-                textField[attributeFieldCounter].setPadding(new Insets(5, 5, 5, 5));
-                textField[attributeFieldCounter].setContextMenu(contextMenu);
-                ((GridPane) source).add(textField[attributeFieldCounter], 0, attributeFieldCounter);
+                ObservableList<String> attributes = FXCollections.observableArrayList("Mamka", "Babka", "Dedko", "Vajcovod", "Tvoj Tatko", "Maroš", "Peder", "Ctibor", "Gábor", "Chvost", "Mrkva", "Dikobraz", "Bonsaj");
+                ListView<String> listAttributeView = new ListView<String>(attributes);
+                listAttributeView.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+                listAttributeView.setOnMouseClicked(event ->
+                    {String selectedItem = listAttributeView.getSelectionModel().getSelectedItem().toString();
+                    selectedListViewIndex.set(listAttributeView.getSelectionModel().getSelectedIndex());
+                });
+
+                System.out.println(selectedListViewIndex);
+                 //   nameTxt.setText(selectedItem);
+                ((GridPane) source).getChildren().addAll(listAttributeView);
                 attributeFieldCounter = attributeFieldCounter + 1;
-            }
         }
     }
+}
 
     @FXML
     private void onClassDiagramMenuItemDeleteClick(Object source) {
@@ -217,6 +210,7 @@ public class HelloController {
 
     @FXML
     public void onRemoveAttributeClick(ActionEvent actionEvent) throws Exception {
+        System.out.println(classNameToDelete);
     }
 
     @FXML
@@ -230,10 +224,15 @@ public class HelloController {
     @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
         System.out.println("start delete: " + classDiagramController.return_list().toString());
-        String classNameToDelete = classNameTextField.getText();
-        ClassifierController classToDelete = classDiagramController.findClassifier(classNameToDelete);
+        setClassNameToDelete(classNameTextField.getText());
+        System.out.println(classNameToDelete);
+        /*ClassifierController classToDelete = classDiagramController.findClassifier(classNameToDelete);
         classDiagramController.deleteClass(classToDelete);
-        System.out.println(classDiagramController.return_list().toString());
+        System.out.println(classDiagramController.return_list().toString());*/
         //TODO delete class based on name
+    }
+
+    public void setClassNameToDelete(String name){
+        this.classNameToDelete = name;
     }
 }
