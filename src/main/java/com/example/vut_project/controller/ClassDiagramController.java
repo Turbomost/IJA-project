@@ -37,7 +37,7 @@ public class ClassDiagramController extends ElementController {
      * @param name of class to be removed
      * @return true if successful, otherwise false
      */
-    public boolean deleteClass(ClassController name) {
+    public boolean deleteClass(ClassifierController name) {
         if (this.classList.contains(name)) {
             this.classList.remove(name);
             return true;

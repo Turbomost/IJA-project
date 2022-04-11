@@ -150,12 +150,10 @@ public class HelloController {
         ObservableList<Node> childrens = pane.getChildren();
         ClassController new_class = classDiagramController.createClass("class " + i++);
         Node id;
-        projectSpace.getChildren().addAll(pane);                               //add it to project space pane
+        projectSpace.getChildren().add(pane);                               //add it to project space pane
         ObservableList<Node> allChildren = projectSpace.getChildren();  //get all nodes from scene (node is every Class Diagram)
         int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
         id = projectSpace.getChildren().get(lastAddedElement);
-
-
 
         for (Node node : pane.getChildren()) {                       //find TextField
             if (node instanceof TextField) {
@@ -231,8 +229,9 @@ public class HelloController {
 
     public void onDeleteDiagramClick(ActionEvent event) {
         String classNameToDelete =  classNameTextField.getText();
-        System.out.println(classNameToDelete);
-        //classDiagramController.deleteClass(classNameToDelete);
+        ClassifierController classToDelete = classDiagramController.findClassifier(classNameToDelete);
+        classDiagramController.deleteClass(classToDelete);
+        System.out.println(classDiagramController.return_list().toString());
         //TODO delete class based on name
     }
 }
