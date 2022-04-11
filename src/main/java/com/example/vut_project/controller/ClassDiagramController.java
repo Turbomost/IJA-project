@@ -10,12 +10,10 @@ import java.util.ArrayList;
 public class ClassDiagramController extends ElementController {
 
     private ArrayList<ClassController> classList;
-    private ArrayList<ClassifierController> classifierList;
 
     public ClassDiagramController(String name) {
         super(name);
         this.classList = new ArrayList<>();
-        this.classifierList = new ArrayList<>();
     }
 
     /**
@@ -59,11 +57,6 @@ public class ClassDiagramController extends ElementController {
      */
     public ClassifierController findClassifier(String name) {
         System.out.println("finding: " + name + " in " + this.classList.toString());
-        for (ClassifierController Classifier : this.classifierList) {
-            if (Classifier.getName().equals(name)) {
-                return Classifier;
-            }
-        }
 
         for (ClassController Classifier : this.classList) {
             if (Classifier.getName().equals(name)) {

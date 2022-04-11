@@ -7,7 +7,7 @@ public class OperationController extends AttributeController {
 
     private ArrayList<AttributeController> OperationList;
 
-    public OperationController(String name, ClassifierController type) {
+    public OperationController(String name, String type) {
         super(name, type);
         OperationList = new ArrayList<>();
     }
@@ -19,8 +19,7 @@ public class OperationController extends AttributeController {
      * @param args arguments of operation
      * @return created object of new operation
      */
-    public static OperationController create(java.lang.String name, ClassifierController type, AttributeController... args) {
-
+    public static OperationController create(String name, String type, AttributeController... args) {
         OperationController Operation = new OperationController(name, type);
         for (AttributeController Attribute : args) {
             Operation.addArgument(Attribute);

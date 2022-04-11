@@ -1,7 +1,5 @@
 package com.example.vut_project;
-import com.example.vut_project.controller.ClassController;
-import com.example.vut_project.controller.ClassDiagramController;
-import com.example.vut_project.controller.ElementController;
+import com.example.vut_project.controller.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
@@ -43,8 +41,9 @@ public class ParseXML extends HelloController {
                     //parsing element information
                     String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
                     String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
+                    ClassController new_class = null;
                     if (elementType.equals("class")){ //creating class
-                        ClassController new_class = classDiagramController.createClass(elementName);
+                        new_class = classDiagramController.createClass(elementName);
                     }
                     for (int j = 0; j < fieldNodes.getLength(); j++){ //for each argument
                         Node fieldNode = fieldNodes.item(j);
@@ -52,16 +51,20 @@ public class ParseXML extends HelloController {
                         Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
                         Node mandatory = attributes.getNamedItem("mandatory");
                         Node genclass = attributes.getNamedItem("class");
-                        if (arg != null){
+                        if (arg != null && new_class != null){
                             //TODO -> FILL CLASS WITH ITS ATTRIBUTES
                             if (arg.getTextContent().equals("primarykey")) {
                                 System.out.println("PK>   " + fieldNode.getTextContent());
                             }
                             if (arg.getTextContent().equals("attribute")) {
                                 System.out.println("ATTR> " + fieldNode.getTextContent());
+                                AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute");
+                                new_class.addAttribute(new_attribute);
                             }
                             if (arg.getTextContent().equals("function")) {
                                 System.out.println("FUNC> " + fieldNode.getTextContent());
+                                OperationController new_attribute = OperationController.create(fieldNode.getTextContent()+"()", "function");
+                                new_class.addAttribute(new_attribute);
                             }
                         }
                         if (mandatory != null && genclass != null){

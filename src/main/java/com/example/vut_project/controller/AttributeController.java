@@ -3,14 +3,14 @@ package com.example.vut_project.controller;
 // Attribute is everything in class
 public class AttributeController extends ElementController {
 
-    private ClassifierController type;
+    private String type;
 
-    public AttributeController(String name, ClassifierController type) {
+    public AttributeController(String name, String type) {
         super(name);
         this.type = type;
     }
 
-    public ClassifierController getType() {
+    public String getType() {
         return this.type;
     }
 

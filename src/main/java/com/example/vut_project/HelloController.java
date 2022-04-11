@@ -65,16 +65,33 @@ public class HelloController {
     //function to display single class diagram loaded from XML file
     protected void displayLoadedClassDiagramEntity(ClassDiagramController classDiagram) throws IOException {
 
-        for (String Class : classDiagram.return_list()) {
-
+        for (String class_name : classDiagram.return_list()) {
+            AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
             Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
             ObservableList<Node> childrens = pane.getChildren();        //get all nodes of new pane (aka. Class Diagram entity)
             Node id;                                                        //Just a node id to add to nodes list
             for (Node node : pane.getChildren()) {                       //find TextField
+                System.out.println(node);
                 if (node instanceof TextField) {
-                    ((TextField) node).setText(Class);      //and set Class Diagram Name TODO replace for class diagram name
+                    ((TextField) node).setText(class_name);      //and set Class Diagram Name TODO replace for class diagram name
                     node.setLayoutX(10);
                     node.setLayoutY(10);
+                }
+                if (node instanceof VBox) { //TODO for loop for attributes
+                    ObservableList<String> attributes = FXCollections.observableArrayList(); //"Mamka", "Babka", "Dedko", "Vajcovod", "Tvoj Tatko", "Maroš", "Peder", "Ctibor", "Gábor", "Chvost", "Mrkva", "Dikobraz", "Bonsaj"
+                    attributes.add("ANDY");
+
+                    ListView<String> listAttributeView = new ListView<String>(attributes);
+                    listAttributeView.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+                    listAttributeView.setOnMouseClicked(event ->
+                    {String selectedItem = listAttributeView.getSelectionModel().getSelectedItem().toString();
+                        selectedListViewIndex.set(listAttributeView.getSelectionModel().getSelectedIndex());
+                    });
+                    for (Node deeperNode : ((VBox) node).getChildren()){
+                        if (deeperNode instanceof GridPane){
+                            ((GridPane) deeperNode).getChildren().addAll(listAttributeView);
+                        }
+                    }
                 }
             }
             projectSpace.getChildren().add(pane);                               //add it to project space pane
@@ -177,7 +194,7 @@ public class HelloController {
         //Pane clicked = (Pane) mouseEvent.getSource();
         if (source instanceof GridPane) {
             if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-                ObservableList<String> attributes = FXCollections.observableArrayList("Mamka", "Babka", "Dedko", "Vajcovod", "Tvoj Tatko", "Maroš", "Peder", "Ctibor", "Gábor", "Chvost", "Mrkva", "Dikobraz", "Bonsaj");
+                ObservableList<String> attributes = FXCollections.observableArrayList(); //"Mamka", "Babka", "Dedko", "Vajcovod", "Tvoj Tatko", "Maroš", "Peder", "Ctibor", "Gábor", "Chvost", "Mrkva", "Dikobraz", "Bonsaj"
                 ListView<String> listAttributeView = new ListView<String>(attributes);
                 listAttributeView.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
                 listAttributeView.setOnMouseClicked(event ->

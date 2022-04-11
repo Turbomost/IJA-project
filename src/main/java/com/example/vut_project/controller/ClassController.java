@@ -7,11 +7,14 @@ import java.util.ArrayList;
 public class ClassController extends ClassifierController {
 
     private ArrayList<AttributeController> AttributeList;
+    private ArrayList<ClassifierController> classifierList;
     private boolean isAbstract = false;
+
 
     public ClassController(String name) {
         super(name);
         AttributeList = new ArrayList<>();
+        classifierList = new ArrayList<>();
     }
 
     /**
