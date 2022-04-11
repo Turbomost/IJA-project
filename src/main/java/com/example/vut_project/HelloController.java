@@ -148,23 +148,25 @@ public class HelloController {
     public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
         Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         ObservableList<Node> childrens = pane.getChildren();
+        ClassController new_class = classDiagramController.createClass("class " + i++);
         Node id;
         projectSpace.getChildren().addAll(pane);                               //add it to project space pane
         ObservableList<Node> allChildren = projectSpace.getChildren();  //get all nodes from scene (node is every Class Diagram)
         int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
         id = projectSpace.getChildren().get(lastAddedElement);
 
-        ClassController new_class = classDiagramController.createClass("class " + i++);
+
 
         for (Node node : pane.getChildren()) {                       //find TextField
             if (node instanceof TextField) {
                 ((TextField) node).setText(new_class.getName());      //and set Class Diagram Name TODO replace for class diagram name
+                //((TextField) node).setId(new_class.toString());
                 node.setLayoutX(10);
                 node.setLayoutY(10);
             }
         }
 
-        classDiagramController.deleteClass(new_class);
+        //classDiagramController.deleteClass(new_class);
         System.out.println(classDiagramController.return_list().toString());
 
         draggableMaker.makeDraggable(id);                               //make it draggable
@@ -227,4 +229,10 @@ public class HelloController {
     }
 
 
+    public void onDeleteDiagramClick(ActionEvent event) {
+        String classNameToDelete =  classNameTextField.getText();
+        System.out.println(classNameToDelete);
+        //classDiagramController.deleteClass(classNameToDelete);
+        //TODO delete class based on name
+    }
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,7 +13,14 @@
 <AnchorPane fx:id="newrectangle" prefHeight="240.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="com.example.vut_project.HelloController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="300.0" onMouseClicked="#onClassDiagramClick" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="200.0" AnchorPane.leftAnchor="0.0" />
-      <TextField fx:id="classNameTextField" layoutX="8.0" layoutY="9.0" promptText="Class Name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <TextField fx:id="classNameTextField" layoutX="8.0" layoutY="9.0" promptText="Class Name" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="deleteDiagramContextButton" mnemonicParsing="false" onAction="#onDeleteDiagramClick" text="Delete Diagram" />
+              </items>
+            </ContextMenu>
+         </contextMenu></TextField>
       <VBox prefHeight="228.0" prefWidth="200.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="50.0">
          <children>
             <GridPane fx:id="classDiagramAttributeGridPane" alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#onClassDiagramClick" prefHeight="250.0" prefWidth="196.0">
