@@ -8,38 +8,42 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.vut_project.HelloController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+      prefWidth="1600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.vut_project.HelloController">
     <children>
         <MenuBar>
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onFileOpenButtonClick" text="Open Project" />
-                        <MenuItem mnemonicParsing="false" onAction="#onNewProjectButtonClick" text="New Project in new window" />
+                        <MenuItem mnemonicParsing="false" onAction="#onFileOpenButtonClick" text="Open Project"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onNewProjectButtonClick"
+                                  text="New Project in new window"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                        <MenuItem mnemonicParsing="false" onAction="#onAddDiagramButtonClick" text="Add Diagram" />
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onAddDiagramButtonClick" text="Add Diagram"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Help" />
+                        <MenuItem mnemonicParsing="false" text="Help"/>
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <items>
-            <Button mnemonicParsing="false" onAction="#onNewElementClick" text="New Element" />
-            <Button mnemonicParsing="false" text="Add Attribute" />
-            <Button mnemonicParsing="false" text="Remove Attribute" />
-            <Button mnemonicParsing="false" text="Add Function" />
-            <Button mnemonicParsing="false" text="Remove Function" />
-        </items>
-      </ToolBar>
-      <Pane fx:id="projectSpace" prefHeight="736.0" prefWidth="1600.0" />
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <items>
+                <Button mnemonicParsing="false" onAction="#onNewElementClick" text="New Element"/>
+                <Button mnemonicParsing="false" onAction="#onAddAttributeClick" text="Add Attribute"/>
+                <Button mnemonicParsing="false" onAction="#onRemoveAttributeClick" text="Remove Attribute"/>
+                <Button mnemonicParsing="false" onAction="#onAddFunctionClick" text="Add Function"/>
+                <Button mnemonicParsing="false" onAction="#onRemoveFunctionClick" text="Remove Function"/>
+                <Button mnemonicParsing="false" onAction="#onDeleteDiagramClick" text="Delete Diagram"/>
+            </items>
+        </ToolBar>
+        <Pane fx:id="projectSpace" prefHeight="736.0" prefWidth="1600.0"/>
     </children>
 </VBox>

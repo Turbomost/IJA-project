@@ -60,6 +60,7 @@ public class HelloController {
     private TextField classNameTextField;
     private int attributeFieldCounter = 0;
 
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -165,12 +166,12 @@ public class HelloController {
         }
 
         //classDiagramController.deleteClass(new_class);
-        System.out.println(classDiagramController.return_list().toString());
 
         draggableMaker.makeDraggable(id);                               //make it draggable
         Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams
 
 
+        System.out.println("End of creating: " + classDiagramController.return_list().toString());
     }
 
     @FXML
@@ -211,7 +212,7 @@ public class HelloController {
 
     @FXML
     public void onAddAttributeClick(ActionEvent actionEvent) throws Exception {
-
+        System.out.println(classDiagramController.return_list().toString());
     }
 
     @FXML
@@ -226,9 +227,10 @@ public class HelloController {
     public void onRemoveFunctionClick(ActionEvent actionEvent) throws Exception {
     }
 
-
+    @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
-        String classNameToDelete =  classNameTextField.getText();
+        System.out.println("start delete: " + classDiagramController.return_list().toString());
+        String classNameToDelete = classNameTextField.getText();
         ClassifierController classToDelete = classDiagramController.findClassifier(classNameToDelete);
         classDiagramController.deleteClass(classToDelete);
         System.out.println(classDiagramController.return_list().toString());
