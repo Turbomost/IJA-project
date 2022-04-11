@@ -39,7 +39,7 @@ public class ClassDiagramController extends ElementController {
      * @param name of class to be removed
      * @return true if successful, otherwise false
      */
-    public boolean deleteClass(ClassifierController name) {
+    public boolean deleteClass(ClassController name) {
         System.out.println("removing " + name.toString() + " in " + this.return_list().toString());
         if (this.classList.contains(name)) {
             this.classList.remove(name);
@@ -55,7 +55,7 @@ public class ClassDiagramController extends ElementController {
      * @param name of the classifier
      * @return found classifier or null
      */
-    public ClassifierController findClassifier(String name) {
+    public ClassController findClass(String name) {
         System.out.println("finding: " + name + " in " + this.classList.toString());
 
         for (ClassController Classifier : this.classList) {

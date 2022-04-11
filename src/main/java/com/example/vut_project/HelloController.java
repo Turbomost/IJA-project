@@ -74,7 +74,7 @@ public class HelloController {
                     node.setLayoutX(10);
                     node.setLayoutY(10);
                 }
-                if (node instanceof VBox) { //TODO for loop for attributes
+                if (node instanceof VBox) {
                     ObservableList<String> attributes = FXCollections.observableArrayList(); //"Mamka", "Babka", "Dedko", "Vajcovod", "Tvoj Tatko", "Maroš", "Peder", "Ctibor", "Gábor", "Chvost", "Mrkva", "Dikobraz", "Bonsaj"
                     for (AttributeController attribute_name : class_name.getAttributes()){
                         attributes.add(attribute_name.getName());

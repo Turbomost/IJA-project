@@ -4,17 +4,15 @@ import java.util.ArrayList;
 
 // Class is one object in class diagram
 // It stores their AttributeList
-public class ClassController extends ClassifierController {
+public class ClassController extends ElementController {
 
     private ArrayList<AttributeController> AttributeList;
-    private ArrayList<ClassifierController> classifierList;
     private boolean isAbstract = false;
 
 
     public ClassController(String name) {
         super(name);
         AttributeList = new ArrayList<>();
-        classifierList = new ArrayList<>();
     }
 
     /**
