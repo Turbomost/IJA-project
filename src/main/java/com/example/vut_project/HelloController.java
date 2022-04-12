@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HelloController {
@@ -35,9 +36,7 @@ public class HelloController {
     DraggableMarker draggableMaker = new DraggableMarker(); //class, that makes all objects movable
     ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
     int i = 0;
-
     private int identifier = 0;
-    String classNameToDelete = "default";
     @FXML
     //bunch of stages and scenes and panes xD
     private Stage stage;
@@ -59,10 +58,6 @@ public class HelloController {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-    public void initialize(){
-        System.out.println("inicializoval som\n");
-    }
-
     //function to display single class diagram loaded from XML file
     protected void displayLoadedClassDiagramEntity(ClassDiagramController classDiagram) throws IOException {
         for (ClassController class_name : classDiagram.return_list()) {
@@ -71,14 +66,7 @@ public class HelloController {
             new_entity.setLayoutX(class_name.getPosition_x());
             new_entity.setLayoutY(class_name.getPosition_y());
             Entity_Controller_list.add(new_entity);                             //save to list
-            projectSpace.getChildren().add(new_entity);                               //add it to project space pane
-
-            /*ObservableList<Node> allChildren = projectSpace.getChildren();   //get all nodes from scene (node is every Class Diagram)
-            int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
-            Node id = projectSpace.getChildren().get(lastAddedElement);
-            draggableMaker.makeDraggable(id);                               //make it draggable
-            Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams
-            */
+            projectSpace.getChildren().add(new_entity);                         //add it to project space pane
         }
     }
 
@@ -103,7 +91,6 @@ public class HelloController {
             if (lowercaseName.endsWith(".xml")) {
                 parse.input_file_from_button(path);
                 classDiagramController = parse.start_parse();
-                //TODO GET CLASS NAME AND SET IT TO CLASS
                 this.displayLoadedClassDiagramEntity(classDiagramController);
             } else {
                 AlertBox alert = new AlertBox();
@@ -121,10 +108,9 @@ public class HelloController {
     @FXML
     public void onMiddleButtonClick(ActionEvent event) throws IOException { //stage in same window
         Parent root = null;
-        //Stackpane = new StackPane();
         projectSpace = new Pane();
         try {
-            root = FXMLLoader.load(getClass().getResource("new_project_view.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("new_project_view.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,35 +125,11 @@ public class HelloController {
 
     @FXML
     public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
-        EntityController new_class = new EntityController();
-        projectSpace.getChildren().add(new_class);
-        draggableMaker.makeDraggable(new_class);
-        Entity_Controller_list.add(new_class);
-        /*Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
-        ObservableList<Node> childrens = pane.getChildren();
-        ClassController new_class = classDiagramController.createClass("class " + i++);
-        Node id;
-        projectSpace.getChildren().add(pane);                               //add it to project space pane
-        ObservableList<Node> allChildren = projectSpace.getChildren();  //get all nodes from scene (node is every Class Diagram)
-        int lastAddedElement = allChildren.size() - 1;                   //take length of nodes array got at line before
-        id = projectSpace.getChildren().get(lastAddedElement);
-
-        for (Node node : pane.getChildren()) {                       //find TextField
-            if (node instanceof TextField) {
-                ((TextField) node).setText(new_class.getName());      //and set Class Diagram Name TODO replace for class diagram name
-                //((TextField) node).setId(new_class.toString());
-                node.setLayoutX(10);
-                node.setLayoutY(10);
-            }
-        }
-
-        //classDiagramController.deleteClass(new_class);
-
-        draggableMaker.makeDraggable(id);                               //make it draggable
-        Class_Diagram_Element_Shape_List.add(id);                       //also add it to own list of nodes (aka. Class Diagrams
-
-
-        System.out.println("End of creating: " + classDiagramController.return_list().toString());*/
+        String new_name = "class " + i++;
+        EntityController new_entity = new EntityController(new_name, classDiagramController);
+        projectSpace.getChildren().add(new_entity);
+        draggableMaker.makeDraggable(new_entity);
+        Entity_Controller_list.add(new_entity);
     }
 
     @FXML
@@ -180,7 +142,6 @@ public class HelloController {
         System.out.println(this.identifier);
         System.out.println(classDiagramController.return_list().toString());
         AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
-        //Pane clicked = (Pane) mouseEvent.getSource();
         if (source instanceof GridPane) {
             if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                 ObservableList<String> attributes = FXCollections.observableArrayList(); //"Mamka", "Babka", "Dedko", "Vajcovod", "Tvoj Tatko", "Maroš", "Peder", "Ctibor", "Gábor", "Chvost", "Mrkva", "Dikobraz", "Bonsaj"
@@ -193,22 +154,15 @@ public class HelloController {
                 });
 
                 System.out.println(selectedListViewIndex);
-                //   nameTxt.setText(selectedItem);
                 ((GridPane) source).getChildren().addAll(listAttributeView);
                 attributeFieldCounter = attributeFieldCounter + 1;
             }
-        }/*
-        if (source instanceof Rectangle) {
-            System.out.println("RECTANGLE");
-            Object o = mouseEvent.getSource();
-            identifier = System.identityHashCode(o);
-            System.out.println(identifier);
-            System.out.println(classDiagramController.return_list().toString());
-        }*/
+        }
     }
 
     @FXML
     private void onClassDiagramMenuItemDeleteClick(Object source) {
+        // TODO deleting
         System.out.println("Before deleting: " + classDiagramController.return_list().toString());
         classDiagramController.deleteClass(classDiagramController.findClassHash(identifier));
         System.out.println("After deleting: " + classDiagramController.return_list().toString());
@@ -220,7 +174,6 @@ public class HelloController {
 
     @FXML
     public void onAddAttributeClick(ActionEvent actionEvent) throws Exception {
-        System.out.println(classDiagramController.return_list().toString());
     }
 
     @FXML
@@ -237,12 +190,5 @@ public class HelloController {
 
     @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
-        System.out.println("Before deleting: " + classDiagramController.return_list());
-        classDiagramController.deleteClass(classDiagramController.findClassHash(classDiagramController.getActiveID()));
-        System.out.println("After deleting: " + classDiagramController.return_list());
-    }
-
-    public void setClassNameToDelete(String name) {
-        this.classNameToDelete = name;
     }
 }

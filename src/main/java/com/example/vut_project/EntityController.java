@@ -3,6 +3,7 @@ package com.example.vut_project;
 
 import com.example.vut_project.controller.AttributeController;
 import com.example.vut_project.controller.ClassController;
+import com.example.vut_project.controller.ClassDiagramController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,11 +31,13 @@ public class EntityController extends VBox {
     @FXML
     private ListView entityAttributeView;
 
-    public EntityController() throws IOException {
+    public EntityController(String new_name, ClassDiagramController diagram) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
+        ClassController new_class = diagram.createClass(new_name);
+        classNameTextField.setText(new_class.getName());
     }
 
     public EntityController(ClassController class_name) throws IOException { //diagram added loaded file
