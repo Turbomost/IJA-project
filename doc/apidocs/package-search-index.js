@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"com.example.vut_project","l":"com.example.vut_project"},{"m":"com.example.vut_project","l":"com.example.vut_project.controller"}]
