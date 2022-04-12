@@ -1,3 +1,9 @@
+/**
+ * @Brief: Show box with error message
+ * @File: AlertBox
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project.controller;
 
 import javafx.geometry.Pos;

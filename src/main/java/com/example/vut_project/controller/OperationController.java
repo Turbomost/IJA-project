@@ -1,3 +1,9 @@
+/**
+ * @Brief: Operation in class representation
+ * @File: OperationController
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project.controller;
 
 import java.util.ArrayList;

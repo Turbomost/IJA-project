@@ -1,3 +1,9 @@
+/**
+ * @Brief: Attribute representation
+ * @File: AttributeController
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project.controller;
 
 /**

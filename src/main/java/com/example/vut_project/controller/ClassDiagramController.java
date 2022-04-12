@@ -1,3 +1,9 @@
+/**
+ * @Brief: Class diagram representation
+ * @File: ClassDiagramController
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project.controller;
 
 import java.util.ArrayList;

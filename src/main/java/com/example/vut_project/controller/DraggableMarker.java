@@ -1,3 +1,9 @@
+/**
+ * @Brief: Makes objects draggable
+ * @File: DraggableMarker
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project.controller;
 
 import javafx.scene.Node;

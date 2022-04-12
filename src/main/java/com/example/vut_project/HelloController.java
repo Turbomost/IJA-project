@@ -1,3 +1,9 @@
+/**
+ * @Brief: Main functions for program
+ * @File: HelloController
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project;
 
 import com.example.vut_project.controller.AlertBox;

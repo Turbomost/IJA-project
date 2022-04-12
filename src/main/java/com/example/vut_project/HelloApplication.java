@@ -1,3 +1,9 @@
+/**
+ * @Brief: Main program
+ * @File: HelloApplication
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project;
 
 import javafx.application.Application;

@@ -1,3 +1,9 @@
+/**
+ * @Brief: Represents every object in class diagram
+ * @File: ElementController
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project.controller;
 
 /**

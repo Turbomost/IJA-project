@@ -1,3 +1,9 @@
+/**
+ * @Brief: Parsing XMl file and creating class diagram
+ * @File: ParseXML
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project;
 
 import com.example.vut_project.controller.AttributeController;

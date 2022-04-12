@@ -1,3 +1,9 @@
+/**
+ * @Brief: Class representation
+ * @File: ClassController
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project.controller;
 
 import java.util.ArrayList;

@@ -1,4 +1,9 @@
-//controller of class diagram entity template
+/**
+ * @Brief: Entity for easier class identification at scene
+ * @File: EntityController
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project;
 
 import com.example.vut_project.controller.AttributeController;
