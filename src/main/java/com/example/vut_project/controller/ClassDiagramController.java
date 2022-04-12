@@ -2,16 +2,18 @@ package com.example.vut_project.controller;
 
 import java.util.ArrayList;
 
-// Class diagram stores classes
-// Ještě česky pro Andyho
-// V Class diagramu je list classů
-// Slovensky
-// V Class digrame je list classov
+/**
+ * Class diagram stores classes. It stores all classes in arraylist
+ */
 public class ClassDiagramController extends ElementController {
 
-    private ArrayList<ClassController> classList;
-    private int activeID = -1;
+    private final ArrayList<ClassController> classList;
 
+    /**
+     * Default constructor for ClassDiagram
+     *
+     * @param name name of new ClassDiagram
+     */
     public ClassDiagramController(String name) {
         super(name);
         this.classList = new ArrayList<>();
@@ -20,7 +22,7 @@ public class ClassDiagramController extends ElementController {
     /**
      * Creates a new class in class diagram and add the class to classList
      *
-     * @param name of the new class
+     * @param name name of the new class
      * @return Object of the new class
      */
     public ClassController createClass(String name) {
@@ -91,14 +93,6 @@ public class ClassDiagramController extends ElementController {
      */
     public ArrayList<ClassController> return_list() {
         return classList;
-    }
-
-    public int getActiveID(){
-        return this.activeID;
-    }
-
-    public void setActiveID(int identifier) {
-        this.activeID = identifier;
     }
 }
 

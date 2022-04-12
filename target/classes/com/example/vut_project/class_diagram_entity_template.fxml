@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-
-<fx:root fx:id="classVBox" onMouseClicked="#onClassDiagramClick" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextField fx:id="classNameTextField" promptText="Class Name">
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem fx:id="deleteDiagramContextButton" mnemonicParsing="false" text="Delete Diagram" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-         <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </VBox.margin>
-      </TextField>
-      <ListView fx:id="entityAttributeView" editable="true" prefHeight="263.0" prefWidth="198.0">
-         <VBox.margin>
-            <Insets top="5.0" />
-         </VBox.margin>
-         <contextMenu>
-            <ContextMenu fx:id="contextMenuOnElement">
-              <items>
-                <MenuItem fx:id="addAttributeContextMenuButton" mnemonicParsing="false" onAction="#onAddAttributeClick" text="Add Atrribute" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-      </ListView>
-   </children>
+<fx:root fx:id="classVBox" onMouseClicked="#onClassDiagramClick" prefHeight="300.0" prefWidth="200.0"
+         style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextField fx:id="classNameTextField" promptText="Class Name">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem fx:id="deleteDiagramContextButton" mnemonicParsing="false" text="Delete Diagram"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+        </TextField>
+        <ListView fx:id="entityAttributeView" editable="true" prefHeight="263.0" prefWidth="198.0">
+            <VBox.margin>
+                <Insets top="5.0"/>
+            </VBox.margin>
+            <contextMenu>
+                <ContextMenu fx:id="contextMenuOnElement">
+                    <items>
+                        <MenuItem fx:id="addAttributeContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onAddAttributeClick" text="Add Atrribute"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </ListView>
+    </children>
 </fx:root>

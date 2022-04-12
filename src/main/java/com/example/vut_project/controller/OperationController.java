@@ -2,11 +2,19 @@ package com.example.vut_project.controller;
 
 import java.util.ArrayList;
 
-// Operation is kind of attribute in class
+/**
+ * Operation is kind of attribute in Class. It stores list of operation attributes
+ */
 public class OperationController extends AttributeController {
 
-    private ArrayList<AttributeController> OperationList;
+    private final ArrayList<AttributeController> OperationList;
 
+    /**
+     * Default constructor for operation
+     *
+     * @param name name of new operation
+     * @param type type of new operation
+     */
     public OperationController(String name, String type) {
         super(name, type);
         OperationList = new ArrayList<>();

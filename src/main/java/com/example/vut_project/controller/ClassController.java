@@ -2,16 +2,23 @@ package com.example.vut_project.controller;
 
 import java.util.ArrayList;
 
-// Class is one object in class diagram
-// It stores their AttributeList
+/**
+ * Class is one object in ClassDiagram. Each class has list with attributes and boolean value whether the class is abstract.
+ * Position is represented by layout_x and layout_y
+ */
 public class ClassController extends ElementController {
 
-    private ArrayList<AttributeController> AttributeList;
+    private final ArrayList<AttributeController> AttributeList;
     private boolean isAbstract = false;
 
     private int layout_x = 10;
     private int layout_y = 10;
 
+    /**
+     * Default constructor for Class
+     *
+     * @param name name of new class
+     */
     public ClassController(String name) {
         super(name);
         AttributeList = new ArrayList<>();
@@ -29,7 +36,7 @@ public class ClassController extends ElementController {
     /**
      * Set class abstract value
      *
-     * @param isAbstract boolean value
+     * @param isAbstract boolean value whether the class is abstract
      */
     public void setAbstract(boolean isAbstract) {
         this.isAbstract = isAbstract;
@@ -38,7 +45,7 @@ public class ClassController extends ElementController {
     /**
      * Adds attribute to this classes list
      *
-     * @param attr one attribute
+     * @param attr attribute to be added
      * @return false if this attribute is already in class, otherwise true
      */
     public boolean addAttribute(AttributeController attr) {
@@ -49,18 +56,38 @@ public class ClassController extends ElementController {
         return true;
     }
 
+    /**
+     * Returns x-position of class
+     *
+     * @return x-position
+     */
     public int getPosition_x() {
         return this.layout_x;
     }
 
+    /**
+     * Set x-position of class
+     *
+     * @param layout_x new x-position
+     */
     public void setPosition_x(int layout_x) {
         this.layout_x = layout_x;
     }
 
+    /**
+     * Returns y-position of class
+     *
+     * @return y-position
+     */
     public int getPosition_y() {
         return this.layout_y;
     }
 
+    /**
+     * Set y-position of class
+     *
+     * @param layout_y new x-position
+     */
     public void setPosition_y(int layout_y) {
         this.layout_y = layout_y;
     }
@@ -68,7 +95,7 @@ public class ClassController extends ElementController {
     /**
      * Removes attribute from this classes list
      *
-     * @param attr one attribute
+     * @param attr attribute to be deleted
      * @return false if this attribute is not in class, otherwise true
      */
     public boolean removeAttribute(AttributeController attr) {
@@ -82,7 +109,7 @@ public class ClassController extends ElementController {
     /**
      * Returs attribute position in list of attributes
      *
-     * @param attr attribute
+     * @param attr attribute to find
      * @return position or list, otherwise -1
      */
     public int getAttrPosition(AttributeController attr) {
@@ -95,7 +122,7 @@ public class ClassController extends ElementController {
     /**
      * Removes attribute at position in list of attributes
      *
-     * @param index index of attribute
+     * @param index index of attribute to be found
      * @return true if successful, otherwise false
      */
     public boolean removeAttrPosition(int index) {

@@ -9,26 +9,22 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Entity class represents every Class in ClassDiagram. It's used for storing data and Click events.
+ */
 public class EntityController extends VBox {
 
-    private ObservableList<String> observableListOfAttributes = FXCollections.observableArrayList();
+    private final ObservableList<String> observableListOfAttributes = FXCollections.observableArrayList();
     @FXML
     private TextField classNameTextField;
     @FXML
@@ -40,6 +36,13 @@ public class EntityController extends VBox {
     @FXML
     private ContextMenu contextMenuOnElement;
 
+    /**
+     * Constructor for new Entity
+     *
+     * @param new_name name of new entity
+     * @param diagram  ClassDiagram
+     * @throws IOException
+     */
     public EntityController(String new_name, ClassDiagramController diagram) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);
@@ -51,6 +54,12 @@ public class EntityController extends VBox {
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
     }
 
+    /**
+     * Constructor for loading from file
+     *
+     * @param class_name name of new class to be created from file
+     * @throws IOException
+     */
     public EntityController(ClassController class_name) throws IOException { //diagram added loaded file
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);
@@ -65,13 +74,23 @@ public class EntityController extends VBox {
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
 
     }
-    public void onClassDiagramClick(MouseEvent mouseEvent){
-        System.out.println(this.classNameTextField.getText());
+
+    /**
+     * Debug event that prints ClassName when clicked on Class
+     *
+     * @param mouseEvent
+     */
+    public void onClassDiagramClick(MouseEvent mouseEvent) {
+        //System.out.println(this.classNameTextField.getText());
     }
 
-    public void onAddAttributeClick(ActionEvent event){
+    /**
+     * Event for adding attributes
+     *
+     * @param event
+     */
+    public void onAddAttributeClick(ActionEvent event) {
         this.entityAttributeView.getItems().add("new_argument");
-        System.out.println("CLICKED ON ADD ATTRIBUTE");
     }
 
 }

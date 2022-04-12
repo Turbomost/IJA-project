@@ -8,7 +8,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Show box with error message
+ */
 public class AlertBox {
+
+    /**
+     * Default constructor for AlertBox
+     *
+     * @param title   title of AlertBox
+     * @param message message in AlertBox
+     */
     public void display(String title, String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

@@ -1,19 +1,21 @@
 package com.example.vut_project;
 
-import com.example.vut_project.controller.*;
+import com.example.vut_project.controller.AttributeController;
+import com.example.vut_project.controller.ClassController;
+import com.example.vut_project.controller.ClassDiagramController;
+import com.example.vut_project.controller.OperationController;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.events.Attribute;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Parsing XML from file
+ */
 public class ParseXML extends HelloController {
     private static String FILENAME = "";
     ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
@@ -22,6 +24,11 @@ public class ParseXML extends HelloController {
         FILENAME = file_path;
     }
 
+    /**
+     * Main parsing function
+     *
+     * @return filled ClassDiagram
+     */
     public ClassDiagramController start_parse() {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
