@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -190,6 +191,7 @@ public class HelloController {
 
     @FXML
     public void onClassDiagramClick(MouseEvent mouseEvent) {
+        System.out.println("EVENT CLASS DIAGRAM CLICK");
         Object source = mouseEvent.getSource();
         AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
         //Pane clicked = (Pane) mouseEvent.getSource();
@@ -207,8 +209,15 @@ public class HelloController {
                  //   nameTxt.setText(selectedItem);
                 ((GridPane) source).getChildren().addAll(listAttributeView);
                 attributeFieldCounter = attributeFieldCounter + 1;
+            }
         }
-    }
+        if (source instanceof Rectangle){
+            System.out.println("RECTANGLE");
+            Object o = mouseEvent.getSource();
+            int identifier = java.lang.System.identityHashCode(o);
+            System.out.println(identifier);
+            System.out.println(classDiagramController.return_list().toString());
+        }
 }
 
     @FXML
