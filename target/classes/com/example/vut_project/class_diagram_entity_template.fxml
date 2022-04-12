@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="classVBox" onMouseClicked="#onClassDiagramClick" prefHeight="300.0" prefWidth="200.0" style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="classNameTextField" promptText="Class Name">
          <contextMenu>

@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -46,10 +47,14 @@ public class EntityController extends VBox {
         fxmlLoader.setController(this);
         fxmlLoader.load();
         classNameTextField.setText(class_name.getName());
-        for (AttributeController attribute : class_name.getAttributes()){
+        for (AttributeController attribute : class_name.getAttributes()) {
             observableListOfAttributes.add(attribute.getName());
         }
         this.entityAttributeView.setItems(observableListOfAttributes);
 
+    }
+
+    public void onClassDiagramClick(MouseEvent mouseEvent){
+        System.out.println(this.classNameTextField.getText());
     }
 }
