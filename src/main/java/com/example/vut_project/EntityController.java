@@ -9,9 +9,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -31,6 +33,10 @@ public class EntityController extends VBox {
     private MenuItem deleteDiagramContextButton;
     @FXML
     private ListView entityAttributeView;
+    @FXML
+    private MenuItem addAttributeContextMenuButton;
+    @FXML
+    private ContextMenu contextMenuOnElement;
 
     public EntityController(String new_name, ClassDiagramController diagram) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
@@ -53,8 +59,11 @@ public class EntityController extends VBox {
         this.entityAttributeView.setItems(observableListOfAttributes);
 
     }
-
     public void onClassDiagramClick(MouseEvent mouseEvent){
         System.out.println(this.classNameTextField.getText());
     }
+    public void onAddAttributeClick(MouseEvent event){
+        System.out.println("CLICKED ON ADD ATTRIBUTE");
+    }
+
 }

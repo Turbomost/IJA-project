@@ -173,12 +173,6 @@ public class HelloController {
     }
 
     @FXML
-    public void onAddAttributeClick(ActionEvent actionEvent) throws Exception {
-        System.out.println(identifier);
-        System.out.println(Entity_Controller_list);
-    }
-
-    @FXML
     public void onRemoveAttributeClick(ActionEvent actionEvent) throws Exception {
     }
 
