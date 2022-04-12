@@ -7,6 +7,8 @@
         <arg type="function">pridat</arg>
         <arg type="function">zamknut</arg>
         <arg type="function">ist_rovno</arg>
+        <arg type="position_x">20</arg>
+        <arg type="position_y">20</arg>
     </element>
 
     <element type="class" name="Kikova_Sedma">
@@ -17,6 +19,8 @@
         <arg type="function">objedat_dame_jidlo</arg>
         <arg type="function">driftovat</arg>
         <arg type="function">upozornit_danovy_urad</arg>
+        <arg type="position_x">150</arg>
+        <arg type="position_y">50</arg>
     </element>
 
     <element type="class" name="Andyho_oktavka">
@@ -26,5 +30,7 @@
         <arg type="function">stat_na_miste</arg>
         <arg type="function">obdrzet_papucu</arg>
         <arg type="function">zaparkovat</arg>
+        <arg type="position_x">300</arg>
+        <arg type="position_y">100</arg>
     </element>
 </program>

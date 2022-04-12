@@ -66,6 +66,8 @@ public class HelloController {
             AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
             Pane pane = FXMLLoader.load(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
             ObservableList<Node> childrens = pane.getChildren();        //get all nodes of new pane (aka. Class Diagram entity)
+            pane.setLayoutX(class_name.getPosition_x());
+            pane.setLayoutY(class_name.getPosition_y());
             Node id;                                                        //Just a node id to add to nodes list
             for (Node node : pane.getChildren()) {                       //find TextField
                 System.out.println(node);

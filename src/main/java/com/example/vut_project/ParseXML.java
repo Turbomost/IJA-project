@@ -55,6 +55,8 @@ public class ParseXML extends HelloController {
                             //TODO -> FILL CLASS WITH ITS ATTRIBUTES
                             if (arg.getTextContent().equals("primarykey")) {
                                 System.out.println("PK>   " + fieldNode.getTextContent());
+                                AttributeController new_attribute = new AttributeController("<<PK>> "+fieldNode.getTextContent(), "primarykey");
+                                new_class.addAttribute(new_attribute);
                             }
                             if (arg.getTextContent().equals("attribute")) {
                                 System.out.println("ATTR> " + fieldNode.getTextContent());
@@ -65,6 +67,12 @@ public class ParseXML extends HelloController {
                                 System.out.println("FUNC> " + fieldNode.getTextContent());
                                 OperationController new_attribute = OperationController.create(fieldNode.getTextContent()+"()", "function");
                                 new_class.addAttribute(new_attribute);
+                            }
+                            if (arg.getTextContent().equals("position_x")){
+                                new_class.setPosition_x(Integer.parseInt(fieldNode.getTextContent()));
+                            }
+                            if(arg.getTextContent().equals("position_y")){
+                                new_class.setPosition_y(Integer.parseInt(fieldNode.getTextContent()));
                             }
                         }
                         if (mandatory != null && genclass != null){

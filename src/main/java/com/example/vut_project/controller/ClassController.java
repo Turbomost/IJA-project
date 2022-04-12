@@ -9,6 +9,8 @@ public class ClassController extends ElementController {
     private ArrayList<AttributeController> AttributeList;
     private boolean isAbstract = false;
 
+    private int layout_x = 10;
+    private int layout_y = 10;
 
     public ClassController(String name) {
         super(name);
@@ -45,6 +47,19 @@ public class ClassController extends ElementController {
         }
         this.AttributeList.add(attr);
         return true;
+    }
+
+    public void setPosition_x(int layout_x){
+        this.layout_x = layout_x;
+    }
+    public void setPosition_y(int layout_y){
+        this.layout_y = layout_y;
+    }
+    public int getPosition_x(){
+        return this.layout_x;
+    }
+    public int getPosition_y(){
+        return this.layout_y;
     }
 
     /**
