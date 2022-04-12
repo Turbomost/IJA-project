@@ -43,6 +43,7 @@ public class OperationController extends AttributeController {
 
     /**
      * Returns list of operation arguments
+     *
      * @return list of arguments
      */
     public java.util.List<AttributeController> getArguments() {

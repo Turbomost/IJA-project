@@ -11,6 +11,7 @@ public class ElementController {
 
     /**
      * Returns current name of the element
+     *
      * @return name of the element
      */
     public String getName() {
@@ -19,6 +20,7 @@ public class ElementController {
 
     /**
      * Renames element
+     *
      * @param new name of the element
      */
     public void rename(String newName) {

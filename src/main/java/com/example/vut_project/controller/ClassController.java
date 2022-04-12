@@ -49,17 +49,20 @@ public class ClassController extends ElementController {
         return true;
     }
 
-    public void setPosition_x(int layout_x){
-        this.layout_x = layout_x;
-    }
-    public void setPosition_y(int layout_y){
-        this.layout_y = layout_y;
-    }
-    public int getPosition_x(){
+    public int getPosition_x() {
         return this.layout_x;
     }
-    public int getPosition_y(){
+
+    public void setPosition_x(int layout_x) {
+        this.layout_x = layout_x;
+    }
+
+    public int getPosition_y() {
         return this.layout_y;
+    }
+
+    public void setPosition_y(int layout_y) {
+        this.layout_y = layout_y;
     }
 
     /**

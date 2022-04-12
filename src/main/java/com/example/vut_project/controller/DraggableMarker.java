@@ -7,7 +7,7 @@ public class DraggableMarker {
     private double mouseAnchorX;
     private double mouseAnchorY;
 
-    public void makeDraggable(Node node){
+    public void makeDraggable(Node node) {
         node.setOnMousePressed(mouseEvent -> {
             mouseAnchorX = mouseEvent.getX();
             mouseAnchorY = mouseEvent.getY();

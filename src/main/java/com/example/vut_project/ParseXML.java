@@ -1,7 +1,9 @@
 package com.example.vut_project;
+
 import com.example.vut_project.controller.*;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,11 +18,11 @@ public class ParseXML extends HelloController {
     private static String FILENAME = "";
     ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
 
-    public void input_file_from_button(String file_path){
+    public void input_file_from_button(String file_path) {
         FILENAME = file_path;
     }
 
-    public ClassDiagramController start_parse(){
+    public ClassDiagramController start_parse() {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -42,20 +44,20 @@ public class ParseXML extends HelloController {
                     String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
                     String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
                     ClassController new_class = null;
-                    if (elementType.equals("class")){ //creating class
+                    if (elementType.equals("class")) { //creating class
                         new_class = classDiagramController.createClass(elementName);
                     }
-                    for (int j = 0; j < fieldNodes.getLength(); j++){ //for each argument
+                    for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
                         Node fieldNode = fieldNodes.item(j);
                         NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
                         Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
                         Node mandatory = attributes.getNamedItem("mandatory");
                         Node genclass = attributes.getNamedItem("class");
-                        if (arg != null && new_class != null){
+                        if (arg != null && new_class != null) {
                             //TODO -> FILL CLASS WITH ITS ATTRIBUTES
                             if (arg.getTextContent().equals("primarykey")) {
                                 System.out.println("PK>   " + fieldNode.getTextContent());
-                                AttributeController new_attribute = new AttributeController("<<PK>> "+fieldNode.getTextContent(), "primarykey");
+                                AttributeController new_attribute = new AttributeController("<<PK>> " + fieldNode.getTextContent(), "primarykey");
                                 new_class.addAttribute(new_attribute);
                             }
                             if (arg.getTextContent().equals("attribute")) {
@@ -65,28 +67,27 @@ public class ParseXML extends HelloController {
                             }
                             if (arg.getTextContent().equals("function")) {
                                 System.out.println("FUNC> " + fieldNode.getTextContent());
-                                OperationController new_attribute = OperationController.create(fieldNode.getTextContent()+"()", "function");
+                                OperationController new_attribute = OperationController.create(fieldNode.getTextContent() + "()", "function");
                                 new_class.addAttribute(new_attribute);
                             }
-                            if (arg.getTextContent().equals("position_x")){
+                            if (arg.getTextContent().equals("position_x")) {
                                 new_class.setPosition_x(Integer.parseInt(fieldNode.getTextContent()));
                             }
-                            if(arg.getTextContent().equals("position_y")){
+                            if (arg.getTextContent().equals("position_y")) {
                                 new_class.setPosition_y(Integer.parseInt(fieldNode.getTextContent()));
                             }
                         }
-                        if (mandatory != null && genclass != null){
+                        if (mandatory != null && genclass != null) {
                             String result_cardinality = "";
                             System.out.println("ATTC> " + genclass.getNodeValue());     //Attached To Class - class name
                             //System.out.println("MAND> " + mandatory.getNodeValue());    //mandatory on physical class side (null - 0, notnull - 1)
                             //System.out.println("CARD> " + fieldNode.getTextContent());  //cardinality on physical class side (1 or N:M)
                             //concat mandatory
-                            if(mandatory.getNodeValue() == "null"){
+                            if (mandatory.getNodeValue() == "null") {
                                 result_cardinality += "0..";
-                            }
-                            else if(mandatory.getNodeValue() != "null"){
+                            } else if (mandatory.getNodeValue() != "null") {
                                 result_cardinality += "1..";
-                            }else{
+                            } else {
                                 System.out.println("ERROR missing cardinality while parsing XML");
                             }
                             //TODO -> SET CARDINALITY (AS ATTRIBUTE) TO CLASS
@@ -96,7 +97,7 @@ public class ParseXML extends HelloController {
                     }
                 }
             }
-        }catch (ParserConfigurationException | SAXException | IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
