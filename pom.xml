@@ -94,6 +94,7 @@
     </dependencies>
 
     <build>
+      <directory>build</directory> 
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

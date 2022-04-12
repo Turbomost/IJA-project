@@ -1,4 +1,5 @@
 com\example\vut_project\controller\ClassController.class
+com\example\vut_project\controller\AddAttributeBox.class
 com\example\vut_project\Runner.class
 com\example\vut_project\EntityController.class
 com\example\vut_project\controller\ClassDiagramController.class
