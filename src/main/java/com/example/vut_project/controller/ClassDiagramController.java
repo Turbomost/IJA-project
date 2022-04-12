@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class ClassDiagramController extends ElementController {
 
     private ArrayList<ClassController> classList;
+    private int activeID = -1;
 
     public ClassDiagramController(String name) {
         super(name);
@@ -50,17 +51,34 @@ public class ClassDiagramController extends ElementController {
     }
 
     /**
-     * Finds classifier in diagram
+     * Finds class in diagram
      *
-     * @param name of the classifier
+     * @param name of the class
      * @return found classifier or null
      */
     public ClassController findClass(String name) {
         System.out.println("finding: " + name + " in " + this.classList.toString());
 
-        for (ClassController Classifier : this.classList) {
-            if (Classifier.getName().equals(name)) {
-                return Classifier;
+        for (ClassController Class : this.classList) {
+            if (Class.getName().equals(name)) {
+                return Class;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Find class in diagram by hash
+     *
+     * @param hash of the class
+     * @return found classifier or null
+     */
+    public ClassController findClassHash(int hash) {
+        System.out.println("finding:" + hash);
+        for (ClassController Class : this.classList) {
+            System.out.println(System.identityHashCode(Class));
+            if (System.identityHashCode(Class) == hash) {
+                return Class;
             }
         }
         return null;
@@ -73,6 +91,14 @@ public class ClassDiagramController extends ElementController {
      */
     public ArrayList<ClassController> return_list() {
         return classList;
+    }
+
+    public int getActiveID(){
+        return this.activeID;
+    }
+
+    public void setActiveID(int identifier) {
+        this.activeID = identifier;
     }
 }
 

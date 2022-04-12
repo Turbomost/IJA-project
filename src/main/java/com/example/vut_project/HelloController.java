@@ -36,6 +36,9 @@ public class HelloController {
     DraggableMarker draggableMaker = new DraggableMarker(); //class, that makes all objects movable
     ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
     int i = 0;
+
+    private int identifier = 0;
+    String classNameToDelete = "default";
     @FXML
     //bunch of stages and scenes and panes xD
     private Stage stage;
@@ -52,12 +55,13 @@ public class HelloController {
     private TextField classNameTextField;
     private int attributeFieldCounter = 0;
 
-    String classNameToDelete = "default";
-
-
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
+    }
+
+    public void initialize(){
+        System.out.println("inicializoval som\n");
     }
 
     //function to display single class diagram loaded from XML file
@@ -79,18 +83,19 @@ public class HelloController {
                 }
                 if (node instanceof VBox) {
                     ObservableList<String> attributes = FXCollections.observableArrayList(); //"Mamka", "Babka", "Dedko", "Vajcovod", "Tvoj Tatko", "Maroš", "Peder", "Ctibor", "Gábor", "Chvost", "Mrkva", "Dikobraz", "Bonsaj"
-                    for (AttributeController attribute_name : class_name.getAttributes()){
+                    for (AttributeController attribute_name : class_name.getAttributes()) {
                         attributes.add(attribute_name.getName());
                     }
 
                     ListView<String> listAttributeView = new ListView<String>(attributes);
                     listAttributeView.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
                     listAttributeView.setOnMouseClicked(event ->
-                    {String selectedItem = listAttributeView.getSelectionModel().getSelectedItem().toString();
+                    {
+                        String selectedItem = listAttributeView.getSelectionModel().getSelectedItem().toString();
                         selectedListViewIndex.set(listAttributeView.getSelectionModel().getSelectedIndex());
                     });
-                    for (Node deeperNode : ((VBox) node).getChildren()){
-                        if (deeperNode instanceof GridPane){
+                    for (Node deeperNode : ((VBox) node).getChildren()) {
+                        if (deeperNode instanceof GridPane) {
                             ((GridPane) deeperNode).getChildren().addAll(listAttributeView);
                         }
                     }
@@ -193,6 +198,11 @@ public class HelloController {
     public void onClassDiagramClick(MouseEvent mouseEvent) {
         System.out.println("EVENT CLASS DIAGRAM CLICK");
         Object source = mouseEvent.getSource();
+        this.identifier = System.identityHashCode(source);
+        System.out.println(classDiagramController.return_list().toString());
+        classDiagramController.setActiveID(identifier);
+        System.out.println(this.identifier);
+        System.out.println(classDiagramController.return_list().toString());
         AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
         //Pane clicked = (Pane) mouseEvent.getSource();
         if (source instanceof GridPane) {
@@ -201,29 +211,31 @@ public class HelloController {
                 ListView<String> listAttributeView = new ListView<String>(attributes);
                 listAttributeView.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
                 listAttributeView.setOnMouseClicked(event ->
-                    {String selectedItem = listAttributeView.getSelectionModel().getSelectedItem().toString();
+                {
+                    String selectedItem = listAttributeView.getSelectionModel().getSelectedItem().toString();
                     selectedListViewIndex.set(listAttributeView.getSelectionModel().getSelectedIndex());
                 });
 
                 System.out.println(selectedListViewIndex);
-                 //   nameTxt.setText(selectedItem);
+                //   nameTxt.setText(selectedItem);
                 ((GridPane) source).getChildren().addAll(listAttributeView);
                 attributeFieldCounter = attributeFieldCounter + 1;
             }
-        }
-        if (source instanceof Rectangle){
+        }/*
+        if (source instanceof Rectangle) {
             System.out.println("RECTANGLE");
             Object o = mouseEvent.getSource();
-            int identifier = java.lang.System.identityHashCode(o);
+            identifier = System.identityHashCode(o);
             System.out.println(identifier);
             System.out.println(classDiagramController.return_list().toString());
-        }
-}
+        }*/
+    }
 
     @FXML
     private void onClassDiagramMenuItemDeleteClick(Object source) {
-        ((GridPane) source).getChildren().clear();
-        attributeFieldCounter = 0;
+        System.out.println("Before deleting: " + classDiagramController.return_list().toString());
+        classDiagramController.deleteClass(classDiagramController.findClassHash(identifier));
+        System.out.println("After deleting: " + classDiagramController.return_list().toString());
     }
 
     public void onAddDiagramButtonClick(ActionEvent event) {
@@ -237,7 +249,6 @@ public class HelloController {
 
     @FXML
     public void onRemoveAttributeClick(ActionEvent actionEvent) throws Exception {
-        System.out.println(classNameToDelete);
     }
 
     @FXML
@@ -250,16 +261,12 @@ public class HelloController {
 
     @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
-        System.out.println("start delete: " + classDiagramController.return_list().toString());
-        setClassNameToDelete(classNameTextField.getText());
-        System.out.println(classNameToDelete);
-        /*ClassifierController classToDelete = classDiagramController.findClassifier(classNameToDelete);
-        classDiagramController.deleteClass(classToDelete);
-        System.out.println(classDiagramController.return_list().toString());*/
-        //TODO delete class based on name
+        System.out.println("Before deleting: " + classDiagramController.return_list());
+        classDiagramController.deleteClass(classDiagramController.findClassHash(classDiagramController.getActiveID()));
+        System.out.println("After deleting: " + classDiagramController.return_list());
     }
 
-    public void setClassNameToDelete(String name){
+    public void setClassNameToDelete(String name) {
         this.classNameToDelete = name;
     }
 }
