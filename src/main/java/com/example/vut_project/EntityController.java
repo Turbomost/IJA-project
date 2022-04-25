@@ -38,6 +38,7 @@ public class EntityController extends VBox {
     private ListView entityAttributeView;
     @FXML
     private MenuItem addAttributeContextMenuButton;
+    private MenuItem deleteAttributeContextMenuButton;
     @FXML
     private ContextMenu contextMenuOnElement;
 
@@ -96,6 +97,18 @@ public class EntityController extends VBox {
      */
     public void onAddAttributeClick(ActionEvent event) {
         this.entityAttributeView.getItems().add("new_argument");
+    }
+    public void onDeleteAttributeClick(ActionEvent event){
+        // TODO maybe call remove attribute z ClassController?
+        int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();  // get cell index
+        System.out.println(entityAttributeView.getItems().get(clickedFXID)); // gets text from deleted cell
+        entityAttributeView.getItems().remove(clickedFXID); // remove cell from list view
+    }
+    public void onDeleteDiagramContextMenuClick(ActionEvent event){
+        String selectedClassName = classNameTextField.getText();
+        //TODO maybe volat niečo na zmazanie calssy z class listu podla mena
+        System.out.println("CLASS TO REMOVE " + selectedClassName);
+
     }
 
 }
