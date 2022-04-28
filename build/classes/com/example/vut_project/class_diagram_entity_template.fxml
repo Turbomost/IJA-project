@@ -8,14 +8,6 @@
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <TextField fx:id="classNameTextField" promptText="Class Name">
-            <contextMenu>
-                <ContextMenu>
-                    <items>
-                        <MenuItem fx:id="deleteDiagramContextButton" mnemonicParsing="false"
-                                  onAction="#onDeleteDiagramContextMenuClick" text="Delete Diagram"/>
-                    </items>
-                </ContextMenu>
-            </contextMenu>
             <VBox.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>

@@ -45,6 +45,7 @@ public class EntityController extends VBox {
     private HelloController referece;
 
     private Object identifier;
+    private int index = 0;
 
     /**
      * Constructor for new Entity
@@ -105,14 +106,19 @@ public class EntityController extends VBox {
      * @param event
      */
     public void onAddAttributeClick(ActionEvent event) {
-        this.entityAttributeView.getItems().add("new_argument");
+        this.entityAttributeView.getItems().add("new_argument " + index);
+        referece.AddAttribute(this.classNameTextField.getText(), "new_argument " + index);
+
+        index++;
+
     }
 
     public void onDeleteAttributeClick(ActionEvent event) {
-        // TODO maybe call remove attribute z ClassController?
         int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();  // get cell index
-        System.out.println(entityAttributeView.getItems().get(clickedFXID)); // gets text from deleted cell
-        entityAttributeView.getItems().remove(clickedFXID); // remove cell from list view
-        
+        String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
+        System.out.println(clicked); // gets text from deleted cell
+        entityAttributeView.getItems().remove(clickedFXID); // remove cell from list viewW
+        referece.DeleteAttribute(this.classNameTextField.getText(), clicked);
+
     }
 }

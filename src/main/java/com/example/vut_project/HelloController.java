@@ -6,10 +6,7 @@
 
 package com.example.vut_project;
 
-import com.example.vut_project.controller.AlertBox;
-import com.example.vut_project.controller.ClassController;
-import com.example.vut_project.controller.ClassDiagramController;
-import com.example.vut_project.controller.DraggableMarker;
+import com.example.vut_project.controller.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -213,6 +210,7 @@ public class HelloController {
             }
         }
     }
+
     /**
      * @param event
      */
@@ -257,9 +255,26 @@ public class HelloController {
         System.out.println("After deleting: " + classDiagramController.return_list().toString());
         projectSpace.getChildren().remove(identifier);
     }
+
     // sets the actual selected class diagram
-    public void set_identifier(String class_name, Object object){
+    public void set_identifier(String class_name, Object object) {
         this.identifier = object;
         this.identifier_name = class_name;
+    }
+
+    public void DeleteAttribute(String class_name, String attribute_name) {
+        ClassController curClass = this.classDiagramController.findClass(class_name);
+        System.out.println("Before: " + curClass.getAttributes().toString());
+        curClass.removeAttribute(curClass.findAttributeByName(attribute_name));
+        System.out.println("After: " + curClass.getAttributes().toString());
+    }
+
+
+    public void AddAttribute(String class_name, String attribute_name) {
+        ClassController curClass = this.classDiagramController.findClass(class_name);
+        System.out.println("Before: " + curClass.getAttributes().toString());
+        AttributeController attr = new AttributeController(attribute_name, "attribute");
+        curClass.addAttribute(attr);
+        System.out.println("After: " + curClass.getAttributes().toString());
     }
 }
