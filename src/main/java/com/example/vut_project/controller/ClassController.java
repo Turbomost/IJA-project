@@ -17,8 +17,8 @@ public class ClassController extends ElementController {
     private final ArrayList<AttributeController> AttributeList;
     private boolean isAbstract = false;
 
-    private int layout_x = 10;
-    private int layout_y = 10;
+    private double layout_x = 10;
+    private double layout_y = 10;
 
     /**
      * Default constructor for Class
@@ -67,7 +67,7 @@ public class ClassController extends ElementController {
      *
      * @return x-position
      */
-    public int getPosition_x() {
+    public double getPosition_x() {
         return this.layout_x;
     }
 
@@ -76,7 +76,7 @@ public class ClassController extends ElementController {
      *
      * @param layout_x new x-position
      */
-    public void setPosition_x(int layout_x) {
+    public void setPosition_x(double layout_x) {
         this.layout_x = layout_x;
     }
 
@@ -85,7 +85,7 @@ public class ClassController extends ElementController {
      *
      * @return y-position
      */
-    public int getPosition_y() {
+    public double getPosition_y() {
         return this.layout_y;
     }
 
@@ -94,7 +94,7 @@ public class ClassController extends ElementController {
      *
      * @param layout_y new x-position
      */
-    public void setPosition_y(int layout_y) {
+    public void setPosition_y(double layout_y) {
         this.layout_y = layout_y;
     }
 

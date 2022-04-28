@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -86,7 +87,7 @@ public class HelloController {
     protected void displayLoadedClassDiagramEntity(ClassDiagramController classDiagram) throws IOException {
         for (ClassController class_name : classDiagram.return_list()) {
             EntityController new_entity = new EntityController(class_name, this);
-            draggableMaker.makeDraggable(new_entity);
+            draggableMaker.makeDraggable(new_entity, class_name);
             new_entity.setLayoutX(class_name.getPosition_x());
             new_entity.setLayoutY(class_name.getPosition_y());
             Entity_Controller_list.add(new_entity);                             //save to list
@@ -179,7 +180,7 @@ public class HelloController {
         String new_name = "class " + i++;
         EntityController new_entity = new EntityController(new_name, classDiagramController, this);
         projectSpace.getChildren().add(new_entity);
-        draggableMaker.makeDraggable(new_entity);
+        draggableMaker.makeDraggable(new_entity, classDiagramController.findClass(new_name));
         Entity_Controller_list.add(new_entity);
     }
 
@@ -296,5 +297,12 @@ public class HelloController {
     public void SetConstraintTo(String constraint_to){
         this.constraint_to = classDiagramController.findClass(constraint_to);
         System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
+        Line line = new Line();
+        line.setStartX(this.constraint_from.getPosition_x());
+        line.setStartY(this.constraint_from.getPosition_y());
+        line.setEndX(this.constraint_to.getPosition_x());
+        line.setEndY(this.constraint_to.getPosition_y());
+        line.setVisible(true);
+        projectSpace.getChildren().add(line);
     }
 }
