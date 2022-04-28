@@ -53,6 +53,9 @@ public class HelloController {
     private Object identifier;
     private String identifier_name;
 
+    private ClassController constraint_from;
+    private ClassController constraint_to;
+
     @FXML
     //bunch of stages and scenes and panes xD
     private Stage stage;
@@ -284,5 +287,14 @@ public class HelloController {
         curClass.rename(new_name);
         System.out.println("After: Classes" + classDiagramController.getClassList().toString());
         identifier_name = new_name;
+    }
+
+    public void SetConstraintFrom(String constraint_from){
+        this.constraint_from = classDiagramController.findClass(constraint_from);
+        System.out.println("From: " + this.constraint_from.getName());
+    }
+    public void SetConstraintTo(String constraint_to){
+        this.constraint_to = classDiagramController.findClass(constraint_to);
+        System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
     }
 }

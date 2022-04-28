@@ -153,4 +153,11 @@ public class EntityController extends VBox {
     public void onClassDiagramNameClick(Event event) {
         this.old_class_name = classNameTextField.getText();
     }
+    @FXML
+    public void onAddConstraintClick(Event event){
+        referece.SetConstraintFrom(classNameTextField.getText());
+    }
+    public void onPasteConstraintClick(Event event){
+        referece.SetConstraintTo(classNameTextField.getText());
+    }
 }

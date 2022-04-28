@@ -23,6 +23,10 @@
                                   onAction="#onAddAttributeClick" text="Add Attribute"/>
                         <MenuItem fx:id="deleteAttributeContextMenuButton" mnemonicParsing="false"
                                   onAction="#onDeleteAttributeClick" text="Delete Attribute"/>
+                        <MenuItem fx:id="addConstraintContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onAddConstraintClick" text="Add Constraint"/>
+                        <MenuItem fx:id="pasteConstraintContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onPasteConstraintClick" text="Paste Constraint"/>
                     </items>
                 </ContextMenu>
             </contextMenu>
