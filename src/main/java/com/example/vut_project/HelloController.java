@@ -84,7 +84,7 @@ public class HelloController {
      */
     protected void displayLoadedClassDiagramEntity(ClassDiagramController classDiagram) throws IOException {
         for (ClassController class_name : classDiagram.return_list()) {
-            EntityController new_entity = new EntityController(class_name);
+            EntityController new_entity = new EntityController(class_name, this);
             draggableMaker.makeDraggable(new_entity);
             new_entity.setLayoutX(class_name.getPosition_x());
             new_entity.setLayoutY(class_name.getPosition_y());
@@ -177,7 +177,7 @@ public class HelloController {
     @FXML
     public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
         String new_name = "class " + i++;
-        EntityController new_entity = new EntityController(new_name, classDiagramController);
+        EntityController new_entity = new EntityController(new_name, classDiagramController, this);
         projectSpace.getChildren().add(new_entity);
         draggableMaker.makeDraggable(new_entity);
         Entity_Controller_list.add(new_entity);

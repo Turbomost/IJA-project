@@ -42,6 +42,8 @@ public class EntityController extends VBox {
     @FXML
     private ContextMenu contextMenuOnElement;
 
+    private HelloController referece;
+
     /**
      * Constructor for new Entity
      *
@@ -49,7 +51,7 @@ public class EntityController extends VBox {
      * @param diagram  ClassDiagram
      * @throws IOException
      */
-    public EntityController(String new_name, ClassDiagramController diagram) throws IOException {
+    public EntityController(String new_name, ClassDiagramController diagram, HelloController reference) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -58,6 +60,7 @@ public class EntityController extends VBox {
         classNameTextField.setText(new_class.getName());
         entityAttributeView.setEditable(true);
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
+        this.referece = reference;
     }
 
     /**
@@ -66,7 +69,7 @@ public class EntityController extends VBox {
      * @param class_name name of new class to be created from file
      * @throws IOException
      */
-    public EntityController(ClassController class_name) throws IOException { //diagram added loaded file
+    public EntityController(ClassController class_name, HelloController reference) throws IOException { //diagram added loaded file
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("class_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -78,7 +81,7 @@ public class EntityController extends VBox {
         this.entityAttributeView.setItems(observableListOfAttributes);
         entityAttributeView.setEditable(true);
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
-
+        this.referece = reference;
     }
 
     /**
@@ -100,16 +103,20 @@ public class EntityController extends VBox {
     public void onAddAttributeClick(ActionEvent event) {
         this.entityAttributeView.getItems().add("new_argument");
     }
-    public void onDeleteAttributeClick(ActionEvent event){
+
+    public void onDeleteAttributeClick(ActionEvent event) {
         // TODO maybe call remove attribute z ClassController?
         int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();  // get cell index
         System.out.println(entityAttributeView.getItems().get(clickedFXID)); // gets text from deleted cell
         entityAttributeView.getItems().remove(clickedFXID); // remove cell from list view
     }
-    public void onDeleteDiagramContextMenuClick(ActionEvent event){
+
+    public void onDeleteDiagramContextMenuClick(ActionEvent event) {
         String selectedClassName = classNameTextField.getText();
         //TODO maybe volat niečo na zmazanie calssy z class listu podla mena
+
         System.out.println("CLASS TO REMOVE " + selectedClassName);
+        referece.delete_class(selectedClassName);
 
     }
 
