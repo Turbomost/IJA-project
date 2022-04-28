@@ -12,6 +12,7 @@ import com.example.vut_project.controller.ClassDiagramController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
@@ -19,6 +20,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -44,6 +47,8 @@ public class EntityController extends VBox {
 
     private HelloController referece;
 
+    private String old_attribute_name;
+    private int AttrClickedFXID;
     private Object identifier;
     private int index = 0;
 
@@ -108,9 +113,7 @@ public class EntityController extends VBox {
     public void onAddAttributeClick(ActionEvent event) {
         this.entityAttributeView.getItems().add("new_argument " + index);
         referece.AddAttribute(this.classNameTextField.getText(), "new_argument " + index);
-
         index++;
-
     }
 
     public void onDeleteAttributeClick(ActionEvent event) {
@@ -120,5 +123,21 @@ public class EntityController extends VBox {
         entityAttributeView.getItems().remove(clickedFXID); // remove cell from list viewW
         referece.DeleteAttribute(this.classNameTextField.getText(), clicked);
 
+    }
+    @FXML
+    public void onEnterClick(KeyEvent event){
+        String new_attribute_name;
+        if(event.getCode() != KeyCode.ENTER) {
+            AttrClickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();
+            old_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
+        }
+        if(event.getCode() == KeyCode.ENTER){
+            new_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
+            System.out.println("CHANIGING");
+            System.out.println("OLD NAME: " + old_attribute_name);
+            System.out.println("Attribute changed, new name: " + new_attribute_name);
+                referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
+                referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
+        }
     }
 }
