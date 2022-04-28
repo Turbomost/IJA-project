@@ -113,13 +113,6 @@ public class EntityController extends VBox {
         int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();  // get cell index
         System.out.println(entityAttributeView.getItems().get(clickedFXID)); // gets text from deleted cell
         entityAttributeView.getItems().remove(clickedFXID); // remove cell from list view
+        
     }
-
-    public void onDeleteDiagramContextMenuClick(ActionEvent event) {
-
-        //TODO maybe volat niečo na zmazanie calssy z class listu podla mena
-        //System.out.println("CLASS TO REMOVE " + selectedClassName);
-
-    }
-
 }

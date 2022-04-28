@@ -213,20 +213,6 @@ public class HelloController {
             }
         }
     }
-
-    /**
-     * Delete Class event
-     *
-     * @param source Class to be deleted
-     */
-    @FXML
-    private void onClassDiagramMenuItemDeleteClick(Object source) {
-        // TODO deleting
-        System.out.println("Before deleting: " + classDiagramController.return_list().toString());
-        //classDiagramController.deleteClass(classDiagramController.findClassHash(identifier));
-        System.out.println("After deleting: " + classDiagramController.return_list().toString());
-    }
-
     /**
      * @param event
      */
@@ -266,14 +252,14 @@ public class HelloController {
      */
     @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
+        System.out.println("Before deleting: " + classDiagramController.return_list().toString());
+        classDiagramController.deleteClass(classDiagramController.findClass(identifier_name));
+        System.out.println("After deleting: " + classDiagramController.return_list().toString());
         projectSpace.getChildren().remove(identifier);
-        // TODO
-
     }
-
+    // sets the actual selected class diagram
     public void set_identifier(String class_name, Object object){
         this.identifier = object;
         this.identifier_name = class_name;
     }
-
 }
