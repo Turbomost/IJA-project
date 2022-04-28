@@ -47,6 +47,7 @@ public class EntityController extends VBox {
 
     private HelloController referece;
 
+    private String old_class_name;
     private String old_attribute_name;
     private int AttrClickedFXID;
     private Object identifier;
@@ -133,11 +134,20 @@ public class EntityController extends VBox {
         }
         if(event.getCode() == KeyCode.ENTER){
             new_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
-            System.out.println("CHANIGING");
+            System.out.println("CHANGING");
             System.out.println("OLD NAME: " + old_attribute_name);
             System.out.println("Attribute changed, new name: " + new_attribute_name);
                 referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
                 referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
         }
+    }
+
+    @FXML
+    public void onClassDiagramNameEnter(ActionEvent event){
+        referece.RenameClass(this.old_class_name, classNameTextField.getText());
+    }
+    @FXML
+    public void onClassDiagramNameClick(Event event){
+        this.old_class_name = classNameTextField.getText();
     }
 }
