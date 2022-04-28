@@ -1,4 +1,3 @@
-Deleting from class diagram (arguments and classes)
 Constraints 	-> XML format
 		-> Implementation and viewing
 Sequence diagram	-> view

@@ -125,29 +125,32 @@ public class EntityController extends VBox {
         referece.DeleteAttribute(this.classNameTextField.getText(), clicked);
 
     }
+
     @FXML
-    public void onEnterClick(KeyEvent event){
+    public void onEnterClick(KeyEvent event) {
         String new_attribute_name;
-        if(event.getCode() != KeyCode.ENTER) {
+        if (event.getCode() != KeyCode.ENTER) {
             AttrClickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();
             old_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
         }
-        if(event.getCode() == KeyCode.ENTER){
+        if (event.getCode() == KeyCode.ENTER) {
             new_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
             System.out.println("CHANGING");
             System.out.println("OLD NAME: " + old_attribute_name);
             System.out.println("Attribute changed, new name: " + new_attribute_name);
-                referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
-                referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
+            referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
+            referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
         }
     }
 
     @FXML
-    public void onClassDiagramNameEnter(ActionEvent event){
+    public void onClassDiagramNameEnter(ActionEvent event) {
         referece.RenameClass(this.old_class_name, classNameTextField.getText());
+        old_class_name = classNameTextField.getText();
     }
+
     @FXML
-    public void onClassDiagramNameClick(Event event){
+    public void onClassDiagramNameClick(Event event) {
         this.old_class_name = classNameTextField.getText();
     }
 }
