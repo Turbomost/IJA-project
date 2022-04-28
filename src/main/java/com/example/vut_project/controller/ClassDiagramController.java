@@ -49,10 +49,8 @@ public class ClassDiagramController extends ElementController {
      * @return true if successful, otherwise false
      */
     public boolean deleteClass(ClassController name) {
-        System.out.println("removing " + name.toString() + " in " + this.return_list().toString());
         if (this.classList.contains(name)) {
             this.classList.remove(name);
-            System.out.println("actual list: " + this.return_list().toString());
             return true;
         }
         return false;
@@ -65,7 +63,7 @@ public class ClassDiagramController extends ElementController {
      * @return found classifier or null
      */
     public ClassController findClass(String name) {
-        System.out.println("finding: " + name + " in " + this.classList.toString());
+        //System.out.println("finding: " + name + " in " + this.classList.toString());
 
         for (ClassController Class : this.classList) {
             if (Class.getName().equals(name)) {
@@ -99,6 +97,14 @@ public class ClassDiagramController extends ElementController {
      */
     public ArrayList<ClassController> return_list() {
         return classList;
+    }
+
+    public java.util.List<String> getClassList() {
+        ArrayList<String> nameList = new ArrayList<>();
+        for (ClassController attr : this.classList) {
+            nameList.add(attr.getName());
+        }
+        return nameList;
     }
 }
 

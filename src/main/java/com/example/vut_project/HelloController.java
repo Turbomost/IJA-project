@@ -190,9 +190,9 @@ public class HelloController {
         System.out.println("EVENT CLASS DIAGRAM CLICK");
         Object source = mouseEvent.getSource();
         this.identifier = System.identityHashCode(source);
-        System.out.println(classDiagramController.return_list().toString());
+        System.out.println(classDiagramController.getClassList().toString());
         System.out.println(this.identifier);
-        System.out.println(classDiagramController.return_list().toString());
+        System.out.println(classDiagramController.getClassList().toString());
         AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
         if (source instanceof GridPane) {
             if (mouseEvent.getButton() == MouseButton.SECONDARY) {
@@ -250,9 +250,9 @@ public class HelloController {
      */
     @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
-        System.out.println("Before deleting: " + classDiagramController.return_list().toString());
+        System.out.println("Before deleting: " + classDiagramController.getClassList().toString());
         classDiagramController.deleteClass(classDiagramController.findClass(identifier_name));
-        System.out.println("After deleting: " + classDiagramController.return_list().toString());
+        System.out.println("After deleting: " + classDiagramController.getClassList().toString());
         projectSpace.getChildren().remove(identifier);
     }
 
@@ -264,17 +264,25 @@ public class HelloController {
 
     public void DeleteAttribute(String class_name, String attribute_name) {
         ClassController curClass = this.classDiagramController.findClass(class_name);
-        System.out.println("Before: " + curClass.getAttributes().toString());
+        System.out.println("Before: " + curClass.getAttributesList().toString());
         curClass.removeAttribute(curClass.findAttributeByName(attribute_name));
-        System.out.println("After: " + curClass.getAttributes().toString());
+        System.out.println("After: " + curClass.getAttributesList().toString());
     }
 
 
     public void AddAttribute(String class_name, String attribute_name) {
         ClassController curClass = this.classDiagramController.findClass(class_name);
-        System.out.println("Before: " + curClass.getAttributes().toString());
+        System.out.println("Before: " + curClass.getAttributesList().toString());
         AttributeController attr = new AttributeController(attribute_name, "attribute");
         curClass.addAttribute(attr);
-        System.out.println("After: " + curClass.getAttributes().toString());
+        System.out.println("After: " + curClass.getAttributesList().toString());
+    }
+
+    public void RenameClass(String old_name, String new_name) {
+        ClassController curClass = this.classDiagramController.findClass(old_name);
+        System.out.println("Before: Classes" + classDiagramController.getClassList().toString());
+        curClass.rename(new_name);
+        System.out.println("After: Classes" + classDiagramController.getClassList().toString());
+        identifier_name = new_name;
     }
 }

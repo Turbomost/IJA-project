@@ -176,4 +176,12 @@ public class ClassController extends ElementController {
         return AttributeList;
     }
 
+    public java.util.List<String> getAttributesList() {
+        ArrayList<String> nameList = new ArrayList<>();
+        for (AttributeController attr : this.AttributeList) {
+            nameList.add(attr.getName());
+        }
+        return nameList;
+    }
+
 }
