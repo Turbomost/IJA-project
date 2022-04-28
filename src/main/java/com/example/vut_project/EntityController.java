@@ -44,6 +44,8 @@ public class EntityController extends VBox {
 
     private HelloController referece;
 
+    private Object identifier;
+
     /**
      * Constructor for new Entity
      *
@@ -92,7 +94,9 @@ public class EntityController extends VBox {
     public void onClassDiagramClick(MouseEvent mouseEvent) {
         System.out.println("ON CLASS DIAGRAM CLICK");
         System.out.println(this.classNameTextField.getText());
-
+        this.identifier = mouseEvent.getSource();
+        String selectedClassName = classNameTextField.getText();
+        referece.set_identifier(selectedClassName, this.identifier);
     }
 
     /**
@@ -112,11 +116,9 @@ public class EntityController extends VBox {
     }
 
     public void onDeleteDiagramContextMenuClick(ActionEvent event) {
-        String selectedClassName = classNameTextField.getText();
-        //TODO maybe volat niečo na zmazanie calssy z class listu podla mena
 
-        System.out.println("CLASS TO REMOVE " + selectedClassName);
-        referece.delete_class(selectedClassName);
+        //TODO maybe volat niečo na zmazanie calssy z class listu podla mena
+        //System.out.println("CLASS TO REMOVE " + selectedClassName);
 
     }
 

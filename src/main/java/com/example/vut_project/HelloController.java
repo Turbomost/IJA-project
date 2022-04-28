@@ -53,7 +53,8 @@ public class HelloController {
     ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
 
     int i = 0;
-    private int identifier = 0;
+    private Object identifier;
+    private String identifier_name;
 
     @FXML
     //bunch of stages and scenes and panes xD
@@ -164,7 +165,6 @@ public class HelloController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
     /**
@@ -223,7 +223,7 @@ public class HelloController {
     private void onClassDiagramMenuItemDeleteClick(Object source) {
         // TODO deleting
         System.out.println("Before deleting: " + classDiagramController.return_list().toString());
-        classDiagramController.deleteClass(classDiagramController.findClassHash(identifier));
+        //classDiagramController.deleteClass(classDiagramController.findClassHash(identifier));
         System.out.println("After deleting: " + classDiagramController.return_list().toString());
     }
 
@@ -266,8 +266,14 @@ public class HelloController {
      */
     @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
+        projectSpace.getChildren().remove(identifier);
         // TODO
 
+    }
+
+    public void set_identifier(String class_name, Object object){
+        this.identifier = object;
+        this.identifier_name = class_name;
     }
 
 }
