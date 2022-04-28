@@ -87,7 +87,9 @@ public class EntityController extends VBox {
      * @param mouseEvent
      */
     public void onClassDiagramClick(MouseEvent mouseEvent) {
-        //System.out.println(this.classNameTextField.getText());
+        System.out.println("ON CLASS DIAGRAM CLICK");
+        System.out.println(this.classNameTextField.getText());
+
     }
 
     /**

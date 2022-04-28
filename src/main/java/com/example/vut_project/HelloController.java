@@ -267,5 +267,7 @@ public class HelloController {
     @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
         // TODO
+
     }
+
 }

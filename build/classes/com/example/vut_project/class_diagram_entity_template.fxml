@@ -11,7 +11,8 @@
             <contextMenu>
                 <ContextMenu>
                     <items>
-                        <MenuItem fx:id="deleteDiagramContextButton" mnemonicParsing="false" text="Delete Diagram"/>
+                        <MenuItem fx:id="deleteDiagramContextButton" mnemonicParsing="false"
+                                  onAction="#onDeleteDiagramContextMenuClick" text="Delete Diagram"/>
                     </items>
                 </ContextMenu>
             </contextMenu>
@@ -27,7 +28,9 @@
                 <ContextMenu fx:id="contextMenuOnElement">
                     <items>
                         <MenuItem fx:id="addAttributeContextMenuButton" mnemonicParsing="false"
-                                  onAction="#onAddAttributeClick" text="Add Atrribute"/>
+                                  onAction="#onAddAttributeClick" text="Add Attribute"/>
+                        <MenuItem fx:id="deleteAttributeContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onDeleteAttributeClick" text="Delete Attribute"/>
                     </items>
                 </ContextMenu>
             </contextMenu>

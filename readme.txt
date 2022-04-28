@@ -13,7 +13,7 @@ Compile:
   'mvn clean package javadoc:javadoc'
 
 Startup:
-  Run: 'ija-app.jar' saved in 'dest' folder
+  Run: 'ija-app.jar' saved in 'dest' folder after maven run.
 
 Usage:
   After application load, click 'start' button.
@@ -21,3 +21,7 @@ Usage:
   Here you can add class diagram, name it, or add multiple attributes.
   Or in file context menu choose Open Project, ale select valid .xml file
   with class diagrams to display and edit.
+
+Demo file for loading is saved in folder data/test.xml
+Run application, press 'start' button in the middle, in menu bar choose
+'Open Project' and choose path to compatibile *.xml file.

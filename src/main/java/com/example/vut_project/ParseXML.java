@@ -41,8 +41,8 @@ public class ParseXML extends HelloController {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(new File(FILENAME));
             doc.getDocumentElement().normalize();
-            System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());
-
+            System.out.println("Root Element :" + doc.getDocumentElement().getNodeName()); //class diagram or sequence diagram
+            System.out.println(doc.getDocumentElement().getNodeName().equals("class"));
             System.out.println("------");
 
             NodeList nodeList = doc.getElementsByTagName("element"); //creating list nodes, nodeList is list of <element> tags

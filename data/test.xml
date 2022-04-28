@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<program package="Class_diagram">
+<program>
     <element type="class" name="Vaskovo_faro">
         <arg type="primarykey">znacka</arg>
         <arg type="attribute">farba</arg>
@@ -33,4 +33,6 @@
         <arg type="position_x">300</arg>
         <arg type="position_y">100</arg>
     </element>
+
+
 </program>
