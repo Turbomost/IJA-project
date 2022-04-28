@@ -1,0 +1,9 @@
+Deleting from class diagram (arguments and classes)
+Constraints 	-> XML format
+		-> Implementation and viewing
+Sequence diagram	-> view
+			-> models
+			-> timeline
+Inconsistencies
+Writing to file
+Jump from FIT
