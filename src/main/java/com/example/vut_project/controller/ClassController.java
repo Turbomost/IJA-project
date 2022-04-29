@@ -191,6 +191,12 @@ public class ClassController extends ElementController {
         ConstraintList.add(line);
         System.out.println(ConstraintList.toString());
     }
+    public void removeConstraint(BoundLine line){
+            ConstraintList.remove(line);
+    }
+    public ArrayList getConstraintList(){
+        return this.ConstraintList;
+    }
 
     public void update_constraint(){
         for (BoundLine line : ConstraintList){

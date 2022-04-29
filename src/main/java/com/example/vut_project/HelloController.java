@@ -322,15 +322,28 @@ public class HelloController {
             System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
             BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this);
             boundLine.create_line();
-            boundLine.setSelfReference(boundLine);
             this.constraint_from.addConstraint(boundLine);
             this.constraint_to.addConstraint(boundLine);
+            boundLine.setSelfReference(boundLine);
             projectSpace.getChildren().add(boundLine);
         }
     }
 
-    public void DeleteConstraint(BoundLine toDelete){
-        System.out.println("DELETING IN HELLO");
+    public void DeleteConstraint(BoundLine toDelete, ClassController from, ClassController to){
+        ClassController remember_from = this.constraint_from;
+        ClassController remember_to = this.constraint_to;
+        this.constraint_from = from;
+        this.constraint_to = to;
+        System.out.println("DELETING IN CLASS CONTROLLER");
+        System.out.println(this.constraint_from.getConstraintList());
+        System.out.println(this.constraint_to.getConstraintList());
+        this.constraint_from.removeConstraint(toDelete);
+        this.constraint_to.removeConstraint(toDelete);
+        System.out.println("AFTER DELETING IN CLASS CONTROLLER");
+        System.out.println(this.constraint_from.getConstraintList());
+        System.out.println(this.constraint_to.getConstraintList());
         projectSpace.getChildren().remove(toDelete);
+        this.constraint_from = remember_from;
+        this.constraint_to = remember_to;
     }
 }

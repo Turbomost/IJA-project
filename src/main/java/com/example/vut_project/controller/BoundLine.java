@@ -76,8 +76,14 @@ public class BoundLine extends Line {
         menu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
     }
     public void onDeleteConstraintClick(MouseEvent event){
+        System.out.println("BEFORE CONSTRAINT DELETING FROM" + this.from.getConstraintList());
+        System.out.println("BEFORE CONSTRAINT DELETING TO" + this.to.getConstraintList());
+        this.from.removeConstraint(self);
+        this.to.removeConstraint(self);
         System.out.println("deleting constraint");
-        this.reference.DeleteConstraint(this.self);
+        System.out.println("AFTER CONSTRAINT DELETING FROM" + this.from.getConstraintList());
+        System.out.println("AFTER CONSTRAINT DELETING TO" + this.to.getConstraintList());
+        this.reference.DeleteConstraint(this.self, this.from, this.to);
     }
     public void setSelfReference(BoundLine self){
         this.self = self;
