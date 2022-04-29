@@ -335,13 +335,13 @@ public class HelloController {
         this.constraint_from = from;
         this.constraint_to = to;
         System.out.println("DELETING IN CLASS CONTROLLER");
-        System.out.println(this.constraint_from.getConstraintList());
-        System.out.println(this.constraint_to.getConstraintList());
+        System.out.println(this.constraint_from.getName() + " " + this.constraint_from.getConstraintList());
+        System.out.println(this.constraint_to.getName() + " " + this.constraint_to.getConstraintList());
         this.constraint_from.removeConstraint(toDelete);
         this.constraint_to.removeConstraint(toDelete);
         System.out.println("AFTER DELETING IN CLASS CONTROLLER");
-        System.out.println(this.constraint_from.getConstraintList());
-        System.out.println(this.constraint_to.getConstraintList());
+        System.out.println(this.constraint_from.getName() + " " + this.constraint_from.getConstraintList());
+        System.out.println(this.constraint_to.getName() + " " + this.constraint_to.getConstraintList());
         projectSpace.getChildren().remove(toDelete);
         this.constraint_from = remember_from;
         this.constraint_to = remember_to;

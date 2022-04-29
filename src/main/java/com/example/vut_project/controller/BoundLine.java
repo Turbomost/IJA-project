@@ -81,8 +81,8 @@ public class BoundLine extends Line {
         this.from.removeConstraint(self);
         this.to.removeConstraint(self);
         System.out.println("deleting constraint");
-        System.out.println("AFTER CONSTRAINT DELETING FROM" + this.from.getConstraintList());
-        System.out.println("AFTER CONSTRAINT DELETING TO" + this.to.getConstraintList());
+        System.out.println("AFTER CONSTRAINT DELETING FROM " + this.from.getName() + this.from.getConstraintList());
+        System.out.println("AFTER CONSTRAINT DELETING TO " + this.to.getName() + this.to.getConstraintList());
         this.reference.DeleteConstraint(this.self, this.from, this.to);
     }
     public void setSelfReference(BoundLine self){
