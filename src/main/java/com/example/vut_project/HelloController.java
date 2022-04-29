@@ -252,8 +252,8 @@ public class HelloController {
     /**
      * @param event
      */
-    @FXML
-    public void onDeleteDiagramClick(ActionEvent event) {
+
+    public void DeleteDiagram(ActionEvent event) {
         ClassController deleting_class = classDiagramController.findClass(identifier_name);
         System.out.println("Before deleting: " + classDiagramController.getClassList().toString());
         classDiagramController.deleteClass(deleting_class);

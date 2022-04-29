@@ -45,6 +45,9 @@ public class EntityController extends VBox {
     @FXML
     private ContextMenu contextMenuOnElement;
 
+    @FXML
+    private VBox classVBox;
+
     private HelloController referece;
 
     private String old_class_name;
@@ -104,6 +107,7 @@ public class EntityController extends VBox {
         System.out.println("ON CLASS DIAGRAM CLICK");
         System.out.println(this.classNameTextField.getText());
         this.identifier = mouseEvent.getSource();
+        System.out.println(this.identifier);
         String selectedClassName = classNameTextField.getText();
         referece.set_identifier(selectedClassName, this.identifier);
     }
@@ -175,8 +179,15 @@ public class EntityController extends VBox {
     public void onAddConstraintClick(Event event) {
         referece.SetConstraintFrom(classNameTextField.getText());
     }
-
+    @FXML
     public void onPasteConstraintClick(Event event) {
         referece.SetConstraintTo(classNameTextField.getText());
+    }
+    @FXML
+    public void onDeleteDiagramClick(ActionEvent event){
+        System.out.println("MAMKA");
+        this.identifier = classVBox;
+        referece.set_identifier(classNameTextField.getText(), this.identifier);
+        referece.DeleteDiagram(event);
     }
 }

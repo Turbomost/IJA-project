@@ -27,6 +27,8 @@
                                   onAction="#onAddConstraintClick" text="Add Constraint"/>
                         <MenuItem fx:id="pasteConstraintContextMenuButton" mnemonicParsing="false"
                                   onAction="#onPasteConstraintClick" text="Paste Constraint"/>
+                        <MenuItem fx:id="deleteDiagramContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onDeleteDiagramClick" text="Delete Diagram"/>
                     </items>
                 </ContextMenu>
             </contextMenu>

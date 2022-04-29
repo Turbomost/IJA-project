@@ -32,11 +32,6 @@
         <ToolBar prefHeight="40.0" prefWidth="200.0">
             <items>
                 <Button mnemonicParsing="false" onAction="#onNewElementClick" text="New Element"/>
-                <Button mnemonicParsing="false" text="Add Attribute"/>
-                <Button mnemonicParsing="false" onAction="#onRemoveAttributeClick" text="Remove Attribute"/>
-                <Button mnemonicParsing="false" onAction="#onAddFunctionClick" text="Add Function"/>
-                <Button mnemonicParsing="false" onAction="#onRemoveFunctionClick" text="Remove Function"/>
-                <Button mnemonicParsing="false" onAction="#onDeleteDiagramClick" text="Delete Diagram"/>
             </items>
         </ToolBar>
         <Pane fx:id="projectSpace" prefHeight="736.0" prefWidth="1600.0"/>
