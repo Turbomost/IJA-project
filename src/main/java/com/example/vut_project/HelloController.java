@@ -129,7 +129,8 @@ public class HelloController {
             String lowercaseName = path.toLowerCase();
             if (lowercaseName.endsWith(".xml")) {
                 parse.input_file_from_button(path);
-                classDiagramController = parse.start_parse();
+                classDiagramController = parse.start_parse(this);
+                parse.load_constraints(this);
                 this.displayLoadedClassDiagramEntity(classDiagramController);
             } else {
                 AlertBox alert = new AlertBox();
@@ -312,7 +313,9 @@ public class HelloController {
     }
 
     public void SetConstraintFrom(String constraint_from) {
+        System.out.println("CLASS TO FIND " + constraint_from);
         this.constraint_from = classDiagramController.findClass(constraint_from);
+        System.out.println(this.constraint_from);
         System.out.println("From: " + this.constraint_from.getName());
     }
 

@@ -34,4 +34,19 @@
         <arg type="position_y">100</arg>
     </element>
 
+    <element type="constraint" name="name">
+      <arg type="constraint_from">Andyho_oktavka</arg>
+      <arg type="constraint_to">Vaskovo_faro</arg>
+    </element>
+
+    <element type="constraint" name="name">
+      <arg type="constraint_from">Andyho_oktavka</arg>
+      <arg type="constraint_to">Kikova_Sedma</arg>
+    </element>
+
+    <element type="constraint" name="name">
+      <arg type="constraint_from">Kikova_Sedma</arg>
+      <arg type="constraint_to">Vaskovo_faro</arg>
+    </element>
+
 </program>
