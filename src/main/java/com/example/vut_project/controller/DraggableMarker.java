@@ -32,6 +32,7 @@ public class DraggableMarker {
             node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 60);
             draggable_class.setPosition_x(node.getLayoutX());
             draggable_class.setPosition_y(node.getLayoutY());
+            draggable_class.update_constraint();
         });
     }
 }

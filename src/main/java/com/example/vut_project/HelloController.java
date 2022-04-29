@@ -321,10 +321,11 @@ public class HelloController {
         if (this.constraint_from != null) {
             this.constraint_to = classDiagramController.findClass(constraint_to);
             System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
-            Line line = this.constraint_from.create_line(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y());
-            this.constraint_from.addConstraint(line);
-            this.constraint_to.addConstraint(line);
-            projectSpace.getChildren().add(line);
+            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to);
+            boundLine.create_line();
+            this.constraint_from.addConstraint(boundLine);
+            this.constraint_to.addConstraint(boundLine);
+            projectSpace.getChildren().add(boundLine);
         }
     }
 }
