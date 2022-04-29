@@ -67,6 +67,7 @@ public class EntityController extends VBox {
         fxmlLoader.load();
         ClassController new_class = diagram.createClass(new_name);
         classNameTextField.setText(new_class.getName());
+        old_class_name = classNameTextField.getText();
         entityAttributeView.setEditable(true);
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
         this.referece = reference;
@@ -84,6 +85,7 @@ public class EntityController extends VBox {
         fxmlLoader.setController(this);
         fxmlLoader.load();
         classNameTextField.setText(class_name.getName());
+        old_class_name = classNameTextField.getText();
         for (AttributeController attribute : class_name.getAttributes()) {
             observableListOfAttributes.add(attribute.getName());
         }
@@ -119,10 +121,12 @@ public class EntityController extends VBox {
 
     public void onDeleteAttributeClick(ActionEvent event) {
         int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();  // get cell index
-        String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
-        System.out.println(clicked); // gets text from deleted cell
-        entityAttributeView.getItems().remove(clickedFXID); // remove cell from list viewW
-        referece.DeleteAttribute(this.classNameTextField.getText(), clicked);
+        if (clickedFXID != -1) {
+            String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
+            System.out.println(clicked); // gets text from deleted cell
+            entityAttributeView.getItems().remove(clickedFXID); // remove cell from list viewW
+            referece.DeleteAttribute(this.classNameTextField.getText(), clicked);
+        }
 
     }
 
@@ -131,9 +135,16 @@ public class EntityController extends VBox {
         String new_attribute_name;
         if (event.getCode() != KeyCode.ENTER) {
             AttrClickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();
+            if (AttrClickedFXID == -1) {
+                return;
+            }
             old_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
+
         }
         if (event.getCode() == KeyCode.ENTER) {
+            if (AttrClickedFXID == -1) {
+                return;
+            }
             new_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
             System.out.println("CHANGING");
             System.out.println("OLD NAME: " + old_attribute_name);
@@ -145,19 +156,27 @@ public class EntityController extends VBox {
 
     @FXML
     public void onClassDiagramNameEnter(ActionEvent event) {
-        referece.RenameClass(this.old_class_name, classNameTextField.getText());
-        old_class_name = classNameTextField.getText();
+
+        System.out.println(this.old_class_name);
+        if (referece.RenameClass(this.old_class_name, this.classNameTextField.getText())) {
+            this.old_class_name = classNameTextField.getText();
+        }
+        else{
+            this.classNameTextField.setText(this.old_class_name);
+        }
     }
 
     @FXML
     public void onClassDiagramNameClick(Event event) {
         this.old_class_name = classNameTextField.getText();
     }
+
     @FXML
-    public void onAddConstraintClick(Event event){
+    public void onAddConstraintClick(Event event) {
         referece.SetConstraintFrom(classNameTextField.getText());
     }
-    public void onPasteConstraintClick(Event event){
+
+    public void onPasteConstraintClick(Event event) {
         referece.SetConstraintTo(classNameTextField.getText());
     }
 }

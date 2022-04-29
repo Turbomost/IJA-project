@@ -254,10 +254,14 @@ public class HelloController {
      */
     @FXML
     public void onDeleteDiagramClick(ActionEvent event) {
+        ClassController deleting_class = classDiagramController.findClass(identifier_name);
         System.out.println("Before deleting: " + classDiagramController.getClassList().toString());
-        classDiagramController.deleteClass(classDiagramController.findClass(identifier_name));
+        classDiagramController.deleteClass(deleting_class);
         System.out.println("After deleting: " + classDiagramController.getClassList().toString());
         projectSpace.getChildren().remove(identifier);
+        if (this.constraint_from == deleting_class) {
+            this.constraint_from = null;
+        }
     }
 
     // sets the actual selected class diagram
@@ -268,9 +272,15 @@ public class HelloController {
 
     public void DeleteAttribute(String class_name, String attribute_name) {
         ClassController curClass = this.classDiagramController.findClass(class_name);
-        System.out.println("Before: " + curClass.getAttributesList().toString());
-        curClass.removeAttribute(curClass.findAttributeByName(attribute_name));
-        System.out.println("After: " + curClass.getAttributesList().toString());
+        AttributeController attribute_deleting;
+        if (curClass != null) {
+            attribute_deleting = curClass.findAttributeByName(attribute_name);
+            if (attribute_deleting != null) {
+                System.out.println("Before: " + curClass.getAttributesList().toString());
+                curClass.removeAttribute(curClass.findAttributeByName(attribute_name));
+                System.out.println("After: " + curClass.getAttributesList().toString());
+            }
+        }
     }
 
 
@@ -282,27 +292,34 @@ public class HelloController {
         System.out.println("After: " + curClass.getAttributesList().toString());
     }
 
-    public void RenameClass(String old_name, String new_name) {
+    public boolean RenameClass(String old_name, String new_name){
         ClassController curClass = this.classDiagramController.findClass(old_name);
+        if (curClass == null){
+            return false;
+        }
         System.out.println("Before: Classes" + classDiagramController.getClassList().toString());
         curClass.rename(new_name);
         System.out.println("After: Classes" + classDiagramController.getClassList().toString());
         identifier_name = new_name;
+        return true;
     }
 
-    public void SetConstraintFrom(String constraint_from){
+    public void SetConstraintFrom(String constraint_from) {
         this.constraint_from = classDiagramController.findClass(constraint_from);
         System.out.println("From: " + this.constraint_from.getName());
     }
-    public void SetConstraintTo(String constraint_to){
-        this.constraint_to = classDiagramController.findClass(constraint_to);
-        System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
-        Line line = new Line();
-        line.setStartX(this.constraint_from.getPosition_x());
-        line.setStartY(this.constraint_from.getPosition_y());
-        line.setEndX(this.constraint_to.getPosition_x());
-        line.setEndY(this.constraint_to.getPosition_y());
-        line.setVisible(true);
-        projectSpace.getChildren().add(line);
+
+    public void SetConstraintTo(String constraint_to) {
+        if (this.constraint_from != null) {
+            this.constraint_to = classDiagramController.findClass(constraint_to);
+            System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
+            Line line = new Line();
+            line.setStartX(this.constraint_from.getPosition_x());
+            line.setStartY(this.constraint_from.getPosition_y());
+            line.setEndX(this.constraint_to.getPosition_x());
+            line.setEndY(this.constraint_to.getPosition_y());
+            line.setVisible(true);
+            projectSpace.getChildren().add(line);
+        }
     }
 }

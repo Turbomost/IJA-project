@@ -38,7 +38,7 @@ public class ClassDiagramController extends ElementController {
             return null;
         }
         this.classList.add(newClass);
-        System.out.println("Created! : " + this.return_list().toString());
+        System.out.println("Created! : " + this.getClassList().toString());
         return newClass;
     }
 
