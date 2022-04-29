@@ -328,6 +328,8 @@ public class HelloController {
             this.constraint_from.addConstraint(boundLine);
             this.constraint_to.addConstraint(boundLine);
             boundLine.setSelfReference(boundLine);
+            boundLine.toBack();
+            boundLine.setViewOrder(1.0);
             projectSpace.getChildren().add(boundLine);
         }
     }

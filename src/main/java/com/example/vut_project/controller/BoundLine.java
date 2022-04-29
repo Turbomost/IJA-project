@@ -45,10 +45,10 @@ public class BoundLine extends Line {
     }
 
     public void create_line() {
-        setStartX(this.fromX.getValue());
-        setStartY(this.fromY.getValue());
-        setEndX(this.toX.getValue());
-        setEndY(this.toY.getValue());
+        setStartX(this.fromX.getValue()+100);
+        setStartY(this.fromY.getValue()+150);
+        setEndX(this.toX.getValue()+100);
+        setEndY(this.toY.getValue()+150);
     }
 
     public void update_position(double fromX, double fromY, double toX, double toY) {
@@ -59,13 +59,13 @@ public class BoundLine extends Line {
     }
 
     public void update_position_from(double fromX, double fromY) {
-        setStartX(fromX);
-        setStartY(fromY);
+        setStartX(fromX+100);
+        setStartY(fromY+150);
     }
 
     public void update_position_to(double toX, double toY) {
-        setEndX(toX);
-        setEndY(toY);
+        setEndX(toX+100);
+        setEndY(toY+150);
     }
     public void onMouseClicked(MouseEvent event){
         System.out.println("Clicked");

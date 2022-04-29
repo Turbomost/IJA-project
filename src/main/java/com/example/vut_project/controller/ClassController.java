@@ -6,8 +6,6 @@
 
 package com.example.vut_project.controller;
 
-import javafx.scene.shape.Line;
-
 import java.util.ArrayList;
 
 /**
@@ -195,7 +193,11 @@ public class ClassController extends ElementController {
             ConstraintList.remove(line);
     }
     public ArrayList getConstraintList(){
-        return this.ConstraintList;
+        ArrayList<String> nameList = new ArrayList<>();
+        for (BoundLine con : this.ConstraintList) {
+            nameList.add(con.toString());
+        }
+        return nameList;
     }
 
     public void update_constraint(){
