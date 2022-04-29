@@ -6,6 +6,8 @@
 
 package com.example.vut_project.controller;
 
+import javafx.scene.shape.Line;
+
 import java.util.ArrayList;
 
 /**
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class ClassController extends ElementController {
 
     private final ArrayList<AttributeController> AttributeList;
+    private ArrayList<Line> ConstraintList;
     private boolean isAbstract = false;
 
     private double layout_x = 10;
@@ -28,6 +31,7 @@ public class ClassController extends ElementController {
     public ClassController(String name) {
         super(name);
         AttributeList = new ArrayList<>();
+        ConstraintList = new ArrayList<>();
     }
 
     /**
@@ -183,5 +187,17 @@ public class ClassController extends ElementController {
         }
         return nameList;
     }
+    public void addConstraint(Line line){
+        ConstraintList.add(line);
+        System.out.println(ConstraintList.toString());
+    }
 
+    public Line create_line(double start_x, double start_y, double end_x, double end_y){
+        Line line = new Line();
+        line.setStartX(start_x);
+        line.setStartY(start_y);
+        line.setEndX(end_x);
+        line.setEndY(end_y);
+        return line;
+    }
 }

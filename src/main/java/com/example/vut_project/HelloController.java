@@ -7,6 +7,8 @@
 package com.example.vut_project;
 
 import com.example.vut_project.controller.*;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,6 +75,9 @@ public class HelloController {
     private TextField classNameTextField;
     private int attributeFieldCounter = 0;
 
+    int position = 0;
+    public Center startCenter;
+    public Center endCenter;
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -177,10 +182,13 @@ public class HelloController {
      */
     @FXML
     public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
-        String new_name = "class " + i++;
+        String new_name = "class " + i;
         EntityController new_entity = new EntityController(new_name, classDiagramController, this);
         projectSpace.getChildren().add(new_entity);
         draggableMaker.makeDraggable(new_entity, classDiagramController.findClass(new_name));
+        position = (i++) % 20;
+        new_entity.setLayoutX(position * 20);
+        new_entity.setLayoutY(position * 20);
         Entity_Controller_list.add(new_entity);
     }
 
@@ -313,12 +321,9 @@ public class HelloController {
         if (this.constraint_from != null) {
             this.constraint_to = classDiagramController.findClass(constraint_to);
             System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
-            Line line = new Line();
-            line.setStartX(this.constraint_from.getPosition_x());
-            line.setStartY(this.constraint_from.getPosition_y());
-            line.setEndX(this.constraint_to.getPosition_x());
-            line.setEndY(this.constraint_to.getPosition_y());
-            line.setVisible(true);
+            Line line = this.constraint_from.create_line(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y());
+            this.constraint_from.addConstraint(line);
+            this.constraint_to.addConstraint(line);
             projectSpace.getChildren().add(line);
         }
     }
