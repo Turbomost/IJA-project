@@ -7,6 +7,8 @@
 package com.example.vut_project.controller;
 
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
 
 /**
  * Class that makes every object draggable

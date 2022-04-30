@@ -56,6 +56,7 @@ public class HelloController {
 
     private ClassController constraint_from;
     private ClassController constraint_to;
+    private SequenceDiagramController sequenceDiagramController;
 
     @FXML
     //bunch of stages and scenes and panes xD
@@ -164,8 +165,8 @@ public class HelloController {
         sequenceStage.setTitle("Sequence Diagram");
         sequenceStage.setScene(sequenceScene);
         sequenceStage.show();
-        SequenceDiagramController controller = loader.<SequenceDiagramController>getController();
-        controller.parseHelloControllerAsReference(this);
+        SequenceDiagramController sequenceDiagramController = loader.<SequenceDiagramController>getController();
+        sequenceDiagramController.parseHelloControllerAsReference(this);
     }
 
     /**
