@@ -7,12 +7,9 @@
 package com.example.vut_project;
 
 import com.example.vut_project.controller.*;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -23,9 +20,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
@@ -81,6 +78,8 @@ public class HelloController {
     int position = 0;
     public Center startCenter;
     public Center endCenter;
+    private Window nodeForStage;
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -156,9 +155,8 @@ public class HelloController {
     }
 
     @FXML
-    protected void onSequenceDiagramClick() throws IOException { // space for sequence diagram
+    protected void onSequenceDiagramClick(ActionEvent event) throws IOException { // space for sequence diagram
         System.out.println("Sequence diagram");
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence_editor.fxml"));
         sequenceSpace = (Pane) loader.load();
         sequenceScene = new Scene(sequenceSpace);
@@ -168,18 +166,6 @@ public class HelloController {
         sequenceStage.show();
         SequenceDiagramController controller = loader.<SequenceDiagramController>getController();
         controller.parseHelloControllerAsReference(this);
-
-
-
-
-        /*sequenceStage = new Stage();
-        sequenceSpace = FXMLLoader.load(getClass().getResource("sequence_editor.fxml"));
-        sequenceScene = new Scene(sequenceSpace);
-        sequenceStage.setTitle("Sequence Diagram");
-        sequenceStage.setScene(sequenceScene);
-        sequenceStage.show();
-        SequenceDiagramController controller = loader.<SequenceDiagramController>getController();
-        */
     }
 
     /**
@@ -190,7 +176,7 @@ public class HelloController {
      */
     @FXML
     public void onMiddleButtonClick(ActionEvent event) throws IOException { //stage in same window
-        Parent root = null;
+        root = null;
         projectSpace = new Pane();
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("new_project_view.fxml")));
@@ -198,6 +184,7 @@ public class HelloController {
             e.printStackTrace();
         }
         scene = new Scene(projectSpace, 600, 400);
+        nodeForStage = ((Node) event.getSource()).getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         assert root != null;
         scene = new Scene(root);

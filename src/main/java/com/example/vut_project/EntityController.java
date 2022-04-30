@@ -47,6 +47,7 @@ public class EntityController extends VBox {
 
     @FXML
     private VBox classVBox;
+    private VBox sequenceVBox;
 
     private HelloController referece;
 
@@ -190,4 +191,17 @@ public class EntityController extends VBox {
         referece.set_identifier(classNameTextField.getText(), this.identifier);
         referece.DeleteDiagram(event);
     }
+
+    /* *********************************     SEQUENCE DIAGRAM PART      ***************************************** */
+    public EntityController(SequenceDiagramController reference) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/sequence_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        fxmlLoader.load();
+    }
+
+    public void onSequenceClicked(MouseEvent event){
+        System.out.println("CLICKED ON SEQUENCE DIAGRAM");
+    }
+
 }

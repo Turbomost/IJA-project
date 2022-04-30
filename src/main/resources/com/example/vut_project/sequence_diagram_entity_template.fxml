@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root fx:id="sequenceVBox" onMouseClicked="#onSequenceClicked" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+   <children>
+      <TextField alignment="CENTER" prefHeight="16.0" prefWidth="148.0" promptText="Class Name" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </TextField>
+   </children>
+</fx:root>

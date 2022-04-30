@@ -33,6 +33,6 @@
             <Button mnemonicParsing="false" onAction="#onNewLifeLineButtonClick" text="New Life Line" />
             </items>
         </ToolBar>
-        <Pane fx:id="projectSpace" prefHeight="736.0" prefWidth="1600.0" />
+        <Pane fx:id="sequenceSpace" prefHeight="736.0" prefWidth="1600.0" />
     </children>
 </VBox>
