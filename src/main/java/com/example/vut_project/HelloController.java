@@ -43,8 +43,10 @@ public class HelloController {
     public List<Node> Class_Diagram_Element_Shape_List = new ArrayList<Node>(); //list of all nodes (aka. class diagram shapes) created in workspace by Add Element button
     public List<EntityController> Entity_Controller_list = new ArrayList<EntityController>();
     public Scene scene;
+    public Scene sequenceScene;
     public Pane pane;
     public Pane projectSpace;
+    public Pane sequenceSpace;
     public StackPane Stackpane;
     public AnchorPane newrectangle;
 
@@ -61,6 +63,7 @@ public class HelloController {
     @FXML
     //bunch of stages and scenes and panes xD
     private Stage stage;
+    private Stage sequenceStage;
     private Parent root;
     //buttons
     @FXML
@@ -70,6 +73,7 @@ public class HelloController {
     private Label AddDiagramButton;
     @FXML
     private Label welcomeText;
+    private VBox sequenceDiagramEditor;
     @FXML
     private TextField classNameTextField;
     private int attributeFieldCounter = 0;
@@ -147,7 +151,35 @@ public class HelloController {
      */
     @FXML
     protected void onNewProjectButtonClick() throws Exception { //stage in new window
+        System.out.println("Stage in new window");
         this.displayNewProjectScene();
+    }
+
+    @FXML
+    protected void onSequenceDiagramClick() throws IOException { // space for sequence diagram
+        System.out.println("Sequence diagram");
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence_editor.fxml"));
+        sequenceSpace = (Pane) loader.load();
+        sequenceScene = new Scene(sequenceSpace);
+        sequenceStage = new Stage();
+        sequenceStage.setTitle("Sequence Diagram");
+        sequenceStage.setScene(sequenceScene);
+        sequenceStage.show();
+        SequenceDiagramController controller = loader.<SequenceDiagramController>getController();
+        controller.parseHelloControllerAsReference(this);
+
+
+
+
+        /*sequenceStage = new Stage();
+        sequenceSpace = FXMLLoader.load(getClass().getResource("sequence_editor.fxml"));
+        sequenceScene = new Scene(sequenceSpace);
+        sequenceStage.setTitle("Sequence Diagram");
+        sequenceStage.setScene(sequenceScene);
+        sequenceStage.show();
+        SequenceDiagramController controller = loader.<SequenceDiagramController>getController();
+        */
     }
 
     /**
@@ -328,6 +360,7 @@ public class HelloController {
             this.constraint_from.addConstraint(boundLine);
             this.constraint_to.addConstraint(boundLine);
             boundLine.setSelfReference(boundLine);
+            boundLine.setStrokeWidth(3.0);
             boundLine.toBack();
             boundLine.setViewOrder(1.0);
             projectSpace.getChildren().add(boundLine);
