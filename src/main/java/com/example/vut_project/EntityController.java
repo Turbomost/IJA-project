@@ -50,6 +50,7 @@ public class EntityController extends VBox {
     private VBox sequenceVBox;
 
     private HelloController referece;
+    private SequenceDiagramController sequenceControllerReference;
 
     private String old_class_name;
     private String old_attribute_name;
@@ -193,15 +194,37 @@ public class EntityController extends VBox {
     }
 
     /* *********************************     SEQUENCE DIAGRAM PART      ***************************************** */
-    public EntityController(SequenceDiagramController reference) throws IOException {
+    public EntityController(SequenceDiagramController sequenceReference) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/sequence_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
+        this.sequenceControllerReference = sequenceReference;
     }
 
+    @FXML
     public void onSequenceClicked(MouseEvent event){
         System.out.println("CLICKED ON SEQUENCE DIAGRAM");
     }
+
+    @FXML
+    public void onSequenceDiagramNameClick(MouseEvent event){
+        System.out.println("Sequence Diagram name Click");
+        // TODO get old sequence diagram name
+    }
+
+    @FXML
+    public void onSequenceDiagramNameEntered(Event event){
+        System.out.println("Sequence diagram name changed");
+        //TODO get new sequence diagram name
+    }
+
+    @FXML
+    public void onDeleteSequenceDiagramContextMenuClick(Event event){
+        System.out.println("On delete sequence diagram context menu button click");
+        System.out.println(sequenceControllerReference);
+        sequenceControllerReference.sequenceSpace.getChildren().remove(this);
+    }
+
 
 }

@@ -56,7 +56,7 @@ public class HelloController {
 
     private ClassController constraint_from;
     private ClassController constraint_to;
-    private SequenceDiagramController sequenceDiagramController;
+    public SequenceDiagramController sequenceDiagramController;
 
     @FXML
     //bunch of stages and scenes and panes xD
