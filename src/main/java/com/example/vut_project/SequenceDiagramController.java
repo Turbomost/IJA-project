@@ -64,5 +64,6 @@ public class SequenceDiagramController {
 
     public void onFileOpenButtonClick(ActionEvent event) {
         System.out.println("Open sequence from file click");
+        System.out.println(classDiagramReference.classDiagramController.getClassList().toString());
     }
 }

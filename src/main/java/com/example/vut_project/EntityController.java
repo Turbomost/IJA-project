@@ -137,18 +137,28 @@ public class EntityController extends VBox {
     }
 
     @FXML
-    public void onEnterClick(KeyEvent event) {
+    public void onSingleAttributeClick(MouseEvent event){
+        System.out.println("Getting clicked attribute name");
+        System.out.println("Attribute List " + entityAttributeView.getItems());;
+        int ClickedAttributeIndex = entityAttributeView.getSelectionModel().getSelectedIndex();
+        if (ClickedAttributeIndex == -1){
+            return;
+        }
+        System.out.println("Clicked on " + (String) entityAttributeView.getItems().get(ClickedAttributeIndex));
+        old_attribute_name = (String) entityAttributeView.getItems().get(ClickedAttributeIndex);
+    }
+
+    @FXML
+    public void onEnterClick(KeyEvent event) {  // attribute click
         String new_attribute_name;
         if (event.getCode() != KeyCode.ENTER) {
             AttrClickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();
             if (AttrClickedFXID == -1) {
                 return;
             }
-            old_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
-
         }
         if (event.getCode() == KeyCode.ENTER) {
-            if (AttrClickedFXID == -1) {
+           if (AttrClickedFXID == -1) {
                 return;
             }
             new_attribute_name = (String) entityAttributeView.getItems().get(AttrClickedFXID);
@@ -187,13 +197,16 @@ public class EntityController extends VBox {
     }
     @FXML
     public void onDeleteDiagramClick(ActionEvent event){
-        System.out.println("MAMKA");
+        System.out.println("Delete Diagram Context Menu Click");
         this.identifier = classVBox;
         referece.set_identifier(classNameTextField.getText(), this.identifier);
         referece.DeleteDiagram(event);
     }
 
     /* *********************************     SEQUENCE DIAGRAM PART      ***************************************** */
+
+
+
     public EntityController(SequenceDiagramController sequenceReference) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/sequence_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);

@@ -58,6 +58,8 @@ public class ClassController extends ElementController {
      */
     public boolean addAttribute(AttributeController attr) {
         if (this.AttributeList.contains(attr)) {
+            System.out.println("Attribute in class is duplicate");
+            AlertBox.display("Note", "Attribute in class is duplicate");
             return false;
         }
         this.AttributeList.add(attr);
