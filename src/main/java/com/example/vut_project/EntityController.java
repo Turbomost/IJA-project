@@ -50,7 +50,7 @@ public class EntityController extends VBox {
 
     @FXML
     private VBox classVBox;
-    private VBox sequenceVBox;
+    public VBox sequenceVBox;
 
     private HelloController referece;
     private SequenceDiagramController sequenceControllerReference;

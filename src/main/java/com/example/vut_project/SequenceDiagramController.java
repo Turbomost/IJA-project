@@ -21,6 +21,7 @@ public class SequenceDiagramController {
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
     public ArrayList<EntityController> EntityList;
+    EntityController new_entity;
     private int i = 0;
 
     public void parseHelloControllerAsReference(HelloController reference) {
@@ -38,7 +39,7 @@ public class SequenceDiagramController {
         if (chosen == null){
             return;
         }
-        EntityController new_entity = new EntityController(this);
+        new_entity = new EntityController(this);
         new_entity.setLayoutX(20+100*i++);
         new_entity.setLayoutY(20);
         draggableMaker.makeDraggableOnXAxis(new_entity);
@@ -53,13 +54,14 @@ public class SequenceDiagramController {
         System.out.println("New life line click");
         Line life_line = new Line();
         life_line.setStrokeWidth(10.0);
-        life_line.setStartY(10);
-        life_line.setStartX(10);
-        life_line.setEndX(10);
-        life_line.setEndY(50);
+        life_line.setStartY(new_entity.getLayoutY() + new_entity.sequenceVBox.getPrefHeight() + life_line.getStrokeWidth()/2);
+        life_line.setStartX(new_entity.getLayoutX() + new_entity.sequenceVBox.getPrefWidth()/2);
+        life_line.setEndX(new_entity.getLayoutX() + new_entity.sequenceVBox.getPrefWidth()/2);
+        life_line.setEndY(new_entity.getLayoutY() + 50 + new_entity.sequenceVBox.getPrefHeight());
         life_line.setFill(Color.GRAY);
         life_line.setStroke(Color.BLACK);
         life_line.resize(80, 200);
+        System.out.println("New Line created " + life_line);
 
         AnchorPane p = new AnchorPane();
         p.getChildren().add(life_line);
