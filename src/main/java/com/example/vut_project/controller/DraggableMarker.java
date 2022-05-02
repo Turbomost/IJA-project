@@ -55,7 +55,8 @@ public class DraggableMarker {
 
         node.setOnMouseDragged(mouseEvent -> {
             node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            entity.getLifeLineList().get(0).getLifeLine().setLayoutX(mouseEvent.getSceneX() - mouseAnchorX - entity.getLifeLineList().get(0).getLifeLine().getStrokeWidth()*2);
+            for (int i = 0; i < entity.getLifeLineList().size(); i++)
+                entity.getLifeLineList().get(i).getLifeLine().setLayoutX(mouseEvent.getSceneX() - mouseAnchorX - entity.getLifeLineList().get(i).getLifeLine().getStrokeWidth()*2);
         });
     }
 }
