@@ -22,10 +22,6 @@ public class DragResizer {
 
     private static final int RESIZE_MARGIN = 5;
 
-    private Region region;
-
-    private Line line;
-
     private double y;
 
     private boolean initMinHeight;
@@ -39,8 +35,7 @@ public class DragResizer {
     }*/
 
     public void makeResizable(Region region, Line line) {
-        this.line = line;
-        this.region = region;
+
         //DraggableMarker d = new DraggableMarker();
         //d.makeDraggable(this.region, line);
         //final DragResizer resizer = new DragResizer(region);
@@ -49,46 +44,46 @@ public class DragResizer {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Line resize start " + line);
-                mousePressed(event);
+                mousePressed(event, region);
             }});
         region.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                mouseDragged(event);
+                mouseDragged(event, region, line);
             }});
         region.setOnMouseMoved(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                mouseOver(event);
+                mouseOver(event, region);
             }});
         region.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                mouseReleased(event);
+                mouseReleased(event, region);
             }});
     }
 
-    protected void mouseReleased(MouseEvent event) {
+    protected void mouseReleased(MouseEvent event, Region region) {
         dragging = false;
         region.setCursor(Cursor.DEFAULT);
     }
 
-    protected void mouseOver(MouseEvent event) {
-        if(isInDraggableZone(event) || dragging) {
+    protected void mouseOver(MouseEvent event, Region region) {
+        if(isInDraggableZone(event, region) || dragging) {
             region.setCursor(Cursor.S_RESIZE);
         }
         else {
-            region.setCursor(Cursor.DEFAULT);
+            region.setCursor(Cursor.MOVE);
         }
     }
 
-    protected boolean isInDraggableZone(MouseEvent event) {
+    protected boolean isInDraggableZone(MouseEvent event, Region region) {
         return event.getY() > (region.getHeight() - RESIZE_MARGIN);
     }
 
-    protected void mouseDragged(MouseEvent event) {
+    protected void mouseDragged(MouseEvent event, Region region, Line line) {
         if(!dragging) {
-            if (!isInDraggableZone(event)) {
+            if (!isInDraggableZone(event, region)) {
                 System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
                 double length = line.getEndY() - line.getStartY();
                 System.out.println(length);
@@ -115,7 +110,7 @@ public class DragResizer {
         System.out.println("Line resize end " + line);
     }
 
-    protected void mousePressed(MouseEvent event) {
-        dragging = isInDraggableZone(event);
+    protected void mousePressed(MouseEvent event, Region region) {
+        dragging = isInDraggableZone(event, region);
     }
 }

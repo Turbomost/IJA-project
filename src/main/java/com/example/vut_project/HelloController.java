@@ -321,8 +321,8 @@ public class HelloController {
 
     public boolean RenameClass(String old_name, String new_name){
         ClassController curClass = this.classDiagramController.findClass(old_name);
-        for (String c : classDiagramController.getClassList()){
-            if(c.equals(new_name)){
+        for (String old_class : classDiagramController.getClassList()){
+            if(old_class.equals(new_name)){
                 return false;
             }
         }
