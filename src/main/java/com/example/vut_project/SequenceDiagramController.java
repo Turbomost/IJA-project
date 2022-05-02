@@ -39,7 +39,9 @@ public class SequenceDiagramController {
         new_entity.setLayoutY(20);
         draggableMaker.makeDraggableOnXAxis(new_entity);
         sequenceSpace.getChildren().add(new_entity);
+        new_entity.setSequenceNameTextField(chosen);
         onNewLifeLineButtonClick(event);
+
     }
 
     public void onNewLifeLineButtonClick(ActionEvent event) {

@@ -8,7 +8,7 @@
 
 <fx:root fx:id="sequenceVBox" onMouseClicked="#onSequenceClicked" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField alignment="CENTER" onKeyReleased="#onSequenceDiagramNameEntered" onMouseClicked="#onSequenceDiagramNameClick" prefHeight="16.0" prefWidth="148.0" promptText="Class Name" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+      <TextField fx:id="sequenceDiagramNameTextField" alignment="CENTER" onKeyReleased="#onSequenceDiagramNameEntered" onMouseClicked="#onSequenceDiagramNameClick" prefHeight="16.0" prefWidth="148.0" promptText="Class Name" style="-fx-background-color: transparent; -fx-border-color: transparent;">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
