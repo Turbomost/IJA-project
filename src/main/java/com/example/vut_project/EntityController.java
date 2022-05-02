@@ -274,4 +274,9 @@ public class EntityController extends VBox {
     public ArrayList<LifeLine> getLifeLineList(){
         return this.LifeLineList;
     }
+
+    public void onAddLifeLineContextMenuClick(ActionEvent event){
+        System.out.println("On add life line click");
+        sequenceControllerReference.createLifeLineBindToEntity(event);
+    }
 }

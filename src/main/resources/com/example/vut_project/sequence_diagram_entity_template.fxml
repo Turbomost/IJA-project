@@ -16,6 +16,7 @@
             <ContextMenu>
               <items>
                 <MenuItem fx:id="DeleteSequenceDiagram" onAction="#onDeleteSequenceDiagramContextMenuClick" mnemonicParsing="false" text="Delete Diagram" />
+                <MenuItem fx:id="AddLifeLine" onAction="#onAddLifeLineContextMenuClick" mnemonicParsing="false" text="Add Life Line" />
               </items>
             </ContextMenu>
          </contextMenu>
