@@ -57,8 +57,8 @@ public class ClassController extends ElementController {
      * @return false if this attribute is already in class, otherwise true
      */
     public boolean addAttribute(AttributeController attr) {
-        for (AttributeController attribute : AttributeList){
-            if (attribute.getName().equals(attr.getName())){
+        for (AttributeController attribute : AttributeList) {
+            if (attribute.getName().equals(attr.getName())) {
                 System.out.println("Attribute in class is duplicate");
                 AlertBox.display("Note", "Attribute in class is duplicate", "Understood");
                 return false;
@@ -189,14 +189,17 @@ public class ClassController extends ElementController {
         }
         return nameList;
     }
-    public void addConstraint(BoundLine line){
+
+    public void addConstraint(BoundLine line) {
         ConstraintList.add(line);
         System.out.println(ConstraintList.toString());
     }
-    public void removeConstraint(BoundLine line){
-            ConstraintList.remove(line);
+
+    public void removeConstraint(BoundLine line) {
+        ConstraintList.remove(line);
     }
-    public ArrayList getConstraintList(){
+
+    public ArrayList getConstraintList() {
         ArrayList<String> nameList = new ArrayList<>();
         for (BoundLine con : this.ConstraintList) {
             nameList.add(con.toString());
@@ -204,14 +207,19 @@ public class ClassController extends ElementController {
         return nameList;
     }
 
-    public void update_constraint(){
-        for (BoundLine line : ConstraintList){
-            if (line.from.equals(this)){
+    public void update_constraint() {
+        for (BoundLine line : ConstraintList) {
+            if (line.from.equals(this)) {
                 line.update_position_from(this.getPosition_x(), this.getPosition_y());
-            }
-            else{
+            } else {
                 line.update_position_to(this.getPosition_x(), this.getPosition_y());
             }
+        }
+    }
+
+    public void delete_constraints() {
+        while (ConstraintList.size() != 0) {
+            ConstraintList.get(0).onDeleteConstraintClick(null);
         }
     }
 }

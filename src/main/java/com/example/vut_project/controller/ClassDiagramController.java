@@ -51,6 +51,7 @@ public class ClassDiagramController extends ElementController {
      */
     public boolean deleteClass(ClassController name) {
         if (this.classList.contains(name)) {
+            name.delete_constraints();
             this.classList.remove(name);
             return true;
         }

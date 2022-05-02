@@ -3,8 +3,6 @@ package com.example.vut_project.controller;
 import com.example.vut_project.HelloController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -45,10 +43,10 @@ public class BoundLine extends Line {
     }
 
     public void create_line() {
-        setStartX(this.fromX.getValue()+100);
-        setStartY(this.fromY.getValue()+150);
-        setEndX(this.toX.getValue()+100);
-        setEndY(this.toY.getValue()+150);
+        setStartX(this.fromX.getValue() + 100);
+        setStartY(this.fromY.getValue() + 150);
+        setEndX(this.toX.getValue() + 100);
+        setEndY(this.toY.getValue() + 150);
     }
 
     public void update_position(double fromX, double fromY, double toX, double toY) {
@@ -59,15 +57,16 @@ public class BoundLine extends Line {
     }
 
     public void update_position_from(double fromX, double fromY) {
-        setStartX(fromX+100);
-        setStartY(fromY+150);
+        setStartX(fromX + 100);
+        setStartY(fromY + 150);
     }
 
     public void update_position_to(double toX, double toY) {
-        setEndX(toX+100);
-        setEndY(toY+150);
+        setEndX(toX + 100);
+        setEndY(toY + 150);
     }
-    public void onMouseClicked(MouseEvent event){
+
+    public void onMouseClicked(MouseEvent event) {
         System.out.println("Clicked");
         ContextMenu menu = new ContextMenu();
         MenuItem item = new MenuItem("Delete Constraint");
@@ -75,7 +74,8 @@ public class BoundLine extends Line {
         item.setOnAction(e -> onDeleteConstraintClick(event));
         menu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
     }
-    public void onDeleteConstraintClick(MouseEvent event){
+
+    public void onDeleteConstraintClick(MouseEvent event) {
         System.out.println("BEFORE CONSTRAINT DELETING FROM" + this.from.getConstraintList());
         System.out.println("BEFORE CONSTRAINT DELETING TO" + this.to.getConstraintList());
         this.from.removeConstraint(self);
@@ -85,7 +85,8 @@ public class BoundLine extends Line {
         System.out.println("AFTER CONSTRAINT DELETING TO " + this.to.getName() + this.to.getConstraintList());
         this.reference.DeleteConstraint(this.self, this.from, this.to);
     }
-    public void setSelfReference(BoundLine self){
+
+    public void setSelfReference(BoundLine self) {
         this.self = self;
     }
 }
