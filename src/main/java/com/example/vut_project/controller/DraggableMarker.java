@@ -6,6 +6,7 @@
 
 package com.example.vut_project.controller;
 
+import com.example.vut_project.EntityController;
 import javafx.scene.Node;
 
 /**
@@ -47,13 +48,14 @@ public class DraggableMarker {
             node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 60);
         });
     }
-    public void makeDraggableOnXAxis(Node node) {
+    public void makeDraggableOnXAxis(Node node, EntityController entity) {
         node.setOnMousePressed(mouseEvent -> {
             mouseAnchorX = mouseEvent.getX();
         });
 
         node.setOnMouseDragged(mouseEvent -> {
             node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
+            entity.getLifeLineList().get(0).getLifeLine().setLayoutX(mouseEvent.getSceneX() - mouseAnchorX - entity.getLifeLineList().get(0).getLifeLine().getStrokeWidth()*2);
         });
     }
 }

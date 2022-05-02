@@ -270,4 +270,8 @@ public class EntityController extends VBox {
             this.deleteLifeLine(LifeLineList.get(0));
         }
     }
+
+    public ArrayList<LifeLine> getLifeLineList(){
+        return this.LifeLineList;
+    }
 }

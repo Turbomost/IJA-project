@@ -42,10 +42,10 @@ public class SequenceDiagramController {
         new_entity = new EntityController(this);
         new_entity.setLayoutX(20 + 100 * i++);
         new_entity.setLayoutY(20);
-        draggableMaker.makeDraggableOnXAxis(new_entity);
+        createLifeLineBindToEntity(event);
+        draggableMaker.makeDraggableOnXAxis(new_entity, new_entity);
         sequenceSpace.getChildren().add(new_entity);
         new_entity.setSequenceNameTextField(chosen);
-        createLifeLineBindToEntity(event);
         EntityList.add(new_entity);
 
     }
