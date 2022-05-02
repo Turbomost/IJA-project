@@ -282,11 +282,13 @@ public class HelloController {
     public void DeleteDiagram(ActionEvent event) {
         ClassController deleting_class = classDiagramController.findClass(identifier_name);
         System.out.println("Before deleting: " + classDiagramController.getClassList().toString());
-        classDiagramController.deleteClass(deleting_class);
+        boolean delete = classDiagramController.deleteClass(deleting_class, this.sequenceDiagramController);
         System.out.println("After deleting: " + classDiagramController.getClassList().toString());
-        projectSpace.getChildren().remove(identifier);
-        if (this.constraint_from == deleting_class) {
-            this.constraint_from = null;
+        if (delete) {
+            projectSpace.getChildren().remove(identifier);
+            if (this.constraint_from == deleting_class) {
+                this.constraint_from = null;
+            }
         }
     }
 

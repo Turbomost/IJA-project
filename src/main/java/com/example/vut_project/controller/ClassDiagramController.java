@@ -6,6 +6,9 @@
 
 package com.example.vut_project.controller;
 
+import com.example.vut_project.EntityController;
+import com.example.vut_project.SequenceDiagramController;
+
 import java.util.ArrayList;
 
 /**
@@ -49,8 +52,19 @@ public class ClassDiagramController extends ElementController {
      * @param name of class to be removed
      * @return true if successful, otherwise false
      */
-    public boolean deleteClass(ClassController name) {
+    public boolean deleteClass(ClassController name, SequenceDiagramController sequenceDiagramController) {
         if (this.classList.contains(name)) {
+            EntityController entity = sequenceDiagramController.findEntity(name.getName());
+            if (entity != null) {
+                int choice = YesNoAlertBox.display("Warning", "Do you wanna delete class '" + name.getName() + "' from sequence diagram?", "Yes", "No");
+                if (choice == 1) {
+                    entity.onDeleteSequenceDiagramContextMenuClick(null);
+                }
+                else if (choice == -1){
+                    System.out.println("heeeeere");
+                    return false;
+                }
+            }
             name.delete_constraints();
             this.classList.remove(name);
             return true;
@@ -109,7 +123,7 @@ public class ClassDiagramController extends ElementController {
         return nameList;
     }
 
-    public java.util.List<String> getUniqueClassList(ArrayList<String> elements)  {
+    public java.util.List<String> getUniqueClassList(ArrayList<String> elements) {
         ArrayList<String> nameList = new ArrayList<>();
         for (String attr : getClassList()) {
             if (!elements.contains(attr))
