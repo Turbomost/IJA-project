@@ -1,7 +1,12 @@
 package com.example.vut_project.controller;
 
+import com.example.vut_project.SequenceDiagramController;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -26,7 +31,7 @@ public class DragResizer {
         region = aRegion;
     }*/
 
-    public void makeResizable(Region region, Line line) {
+    public void makeResizable(Region region, Line line, SequenceDiagramController reference) {
 
         //DraggableMarker d = new DraggableMarker();
         //d.makeDraggable(this.region, line);
@@ -36,7 +41,17 @@ public class DragResizer {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Line resize start " + line);
-                mousePressed(event, region);
+                if (event.getButton() == MouseButton.SECONDARY){
+                    System.out.println("Secondary mouse button on Life Line");
+                    ContextMenu menu = new ContextMenu();
+                    MenuItem item = new MenuItem("Delete Life Line");
+                    menu.getItems().add(item);
+                    item.setOnAction(e -> reference.onDeleteLifeLineClick(event));
+                    menu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
+
+                }else{
+                    mousePressed(event, region);
+                }
             }
         });
         region.setOnMouseDragged(new EventHandler<MouseEvent>() {

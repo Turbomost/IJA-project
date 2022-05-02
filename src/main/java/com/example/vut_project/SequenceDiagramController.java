@@ -3,10 +3,12 @@ package com.example.vut_project;
 import com.example.vut_project.controller.DragResizer;
 import com.example.vut_project.controller.DraggableMarker;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
 
@@ -48,7 +50,7 @@ public class SequenceDiagramController {
         AnchorPane p = new AnchorPane();
         p.getChildren().add(life_line);
 
-        resizableMaker.makeResizable(p, life_line);
+        resizableMaker.makeResizable(p, life_line, this);
         //draggableMaker.makeDraggable(p, p, life_line);
 
         sequenceSpace.getChildren().add(p);
@@ -57,5 +59,9 @@ public class SequenceDiagramController {
     public void onFileOpenButtonClick(ActionEvent event) {
         System.out.println("Open sequence from file click");
         System.out.println(classDiagramReference.classDiagramController.getClassList().toString());
+    }
+    public void onDeleteLifeLineClick(Event event){
+        System.out.println("There should be life line deleted");
+        sequenceSpace.getChildren().remove(event.getSource());
     }
 }
