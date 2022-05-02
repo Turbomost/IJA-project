@@ -16,7 +16,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -46,18 +48,17 @@ public class HelloController {
     public Pane sequenceSpace;
     public StackPane Stackpane;
     public AnchorPane newrectangle;
-
+    public SequenceDiagramController sequenceDiagramController;
+    public Center startCenter;
+    public Center endCenter;
     DraggableMarker draggableMaker = new DraggableMarker(); //class, that makes all objects movable
     ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
-
     int i = 0;
+    int position = 0;
     private Object identifier;
     private String identifier_name;
-
     private ClassController constraint_from;
     private ClassController constraint_to;
-    public SequenceDiagramController sequenceDiagramController;
-
     @FXML
     //bunch of stages and scenes and panes xD
     private Stage stage;
@@ -75,10 +76,6 @@ public class HelloController {
     @FXML
     private TextField classNameTextField;
     private int attributeFieldCounter = 0;
-
-    int position = 0;
-    public Center startCenter;
-    public Center endCenter;
     private Window nodeForStage;
 
     @FXML
@@ -319,14 +316,14 @@ public class HelloController {
         System.out.println("After: " + curClass.getAttributesList().toString());
     }
 
-    public boolean RenameClass(String old_name, String new_name){
+    public boolean RenameClass(String old_name, String new_name) {
         ClassController curClass = this.classDiagramController.findClass(old_name);
-        for (String old_class : classDiagramController.getClassList()){
-            if(old_class.equals(new_name)){
+        for (String old_class : classDiagramController.getClassList()) {
+            if (old_class.equals(new_name)) {
                 return false;
             }
         }
-        if (curClass == null){
+        if (curClass == null) {
             return false;
         }
         System.out.println("Before: Classes" + classDiagramController.getClassList().toString());
@@ -359,7 +356,7 @@ public class HelloController {
         }
     }
 
-    public void DeleteConstraint(BoundLine toDelete, ClassController from, ClassController to){
+    public void DeleteConstraint(BoundLine toDelete, ClassController from, ClassController to) {
         ClassController remember_from = this.constraint_from;
         ClassController remember_to = this.constraint_to;
         this.constraint_from = from;

@@ -1,20 +1,12 @@
 package com.example.vut_project;
 
-import com.example.vut_project.controller.ClassController;
 import com.example.vut_project.controller.DragResizer;
 import com.example.vut_project.controller.DraggableMarker;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.cell.TextFieldListCell;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
@@ -25,7 +17,7 @@ public class SequenceDiagramController {
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
 
-    public void parseHelloControllerAsReference(HelloController reference){
+    public void parseHelloControllerAsReference(HelloController reference) {
         this.classDiagramReference = reference;
         draggableMaker = new DraggableMarker();
         resizableMaker = new DragResizer();

@@ -1,8 +1,5 @@
-Constraints 	-> XML format
-		-> Implementation and viewing
-Sequence diagram	-> view
-			-> models
-			-> timeline
+Constraints 	 -> XML format
+Sequence diagram -> models
 Inconsistencies
 Writing to file
 Jump from FIT

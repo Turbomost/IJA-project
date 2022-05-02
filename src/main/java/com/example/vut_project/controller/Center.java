@@ -14,7 +14,8 @@ public class Center {
     public Center(Node node) {
         calcCenter(node.getBoundsInParent());
         node.boundsInParentProperty().addListener(new ChangeListener<Bounds>() {
-            @Override public void changed(
+            @Override
+            public void changed(
                     ObservableValue<? extends Bounds> observableValue,
                     Bounds oldBounds,
                     Bounds bounds
@@ -25,7 +26,7 @@ public class Center {
     }
 
     private void calcCenter(Bounds bounds) {
-        centerX.set(bounds.getMinX() + bounds.getWidth()  / 2);
+        centerX.set(bounds.getMinX() + bounds.getWidth() / 2);
         centerY.set(bounds.getMinY() + bounds.getHeight() / 2);
     }
 

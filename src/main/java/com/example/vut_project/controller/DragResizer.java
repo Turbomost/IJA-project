@@ -1,17 +1,16 @@
 package com.example.vut_project.controller;
 
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class DragResizer {
 
+    private static final int RESIZE_MARGIN = 5;
+    DraggableMarker draggableMarker;
     /**
      * The margin around the control that a user can click in to start resizing
      * the region.
@@ -19,16 +18,9 @@ public class DragResizer {
 
     private double mouseAnchorX;
     private double mouseAnchorY;
-
-    private static final int RESIZE_MARGIN = 5;
-
     private double y;
-
     private boolean initMinHeight;
-
     private boolean dragging;
-
-    DraggableMarker draggableMarker;
 
     /*public DragResizer(Region aRegion) {
         region = aRegion;
@@ -45,22 +37,26 @@ public class DragResizer {
             public void handle(MouseEvent event) {
                 System.out.println("Line resize start " + line);
                 mousePressed(event, region);
-            }});
+            }
+        });
         region.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 mouseDragged(event, region, line);
-            }});
+            }
+        });
         region.setOnMouseMoved(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 mouseOver(event, region);
-            }});
+            }
+        });
         region.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 mouseReleased(event, region);
-            }});
+            }
+        });
     }
 
     protected void mouseReleased(MouseEvent event, Region region) {
@@ -69,10 +65,9 @@ public class DragResizer {
     }
 
     protected void mouseOver(MouseEvent event, Region region) {
-        if(isInDraggableZone(event, region) || dragging) {
+        if (isInDraggableZone(event, region) || dragging) {
             region.setCursor(Cursor.S_RESIZE);
-        }
-        else {
+        } else {
             region.setCursor(Cursor.MOVE);
         }
     }
@@ -82,7 +77,7 @@ public class DragResizer {
     }
 
     protected void mouseDragged(MouseEvent event, Region region, Line line) {
-        if(!dragging) {
+        if (!dragging) {
             if (!isInDraggableZone(event, region)) {
                 System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
                 double length = line.getEndY() - line.getStartY();
