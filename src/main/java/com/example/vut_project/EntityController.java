@@ -236,6 +236,7 @@ public class EntityController extends VBox {
         System.out.println("On delete sequence diagram context menu button click");
         System.out.println(sequenceControllerReference);
         sequenceControllerReference.sequenceSpace.getChildren().remove(this);
+        sequenceControllerReference.EntityList.remove(this);
     }
 
     public void setSequenceNameTextField(String name){

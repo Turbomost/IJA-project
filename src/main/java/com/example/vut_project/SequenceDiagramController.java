@@ -20,7 +20,8 @@ public class SequenceDiagramController {
     private HelloController helloControllerReference;
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
-    private ArrayList<EntityController> EntityList;
+    public ArrayList<EntityController> EntityList;
+    private int i = 0;
 
     public void parseHelloControllerAsReference(HelloController reference) {
         this.helloControllerReference = reference;
@@ -31,14 +32,14 @@ public class SequenceDiagramController {
 
     public void onNewSequenceDiagramButtonClick(ActionEvent event) throws IOException {
         System.out.println("New sequence diagram click");
-        String st[] = helloControllerReference.classDiagramController.getClassList().toArray(new String[0]);
+        String st[] = helloControllerReference.classDiagramController.getUniqueClassList(returnList()).toArray(new String[0]);
         String chosen = SequenceChoiceBox.display("Choose", "Choose Class Diagram To display", "OK", st);
         System.out.println("RETUNED: " + chosen);
         if (chosen == null){
             return;
         }
         EntityController new_entity = new EntityController(this);
-        new_entity.setLayoutX(20);
+        new_entity.setLayoutX(20+100*i++);
         new_entity.setLayoutY(20);
         draggableMaker.makeDraggableOnXAxis(new_entity);
         sequenceSpace.getChildren().add(new_entity);
@@ -85,5 +86,13 @@ public class SequenceDiagramController {
             }
         }
         return null;
+    }
+
+    public ArrayList<String> returnList(){
+        ArrayList<String> nameList = new ArrayList<>();
+        for (EntityController entity : EntityList){
+            nameList.add(entity.getSequenceNameTextField());
+        }
+        return nameList;
     }
 }

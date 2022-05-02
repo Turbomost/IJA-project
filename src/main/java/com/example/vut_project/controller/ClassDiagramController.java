@@ -108,5 +108,14 @@ public class ClassDiagramController extends ElementController {
         }
         return nameList;
     }
+
+    public java.util.List<String> getUniqueClassList(ArrayList<String> elements)  {
+        ArrayList<String> nameList = new ArrayList<>();
+        for (String attr : getClassList()) {
+            if (!elements.contains(attr))
+                nameList.add(attr);
+        }
+        return nameList;
+    }
 }
 
