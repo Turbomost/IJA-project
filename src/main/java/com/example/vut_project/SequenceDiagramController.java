@@ -2,6 +2,7 @@ package com.example.vut_project;
 
 import com.example.vut_project.controller.DragResizer;
 import com.example.vut_project.controller.DraggableMarker;
+import com.example.vut_project.controller.SequenceChoiceBox;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +28,12 @@ public class SequenceDiagramController {
 
     public void onNewSequenceDiagramButtonClick(ActionEvent event) throws IOException {
         System.out.println("New sequence diagram click");
+        String st[] = {"MAMKA", "DEDKO", "BATMAN"}; // TODO naplnit classami
+        String chosen = SequenceChoiceBox.display("Choose", "Choose Class Diagram To display", "OK", st);
+        System.out.println("RETUNED: " + chosen);
+        if (chosen == null){
+            return;
+        }
         EntityController new_entity = new EntityController(this);
         new_entity.setLayoutX(20);
         new_entity.setLayoutY(20);
