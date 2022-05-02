@@ -88,6 +88,16 @@ public class DragResizer {
 
     protected void mouseDragged(MouseEvent event) {
         if(!dragging) {
+            if (!isInDraggableZone(event)) {
+                System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
+                double length = line.getEndY() - line.getStartY();
+                System.out.println(length);
+                region.setLayoutX(event.getSceneX() - mouseAnchorX);
+                region.setLayoutY(event.getSceneY() - mouseAnchorY - 60);
+                System.out.println("Set to: " + region.getLayoutX());
+                System.out.println("Set to: " + region.getLayoutY());
+                System.out.println("After Move " + region.getChildrenUnmodifiable().get(0));
+            }
             return;
         }
 
@@ -106,41 +116,6 @@ public class DragResizer {
     }
 
     protected void mousePressed(MouseEvent event) {
-
-        // ignore clicks outside of the draggable margin
-        if(!isInDraggableZone(event)) {
-            region.setOnMousePressed(mouseEvent -> {
-                mouseAnchorX = mouseEvent.getX();
-                mouseAnchorY = mouseEvent.getY();
-            });
-
-            region.setOnMouseDragged(mouseEvent -> {
-                System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
-                double length = line.getEndY() - line.getStartY();
-                System.out.println(length);
-                region.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-                region.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 60);
-                line.setStartX(region.getLayoutX());
-                line.setStartY(region.getLayoutY());
-                line.setEndX(region.getLayoutX());
-                line.setEndY(region.getLayoutY() + length);
-                System.out.println("Set to: " + region.getLayoutX());
-                System.out.println("Set to: " + region.getLayoutY());
-                System.out.println("After Move " + region.getChildrenUnmodifiable().get(0));
-            });
-            return;
-        }
-
-        dragging = true;
-
-        // make sure that the minimum height is set to the current height once,
-        // setting a min height that is smaller than the current height will
-        // have no effect
-        if (!initMinHeight) {
-            region.setMinHeight(region.getHeight());
-            initMinHeight = true;
-        }
-
-        y = event.getY();
+        dragging = isInDraggableZone(event);
     }
 }
