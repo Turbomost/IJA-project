@@ -6,10 +6,7 @@
 
 package com.example.vut_project;
 
-import com.example.vut_project.controller.AlertBox;
-import com.example.vut_project.controller.AttributeController;
-import com.example.vut_project.controller.ClassController;
-import com.example.vut_project.controller.ClassDiagramController;
+import com.example.vut_project.controller.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Entity class represents every Class in ClassDiagram. It's used for storing data and Click events.
@@ -54,6 +52,7 @@ public class EntityController extends VBox {
 
     private HelloController referece;
     private SequenceDiagramController sequenceControllerReference;
+    private ArrayList <LifeLine> LifeLineList;
 
     private String old_class_name;
     private String old_attribute_name;
@@ -73,6 +72,7 @@ public class EntityController extends VBox {
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
+        this.LifeLineList = new ArrayList<>();
         ClassController new_class = diagram.createClass(new_name);
         classNameTextField.setText(new_class.getName());
         old_class_name = classNameTextField.getText();
@@ -92,6 +92,7 @@ public class EntityController extends VBox {
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
+        this.LifeLineList = new ArrayList<>();
         classNameTextField.setText(class_name.getName());
         old_class_name = classNameTextField.getText();
         for (AttributeController attribute : class_name.getAttributes()) {
@@ -108,6 +109,7 @@ public class EntityController extends VBox {
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
+        this.LifeLineList = new ArrayList<>();
         this.sequenceControllerReference = sequenceReference;
     }
 
@@ -249,4 +251,11 @@ public class EntityController extends VBox {
         return this.sequenceDiagramNameTextField.getText();
     }
 
+    public void addLifeLine(LifeLine life_line){
+        LifeLineList.add(life_line);
+    }
+
+    public void deleteLifeLine(LifeLine life_line){
+        LifeLineList.remove(life_line);
+    }
 }

@@ -57,7 +57,7 @@ public class DragResizer {
         region.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                mouseDragged(event, region, line);
+                mouseDragged(event, region, line, reference);
             }
         });
         region.setOnMouseMoved(new EventHandler<MouseEvent>() {
@@ -91,7 +91,7 @@ public class DragResizer {
         return event.getY() > (region.getHeight() - RESIZE_MARGIN);
     }
 
-    protected void mouseDragged(MouseEvent event, Region region, Line line) {
+    protected void mouseDragged(MouseEvent event, Region region, Line line, SequenceDiagramController reference) {
         if (!dragging) {
             if (!isInDraggableZone(event, region)) {
                 System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));

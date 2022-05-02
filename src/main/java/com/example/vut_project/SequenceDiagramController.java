@@ -2,6 +2,7 @@ package com.example.vut_project;
 
 import com.example.vut_project.controller.DragResizer;
 import com.example.vut_project.controller.DraggableMarker;
+import com.example.vut_project.controller.LifeLine;
 import com.example.vut_project.controller.SequenceChoiceBox;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -21,7 +22,7 @@ public class SequenceDiagramController {
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
     public ArrayList<EntityController> EntityList;
-    EntityController new_entity;
+    public EntityController new_entity;
     private int i = 0;
 
     public void parseHelloControllerAsReference(HelloController reference) {
@@ -45,24 +46,21 @@ public class SequenceDiagramController {
         draggableMaker.makeDraggableOnXAxis(new_entity);
         sequenceSpace.getChildren().add(new_entity);
         new_entity.setSequenceNameTextField(chosen);
-        onNewLifeLineButtonClick(event);
+        createLifeLineBindToEntity(event);
         EntityList.add(new_entity);
 
     }
 
     public void onNewLifeLineButtonClick(ActionEvent event) {
-        System.out.println("New life line click");
-        Line life_line = new Line();
-        life_line.setStrokeWidth(10.0);
-        life_line.setStartY(new_entity.getLayoutY() + new_entity.sequenceVBox.getPrefHeight() + life_line.getStrokeWidth()/2);
-        life_line.setStartX(new_entity.getLayoutX() + new_entity.sequenceVBox.getPrefWidth()/2);
-        life_line.setEndX(new_entity.getLayoutX() + new_entity.sequenceVBox.getPrefWidth()/2);
-        life_line.setEndY(new_entity.getLayoutY() + 50 + new_entity.sequenceVBox.getPrefHeight());
-        life_line.setFill(Color.GRAY);
-        life_line.setStroke(Color.BLACK);
-        life_line.resize(80, 200);
-        System.out.println("New Line created " + life_line);
+        System.out.println("On New Life Line Button Click");
+    }
 
+    public void createLifeLineBindToEntity(ActionEvent event) {
+        System.out.println("New life line click");
+        LifeLine life_line_class = new LifeLine(new_entity);
+        Line life_line = life_line_class.getLifeLine();
+        System.out.println("New Line created " + life_line);
+        new_entity.addLifeLine(life_line_class);
         AnchorPane p = new AnchorPane();
         p.getChildren().add(life_line);
 
