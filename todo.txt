@@ -1,3 +1,5 @@
+add lifeline - přidává jen ke classe nejvíc vlevo
+divně se posunuje lifeline v seq diagramu
 Constraints 	 -> XML format
 Sequence diagram -> models
 Inconsistencies
