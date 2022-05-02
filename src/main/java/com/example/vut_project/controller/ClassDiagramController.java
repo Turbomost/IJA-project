@@ -35,6 +35,7 @@ public class ClassDiagramController extends ElementController {
         ClassController newClass = new ClassController(name);
         System.out.println("creating: " + name);
         if (this.classList.contains(newClass)) {
+            AlertBox.display("Note", "Class Diagram Already Exists", "Understood");
             return null;
         }
         this.classList.add(newClass);

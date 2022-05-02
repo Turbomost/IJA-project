@@ -6,6 +6,7 @@
 
 package com.example.vut_project;
 
+import com.example.vut_project.controller.AlertBox;
 import com.example.vut_project.controller.AttributeController;
 import com.example.vut_project.controller.ClassController;
 import com.example.vut_project.controller.ClassDiagramController;
@@ -133,13 +134,10 @@ public class EntityController extends VBox {
             entityAttributeView.getItems().remove(clickedFXID); // remove cell from list viewW
             referece.DeleteAttribute(this.classNameTextField.getText(), clicked);
         }
-
     }
 
     @FXML
     public void onSingleAttributeClick(MouseEvent event){
-        System.out.println("Getting clicked attribute name");
-        System.out.println("Attribute List " + entityAttributeView.getItems());;
         int ClickedAttributeIndex = entityAttributeView.getSelectionModel().getSelectedIndex();
         if (ClickedAttributeIndex == -1){
             return;
@@ -172,13 +170,13 @@ public class EntityController extends VBox {
 
     @FXML
     public void onClassDiagramNameEnter(ActionEvent event) {
-
         System.out.println(this.old_class_name);
         if (referece.RenameClass(this.old_class_name, this.classNameTextField.getText())) {
             this.old_class_name = classNameTextField.getText();
         }
         else{
             this.classNameTextField.setText(this.old_class_name);
+            AlertBox.display("Note", "Class Diagram With Same Name Already Exists", "Understood");
         }
     }
 

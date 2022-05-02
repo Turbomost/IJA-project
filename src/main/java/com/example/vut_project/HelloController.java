@@ -137,8 +137,7 @@ public class HelloController {
                 parse.load_constraints(this);
                 this.displayLoadedClassDiagramEntity(classDiagramController);
             } else {
-                AlertBox alert = new AlertBox();
-                alert.display("Error", "You need to choose XML file format");
+                AlertBox.display("Error", "You need to choose XML file format", "I will choose an XML file next time");
                 System.out.println("Need to be a xml file");
             }
         }
@@ -322,6 +321,11 @@ public class HelloController {
 
     public boolean RenameClass(String old_name, String new_name){
         ClassController curClass = this.classDiagramController.findClass(old_name);
+        for (String c : classDiagramController.getClassList()){
+            if(c.equals(new_name)){
+                return false;
+            }
+        }
         if (curClass == null){
             return false;
         }

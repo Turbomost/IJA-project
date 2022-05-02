@@ -25,15 +25,15 @@ public class AlertBox {
      * @param title   title of AlertBox
      * @param message message in AlertBox
      */
-    public static void display(String title, String message) {
+    public static void display(String title, String message, String button_message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
-        window.setMinWidth(250);
+        window.setMinWidth(350);
         window.setMinHeight(200);
         Label label = new Label();
         label.setText(message);
-        Button closeButton = new Button("I will choose XML next time");
+        Button closeButton = new Button(button_message);
         closeButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);
