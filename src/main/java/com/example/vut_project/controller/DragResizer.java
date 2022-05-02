@@ -97,7 +97,6 @@ public class DragResizer {
                 System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
                 double length = line.getEndY() - line.getStartY();
                 System.out.println(length);
-                //region.setLayoutX(event.getSceneX() - mouseAnchorX);
                 region.setLayoutY(event.getSceneY() - mouseAnchorY - 140);
                 System.out.println("Set to: " + region.getLayoutX());
                 System.out.println("Set to: " + region.getLayoutY());

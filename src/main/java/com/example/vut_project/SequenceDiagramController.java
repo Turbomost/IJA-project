@@ -40,7 +40,7 @@ public class SequenceDiagramController {
         if (chosen == null) {
             return;
         }
-        new_entity = new EntityController(this);
+        new_entity = new EntityController(this, i);
         new_entity.setLayoutX(20 + 100 * i++);
         new_entity.setLayoutY(20);
         createLifeLineBindToEntity(event);

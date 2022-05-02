@@ -57,6 +57,7 @@ public class EntityController extends VBox {
     private int AttrClickedFXID;
     private Object identifier;
     private int index = 0;
+    public int i = -1;
 
     /**
      * Constructor for new Entity
@@ -102,13 +103,14 @@ public class EntityController extends VBox {
         this.referece = reference;
     }
 
-    public EntityController(SequenceDiagramController sequenceReference) throws IOException {
+    public EntityController(SequenceDiagramController sequenceReference, int i) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/sequence_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
         this.LifeLineList = new ArrayList<>();
         this.sequenceControllerReference = sequenceReference;
+        this.i = i;
     }
 
     /**
