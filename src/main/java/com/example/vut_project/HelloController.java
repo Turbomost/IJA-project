@@ -162,7 +162,9 @@ public class HelloController {
         sequenceStage.setScene(sequenceScene);
         sequenceStage.show();
         SequenceDiagramController sequenceDiagramController = loader.<SequenceDiagramController>getController();
-        sequenceDiagramController.parseHelloControllerAsReference(this);
+        this.sequenceDiagramController = sequenceDiagramController;
+        this.sequenceDiagramController.parseHelloControllerAsReference(this);
+
     }
 
     /**
@@ -328,6 +330,11 @@ public class HelloController {
         }
         System.out.println("Before: Classes" + classDiagramController.getClassList().toString());
         curClass.rename(new_name);
+        System.out.println(this.sequenceDiagramController);
+        EntityController entity = this.sequenceDiagramController.findEntity(old_name);
+        if (entity != null) {
+            entity.setSequenceNameTextField(new_name);
+        }
         System.out.println("After: Classes" + classDiagramController.getClassList().toString());
         identifier_name = new_name;
         return true;

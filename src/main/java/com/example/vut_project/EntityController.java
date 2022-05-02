@@ -36,6 +36,7 @@ public class EntityController extends VBox {
     private final ObservableList<String> observableListOfAttributes = FXCollections.observableArrayList();
     @FXML
     private TextField classNameTextField;
+    @FXML
     private TextField sequenceDiagramNameTextField;
     @FXML
     private MenuItem deleteDiagramContextButton;
@@ -238,7 +239,13 @@ public class EntityController extends VBox {
     }
 
     public void setSequenceNameTextField(String name){
+        System.out.println(name);
         this.sequenceDiagramNameTextField.setText(name);
+    }
+
+
+    public String getSequenceNameTextField(){
+        return this.sequenceDiagramNameTextField.getText();
     }
 
 }

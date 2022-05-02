@@ -5,30 +5,33 @@ import com.example.vut_project.controller.DraggableMarker;
 import com.example.vut_project.controller.SequenceChoiceBox;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SequenceDiagramController {
 
     public Pane sequenceSpace;
-    private HelloController classDiagramReference;
+    private HelloController helloControllerReference;
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
+    private ArrayList<EntityController> EntityList;
 
     public void parseHelloControllerAsReference(HelloController reference) {
-        this.classDiagramReference = reference;
+        this.helloControllerReference = reference;
         draggableMaker = new DraggableMarker();
         resizableMaker = new DragResizer();
+        this.EntityList = new ArrayList<>();
     }
 
     public void onNewSequenceDiagramButtonClick(ActionEvent event) throws IOException {
         System.out.println("New sequence diagram click");
-        String st[] = {"MAMKA", "DEDKO", "BATMAN"}; // TODO naplnit classami
+        String st[] = helloControllerReference.classDiagramController.getClassList().toArray(new String[0]);
         String chosen = SequenceChoiceBox.display("Choose", "Choose Class Diagram To display", "OK", st);
         System.out.println("RETUNED: " + chosen);
         if (chosen == null){
@@ -41,6 +44,7 @@ public class SequenceDiagramController {
         sequenceSpace.getChildren().add(new_entity);
         new_entity.setSequenceNameTextField(chosen);
         onNewLifeLineButtonClick(event);
+        EntityList.add(new_entity);
 
     }
 
@@ -67,10 +71,19 @@ public class SequenceDiagramController {
 
     public void onFileOpenButtonClick(ActionEvent event) {
         System.out.println("Open sequence from file click");
-        System.out.println(classDiagramReference.classDiagramController.getClassList().toString());
+        System.out.println(helloControllerReference.classDiagramController.getClassList().toString());
     }
     public void onDeleteLifeLineClick(Event event){
         System.out.println("There should be life line deleted");
         sequenceSpace.getChildren().remove(event.getSource());
+    }
+
+    public EntityController findEntity(String name){
+        for (EntityController entity : EntityList){
+            if (entity.getSequenceNameTextField().equals(name)){
+                return entity;
+            }
+        }
+        return null;
     }
 }
