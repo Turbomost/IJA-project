@@ -54,15 +54,15 @@ public class ClassDiagramController extends ElementController {
      */
     public boolean deleteClass(ClassController name, SequenceDiagramController sequenceDiagramController) {
         if (this.classList.contains(name)) {
-            EntityController entity = sequenceDiagramController.findEntity(name.getName());
-            if (entity != null) {
-                int choice = YesNoAlertBox.display("Warning", "Do you wanna delete class '" + name.getName() + "' from sequence diagram?", "Yes", "No");
-                if (choice == 1) {
-                    entity.onDeleteSequenceDiagramContextMenuClick(null);
-                }
-                else if (choice == -1){
-                    System.out.println("heeeeere");
-                    return false;
+            if (sequenceDiagramController != null) {
+                EntityController entity = sequenceDiagramController.findEntity(name.getName());
+                if (entity != null) {
+                    int choice = YesNoAlertBox.display("Warning", "Do you wanna delete class '" + name.getName() + "' from sequence diagram?", "Yes", "No");
+                    if (choice == 1) {
+                        entity.onDeleteSequenceDiagramContextMenuClick(null);
+                    } else if (choice == -1) {
+                        return false;
+                    }
                 }
             }
             name.delete_constraints();
