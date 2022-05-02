@@ -330,9 +330,8 @@ public class HelloController {
         }
         System.out.println("Before: Classes" + classDiagramController.getClassList().toString());
         curClass.rename(new_name);
-        System.out.println(this.sequenceDiagramController);
-        EntityController entity = this.sequenceDiagramController.findEntity(old_name);
-        if (entity != null) {
+        if (sequenceDiagramController != null) {
+            EntityController entity = this.sequenceDiagramController.findEntity(old_name);
             entity.setSequenceNameTextField(new_name);
         }
         System.out.println("After: Classes" + classDiagramController.getClassList().toString());
