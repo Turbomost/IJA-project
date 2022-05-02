@@ -1,6 +1,7 @@
 package com.example.vut_project.controller;
 
 import com.example.vut_project.EntityController;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -8,9 +9,11 @@ import javafx.scene.shape.Line;
 public class LifeLine extends Line {
     Line life_line;
     EntityController stick_to_entity;
+    AnchorPane anchorPane;
 
-    public LifeLine(EntityController stick_to_entity) {
+    public LifeLine(EntityController stick_to_entity, AnchorPane anchorPane) {
         this.stick_to_entity = stick_to_entity;
+        this.anchorPane = anchorPane;
         this.life_line = new Line();
         this.life_line.setStrokeWidth(10.0);
         this.life_line.setStartY(this.stick_to_entity.getLayoutY() + this.stick_to_entity.sequenceVBox.getPrefHeight() + this.life_line.getStrokeWidth() / 2);
@@ -25,5 +28,8 @@ public class LifeLine extends Line {
 
     public Line getLifeLine() {
         return this.life_line;
+    }
+    public AnchorPane getAnchorPane(){
+        return this.anchorPane;
     }
 }

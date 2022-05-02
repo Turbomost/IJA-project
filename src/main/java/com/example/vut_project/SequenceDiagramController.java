@@ -56,11 +56,12 @@ public class SequenceDiagramController {
 
     public void createLifeLineBindToEntity(ActionEvent event) {
         System.out.println("New life line click");
-        LifeLine life_line_class = new LifeLine(new_entity);
+        AnchorPane p = new AnchorPane();
+        LifeLine life_line_class = new LifeLine(new_entity, p);
         Line life_line = life_line_class.getLifeLine();
         System.out.println("New Line created " + life_line);
         new_entity.addLifeLine(life_line_class);
-        AnchorPane p = new AnchorPane();
+
         p.getChildren().add(life_line);
 
         resizableMaker.makeResizable(p, life_line, this);
@@ -98,10 +99,9 @@ public class SequenceDiagramController {
 
     public void deleteAllLifeLines(ArrayList<LifeLine> lifelines) {
         for (LifeLine lifeLine : lifelines) {
-            System.out.println(sequenceSpace.getChildren());
-            Node a = sequenceSpace.getChildren().get(0);
+            System.out.println(lifeLine.getClass());
+            sequenceSpace.getChildren().remove(lifeLine.getAnchorPane());
             sequenceSpace.getChildren().remove(lifeLine);
-            sequenceSpace.getChildren().remove(a);
         }
     }
 }
