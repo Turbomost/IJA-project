@@ -32,6 +32,7 @@ import java.util.ArrayList;
 public class EntityController extends VBox {
 
     private final ObservableList<String> observableListOfAttributes = FXCollections.observableArrayList();
+    public VBox sequenceVBox;
     @FXML
     private TextField classNameTextField;
     @FXML
@@ -45,14 +46,11 @@ public class EntityController extends VBox {
     private MenuItem deleteAttributeContextMenuButton;
     @FXML
     private ContextMenu contextMenuOnElement;
-
     @FXML
     private VBox classVBox;
-    public VBox sequenceVBox;
-
     private HelloController referece;
     private SequenceDiagramController sequenceControllerReference;
-    private ArrayList <LifeLine> LifeLineList;
+    private final ArrayList<LifeLine> LifeLineList;
 
     private String old_class_name;
     private String old_attribute_name;
@@ -154,7 +152,7 @@ public class EntityController extends VBox {
         if (ClickedAttributeIndex == -1) {
             return;
         }
-        System.out.println("Clicked on " + (String) entityAttributeView.getItems().get(ClickedAttributeIndex));
+        System.out.println("Clicked on " + entityAttributeView.getItems().get(ClickedAttributeIndex));
         old_attribute_name = (String) entityAttributeView.getItems().get(ClickedAttributeIndex);
     }
 
@@ -239,23 +237,37 @@ public class EntityController extends VBox {
         System.out.println(sequenceControllerReference);
         sequenceControllerReference.sequenceSpace.getChildren().remove(this);
         sequenceControllerReference.EntityList.remove(this);
+        sequenceControllerReference.deleteAllLifeLines(LifeLineList);
+        this.deleteAllLifeLines();
     }
 
-    public void setSequenceNameTextField(String name){
+    public String getSequenceNameTextField() {
+        return this.sequenceDiagramNameTextField.getText();
+    }
+
+    public void setSequenceNameTextField(String name) {
         System.out.println(name);
         this.sequenceDiagramNameTextField.setText(name);
     }
 
-
-    public String getSequenceNameTextField(){
-        return this.sequenceDiagramNameTextField.getText();
-    }
-
-    public void addLifeLine(LifeLine life_line){
+    public void addLifeLine(LifeLine life_line) {
         LifeLineList.add(life_line);
     }
 
-    public void deleteLifeLine(LifeLine life_line){
-        LifeLineList.remove(life_line);
+    public boolean deleteLifeLine(LifeLine life_line) {
+        System.out.println("lifelines before: " + LifeLineList);
+        if (LifeLineList.contains(life_line)) {
+            LifeLineList.remove(life_line);
+            System.out.println("lifelines after: " + LifeLineList);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void deleteAllLifeLines() {
+        while (LifeLineList.size() != 0) {
+            this.deleteLifeLine(LifeLineList.get(0));
+        }
     }
 }

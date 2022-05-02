@@ -6,10 +6,9 @@ import com.example.vut_project.controller.LifeLine;
 import com.example.vut_project.controller.SequenceChoiceBox;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
@@ -18,11 +17,11 @@ import java.util.ArrayList;
 public class SequenceDiagramController {
 
     public Pane sequenceSpace;
+    public ArrayList<EntityController> EntityList;
+    public EntityController new_entity;
     private HelloController helloControllerReference;
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
-    public ArrayList<EntityController> EntityList;
-    public EntityController new_entity;
     private int i = 0;
 
     public void parseHelloControllerAsReference(HelloController reference) {
@@ -34,14 +33,14 @@ public class SequenceDiagramController {
 
     public void onNewSequenceDiagramButtonClick(ActionEvent event) throws IOException {
         System.out.println("New sequence diagram click");
-        String st[] = helloControllerReference.classDiagramController.getUniqueClassList(returnList()).toArray(new String[0]);
+        String[] st = helloControllerReference.classDiagramController.getUniqueClassList(returnList()).toArray(new String[0]);
         String chosen = SequenceChoiceBox.display("Choose", "Choose Class Diagram To display", "OK", st);
-        System.out.println("RETUNED: " + chosen);
-        if (chosen == null){
+        System.out.println("RETURNED: " + chosen);
+        if (chosen == null) {
             return;
         }
         new_entity = new EntityController(this);
-        new_entity.setLayoutX(20+100*i++);
+        new_entity.setLayoutX(20 + 100 * i++);
         new_entity.setLayoutY(20);
         draggableMaker.makeDraggableOnXAxis(new_entity);
         sequenceSpace.getChildren().add(new_entity);
@@ -74,25 +73,35 @@ public class SequenceDiagramController {
         System.out.println("Open sequence from file click");
         System.out.println(helloControllerReference.classDiagramController.getClassList().toString());
     }
-    public void onDeleteLifeLineClick(Event event){
+
+    public void onDeleteLifeLineClick(Event event) {
         System.out.println("There should be life line deleted");
         sequenceSpace.getChildren().remove(event.getSource());
     }
 
-    public EntityController findEntity(String name){
-        for (EntityController entity : EntityList){
-            if (entity.getSequenceNameTextField().equals(name)){
+    public EntityController findEntity(String name) {
+        for (EntityController entity : EntityList) {
+            if (entity.getSequenceNameTextField().equals(name)) {
                 return entity;
             }
         }
         return null;
     }
 
-    public ArrayList<String> returnList(){
+    public ArrayList<String> returnList() {
         ArrayList<String> nameList = new ArrayList<>();
-        for (EntityController entity : EntityList){
+        for (EntityController entity : EntityList) {
             nameList.add(entity.getSequenceNameTextField());
         }
         return nameList;
+    }
+
+    public void deleteAllLifeLines(ArrayList<LifeLine> lifelines) {
+        for (LifeLine lifeLine : lifelines) {
+            System.out.println(sequenceSpace.getChildren());
+            Node a = sequenceSpace.getChildren().get(0);
+            sequenceSpace.getChildren().remove(lifeLine);
+            sequenceSpace.getChildren().remove(a);
+        }
     }
 }

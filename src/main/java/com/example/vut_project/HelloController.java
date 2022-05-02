@@ -155,14 +155,13 @@ public class HelloController {
     protected void onSequenceDiagramClick(ActionEvent event) throws IOException { // space for sequence diagram
         System.out.println("Sequence diagram");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sequence_editor.fxml"));
-        sequenceSpace = (Pane) loader.load();
+        sequenceSpace = loader.load();
         sequenceScene = new Scene(sequenceSpace);
         sequenceStage = new Stage();
         sequenceStage.setTitle("Sequence Diagram");
         sequenceStage.setScene(sequenceScene);
         sequenceStage.show();
-        SequenceDiagramController sequenceDiagramController = loader.<SequenceDiagramController>getController();
-        this.sequenceDiagramController = sequenceDiagramController;
+        this.sequenceDiagramController = loader.getController();
         this.sequenceDiagramController.parseHelloControllerAsReference(this);
 
     }
