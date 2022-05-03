@@ -32,7 +32,9 @@ import java.util.ArrayList;
 public class EntityController extends VBox {
 
     private final ObservableList<String> observableListOfAttributes = FXCollections.observableArrayList();
+    private final ArrayList<LifeLine> LifeLineList;
     public VBox sequenceVBox;
+    public int i = -1;
     @FXML
     private TextField classNameTextField;
     @FXML
@@ -50,14 +52,11 @@ public class EntityController extends VBox {
     private VBox classVBox;
     private HelloController referece;
     private SequenceDiagramController sequenceControllerReference;
-    private final ArrayList<LifeLine> LifeLineList;
-
     private String old_class_name;
     private String old_attribute_name;
     private int AttrClickedFXID;
     private Object identifier;
     private int index = 0;
-    public int i = -1;
 
     /**
      * Constructor for new Entity
@@ -134,12 +133,14 @@ public class EntityController extends VBox {
      */
     public AttributeController onAddAttributeClick(ActionEvent event) {
         String[] attributeToAdd = AddAttributePopUp.AddAttrubutePopUpDisplay("Attribute", "Choose Attribute Properties", "Add");
-        if(attributeToAdd == null) return null;
-        AttributeController attr = new AttributeController((String) attributeToAdd[1],(String) attributeToAdd[3],(String) attributeToAdd[2],(String) attributeToAdd[0]);
-        if (referece.AddAttribute(this.classNameTextField.getText(), attr)){ //TODO
-            if(event != null) this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
-                index++;
-                return attr;
+        if (attributeToAdd == null) return null;
+        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        if (referece.AddAttribute(this.classNameTextField.getText(), attr)) { //TODO
+            if (event != null) {
+                this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
+            }
+            index++;
+            return attr;
 
         }
         return null;
@@ -159,6 +160,7 @@ public class EntityController extends VBox {
     public void onSingleAttributeClick(MouseEvent event) {  //TODO
         int ClickedAttributeIndex = entityAttributeView.getSelectionModel().getSelectedIndex();
         if (ClickedAttributeIndex == -1) {
+            System.out.println("jsi mimo");
             return;
         }
         System.out.println("Clicked on " + entityAttributeView.getItems().get(ClickedAttributeIndex));
@@ -168,15 +170,18 @@ public class EntityController extends VBox {
         this.renameAttributeInEntityController(parsedAttributeName, ClickedAttributeIndex);
     }
 
-    public void renameAttributeInEntityController(String old_attribute_name, int index){
-            AttributeController new_attr = onAddAttributeClick(null);
-            System.out.println("CHANGING");
-            System.out.println("OLD NAME: " + old_attribute_name);
-            System.out.println("Attribute changed, new name: " + new_attr.getName());
-            referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
-            referece.AddAttribute(classNameTextField.getText(), new_attr);
-            entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
+    public void renameAttributeInEntityController(String old_attribute_name, int index) {
+        AttributeController new_attr = onAddAttributeClick(null);
+        if (new_attr == null) {
+            return;
         }
+        System.out.println("CHANGING");
+        System.out.println("OLD NAME: " + old_attribute_name);
+        System.out.println("Attribute changed, new name: " + new_attr.getName());
+        referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
+        //referece.AddAttribute(classNameTextField.getText(), new_attr);
+        entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
+    }
 
 
     @FXML
@@ -295,12 +300,13 @@ public class EntityController extends VBox {
         }
     }
 
-    public ArrayList<LifeLine> getLifeLineList(){
+    public ArrayList<LifeLine> getLifeLineList() {
         return this.LifeLineList;
     }
 
-    public void onAddLifeLineContextMenuClick(ActionEvent event){
+    public void onAddLifeLineContextMenuClick(ActionEvent event) {
         System.out.println("On add life line click");
         sequenceControllerReference.createLifeLineBindToEntity(event, sequenceControllerReference.findEntity(sequenceDiagramNameTextField.getText()));
     }
+
 }

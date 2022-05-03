@@ -58,6 +58,7 @@ public class ClassController extends ElementController {
      */
     public boolean addAttribute(AttributeController attr) {
         for (AttributeController attribute : AttributeList) {
+            System.out.println("attr: " + attr.getName() + ", attrlist: " + attribute.getName());
             if (attribute.getName().equals(attr.getName())) {
                 System.out.println("Attribute in class is duplicate");
                 AlertBox.display("Note", "Attribute in class is duplicate", "Understood");

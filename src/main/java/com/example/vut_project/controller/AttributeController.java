@@ -44,6 +44,10 @@ public class AttributeController extends ElementController {
         return this.type;
     }
 
+    public String getDatatype(){return this.datatype;}
+
+    public String getAccessType(){return this.accessType;}
+
     public String getWholeAttributeString(){
         return this.accessType + this.getName() + ": " + this.datatype;
     }
