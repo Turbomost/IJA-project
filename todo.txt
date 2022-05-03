@@ -1,12 +1,10 @@
-to fix:
-add lifeline - přidává jen ke classe nejvíc vlevo
-divně se posunuje lifeline v seq diagramu
+
+>	Typ - přidávání atributů
+>	modifikátory přístupu
 
 Zápis do souboru
 Provázanost
 Undo
->	Typ - přidávání atributů
-modifikátory přístupu
 typ constraintů
 generalizace
 načítaní a zápis seq diagramu
