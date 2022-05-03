@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -21,7 +23,9 @@ import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +56,7 @@ public class EntityController extends VBox {
     private VBox classVBox;
     private HelloController referece;
     private SequenceDiagramController sequenceControllerReference;
+    private AddFunctionController addFunctionController;
     private String old_class_name;
     private String old_attribute_name;
     private int AttrClickedFXID;
@@ -146,19 +151,32 @@ public class EntityController extends VBox {
         return null;
     }
 
-    public AttributeController onAddFunctionDiagramClick(ActionEvent event){
-        String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("Function", "Choose Function Properties", "Add Function");
-        if (attributeToAdd == null) return null;
+    public void onAddFunctionDiagramClick(ActionEvent event) throws IOException {
+        String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function");
+        if (attributeToAdd == null) return;
         AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
         if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
             if (event != null) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
             }
             index++;
-            return attr;
-
         }
-        return null;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
+        Pane functionPupUpSpace = loader.load();
+        Scene functionPopUpScene = new Scene(functionPupUpSpace);
+        Stage functionPopUpStage = new Stage();
+        functionPopUpStage.setTitle("Edit function");
+        functionPopUpStage.setScene(functionPopUpScene);
+
+        this.addFunctionController = loader.getController();
+
+        //AttributeController attr = new AttributeController();
+        this.addFunctionController.parseEntityControllerAsReference(this, attr);
+
+        referece.AddAttribute(this.classNameTextField.getText(), attr);
+
+        functionPopUpStage.show();
     }
 
     public void onDeleteAttributeClick(ActionEvent event) {

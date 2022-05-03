@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="274.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.vut_project.controller.AddFunctionController">
+   <children>
+      <ListView fx:id="functionListView" layoutX="5.0" layoutY="42.0" prefHeight="236.0" prefWidth="264.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Add" onAction="#onAddFunctionContextMenuClick"/>
+                  <MenuItem mnemonicParsing="false" text="Edit" onAction="#onEditFunctionContextMenuClick"/>
+                  <MenuItem mnemonicParsing="false" text="Delete" onAction="#onDeleteFunctionContextMenuClick"/>
+              </items>
+            </ContextMenu>
+         </contextMenu></ListView>
+      <TextField fx:id="methodNameTextField" layoutX="27.0" layoutY="7.0" prefHeight="25.0" prefWidth="219.0" promptText="Method Name" />
+      <Button fx:id="saveFunctionButton" layoutX="117.0" layoutY="288.0" mnemonicParsing="false" onAction="#onSaveFunctionButtonClick" text="Save">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Button>
+   </children>
+</AnchorPane>
