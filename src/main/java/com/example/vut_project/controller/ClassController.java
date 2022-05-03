@@ -60,8 +60,8 @@ public class ClassController extends ElementController {
         for (AttributeController attribute : AttributeList) {
             System.out.println("attr: " + attr.getName() + ", attrlist: " + attribute.getName());
             if (attribute.getName().equals(attr.getName())) {
-                System.out.println("Attribute in class is duplicate");
-                AlertBox.display("Note", "Attribute in class is duplicate", "Understood");
+                System.out.println("Attribute or operation with the same name alerady exists");
+                AlertBox.display("Note", "Attribute or operation with name '" + attr.getName() + "' already exists!", "Understood");
                 return false;
             }
         }
@@ -127,7 +127,11 @@ public class ClassController extends ElementController {
                 return attr;
             }
         }
+        if (!name.contains("(")){
+            return null;
+        }
         String substr = name.substring(0,name.lastIndexOf("("));
+        System.out.println("<" + substr + ">");
         for (AttributeController attr : this.AttributeList) {
             if (attr.getName().equals(substr)) {
                 return attr;

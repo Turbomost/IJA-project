@@ -1,8 +1,8 @@
 >	Add functions - datové typy, parametry
 +	rename - pošle původní hodnota
 
->Parsování ze souboru + nekonzistence načítání + zápis seq
->Zápis do souboru + zápis seq
+>	Parsování ze souboru + nekonzistence načítání + zápis seq
+>	Zápis do souboru + zápis seq
 
 Provázanost
 Undo

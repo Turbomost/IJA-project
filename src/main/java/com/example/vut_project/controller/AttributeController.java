@@ -127,4 +127,11 @@ public class AttributeController extends ElementController {
     public void removeOperationType(AttributeOperationController attr) {
         attributeOperationsList.remove(attr);
     }
+
+    public void setParams(String name, String accessType, String datatype, String type) {
+        this.rename(name);
+        this.setAccessType(accessType);
+        this.setDatatype(datatype);
+        this.setType(type);
+    }
 }

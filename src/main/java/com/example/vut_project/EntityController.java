@@ -13,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
@@ -138,26 +137,32 @@ public class EntityController extends VBox {
      */
     public AttributeController onAddAttributeClick(ActionEvent event) {
         String[] attributeToAdd = AddAttributePopUp.AddAttrubutePopUpDisplay("Attribute", "Choose Attribute Properties", "Add Attribute");
-        if (attributeToAdd == null) return null;
-        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
-        if (referece.AddAttribute(this.classNameTextField.getText(), attr)) { //TODO
-            if (event != null) {
-                this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
-            }
-            index++;
-            return attr;
-
+        if (attributeToAdd == null) {
+            return null;
         }
-        return null;
+        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        if (event != null) {
+            if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
+                this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
+            } else {
+                return null;
+            }
+        }
+        index++;
+        return attr;
     }
 
     public AttributeController onAddFunctionDiagramClick(ActionEvent event) throws IOException {
         String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function");
-        if (attributeToAdd == null) return null;
+        if (attributeToAdd == null) {
+            return null;
+        }
         AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
-        if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
-            if (event != null) {
+        if (event != null) {
+            if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
+            } else {
+                return null;
             }
             index++;
         }
@@ -207,42 +212,51 @@ public class EntityController extends VBox {
         System.out.println(parsedAttributeName);
         if (found_attribute.getType().equals("attribute")) {
             this.renameAttributeInEntityController(parsedAttributeName, ClickedAttributeIndex);
-        }
-        else if(found_attribute.getType().equals("function")) {
+        } else if (found_attribute.getType().equals("function")) {
             System.out.println("INSIDE");
-            this.renameFunctionInEntityController(parsedAttributeName, ClickedAttributeIndex);
+            this.renameFunctionInEntityController(parsedAttributeName.substring(0, parsedAttributeName.lastIndexOf("(")), ClickedAttributeIndex);
         }
     }
 
     public void renameAttributeInEntityController(String old_attribute_name, int index) {
         AttributeController new_attr = onAddAttributeClick(null);
         if (new_attr == null) {
+            AlertBox.display("Note", "Please enter all parameters", "Close");
             return;
         }
-        System.out.println("CHANGING");
-        System.out.println("OLD NAME: " + old_attribute_name);
-        System.out.println("Attribute changed, new name: " + new_attr.getName());
-        referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
-        //referece.AddAttribute(classNameTextField.getText(), new_attr);
-        entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
+
+        ClassController refClass = referece.classDiagramController.findClass(classNameTextField.getText());
+        if (!old_attribute_name.equals(new_attr.getName())) {
+            if (refClass.findAttributeByName(new_attr.getName()) != null) {
+                AlertBox.display("Warning", "Attribute or operation with name '" + new_attr.getName() + "' already exists!", "Close");
+                return;
+            }
+        }
+
+        AttributeController old_attr = refClass.findAttributeByName(old_attribute_name);
+        old_attr.setParams(new_attr.getName(), new_attr.getAccessType(), new_attr.getDatatype(), new_attr.getType());
+        entityAttributeView.getItems().set(index, old_attr.getWholeAttributeString());
     }
+
     public void renameFunctionInEntityController(String old_function_name, int index) throws IOException {
-        //referece.renameFunctionBasic(classNameTextField.getText(),  old_attribute_name);
-        AttributeController found_attr = referece.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
         AttributeController new_attr = onAddFunctionDiagramClick(null);
         if (new_attr == null) {
+            AlertBox.display("Note", "Please enter all parameters", "Close");
             return;
         }
-        found_attr.rename(new_attr.getName());
-        found_attr.setType(new_attr.getType());
-        found_attr.setDatatype(new_attr.getDatatype());
-        found_attr.setAccessType(new_attr.getAccessType());
-        System.out.println("Attribute changed, new name: " + found_attr.getName());
-        classNameTextField.setText(new_attr.getName());
-        //referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
 
-        //referece.AddAttribute(classNameTextField.getText(), new_attr);
-        entityAttributeView.getItems().set(index, found_attr.getWholeAttributeString());
+        ClassController refClass = referece.classDiagramController.findClass(classNameTextField.getText());
+        AttributeController old_attr = referece.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
+
+        if (!old_function_name.equals(new_attr.getName())) {
+            if (refClass.findAttributeByName(new_attr.getName()) != null) {
+                AlertBox.display("Warning", "Attribute or operation with name '" + new_attr.getName() + "' already exists!", "Close");
+                return;
+            }
+        }
+
+        old_attr.setParams(new_attr.getName(), new_attr.getAccessType(), new_attr.getDatatype(), new_attr.getType());
+        entityAttributeView.getItems().set(index, old_attr.getWholeAttributeString());
     }
 
 
