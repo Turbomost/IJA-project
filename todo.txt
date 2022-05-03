@@ -1,11 +1,11 @@
-
->	Typ - přidávání atributů
->	modifikátory přístupu
+>	Add functions - datové typy, parametry
++	rename - pošle původní hodnota
+>	Komplet parsování ze souboru
 
 Zápis do souboru
 Provázanost
 Undo
-typ constraintů
+typ constraintů + kardinalita
 generalizace
 načítaní a zápis seq diagramu
 typy zpráv

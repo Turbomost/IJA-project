@@ -21,18 +21,18 @@
                     <items>
                         <MenuItem fx:id="addAttributeContextMenuButton" mnemonicParsing="false"
                                   onAction="#onAddAttributeClick" text="Add Attribute"/>
+                        <MenuItem fx:id="addFunctionDiagramContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onAddFunctionDiagramClick" text="Add Function"/>
+                        <MenuItem fx:id="renameAttributeDiagramContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onRenameAttributeDiagramClick" text="Rename"/>
                         <MenuItem fx:id="deleteAttributeContextMenuButton" mnemonicParsing="false"
-                                  onAction="#onDeleteAttributeClick" text="Delete Attribute"/>
+                                  onAction="#onDeleteAttributeClick" text="Delete"/>
                         <MenuItem fx:id="addConstraintContextMenuButton" mnemonicParsing="false"
                                   onAction="#onAddConstraintClick" text="Add Constraint"/>
                         <MenuItem fx:id="pasteConstraintContextMenuButton" mnemonicParsing="false"
                                   onAction="#onPasteConstraintClick" text="Paste Constraint"/>
                         <MenuItem fx:id="deleteDiagramContextMenuButton" mnemonicParsing="false"
                                   onAction="#onDeleteDiagramClick" text="Delete Diagram"/>
-                        <MenuItem fx:id="renameAttributeDiagramContextMenuButton" mnemonicParsing="false"
-                                  onAction="#onRenameAttributeDiagramClick" text="Rename Attribute"/>
-                        <MenuItem fx:id="addFunctionDiagramContextMenuButton" mnemonicParsing="false"
-                                  onAction="#onAddFunctionDiagramClick" text="Add Function"/>
                     </items>
                 </ContextMenu>
             </contextMenu>

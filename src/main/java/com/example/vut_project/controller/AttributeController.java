@@ -6,6 +6,8 @@
 
 package com.example.vut_project.controller;
 
+import java.util.ArrayList;
+
 /**
  * Class represents attribute with name and type. Type is represented with String
  */
@@ -14,6 +16,7 @@ public class AttributeController extends ElementController {
     private String type;
     private String datatype;
     private String accessType;
+    private ArrayList<AttributeOperationController> attributeOperationsList;
 
     /**
      * Default Attribute constructor
@@ -26,6 +29,7 @@ public class AttributeController extends ElementController {
         this.type = type;
         this.accessType = accessType;
         this.datatype = datatype;
+        attributeOperationsList = new ArrayList<>();
     }
 
     public AttributeController(String name, String type) {
@@ -33,6 +37,7 @@ public class AttributeController extends ElementController {
         this.type = type;
         this.accessType = "+";
         this.datatype = "int";
+        attributeOperationsList = new ArrayList<>();
     }
 
     /**
@@ -44,12 +49,52 @@ public class AttributeController extends ElementController {
         return this.type;
     }
 
-    public String getDatatype(){return this.datatype;}
+    public String getDatatype() {
+        return this.datatype;
+    }
 
-    public String getAccessType(){return this.accessType;}
+    public String getAccessType() {
+        return this.accessType;
+    }
 
-    public String getWholeAttributeString(){
+    public String getWholeAttributeString() {
         return this.accessType + this.getName() + ": " + this.datatype;
     }
 
+    public ArrayList<String> operationTypesNames() {
+        ArrayList<String> return_list = new ArrayList<String>();
+        for (AttributeOperationController attributeOperation : attributeOperationsList) {
+            return_list.add(attributeOperation.getName());
+        }
+        return return_list;
+    }
+
+    public void addOperationType(String name, String type) {
+        if (operationTypesNames().contains(name)) {
+            AlertBox.display("Note", "Argument name is taken", "Understood");
+        }
+        AttributeOperationController new_attr = new AttributeOperationController(name, type);
+        attributeOperationsList.add(new_attr);
+    }
+
+    public AttributeOperationController findOperationTypeByName(String name) {
+        for (AttributeOperationController attr : attributeOperationsList) {
+            if (attr.getName().equals(name)){
+                return attr;
+            }
+        }
+        return null;
+    }
+
+
+    public void removeOperationTypeByName(String name) {
+        AttributeOperationController attr = findOperationTypeByName(name);
+        if (attr != null) {
+            attributeOperationsList.remove(attr);
+        }
+    }
+
+    public void removeOperationType(AttributeOperationController attr) {
+        attributeOperationsList.remove(attr);
+    }
 }
