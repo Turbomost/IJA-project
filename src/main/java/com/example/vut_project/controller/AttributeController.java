@@ -60,21 +60,22 @@ public class AttributeController extends ElementController {
     public String getWholeAttributeString() {
         if (this.type.equals("function")) {
             return this.accessType + this.getName() + "(" + operationTypesReturnList() + ") : " + this.datatype;
-        }
-        else{
+        } else {
             return this.accessType + this.getName() + " : " + this.datatype;
         }
     }
 
     private String operationTypesReturnList() {
         StringBuilder operationTypesReturnList = new StringBuilder();
-        for (AttributeOperationController attrOp : attributeOperationsList){
+        for (AttributeOperationController attrOp : attributeOperationsList) {
             operationTypesReturnList.append(attrOp.returnString());
+            operationTypesReturnList.append(", ");
         }
-        if (operationTypesReturnList.toString().isBlank()){
+        if (operationTypesReturnList.toString().isBlank()) {
             return "";
-        };
-        return operationTypesReturnList.toString().substring(0,operationTypesReturnList.toString().lastIndexOf(","));
+        }
+        ;
+        return operationTypesReturnList.toString().substring(0, operationTypesReturnList.toString().lastIndexOf(","));
     }
 
     public ArrayList<String> operationTypesNames() {
@@ -95,7 +96,7 @@ public class AttributeController extends ElementController {
 
     public AttributeOperationController findOperationTypeByName(String name) {
         for (AttributeOperationController attr : attributeOperationsList) {
-            if (attr.getName().equals(name)){
+            if (attr.getName().equals(name)) {
                 return attr;
             }
         }

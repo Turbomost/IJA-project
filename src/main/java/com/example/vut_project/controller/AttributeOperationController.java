@@ -5,7 +5,7 @@ public class AttributeOperationController {
     String name;
     String dataType;
 
-    public AttributeOperationController(String name, String dataType){
+    public AttributeOperationController(String name, String dataType) {
         this.name = name;
         this.dataType = dataType;
     }
@@ -14,7 +14,7 @@ public class AttributeOperationController {
         return this.name;
     }
 
-    public String returnString(){
-        return this.name + " : " + this.dataType + ", ";
+    public String returnString() {
+        return this.name + " : " + this.dataType;
     }
 }
