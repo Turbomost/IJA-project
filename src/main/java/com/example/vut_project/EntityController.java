@@ -230,13 +230,13 @@ public class EntityController extends VBox {
         //referece.renameFunctionBasic(classNameTextField.getText(),  old_attribute_name);
         AttributeController found_attr = referece.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
         AttributeController new_attr = onAddFunctionDiagramClick(null);
+        if (new_attr == null) {
+            return;
+        }
         found_attr.rename(new_attr.getName());
         found_attr.setType(new_attr.getType());
         found_attr.setDatatype(new_attr.getDatatype());
         found_attr.setAccessType(new_attr.getAccessType());
-        if (new_attr == null) {
-            return;
-        }
         System.out.println("Attribute changed, new name: " + found_attr.getName());
         classNameTextField.setText(new_attr.getName());
         //referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
