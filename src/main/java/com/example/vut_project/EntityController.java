@@ -133,9 +133,12 @@ public class EntityController extends VBox {
      * @param event
      */
     public void onAddAttributeClick(ActionEvent event) {
-        this.entityAttributeView.getItems().add("new_argument " + index);
-        referece.AddAttribute(this.classNameTextField.getText(), "new_argument " + index);
-        index++;
+        String attributeToAdd = AddAttributePopUp.AddAttrubutePopUpDisplay("Attribute", "Choose Attribute Properties", "Add");
+        if(attributeToAdd == null) return;
+        if (referece.AddAttribute(this.classNameTextField.getText(), attributeToAdd)){
+            this.entityAttributeView.getItems().add(attributeToAdd);
+            index++;
+        }
     }
 
     public void onDeleteAttributeClick(ActionEvent event) {
