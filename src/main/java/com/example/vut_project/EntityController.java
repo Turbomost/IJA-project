@@ -132,16 +132,17 @@ public class EntityController extends VBox {
      *
      * @param event
      */
-    public void onAddAttributeClick(ActionEvent event) {
-        System.out.println("before");
+    public AttributeController onAddAttributeClick(ActionEvent event) {
         String[] attributeToAdd = AddAttributePopUp.AddAttrubutePopUpDisplay("Attribute", "Choose Attribute Properties", "Add");
-        System.out.println("after");
-        if(attributeToAdd == null) return;
+        if(attributeToAdd == null) return null;
         AttributeController attr = new AttributeController((String) attributeToAdd[1],(String) attributeToAdd[3],(String) attributeToAdd[2],(String) attributeToAdd[0]);
         if (referece.AddAttribute(this.classNameTextField.getText(), attr)){ //TODO
-            this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
-            index++;
+            if(event != null) this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
+                index++;
+                return attr;
+
         }
+        return null;
     }
 
     public void onDeleteAttributeClick(ActionEvent event) {
@@ -162,7 +163,21 @@ public class EntityController extends VBox {
         }
         System.out.println("Clicked on " + entityAttributeView.getItems().get(ClickedAttributeIndex));
         old_attribute_name = (String) entityAttributeView.getItems().get(ClickedAttributeIndex);
+        String parsedAttributeName = old_attribute_name.substring(2, old_attribute_name.lastIndexOf(":"));
+        System.out.println(parsedAttributeName);
+        this.renameAttributeInEntityController(parsedAttributeName, ClickedAttributeIndex);
     }
+
+    public void renameAttributeInEntityController(String old_attribute_name, int index){
+            AttributeController new_attr = onAddAttributeClick(null);
+            System.out.println("CHANGING");
+            System.out.println("OLD NAME: " + old_attribute_name);
+            System.out.println("Attribute changed, new name: " + new_attr.getName());
+            referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
+            referece.AddAttribute(classNameTextField.getText(), new_attr);
+            entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
+        }
+
 
     @FXML
     public void onEnterClick(KeyEvent event) {  // attribute click
