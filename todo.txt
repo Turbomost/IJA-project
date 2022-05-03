@@ -1,7 +1,14 @@
+to fix:
 add lifeline - přidává jen ke classe nejvíc vlevo
 divně se posunuje lifeline v seq diagramu
-Constraints 	 -> XML format
-Sequence diagram -> models
-Inconsistencies
-Writing to file
-Jump from FIT
+
+Zápis do souboru
+Provázanost
+Undo
+Typ - přidávání atributů
+modifikátory přístupu
+typ constraintů
+generalizace
+načítaní a zápis seq diagramu
+typy zpráv
+nekonzistence načítání
