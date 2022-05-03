@@ -22,7 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AddAttributePopUp {
-    public static String AddAttrubutePopUpDisplay(String title, String message, String button_message) {
+    public static String[] AddAttrubutePopUpDisplay(String title, String message, String button_message) {
         String accessRule[] = { "private", "public", "protected", "package" };
         // create a choiceBox
         final String[] attributeName = {null};
@@ -40,8 +40,8 @@ public class AddAttributePopUp {
             }
         });
 
-        final String[] chosenType = {null};
-        String dataTypePopUpChooser[] = { " int", " bool", " string", " function" };
+        final String[] chosenDataType = {null};
+        String dataTypePopUpChooser[] = { " int", " bool", " string", " void " };
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         // add a listener
@@ -49,10 +49,25 @@ public class AddAttributePopUp {
             // if the item of the list is changed
             public void changed(ObservableValue ov, Number value, Number new_value)
             {
-                chosenType[0] = (String) dataTypePopUpChooser[new_value.intValue()];
+                chosenDataType[0] = (String) dataTypePopUpChooser[new_value.intValue()];
+                System.out.println("CHOSEN CD: " + chosenDataType[0]);
+            }
+        });
+
+        final String[] type = {null}; // function or attribute
+        String[] chosenType = { "attribute", "function" };
+        ChoiceBox choiceBox3 = new ChoiceBox(FXCollections.observableArrayList(chosenType));
+        choiceBox3.setAccessibleText("Data Type");
+        // add a listener
+        choiceBox3.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            // if the item of the list is changed
+            public void changed(ObservableValue ov, Number value, Number new_value)
+            {
+                chosenType[0] = (String) chosenType[new_value.intValue()];
                 System.out.println("CHOSEN CD: " + chosenType[0]);
             }
         });
+
 
         TextField textField = new TextField();
         textField.setEditable(true);
@@ -78,14 +93,17 @@ public class AddAttributePopUp {
 
         Text description1 = new Text("Access type");
         Text description2 = new Text("Data type");
+        Text description3 = new Text("Type");
         hboxDescription.getChildren().addAll(description1, description2);
         hboxDescription.setMargin(description1, new Insets(10, 10, 0, 10));
         hboxDescription.setMargin(description2, new Insets(10, 10, 0, 10));
+        hboxDescription.setMargin(description3, new Insets(10, 10, 0, 10));
         hboxDescription.setAlignment(Pos.CENTER);
-        hbox.getChildren().addAll(choiceBox1, choiceBox2);
+        hbox.getChildren().addAll(choiceBox1, choiceBox2, choiceBox3);
         hbox.setAlignment(Pos.CENTER);
         hbox.setMargin(choiceBox1, new Insets(0, 10, 10, 10));
         hbox.setMargin(choiceBox2, new Insets(0, 10, 10, 10));
+        hbox.setMargin(choiceBox3, new Insets(0, 10, 10, 10));
 
         HBox hboxButton = new HBox();
         hboxButton.getChildren().add(closeButton);
@@ -104,7 +122,7 @@ public class AddAttributePopUp {
 
         Scene addAttributeScene = new Scene(layout);
 
-        addAttributeScene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+     /*   addAttributeScene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if(event.getCode().equals(KeyCode.ENTER)){
@@ -112,7 +130,7 @@ public class AddAttributePopUp {
                     attributePopUpWindow.close();
                 }
             }
-        });
+        });*/
 
         attributePopUpWindow.setScene(addAttributeScene);
         attributePopUpWindow.showAndWait();
@@ -122,10 +140,12 @@ public class AddAttributePopUp {
         if (chosenAccessRule[0].equals("public")) chosenAccessRule[0] = "+ ";
         if (chosenAccessRule[0].equals("protected")) chosenAccessRule[0] = "# ";
         if (chosenAccessRule[0].equals("package")) chosenAccessRule[0] = "~ ";
-        String result = chosenAccessRule[0] + attributeName[0] + ": " + chosenType[0];
-        if (!result.contains("null")) {
-            return result;
-        }
-        return null;
+        String[] result = {null, null, null, null};
+        result[0] = chosenAccessRule[0];
+        result[1] = attributeName[0];
+        result[2] =  chosenDataType[0];
+        result[3] = chosenType[0];
+        if (result[1] == null || result[2] == null || result[3] == null) return null;
+        return result;
     }
 }

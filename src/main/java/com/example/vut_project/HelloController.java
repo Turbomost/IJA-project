@@ -311,13 +311,10 @@ public class HelloController {
     }
 
 
-    public boolean AddAttribute(String class_name, String attribute_name) {
+    public boolean AddAttribute(String class_name, AttributeController attr ) {
         ClassController curClass = this.classDiagramController.findClass(class_name);
-        System.out.println("Before: " + curClass.getAttributesList().toString());
-        AttributeController attr = new AttributeController(attribute_name, "attribute");
-        boolean success = curClass.addAttribute(attr);
-        System.out.println("After: " + curClass.getAttributesList().toString());
-        return success;
+        System.out.println("before adding");
+        return curClass.addAttribute(attr);
     }
 
     public boolean RenameClass(String old_name, String new_name) {

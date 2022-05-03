@@ -133,10 +133,13 @@ public class EntityController extends VBox {
      * @param event
      */
     public void onAddAttributeClick(ActionEvent event) {
-        String attributeToAdd = AddAttributePopUp.AddAttrubutePopUpDisplay("Attribute", "Choose Attribute Properties", "Add");
+        System.out.println("before");
+        String[] attributeToAdd = AddAttributePopUp.AddAttrubutePopUpDisplay("Attribute", "Choose Attribute Properties", "Add");
+        System.out.println("after");
         if(attributeToAdd == null) return;
-        if (referece.AddAttribute(this.classNameTextField.getText(), attributeToAdd)){
-            this.entityAttributeView.getItems().add(attributeToAdd);
+        AttributeController attr = new AttributeController((String) attributeToAdd[1],(String) attributeToAdd[3],(String) attributeToAdd[2],(String) attributeToAdd[0]);
+        if (referece.AddAttribute(this.classNameTextField.getText(), attr)){ //TODO
+            this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
             index++;
         }
     }
@@ -152,7 +155,7 @@ public class EntityController extends VBox {
     }
 
     @FXML
-    public void onSingleAttributeClick(MouseEvent event) {
+    public void onSingleAttributeClick(MouseEvent event) {  //TODO
         int ClickedAttributeIndex = entityAttributeView.getSelectionModel().getSelectedIndex();
         if (ClickedAttributeIndex == -1) {
             return;
@@ -179,7 +182,8 @@ public class EntityController extends VBox {
             System.out.println("OLD NAME: " + old_attribute_name);
             System.out.println("Attribute changed, new name: " + new_attribute_name);
             referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
-            referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
+            //referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
+            onAddAttributeClick(null);
         }
     }
 

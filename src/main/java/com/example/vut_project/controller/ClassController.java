@@ -65,6 +65,8 @@ public class ClassController extends ElementController {
             }
         }
         this.AttributeList.add(attr);
+        System.out.println("successfully added " + attr.getName());
+        System.out.println(this.AttributeList.toString());
         return true;
     }
 

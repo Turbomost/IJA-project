@@ -11,7 +11,9 @@ package com.example.vut_project.controller;
  */
 public class AttributeController extends ElementController {
 
-    private final String type;
+    private String type;
+    private String datatype;
+    private String accessType;
 
     /**
      * Default Attribute constructor
@@ -19,9 +21,18 @@ public class AttributeController extends ElementController {
      * @param name name of attribute
      * @param type type of attribute
      */
+    public AttributeController(String name, String type, String datatype, String accessType) {
+        super(name);
+        this.type = type;
+        this.accessType = accessType;
+        this.datatype = datatype;
+    }
+
     public AttributeController(String name, String type) {
         super(name);
         this.type = type;
+        this.accessType = "+";
+        this.datatype = "int";
     }
 
     /**
@@ -31,6 +42,10 @@ public class AttributeController extends ElementController {
      */
     public String getType() {
         return this.type;
+    }
+
+    public String getWholeAttributeString(){
+        return this.accessType + this.getName() + ": " + this.datatype;
     }
 
 }
