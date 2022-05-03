@@ -132,10 +132,25 @@ public class EntityController extends VBox {
      * @param event
      */
     public AttributeController onAddAttributeClick(ActionEvent event) {
-        String[] attributeToAdd = AddAttributePopUp.AddAttrubutePopUpDisplay("Attribute", "Choose Attribute Properties", "Add");
+        String[] attributeToAdd = AddAttributePopUp.AddAttrubutePopUpDisplay("Attribute", "Choose Attribute Properties", "Add Attribute");
         if (attributeToAdd == null) return null;
         AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
         if (referece.AddAttribute(this.classNameTextField.getText(), attr)) { //TODO
+            if (event != null) {
+                this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
+            }
+            index++;
+            return attr;
+
+        }
+        return null;
+    }
+
+    public AttributeController onAddFunctionDiagramClick(ActionEvent event){
+        String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("Function", "Choose Function Properties", "Add Function");
+        if (attributeToAdd == null) return null;
+        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
             if (event != null) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
             }
@@ -183,7 +198,7 @@ public class EntityController extends VBox {
         entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
     }
 
-    
+
     public void onEnterClick(KeyEvent event) {  // attribute click
         String new_attribute_name;
         if (event.getCode() != KeyCode.ENTER) {

@@ -3,7 +3,6 @@ package com.example.vut_project.controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,15 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AddAttributePopUp {
-    public static String[] AddAttrubutePopUpDisplay(String title, String message, String button_message) {
+public class AddFunctionPopUp {
+    public static String[] AddFunctionPopUpDisplay(String title, String message, String button_message) {
         String accessRule[] = { "private", "public", "protected", "package" };
         // create a choiceBox
         final String[] attributeName = {null};
@@ -41,7 +39,7 @@ public class AddAttributePopUp {
         });
 
         final String[] chosenDataType = {null};
-        String dataTypePopUpChooser[] = { " int", " bool", " string" };
+        String dataTypePopUpChooser[] = { " int", " bool", " string", " void " };
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         // add a listener
@@ -73,7 +71,7 @@ public class AddAttributePopUp {
         textField.setEditable(true);
         textField.prefWidthProperty();
         textField.prefHeightProperty();
-        textField.setPromptText("Attribute Name");
+        textField.setPromptText("Function Name");
 
         // add ChoiceBox
         Stage attributePopUpWindow = new Stage();
@@ -143,8 +141,9 @@ public class AddAttributePopUp {
         String[] result = {null, null, null, null};
         result[0] = chosenAccessRule[0];
         result[1] = attributeName[0];
+        result[1] += "()";
         result[2] =  chosenDataType[0];
-        result[3] = "attribute";
+        result[3] = "function";
         if (result[1] == null || result[2] == null || result[3] == null) return null;
         return result;
     }

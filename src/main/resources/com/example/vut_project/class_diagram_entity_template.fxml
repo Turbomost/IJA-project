@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<fx:root fx:id="classVBox" onMouseClicked="#onClassDiagramClick" prefHeight="300.0" prefWidth="200.0"
+<fx:root fx:id="classVBox" onMouseClicked="#onClassDiagramClick" prefHeight="150.0" prefWidth="250.0"
          style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -31,6 +31,8 @@
                                   onAction="#onDeleteDiagramClick" text="Delete Diagram"/>
                         <MenuItem fx:id="renameAttributeDiagramContextMenuButton" mnemonicParsing="false"
                                   onAction="#onRenameAttributeDiagramClick" text="Rename Attribute"/>
+                        <MenuItem fx:id="addFunctionDiagramContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onAddFunctionDiagramClick" text="Add Function"/>
                     </items>
                 </ContextMenu>
             </contextMenu>
