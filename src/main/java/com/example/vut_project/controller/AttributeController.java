@@ -58,7 +58,23 @@ public class AttributeController extends ElementController {
     }
 
     public String getWholeAttributeString() {
-        return this.accessType + this.getName() + ": " + this.datatype;
+        if (this.type.equals("function")) {
+            return this.accessType + this.getName() + "(" + operationTypesReturnList() + ") : " + this.datatype;
+        }
+        else{
+            return this.accessType + this.getName() + " : " + this.datatype;
+        }
+    }
+
+    private String operationTypesReturnList() {
+        StringBuilder operationTypesReturnList = new StringBuilder();
+        for (AttributeOperationController attrOp : attributeOperationsList){
+            operationTypesReturnList.append(attrOp.returnString());
+        }
+        if (operationTypesReturnList.toString().isBlank()){
+            return "";
+        };
+        return operationTypesReturnList.toString().substring(0,operationTypesReturnList.toString().lastIndexOf(","));
     }
 
     public ArrayList<String> operationTypesNames() {

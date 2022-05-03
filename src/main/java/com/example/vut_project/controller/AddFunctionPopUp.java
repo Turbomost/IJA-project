@@ -141,7 +141,6 @@ public class AddFunctionPopUp {
         String[] result = {null, null, null, null};
         result[0] = chosenAccessRule[0];
         result[1] = attributeName[0];
-        result[1] += "()";
         result[2] =  chosenDataType[0];
         result[3] = "function";
         if (result[1] == null || result[2] == null || result[3] == null) return null;

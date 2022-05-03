@@ -13,4 +13,8 @@ public class AttributeOperationController {
     public String getName() {
         return this.name;
     }
+
+    public String returnString(){
+        return this.name + " : " + this.dataType + ", ";
+    }
 }
