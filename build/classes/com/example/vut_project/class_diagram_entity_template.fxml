@@ -24,7 +24,7 @@
                         <MenuItem fx:id="addFunctionDiagramContextMenuButton" mnemonicParsing="false"
                                   onAction="#onAddFunctionDiagramClick" text="Add Function"/>
                         <MenuItem fx:id="renameAttributeDiagramContextMenuButton" mnemonicParsing="false"
-                                  onAction="#onRenameAttributeDiagramClick" text="Rename"/>
+                                  onAction="#onRenameAttributeDiagramClick" text="Edit"/>
                         <MenuItem fx:id="deleteAttributeContextMenuButton" mnemonicParsing="false"
                                   onAction="#onDeleteAttributeClick" text="Delete"/>
                         <MenuItem fx:id="addConstraintContextMenuButton" mnemonicParsing="false"

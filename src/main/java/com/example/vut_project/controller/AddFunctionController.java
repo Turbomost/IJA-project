@@ -33,8 +33,9 @@ public class AddFunctionController {
     }
 
     public void onAddFunctionContextMenuClick(ActionEvent event) {
-
+        attributeReference.addOperationType("fero", "int");
         this.functionListView.getItems().add("fero");
+        System.out.println(attributeReference.getWholeAttributeString());
     }
 
     public void onEditFunctionContextMenuClick(ActionEvent event) {

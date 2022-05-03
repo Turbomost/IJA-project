@@ -174,7 +174,7 @@ public class EntityController extends VBox {
         //AttributeController attr = new AttributeController();
         this.addFunctionController.parseEntityControllerAsReference(this, attr);
 
-        referece.AddAttribute(this.classNameTextField.getText(), attr);
+        //referece.AddAttribute(this.classNameTextField.getText(), attr);
 
         functionPopUpStage.show();
     }
@@ -199,6 +199,10 @@ public class EntityController extends VBox {
         System.out.println("Clicked on " + entityAttributeView.getItems().get(ClickedAttributeIndex));
         old_attribute_name = (String) entityAttributeView.getItems().get(ClickedAttributeIndex);
         String parsedAttributeName = old_attribute_name.substring(2, old_attribute_name.lastIndexOf(":"));
+        AttributeController found_attribute = referece.getAttributeControllerByName(classNameTextField.getText(), parsedAttributeName);
+        System.out.println("FOUND REFERENCE " + found_attribute);
+        System.out.println("TYPE: " + found_attribute.getType());
+
         System.out.println(parsedAttributeName);
         this.renameAttributeInEntityController(parsedAttributeName, ClickedAttributeIndex);
     }
