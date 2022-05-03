@@ -157,7 +157,7 @@ public class EntityController extends VBox {
     }
 
     @FXML
-    public void onSingleAttributeClick(MouseEvent event) {  //TODO
+    public void onRenameAttributeDiagramClick(ActionEvent event) {  //TODO
         int ClickedAttributeIndex = entityAttributeView.getSelectionModel().getSelectedIndex();
         if (ClickedAttributeIndex == -1) {
             System.out.println("jsi mimo");
@@ -183,8 +183,7 @@ public class EntityController extends VBox {
         entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
     }
 
-
-    @FXML
+    
     public void onEnterClick(KeyEvent event) {  // attribute click
         String new_attribute_name;
         if (event.getCode() != KeyCode.ENTER) {

@@ -134,7 +134,7 @@ public class AddAttributePopUp {
 
         attributePopUpWindow.setScene(addAttributeScene);
         attributePopUpWindow.showAndWait();
-        if (attributeName.equals("")) return null;
+        if (attributeName[0].isEmpty()) return null;
         if (chosenAccessRule[0] == null) return null;
         if (chosenAccessRule[0].equals("private")) chosenAccessRule[0] = "- ";
         if (chosenAccessRule[0].equals("public")) chosenAccessRule[0] = "+ ";

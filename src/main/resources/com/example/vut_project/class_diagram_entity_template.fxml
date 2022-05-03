@@ -12,7 +12,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </VBox.margin>
         </TextField>
-        <ListView fx:id="entityAttributeView" editable="true" prefHeight="263.0" prefWidth="198.0" onMouseClicked="#onSingleAttributeClick" onKeyReleased="#onEnterClick">
+        <ListView fx:id="entityAttributeView" editable="true" prefHeight="263.0" prefWidth="198.0">
             <VBox.margin>
                 <Insets top="5.0"/>
             </VBox.margin>
@@ -29,6 +29,8 @@
                                   onAction="#onPasteConstraintClick" text="Paste Constraint"/>
                         <MenuItem fx:id="deleteDiagramContextMenuButton" mnemonicParsing="false"
                                   onAction="#onDeleteDiagramClick" text="Delete Diagram"/>
+                        <MenuItem fx:id="renameAttributeDiagramContextMenuButton" mnemonicParsing="false"
+                                  onAction="#onRenameAttributeDiagramClick" text="Rename Attribute"/>
                     </items>
                 </ContextMenu>
             </contextMenu>
