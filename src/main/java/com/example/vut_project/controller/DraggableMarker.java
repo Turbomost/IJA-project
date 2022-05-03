@@ -30,7 +30,7 @@ public class DraggableMarker {
 
         node.setOnMouseDragged(mouseEvent -> {
             node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 60);
+            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
             draggable_class.setPosition_x(node.getLayoutX());
             draggable_class.setPosition_y(node.getLayoutY());
             draggable_class.update_constraint();
@@ -45,9 +45,10 @@ public class DraggableMarker {
 
         node.setOnMouseDragged(mouseEvent -> {
             node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 60);
+            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
         });
     }
+
     public void makeDraggableOnXAxis(Node node, EntityController entity) {
         node.setOnMousePressed(mouseEvent -> {
             mouseAnchorX = mouseEvent.getX();
@@ -55,8 +56,9 @@ public class DraggableMarker {
 
         node.setOnMouseDragged(mouseEvent -> {
             node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            for (int i = 0; i < entity.getLifeLineList().size(); i++)
-                entity.getLifeLineList().get(i).getLifeLine().setLayoutX(mouseEvent.getSceneX() - mouseAnchorX - entity.getLifeLineList().get(i).getLifeLine().getStrokeWidth()*2);
+            for (int i = 0; i < entity.getLifeLineList().size(); i++) {
+                entity.getLifeLineList().get(i).getAnchorPane().setLayoutX(entity.getLayoutX() + entity.sequenceVBox.getPrefWidth() / 2);
+            }
         });
     }
 }

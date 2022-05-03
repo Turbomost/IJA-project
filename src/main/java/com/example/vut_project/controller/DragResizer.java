@@ -1,5 +1,6 @@
 package com.example.vut_project.controller;
 
+import com.example.vut_project.EntityController;
 import com.example.vut_project.SequenceDiagramController;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -41,7 +42,7 @@ public class DragResizer {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Line resize start " + line);
-                if (event.getButton() == MouseButton.SECONDARY){
+                if (event.getButton() == MouseButton.SECONDARY) {
                     System.out.println("Secondary mouse button on Life Line");
                     ContextMenu menu = new ContextMenu();
                     MenuItem item = new MenuItem("Delete Life Line");
@@ -49,7 +50,7 @@ public class DragResizer {
                     item.setOnAction(e -> reference.onDeleteLifeLineClick(event));
                     menu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
 
-                }else{
+                } else {
                     mousePressed(event, region);
                 }
             }
@@ -97,7 +98,7 @@ public class DragResizer {
                 System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
                 double length = line.getEndY() - line.getStartY();
                 System.out.println(length);
-                region.setLayoutY(event.getSceneY() - mouseAnchorY - 140);
+                region.setLayoutY(event.getSceneY() - mouseAnchorY);
                 System.out.println("Set to: " + region.getLayoutX());
                 System.out.println("Set to: " + region.getLayoutY());
                 System.out.println("After Move " + region.getChildrenUnmodifiable().get(0));

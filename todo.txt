@@ -5,7 +5,7 @@ divně se posunuje lifeline v seq diagramu
 Zápis do souboru
 Provázanost
 Undo
-Typ - přidávání atributů
+>	Typ - přidávání atributů
 modifikátory přístupu
 typ constraintů
 generalizace

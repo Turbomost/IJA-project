@@ -16,20 +16,28 @@ public class LifeLine extends Line {
         this.anchorPane = anchorPane;
         this.life_line = new Line();
         this.life_line.setStrokeWidth(10.0);
-        this.life_line.setStartY(this.stick_to_entity.getLayoutY() + this.stick_to_entity.sequenceVBox.getPrefHeight() + this.life_line.getStrokeWidth() / 2);
-        this.life_line.setStartX(this.stick_to_entity.getLayoutX() + this.stick_to_entity.sequenceVBox.getPrefWidth() / 2);
-        this.life_line.setEndX(this.stick_to_entity.getLayoutX() + this.stick_to_entity.sequenceVBox.getPrefWidth() / 2);
-        this.life_line.setEndY(this.stick_to_entity.getLayoutY() + 50 + this.stick_to_entity.sequenceVBox.getPrefHeight());
+
+        this.anchorPane.setLayoutX(this.stick_to_entity.getLayoutX() + this.stick_to_entity.sequenceVBox.getPrefWidth() / 2);
+        this.anchorPane.setLayoutY(this.stick_to_entity.getLayoutY() + this.stick_to_entity.sequenceVBox.getPrefHeight() + this.life_line.getStrokeWidth() / 2);
+
         this.life_line.setFill(Color.GRAY);
         this.life_line.setStroke(Color.BLACK);
-        this.life_line.resize(80, 200);
+        this.life_line.setStartX(0);
+        this.life_line.setEndX(0);
+        this.life_line.setStartY(0);
+        this.life_line.setEndY(80);
+
+
         System.out.println("LIFE LINE INSIDE " + this.life_line);
+        System.out.println("Layout x: " + this.anchorPane.getLayoutX() + ", Layout y: " + this.anchorPane.getLayoutY());
+        System.out.println("Scale x: " + this.anchorPane.getScaleX() + ", Scale y: " + this.anchorPane.getScaleY());
     }
 
     public Line getLifeLine() {
         return this.life_line;
     }
-    public AnchorPane getAnchorPane(){
+
+    public AnchorPane getAnchorPane() {
         return this.anchorPane;
     }
 }

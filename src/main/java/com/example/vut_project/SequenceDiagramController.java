@@ -6,11 +6,9 @@ import com.example.vut_project.controller.LifeLine;
 import com.example.vut_project.controller.SequenceChoiceBox;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +57,10 @@ public class SequenceDiagramController {
         System.out.println("New life line click");
         AnchorPane p = new AnchorPane();
         LifeLine life_line_class = new LifeLine(new_entity, p);
+        p.setLayoutX(life_line_class.getAnchorPane().getLayoutX());
+        p.setLayoutY(life_line_class.getAnchorPane().getLayoutY());
+        System.out.println("p Layout x: " + p.getLayoutX() + ", p Layout y: " + p.getLayoutY());
+        System.out.println("p Scale x: " + p.getScaleX() + ", p Scale y: " + p.getScaleY());
         Line life_line = life_line_class.getLifeLine();
         System.out.println("New Line created " + life_line);
         new_entity.addLifeLine(life_line_class);
