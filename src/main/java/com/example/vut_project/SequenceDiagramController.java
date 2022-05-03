@@ -41,11 +41,11 @@ public class SequenceDiagramController {
         new_entity = new EntityController(this, i);
         new_entity.setLayoutX(20 + 100 * i++);
         new_entity.setLayoutY(20);
-        createLifeLineBindToEntity(event);
+        EntityList.add(new_entity);
+        createLifeLineBindToEntity(event, new_entity);
         draggableMaker.makeDraggableOnXAxis(new_entity, new_entity);
         sequenceSpace.getChildren().add(new_entity);
         new_entity.setSequenceNameTextField(chosen);
-        EntityList.add(new_entity);
 
     }
 
@@ -53,21 +53,21 @@ public class SequenceDiagramController {
         System.out.println("On New Life Line Button Click");
     }
 
-    public void createLifeLineBindToEntity(ActionEvent event) {
+    public void createLifeLineBindToEntity(ActionEvent event, EntityController entity) {
         System.out.println("New life line click");
         AnchorPane p = new AnchorPane();
-        LifeLine life_line_class = new LifeLine(new_entity, p);
+        LifeLine life_line_class = new LifeLine(entity, p);
         p.setLayoutX(life_line_class.getAnchorPane().getLayoutX());
         p.setLayoutY(life_line_class.getAnchorPane().getLayoutY());
         System.out.println("p Layout x: " + p.getLayoutX() + ", p Layout y: " + p.getLayoutY());
         System.out.println("p Scale x: " + p.getScaleX() + ", p Scale y: " + p.getScaleY());
         Line life_line = life_line_class.getLifeLine();
         System.out.println("New Line created " + life_line);
-        new_entity.addLifeLine(life_line_class);
+        entity.addLifeLine(life_line_class);
 
         p.getChildren().add(life_line);
 
-        resizableMaker.makeResizable(p, life_line, this);
+        resizableMaker.makeResizable(p, life_line_class, this);
         //draggableMaker.makeDraggable(p, p, life_line);
 
         sequenceSpace.getChildren().add(p);

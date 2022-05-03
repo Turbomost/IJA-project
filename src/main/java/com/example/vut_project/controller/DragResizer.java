@@ -32,7 +32,7 @@ public class DragResizer {
         region = aRegion;
     }*/
 
-    public void makeResizable(Region region, Line line, SequenceDiagramController reference) {
+    public void makeResizable(Region region, LifeLine line, SequenceDiagramController reference) {
 
         //DraggableMarker d = new DraggableMarker();
         //d.makeDraggable(this.region, line);
@@ -92,13 +92,14 @@ public class DragResizer {
         return event.getY() > (region.getHeight() - RESIZE_MARGIN);
     }
 
-    protected void mouseDragged(MouseEvent event, Region region, Line line, SequenceDiagramController reference) {
+    protected void mouseDragged(MouseEvent event, Region region, LifeLine line, SequenceDiagramController reference) {
         if (!dragging) {
             if (!isInDraggableZone(event, region)) {
                 System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
                 double length = line.getEndY() - line.getStartY();
                 System.out.println(length);
-                region.setLayoutY(event.getSceneY() - mouseAnchorY);
+                line.getAnchorPane().setLayoutY(event.getSceneY() - 60);
+                //region.setLayoutY(event.getSceneY() - mouseAnchorY - 140);
                 System.out.println("Set to: " + region.getLayoutX());
                 System.out.println("Set to: " + region.getLayoutY());
                 System.out.println("After Move " + region.getChildrenUnmodifiable().get(0));
@@ -115,8 +116,8 @@ public class DragResizer {
         y = mousey;
 
         System.out.println("RESIZE TO > " + y);
-        line.setEndY(y);
-        line.setFill(Color.BLACK);
+        line.getLifeLine().setEndY(y);
+        line.getLifeLine().setFill(Color.BLACK);
         System.out.println("Line resize end " + line);
     }
 
