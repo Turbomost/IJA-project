@@ -128,6 +128,12 @@ public class ClassController extends ElementController {
                 return attr;
             }
         }
+        String substr = name.substring(0,name.lastIndexOf("("));
+        for (AttributeController attr : this.AttributeList) {
+            if (attr.getName().equals(substr)) {
+                return attr;
+            }
+        }
         return null;
     }
 

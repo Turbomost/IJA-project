@@ -319,15 +319,7 @@ public class HelloController {
 
     public AttributeController getAttributeControllerByName(String class_name, String attribute_name){
         ClassController curClass = this.classDiagramController.findClass(class_name);
-        List<AttributeController> attr_list = curClass.getAttributes();
-        for (AttributeController single_attr : attr_list){
-            System.out.println("COMPARING " + single_attr.getName() + " AND " + attribute_name);
-            if(single_attr.getName().equals(attribute_name)){
-                System.out.println("RETURNING " + single_attr);
-                return single_attr;
-            }
-        }
-        return null;
+        return curClass.findAttributeByName(attribute_name);
     }
 
     public boolean RenameClass(String old_name, String new_name) {

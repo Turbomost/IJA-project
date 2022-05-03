@@ -1,12 +1,10 @@
 >	Add functions - datové typy, parametry
 +	rename - pošle původní hodnota
->	Komplet parsování ze souboru
 
-Zápis do souboru
+>Parsování ze souboru + nekonzistence načítání + zápis seq
+>Zápis do souboru + zápis seq
+
 Provázanost
 Undo
-typ constraintů + kardinalita
-generalizace
-načítaní a zápis seq diagramu
-typy zpráv
-nekonzistence načítání
+typ constraintů + kardinalita + generalizace
+typy zpráv v seq
