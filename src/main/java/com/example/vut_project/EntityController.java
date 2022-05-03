@@ -151,9 +151,9 @@ public class EntityController extends VBox {
         return null;
     }
 
-    public void onAddFunctionDiagramClick(ActionEvent event) throws IOException {
+    public AttributeController onAddFunctionDiagramClick(ActionEvent event) throws IOException {
         String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function");
-        if (attributeToAdd == null) return;
+        if (attributeToAdd == null) return null;
         AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
         if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
             if (event != null) {
@@ -177,6 +177,7 @@ public class EntityController extends VBox {
         //referece.AddAttribute(this.classNameTextField.getText(), attr);
 
         functionPopUpStage.show();
+        return attr;
     }
 
     public void onDeleteAttributeClick(ActionEvent event) {
@@ -190,7 +191,7 @@ public class EntityController extends VBox {
     }
 
     @FXML
-    public void onRenameAttributeDiagramClick(ActionEvent event) {  //TODO
+    public void onRenameAttributeDiagramClick(ActionEvent event) throws IOException {  //TODO
         int ClickedAttributeIndex = entityAttributeView.getSelectionModel().getSelectedIndex();
         if (ClickedAttributeIndex == -1) {
             System.out.println("jsi mimo");
@@ -207,9 +208,9 @@ public class EntityController extends VBox {
         if (found_attribute.getType().equals("attribute")) {
             this.renameAttributeInEntityController(parsedAttributeName, ClickedAttributeIndex);
         }
-        else
-        {
-            //rename function
+        else if(found_attribute.getType().equals("function")) {
+            System.out.println("INSIDE");
+            this.renameFunctionInEntityController(parsedAttributeName, ClickedAttributeIndex);
         }
     }
 
@@ -224,6 +225,24 @@ public class EntityController extends VBox {
         referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
         //referece.AddAttribute(classNameTextField.getText(), new_attr);
         entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
+    }
+    public void renameFunctionInEntityController(String old_function_name, int index) throws IOException {
+        //referece.renameFunctionBasic(classNameTextField.getText(),  old_attribute_name);
+        AttributeController found_attr = referece.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
+        AttributeController new_attr = onAddFunctionDiagramClick(null);
+        found_attr.rename(new_attr.getName());
+        found_attr.setType(new_attr.getType());
+        found_attr.setDatatype(new_attr.getDatatype());
+        found_attr.setAccessType(new_attr.getAccessType());
+        if (new_attr == null) {
+            return;
+        }
+        System.out.println("Attribute changed, new name: " + found_attr.getName());
+        classNameTextField.setText(new_attr.getName());
+        //referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
+
+        //referece.AddAttribute(classNameTextField.getText(), new_attr);
+        entityAttributeView.getItems().set(index, found_attr.getWholeAttributeString());
     }
 
 

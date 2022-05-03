@@ -121,7 +121,6 @@ public class ClassController extends ElementController {
         return false;
     }
 
-
     public AttributeController findAttributeByName(String name) {
         for (AttributeController attr : this.AttributeList) {
             if (attr.getName().equals(name)) {

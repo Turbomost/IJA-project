@@ -310,6 +310,22 @@ public class HelloController {
         }
     }
 
+    public void renameFunctionBasic(String class_name, String function_name){
+        ClassController curClass = this.classDiagramController.findClass(class_name);
+        AttributeController function_to_change;
+        if (curClass != null) {
+            function_to_change = curClass.findAttributeByName(function_name);
+            if (function_to_change != null) {
+                System.out.println("Before: " + curClass.getAttributesList().toString());
+                function_to_change.getType();
+                function_to_change.getAccessType();
+                function_to_change.getDatatype();
+                curClass.removeAttribute(curClass.findAttributeByName(function_name));
+                System.out.println("After: " + curClass.getAttributesList().toString());
+            }
+        }
+    }
+
 
     public boolean AddAttribute(String class_name, AttributeController attr ) {
         ClassController curClass = this.classDiagramController.findClass(class_name);

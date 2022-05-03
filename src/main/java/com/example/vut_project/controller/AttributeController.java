@@ -57,6 +57,19 @@ public class AttributeController extends ElementController {
         return this.accessType;
     }
 
+    public void setType(String type){
+        this.type = type;
+    }
+
+    public void setDatatype(String datatype){
+        this.datatype = datatype;
+    }
+
+    public void setAccessType(String accessType){
+        this.accessType = accessType;
+    }
+    
+
     public String getWholeAttributeString() {
         if (this.type.equals("function")) {
             return this.accessType + this.getName() + "(" + operationTypesReturnList() + ") : " + this.datatype;
