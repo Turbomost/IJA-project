@@ -57,18 +57,18 @@ public class AttributeController extends ElementController {
         return this.accessType;
     }
 
-    public void setType(String type){
+    public void setType(String type) {
         this.type = type;
     }
 
-    public void setDatatype(String datatype){
+    public void setDatatype(String datatype) {
         this.datatype = datatype;
     }
 
-    public void setAccessType(String accessType){
+    public void setAccessType(String accessType) {
         this.accessType = accessType;
     }
-    
+
 
     public String getWholeAttributeString() {
         if (this.type.equals("function")) {
@@ -78,7 +78,7 @@ public class AttributeController extends ElementController {
         }
     }
 
-    private String operationTypesReturnList() {
+    public String operationTypesReturnList() {
         StringBuilder operationTypesReturnList = new StringBuilder();
         for (AttributeOperationController attrOp : attributeOperationsList) {
             operationTypesReturnList.append(attrOp.returnString());
@@ -89,6 +89,15 @@ public class AttributeController extends ElementController {
         }
         ;
         return operationTypesReturnList.toString().substring(0, operationTypesReturnList.toString().lastIndexOf(","));
+    }
+
+    public AttributeOperationController getLastAddedOperationAttribute() {
+        return this.attributeOperationsList.get(attributeOperationsList.size() - 1);
+    }
+
+    public String getLastAddedOperationAttributeString(){
+        AttributeOperationController attr = this.getLastAddedOperationAttribute();
+        return attr.returnString();
     }
 
     public ArrayList<String> operationTypesNames() {

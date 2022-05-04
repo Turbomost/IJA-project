@@ -32,14 +32,18 @@ public class AddFunctionController {
     Pane editMethodPupUpSpace;
     Scene editMethodPopUpScene;
     Stage editMethodPopUpStage;
+    private int selected_fucntion_index;
+    private String old_param_name;
 
     public void parseEntityControllerAsReference(EntityController reference, AttributeController attributeReference){
         this.entityControllerReference = reference;
         this.attributeReference = attributeReference;
         this.methodNameTextField.setText(attributeReference.getName());
+        this.selected_fucntion_index = entityControllerReference.ClickedAttributeIndex;
     }
 
     public void onSaveFunctionButtonClick(ActionEvent event) {
+        System.out.println("SAVE PARAMETERS ");
 
     }
 
@@ -53,11 +57,6 @@ public class AddFunctionController {
         this.singleFunctionParameterEditorReference = loader.getController();
         this.singleFunctionParameterEditorReference.parseAddFunctionControllerReference(this);
         this.editMethodPopUpStage.show();
-        /*
-        attributeReference.addOperationType("fero", "int");
-        this.functionListView.getItems().add("fero");
-        System.out.println(attributeReference.getWholeAttributeString());
-         */
     }
 
     public void onEditFunctionContextMenuClick(ActionEvent event) throws IOException {
@@ -73,9 +72,29 @@ public class AddFunctionController {
     }
 
     public void handleAddParameterButtonClick(){
-        System.out.println(this.singleFunctionParameterEditorReference.getEnteredParameter());
+        //System.out.println(this.singleFunctionParameterEditorReference.getEnteredParameter());
+        int selectedIndex = functionListView.getSelectionModel().getSelectedIndex();
+        if(selectedIndex != -1) {
+            old_param_name = functionListView.getItems().get(selectedIndex).toString();
+            functionListView.getItems().remove(selectedIndex);
+            System.out.println("CLICKED TEXT :" + old_param_name);
+        }
+        System.out.println("SELECTED INDEX " + selectedIndex);
+        //this.functionListView.getItems().remove();
+        this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name);
         this.editMethodPopUpStage.close();
-        this.functionListView.getItems().add(this.singleFunctionParameterEditorReference.getEnteredParameter());
+        if(this.selected_fucntion_index != -1){
+            entityControllerReference.entityAttributeView.getItems().set(this.selected_fucntion_index, attributeReference.getWholeAttributeString());
+        }
+        if(selectedIndex != -1){
+            this.functionListView.getItems().add(selectedIndex, attributeReference.getLastAddedOperationAttributeString());
+        }else{
+            this.functionListView.getItems().add(attributeReference.getLastAddedOperationAttributeString());
+            System.out.println("FOO INDEX TO UPDATE " + this.selected_fucntion_index);
+
+        }
+
+        //this.functionListView.getItems().add(this.singleFunctionParameterEditorReference.getEnteredParameter());
     }
 
     public void onDeleteFunctionContextMenuClick(ActionEvent event) {

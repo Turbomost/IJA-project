@@ -19,9 +19,12 @@ public class SingleFunctionParameterEditor {
         this.reference = reference;
     }
 
-    public String getEnteredParameter(){
+    public void getEnteredParameter(int selected_index, String old_param_name){
+        if (selected_index == -1){
+            reference.attributeReference.addOperationType(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
+        }else{
+            reference.attributeReference.findOperationTypeByName(old_param_name.substring(0, old_param_name.lastIndexOf(" :"))).setParams(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
+        }
         // TODO tu sa bude musiet ten parameter vytvarat a retrnovať
-        String dataType = this.functionDataTypeEditTextField.getText();
-        return this.functionParameterEditTextField.getText() + ":" + this.functionDataTypeEditTextField.getText();
     }
 }

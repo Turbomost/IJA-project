@@ -45,7 +45,7 @@ public class EntityController extends VBox {
     @FXML
     private MenuItem deleteDiagramContextButton;
     @FXML
-    private ListView entityAttributeView;
+    public ListView entityAttributeView;
     @FXML
     private MenuItem addAttributeContextMenuButton;
     private MenuItem deleteAttributeContextMenuButton;
@@ -61,7 +61,7 @@ public class EntityController extends VBox {
     private int AttrClickedFXID;
     private Object identifier;
     private int index = 0;
-
+    public int ClickedAttributeIndex;
     /**
      * Constructor for new Entity
      *
@@ -197,13 +197,13 @@ public class EntityController extends VBox {
 
     @FXML
     public void onRenameAttributeDiagramClick(ActionEvent event) throws IOException {  //TODO
-        int ClickedAttributeIndex = entityAttributeView.getSelectionModel().getSelectedIndex();
-        if (ClickedAttributeIndex == -1) {
+        this.ClickedAttributeIndex = entityAttributeView.getSelectionModel().getSelectedIndex();
+        if (this.ClickedAttributeIndex == -1) {
             System.out.println("jsi mimo");
             return;
         }
-        System.out.println("Clicked on " + entityAttributeView.getItems().get(ClickedAttributeIndex));
-        old_attribute_name = (String) entityAttributeView.getItems().get(ClickedAttributeIndex);
+        System.out.println("Clicked on " + entityAttributeView.getItems().get(this.ClickedAttributeIndex));
+        old_attribute_name = (String) entityAttributeView.getItems().get(this.ClickedAttributeIndex);
         String parsedAttributeName = old_attribute_name.substring(2, old_attribute_name.lastIndexOf(" :"));
         AttributeController found_attribute = referece.getAttributeControllerByName(this.classNameTextField.getText(), parsedAttributeName);
         System.out.println("FOUND REFERENCE " + found_attribute);
@@ -211,10 +211,10 @@ public class EntityController extends VBox {
 
         System.out.println(parsedAttributeName);
         if (found_attribute.getType().equals("attribute")) {
-            this.renameAttributeInEntityController(parsedAttributeName, ClickedAttributeIndex);
+            this.renameAttributeInEntityController(parsedAttributeName, this.ClickedAttributeIndex);
         } else if (found_attribute.getType().equals("function")) {
             System.out.println("INSIDE");
-            this.renameFunctionInEntityController(parsedAttributeName.substring(0, parsedAttributeName.lastIndexOf("(")), ClickedAttributeIndex);
+            this.renameFunctionInEntityController(parsedAttributeName.substring(0, parsedAttributeName.lastIndexOf("(")), this.ClickedAttributeIndex);
         }
     }
 
