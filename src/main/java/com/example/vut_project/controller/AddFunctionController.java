@@ -93,7 +93,7 @@ public class AddFunctionController {
         }
         if(selectedIndex != -1){
             functionListView.getItems().remove(selectedIndex);
-            this.functionListView.getItems().add(selectedIndex, attributeReference.get);
+            this.functionListView.getItems().add(selectedIndex, attributeReference.getLastAddedOperationAttributeString());
         }else{
             this.functionListView.getItems().add(attributeReference.getLastAddedOperationAttributeString());
             System.out.println("FOO INDEX TO UPDATE " + this.selected_fucntion_index);
