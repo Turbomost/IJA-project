@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="97.0" prefWidth="218.0" fx:controller="com.example.vut_project.controller.SingleFunctionParameterEditor" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="127.0" prefWidth="218.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="com.example.vut_project.controller.SingleFunctionParameterEditor">
    <children>
-      <TextField fx:id="functionParameterEditTextField" alignment="CENTER" layoutX="34.0" layoutY="23.0" promptText="function parameter" />
-      <Button fx:id="functionAddParameterButton" layoutX="37.0" layoutY="57.0" mnemonicParsing="false" onAction="#onAddFunctionParameterButtonClick" text="Add Function Parameter" />
+      <TextField fx:id="functionParameterEditTextField" alignment="CENTER" layoutX="34.0" layoutY="14.0" promptText="function parameter name" />
+      <TextField fx:id="functionDataTypeEditTextField" alignment="CENTER" layoutX="34.0" layoutY="51.0" promptText="parameter data type" />
+      <Button fx:id="functionAddParameterButton" layoutX="37.0" layoutY="87.0" mnemonicParsing="false" onAction="#onAddFunctionParameterButtonClick" text="Add Function Parameter" />
    </children>
 </AnchorPane>

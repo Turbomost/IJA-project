@@ -43,10 +43,21 @@ public class AddFunctionController {
 
     }
 
-    public void onAddFunctionContextMenuClick(ActionEvent event) {
+    public void onAddFunctionContextMenuClick(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/single_method_edit.fxml")); //new object (aba class diagram) is created as pane
+        this.editMethodPupUpSpace = loader.load();
+        this.editMethodPopUpScene = new Scene(editMethodPupUpSpace);
+        this.editMethodPopUpStage = new Stage();
+        this.editMethodPopUpStage.setTitle("Parameter");
+        this.editMethodPopUpStage.setScene(editMethodPopUpScene);
+        this.singleFunctionParameterEditorReference = loader.getController();
+        this.singleFunctionParameterEditorReference.parseAddFunctionControllerReference(this);
+        this.editMethodPopUpStage.show();
+        /*
         attributeReference.addOperationType("fero", "int");
         this.functionListView.getItems().add("fero");
         System.out.println(attributeReference.getWholeAttributeString());
+         */
     }
 
     public void onEditFunctionContextMenuClick(ActionEvent event) throws IOException {
@@ -64,6 +75,7 @@ public class AddFunctionController {
     public void handleAddParameterButtonClick(){
         System.out.println(this.singleFunctionParameterEditorReference.getEnteredParameter());
         this.editMethodPopUpStage.close();
+        this.functionListView.getItems().add(this.singleFunctionParameterEditorReference.getEnteredParameter());
     }
 
     public void onDeleteFunctionContextMenuClick(ActionEvent event) {
