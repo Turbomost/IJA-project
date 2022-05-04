@@ -218,8 +218,17 @@ public class EntityController extends VBox {
         }
     }
 
+    public void renameFunctionInEntityController(String old_function_name, int index) throws IOException {
+        AttributeController new_attr = onAddFunctionDiagramClick(null);
+        renamingProcess(old_function_name, index, new_attr);
+    }
+
     public void renameAttributeInEntityController(String old_attribute_name, int index) {
         AttributeController new_attr = onAddAttributeClick(null);
+        renamingProcess(old_attribute_name, index, new_attr);
+    }
+
+    private void renamingProcess(String old_attribute_name, int index, AttributeController new_attr) {
         if (new_attr == null) {
             AlertBox.display("Note", "Please enter all parameters", "Close");
             return;
@@ -234,27 +243,6 @@ public class EntityController extends VBox {
         }
 
         AttributeController old_attr = refClass.findAttributeByName(old_attribute_name);
-        old_attr.setParams(new_attr.getName(), new_attr.getAccessType(), new_attr.getDatatype(), new_attr.getType());
-        entityAttributeView.getItems().set(index, old_attr.getWholeAttributeString());
-    }
-
-    public void renameFunctionInEntityController(String old_function_name, int index) throws IOException {
-        AttributeController new_attr = onAddFunctionDiagramClick(null);
-        if (new_attr == null) {
-            AlertBox.display("Note", "Please enter all parameters", "Close");
-            return;
-        }
-
-        ClassController refClass = referece.classDiagramController.findClass(classNameTextField.getText());
-        AttributeController old_attr = referece.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
-
-        if (!old_function_name.equals(new_attr.getName())) {
-            if (refClass.findAttributeByName(new_attr.getName()) != null) {
-                AlertBox.display("Warning", "Attribute or operation with name '" + new_attr.getName() + "' already exists!", "Close");
-                return;
-            }
-        }
-
         old_attr.setParams(new_attr.getName(), new_attr.getAccessType(), new_attr.getDatatype(), new_attr.getType());
         entityAttributeView.getItems().set(index, old_attr.getWholeAttributeString());
     }
