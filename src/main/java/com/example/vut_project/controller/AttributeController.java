@@ -16,6 +16,7 @@ public class AttributeController extends ElementController {
     private String type;
     private String datatype;
     private String accessType;
+    public int row;
     private ArrayList<AttributeOperationController> attributeOperationsList;
 
     /**
@@ -24,11 +25,12 @@ public class AttributeController extends ElementController {
      * @param name name of attribute
      * @param type type of attribute
      */
-    public AttributeController(String name, String type, String datatype, String accessType) {
+    public AttributeController(String name, String type, String datatype, String accessType, int row) {
         super(name);
         this.type = type;
         this.accessType = accessType;
         this.datatype = datatype;
+        this.row = row;
         attributeOperationsList = new ArrayList<>();
     }
 

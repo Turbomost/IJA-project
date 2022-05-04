@@ -140,7 +140,7 @@ public class EntityController extends VBox {
         if (attributeToAdd == null) {
             return null;
         }
-        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0], i);
         if (event != null) {
             if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
@@ -148,6 +148,7 @@ public class EntityController extends VBox {
                 return null;
             }
         }
+        this.ClickedAttributeIndex = index;
         index++;
         return attr;
     }
@@ -157,7 +158,7 @@ public class EntityController extends VBox {
         if (attributeToAdd == null) {
             return null;
         }
-        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0], this.entityAttributeView.getSelectionModel().getSelectedIndex());
         if (event != null) {
             if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
@@ -165,31 +166,30 @@ public class EntityController extends VBox {
                 return null;
             }
         }
-        index++;
+
         return attr;
     }
 
     public AttributeController onAddFunctionDiagramClick(ActionEvent event) throws IOException {
-        //POSLAT INFORMACIE PRI EDITE
         String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function");
         if (attributeToAdd == null) {
             return null;
         }
-        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0], this.entityAttributeView.getSelectionModel().getSelectedIndex());
         if (event != null) {
             if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
             } else {
                 return null;
             }
+            this.ClickedAttributeIndex = index;
             index++;
         }
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
         Pane functionPupUpSpace = loader.load();
         Scene functionPopUpScene = new Scene(functionPupUpSpace);
         Stage functionPopUpStage = new Stage();
-        functionPopUpStage.setTitle("Edit function");
+        functionPopUpStage.setTitle("Add operation");
         functionPopUpStage.setScene(functionPopUpScene);
 
         this.addFunctionController = loader.getController();
@@ -214,7 +214,6 @@ public class EntityController extends VBox {
             } else {
                 return null;
             }
-            index++;
         }
         AttributeController store = attr;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane

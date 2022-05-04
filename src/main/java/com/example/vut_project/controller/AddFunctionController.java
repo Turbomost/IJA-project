@@ -83,14 +83,18 @@ public class AddFunctionController {
             System.out.println("CLICKED TEXT :" + old_param_name);
         }
         System.out.println("SELECTED INDEX " + selectedIndex);
+        attributeReference.row = this.selected_fucntion_index;
+        System.out.println("SELECTED FUNCTION INDEX " + attributeReference.row);
         //this.functionListView.getItems().remove();
         AttributeOperationController new_attr = this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name);
+        System.out.println("New created attribute at functioncontroller " + new_attr.getName() + " for function " + attributeReference.getName());
         if (new_attr == null){
             return;
         }
         this.editMethodPopUpStage.close();
-        if(this.selected_fucntion_index != -1){
-            entityControllerReference.entityAttributeView.getItems().set(this.selected_fucntion_index, attributeReference.getWholeAttributeString());
+        if(attributeReference.row != -1){
+            System.out.println("WHOLE STRING TO DISPLAY " + attributeReference.getWholeAttributeString());
+            entityControllerReference.entityAttributeView.getItems().set(attributeReference.row, attributeReference.getWholeAttributeString());
         }
         if(selectedIndex != -1){
             functionListView.getItems().remove(selectedIndex);
@@ -98,9 +102,7 @@ public class AddFunctionController {
         }else{
             this.functionListView.getItems().add(new_attr.returnString());
             System.out.println("FOO INDEX TO UPDATE " + this.selected_fucntion_index);
-
         }
-
         //this.functionListView.getItems().add(this.singleFunctionParameterEditorReference.getEnteredParameter());
     }
 
