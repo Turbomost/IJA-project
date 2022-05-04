@@ -1,6 +1,5 @@
 package com.example.vut_project.controller;
 
-import com.example.vut_project.EntityController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -147,7 +146,7 @@ public class AddFunctionPopUp {
         if (result[1] == null || result[2] == null || result[3] == null) return null;
         return result;
     }
-    public static EntityController EditFunctionPopUpDisplay(String title, String message, String button_message, EntityController old_function) {
+    public static AttributeController EditFunctionPopUpDisplay(String title, String message, String button_message, AttributeController old_function) {
         String accessRule[] = { "private", "public", "protected", "package" };
         // create a choiceBox
         final String[] attributeName = {null};
@@ -155,7 +154,7 @@ public class AddFunctionPopUp {
         final String[] chosenAccessRule = {null};
         ChoiceBox choiceBox1 = new ChoiceBox(FXCollections.observableArrayList(accessRule));
         choiceBox1.setAccessibleText("Access type");
-        String transform = old_function.addFunctionController.attributeReference.getAccessType();
+        String transform = old_function.getAccessType();
         if (transform.equals("- ")) chosenAccessRule[0] = "private";
         if (transform.equals("+ ")) chosenAccessRule[0] = "public";
         if (transform.equals("# ")) chosenAccessRule[0] = "protected";
@@ -175,7 +174,7 @@ public class AddFunctionPopUp {
         String dataTypePopUpChooser[] = { " int", " bool", " string", " void " };
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
-        chosenDataType[0] = old_function.addFunctionController.attributeReference.getDatatype();
+        chosenDataType[0] = old_function.getDatatype();
         choiceBox2.setValue(chosenDataType[0]);
         // add a listener
         choiceBox2.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
@@ -208,7 +207,8 @@ public class AddFunctionPopUp {
         textField.prefWidthProperty();
         textField.prefHeightProperty();
         textField.setPromptText("Function Name");
-        textField.setText(old_function.addFunctionController.getFunctionName());
+        attributeName[0] = old_function.getName();
+        textField.setText(attributeName[0]);
 
         // add ChoiceBox
         Stage attributePopUpWindow = new Stage();
@@ -276,7 +276,7 @@ public class AddFunctionPopUp {
         if (chosenAccessRule[0].equals("protected")) chosenAccessRule[0] = "# ";
         if (chosenAccessRule[0].equals("package")) chosenAccessRule[0] = "~ ";
         String[] result = {null, null, null, null};
-        old_function.addFunctionController.attributeReference.setParams(attributeName[0], chosenAccessRule[0], chosenDataType[0], "function");
+        old_function.setParams(attributeName[0], chosenAccessRule[0], chosenDataType[0], "function");
         return old_function;
     }
 }

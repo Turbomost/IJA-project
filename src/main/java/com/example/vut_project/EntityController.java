@@ -203,11 +203,11 @@ public class EntityController extends VBox {
         return attr;
     }
 
-    public AttributeController onEditFunctionDiagramClick(ActionEvent event) throws IOException {
+    public AttributeController onEditFunctionDiagramClick(ActionEvent event, int index, String old_function_name) throws IOException {
         //TODO POSLAT INFORMACIE PRI EDITE
-        AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", this);
-        AttributeController attr = referece.getAttributeControllerByName(classNameTextField.getText(), addFunctionController.getFunctionName());
-        System.out.println(">>NASIEL SOM " + attr);
+        AttributeController attr = referece.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
+        AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", attr);
+        System.out.println(">>UPRAVENE " + attr.toString());
         if (event != null) {
             if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
@@ -215,7 +215,6 @@ public class EntityController extends VBox {
                 return null;
             }
         }
-        AttributeController store = attr;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
         Pane functionPupUpSpace = loader.load();
         Scene functionPopUpScene = new Scene(functionPupUpSpace);
@@ -270,7 +269,8 @@ public class EntityController extends VBox {
     }
 
     public void renameFunctionInEntityController(String old_function_name, int index) throws IOException {
-        AttributeController new_attr = onEditFunctionDiagramClick(null);
+        AttributeController new_attr = onEditFunctionDiagramClick(null, index, old_function_name);
+        System.out.println("TO COMPARE " + old_function_name + " AND " + new_attr.getName());
         renamingProcess(old_function_name, index, new_attr);
     }
 
@@ -286,7 +286,7 @@ public class EntityController extends VBox {
         }
 
         ClassController refClass = referece.classDiagramController.findClass(classNameTextField.getText());
-        if (!old_attribute_name.equals(new_attr.getName())) {
+        if (!old_attribute_name.equals(new_attr.getName())) {  //TODO SUS
             if (refClass.findAttributeByName(new_attr.getName()) != null) {
                 AlertBox.display("Warning", "Attribute or operation with name '" + new_attr.getName() + "' already exists!", "Close");
                 return;
