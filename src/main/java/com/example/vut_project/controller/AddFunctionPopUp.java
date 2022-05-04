@@ -147,7 +147,7 @@ public class AddFunctionPopUp {
         if (result[1] == null || result[2] == null || result[3] == null) return null;
         return result;
     }
-    public static String[] EditFunctionPopUpDisplay(String title, String message, String button_message, EntityController old_function) {
+    public static EntityController EditFunctionPopUpDisplay(String title, String message, String button_message, EntityController old_function) {
         String accessRule[] = { "private", "public", "protected", "package" };
         // create a choiceBox
         final String[] attributeName = {null};
@@ -276,11 +276,7 @@ public class AddFunctionPopUp {
         if (chosenAccessRule[0].equals("protected")) chosenAccessRule[0] = "# ";
         if (chosenAccessRule[0].equals("package")) chosenAccessRule[0] = "~ ";
         String[] result = {null, null, null, null};
-        result[0] = chosenAccessRule[0];
-        result[1] = attributeName[0];
-        result[2] =  chosenDataType[0];
-        result[3] = "function";
-        if (result[1] == null || result[2] == null || result[3] == null) return null;
-        return result;
+        old_function.addFunctionController.attributeReference.setParams(attributeName[0], chosenAccessRule[0], chosenDataType[0], "function");
+        return old_function;
     }
 }

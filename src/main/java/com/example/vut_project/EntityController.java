@@ -204,12 +204,10 @@ public class EntityController extends VBox {
     }
 
     public AttributeController onEditFunctionDiagramClick(ActionEvent event) throws IOException {
-        //POSLAT INFORMACIE PRI EDITE
-        String[] attributeToAdd = AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", this);
-        if (attributeToAdd == null) {
-            return null;
-        }
-        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        //TODO POSLAT INFORMACIE PRI EDITE
+        AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", this);
+        AttributeController attr = referece.getAttributeControllerByName(classNameTextField.getText(), addFunctionController.getFunctionName());
+        System.out.println(">>NASIEL SOM " + attr);
         if (event != null) {
             if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
@@ -218,7 +216,7 @@ public class EntityController extends VBox {
             }
             index++;
         }
-
+        AttributeController store = attr;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
         Pane functionPupUpSpace = loader.load();
         Scene functionPopUpScene = new Scene(functionPupUpSpace);
@@ -229,8 +227,10 @@ public class EntityController extends VBox {
         this.addFunctionController = loader.getController();
 
         //AttributeController attr = new AttributeController();
+        System.out.println("#SENT " + attr);
         this.addFunctionController.parseEntityControllerAsReference(this, attr);
-
+        this.addFunctionController.displayExistingMethodParameters();
+        //this.addFunctionController.displayExistingMethodParameters();
         //referece.AddAttribute(this.classNameTextField.getText(), attr);
 
         functionPopUpStage.show();

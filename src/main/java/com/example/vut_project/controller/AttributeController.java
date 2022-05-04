@@ -144,4 +144,8 @@ public class AttributeController extends ElementController {
         this.setDatatype(datatype);
         this.setType(type);
     }
+
+    public ArrayList<AttributeOperationController> getOperationControllerList(){
+        return this.attributeOperationsList;
+    }
 }

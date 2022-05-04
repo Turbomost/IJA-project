@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AddFunctionController {
     private final ObservableList<String> observableListOfFunctions = FXCollections.observableArrayList();
@@ -44,7 +45,6 @@ public class AddFunctionController {
 
     public void onSaveFunctionButtonClick(ActionEvent event) {
         System.out.println("SAVE PARAMETERS ");
-
     }
 
     public void onAddFunctionContextMenuClick(ActionEvent event) throws IOException {
@@ -102,6 +102,12 @@ public class AddFunctionController {
         }
 
         //this.functionListView.getItems().add(this.singleFunctionParameterEditorReference.getEnteredParameter());
+    }
+
+    public void displayExistingMethodParameters(){
+        for (AttributeOperationController operation : this.attributeReference.getOperationControllerList()){
+            this.functionListView.getItems().add(operation.returnString());
+        }
     }
 
     public void onDeleteFunctionContextMenuClick(ActionEvent event) {
