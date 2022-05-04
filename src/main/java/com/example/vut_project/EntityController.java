@@ -206,11 +206,12 @@ public class EntityController extends VBox {
     public AttributeController onEditFunctionDiagramClick(ActionEvent event, int index, String old_function_name) throws IOException {
         //TODO POSLAT INFORMACIE PRI EDITE
         AttributeController attr = referece.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
-        AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", attr);
-        System.out.println(">>UPRAVENE " + attr.toString());
+        AttributeController new_attr = AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", attr);
+
+        System.out.println(">>UPRAVENE " + new_attr.toString());
         if (event != null) {
-            if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
-                this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
+            if (referece.AddAttribute(this.classNameTextField.getText(), new_attr)) {
+                this.entityAttributeView.getItems().add(new_attr.getWholeAttributeString());
             } else {
                 return null;
             }
@@ -225,14 +226,14 @@ public class EntityController extends VBox {
         this.addFunctionController = loader.getController();
 
         //AttributeController attr = new AttributeController();
-        System.out.println("#SENT " + attr);
-        this.addFunctionController.parseEntityControllerAsReference(this, attr);
+        System.out.println("#SENT " + new_attr);
+        this.addFunctionController.parseEntityControllerAsReference(this, new_attr);
         this.addFunctionController.displayExistingMethodParameters();
         //this.addFunctionController.displayExistingMethodParameters();
         //referece.AddAttribute(this.classNameTextField.getText(), attr);
 
         functionPopUpStage.show();
-        return attr;
+        return new_attr;
     }
 
     public void onDeleteAttributeClick(ActionEvent event) {
@@ -286,13 +287,13 @@ public class EntityController extends VBox {
         }
 
         ClassController refClass = referece.classDiagramController.findClass(classNameTextField.getText());
-        if (!old_attribute_name.equals(new_attr.getName())) {  //TODO SUS
+        if (!old_attribute_name.equals(new_attr.getName())) {
             if (refClass.findAttributeByName(new_attr.getName()) != null) {
+                System.out.println("TU SOM TO ZHODIL ");
                 AlertBox.display("Warning", "Attribute or operation with name '" + new_attr.getName() + "' already exists!", "Close");
                 return;
             }
         }
-
         AttributeController old_attr = refClass.findAttributeByName(old_attribute_name);
         old_attr.setParams(new_attr.getName(), new_attr.getAccessType(), new_attr.getDatatype(), new_attr.getType());
         entityAttributeView.getItems().set(index, old_attr.getWholeAttributeString());

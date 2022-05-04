@@ -276,7 +276,8 @@ public class AddFunctionPopUp {
         if (chosenAccessRule[0].equals("protected")) chosenAccessRule[0] = "# ";
         if (chosenAccessRule[0].equals("package")) chosenAccessRule[0] = "~ ";
         String[] result = {null, null, null, null};
-        old_function.setParams(attributeName[0], chosenAccessRule[0], chosenDataType[0], "function");
-        return old_function;
+        //old_function.setParams(attributeName[0], chosenAccessRule[0], chosenDataType[0], "function");
+        AttributeController new_attr = new AttributeController(attributeName[0], "function", chosenDataType[0], chosenAccessRule[0], old_function.row); //TODO SUS - správne poradie?
+        return new_attr;
     }
 }
