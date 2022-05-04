@@ -105,7 +105,14 @@ public class AddFunctionController {
     }
 
     public void onDeleteFunctionContextMenuClick(ActionEvent event) {
+        int selectedIndex = functionListView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) return;
+        old_param_name = functionListView.getItems().get(selectedIndex).toString();
+        old_param_name = old_param_name.substring(0, old_param_name.lastIndexOf(" :"));
+        attributeReference.removeOperationTypeByName(old_param_name);
 
+        this.functionListView.getItems().remove(selectedIndex);
+        entityControllerReference.entityAttributeView.getItems().set(this.selected_fucntion_index, attributeReference.getWholeAttributeString());
     }
 
 }
