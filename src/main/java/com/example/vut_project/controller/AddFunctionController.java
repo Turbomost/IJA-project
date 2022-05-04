@@ -60,6 +60,7 @@ public class AddFunctionController {
     }
 
     public void onEditFunctionContextMenuClick(ActionEvent event) throws IOException {
+        if (functionListView.getSelectionModel().getSelectedIndex() == -1) return;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/single_method_edit.fxml")); //new object (aba class diagram) is created as pane
         this.editMethodPupUpSpace = loader.load();
         this.editMethodPopUpScene = new Scene(editMethodPupUpSpace);
@@ -76,18 +77,23 @@ public class AddFunctionController {
         int selectedIndex = functionListView.getSelectionModel().getSelectedIndex();
         if(selectedIndex != -1) {
             old_param_name = functionListView.getItems().get(selectedIndex).toString();
-            functionListView.getItems().remove(selectedIndex);
+            if (old_param_name.isBlank()){
+                return;
+            }
             System.out.println("CLICKED TEXT :" + old_param_name);
         }
         System.out.println("SELECTED INDEX " + selectedIndex);
         //this.functionListView.getItems().remove();
-        this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name);
+        if (this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name) == -1){
+            return;
+        }
         this.editMethodPopUpStage.close();
         if(this.selected_fucntion_index != -1){
             entityControllerReference.entityAttributeView.getItems().set(this.selected_fucntion_index, attributeReference.getWholeAttributeString());
         }
         if(selectedIndex != -1){
-            this.functionListView.getItems().add(selectedIndex, attributeReference.getLastAddedOperationAttributeString());
+            functionListView.getItems().remove(selectedIndex);
+            this.functionListView.getItems().add(selectedIndex, attributeReference.get);
         }else{
             this.functionListView.getItems().add(attributeReference.getLastAddedOperationAttributeString());
             System.out.println("FOO INDEX TO UPDATE " + this.selected_fucntion_index);
