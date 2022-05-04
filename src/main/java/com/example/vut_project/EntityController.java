@@ -152,6 +152,23 @@ public class EntityController extends VBox {
         return attr;
     }
 
+    public AttributeController onEditAttributeClick(ActionEvent event, AttributeController found_attribute) {
+        String[] attributeToAdd = AddAttributePopUp.EditAttrubutePopUpDisplay("Edit Attribute", "Choose Attribute Properties", "Edit Attribute", this, found_attribute);
+        if (attributeToAdd == null) {
+            return null;
+        }
+        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        if (event != null) {
+            if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
+                this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
+            } else {
+                return null;
+            }
+        }
+        index++;
+        return attr;
+    }
+
     public AttributeController onAddFunctionDiagramClick(ActionEvent event) throws IOException {
         //POSLAT INFORMACIE PRI EDITE
         String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function");
@@ -188,7 +205,7 @@ public class EntityController extends VBox {
 
     public AttributeController onEditFunctionDiagramClick(ActionEvent event) throws IOException {
         //POSLAT INFORMACIE PRI EDITE
-        String[] attributeToAdd = AddFunctionPopUp.EditFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function", this);
+        String[] attributeToAdd = AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", this);
         if (attributeToAdd == null) {
             return null;
         }
@@ -246,7 +263,7 @@ public class EntityController extends VBox {
 
         System.out.println(parsedAttributeName);
         if (found_attribute.getType().equals("attribute")) {
-            this.renameAttributeInEntityController(parsedAttributeName, this.ClickedAttributeIndex);
+            this.renameAttributeInEntityController(parsedAttributeName, this.ClickedAttributeIndex, found_attribute);
         } else if (found_attribute.getType().equals("function")) {
             System.out.println("INSIDE");
             this.renameFunctionInEntityController(parsedAttributeName.substring(0, parsedAttributeName.lastIndexOf("(")), this.ClickedAttributeIndex);
@@ -258,8 +275,8 @@ public class EntityController extends VBox {
         renamingProcess(old_function_name, index, new_attr);
     }
 
-    public void renameAttributeInEntityController(String old_attribute_name, int index) {
-        AttributeController new_attr = onAddAttributeClick(null);
+    public void renameAttributeInEntityController(String old_attribute_name, int index, AttributeController found_attribute) {
+        AttributeController new_attr = onEditAttributeClick(null, found_attribute);
         renamingProcess(old_attribute_name, index, new_attr);
     }
 
