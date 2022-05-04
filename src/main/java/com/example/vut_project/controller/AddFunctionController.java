@@ -26,7 +26,7 @@ public class AddFunctionController {
     @FXML
     TextField methodNameTextField;
     EntityController entityControllerReference;
-    AttributeController attributeReference;
+    public AttributeController attributeReference;
     SingleFunctionParameterEditor singleFunctionParameterEditorReference;
 
     Pane editMethodPupUpSpace;
@@ -114,5 +114,7 @@ public class AddFunctionController {
         this.functionListView.getItems().remove(selectedIndex);
         entityControllerReference.entityAttributeView.getItems().set(this.selected_fucntion_index, attributeReference.getWholeAttributeString());
     }
-
+    public String getFunctionName(){
+        return this.methodNameTextField.getText();
+    }
 }

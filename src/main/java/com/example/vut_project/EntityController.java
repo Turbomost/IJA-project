@@ -55,7 +55,7 @@ public class EntityController extends VBox {
     private VBox classVBox;
     private HelloController referece;
     private SequenceDiagramController sequenceControllerReference;
-    private AddFunctionController addFunctionController;
+    public AddFunctionController addFunctionController;
     private String old_class_name;
     private String old_attribute_name;
     private int AttrClickedFXID;
@@ -153,7 +153,42 @@ public class EntityController extends VBox {
     }
 
     public AttributeController onAddFunctionDiagramClick(ActionEvent event) throws IOException {
+        //POSLAT INFORMACIE PRI EDITE
         String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function");
+        if (attributeToAdd == null) {
+            return null;
+        }
+        AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0]);
+        if (event != null) {
+            if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
+                this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
+            } else {
+                return null;
+            }
+            index++;
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
+        Pane functionPupUpSpace = loader.load();
+        Scene functionPopUpScene = new Scene(functionPupUpSpace);
+        Stage functionPopUpStage = new Stage();
+        functionPopUpStage.setTitle("Edit function");
+        functionPopUpStage.setScene(functionPopUpScene);
+
+        this.addFunctionController = loader.getController();
+
+        //AttributeController attr = new AttributeController();
+        this.addFunctionController.parseEntityControllerAsReference(this, attr);
+
+        //referece.AddAttribute(this.classNameTextField.getText(), attr);
+
+        functionPopUpStage.show();
+        return attr;
+    }
+
+    public AttributeController onEditFunctionDiagramClick(ActionEvent event) throws IOException {
+        //POSLAT INFORMACIE PRI EDITE
+        String[] attributeToAdd = AddFunctionPopUp.EditFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function", this);
         if (attributeToAdd == null) {
             return null;
         }
@@ -219,7 +254,7 @@ public class EntityController extends VBox {
     }
 
     public void renameFunctionInEntityController(String old_function_name, int index) throws IOException {
-        AttributeController new_attr = onAddFunctionDiagramClick(null);
+        AttributeController new_attr = onEditFunctionDiagramClick(null);
         renamingProcess(old_function_name, index, new_attr);
     }
 
@@ -370,6 +405,10 @@ public class EntityController extends VBox {
     public void onAddLifeLineContextMenuClick(ActionEvent event) {
         System.out.println("On add life line click");
         sequenceControllerReference.createLifeLineBindToEntity(event, sequenceControllerReference.findEntity(sequenceDiagramNameTextField.getText()));
+    }
+
+    public String getNameTextField(){
+        return this.classNameTextField.getText();
     }
 
 }
