@@ -84,7 +84,8 @@ public class AddFunctionController {
         }
         System.out.println("SELECTED INDEX " + selectedIndex);
         //this.functionListView.getItems().remove();
-        if (this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name) == -1){
+        AttributeOperationController new_attr = this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name);
+        if (new_attr == null){
             return;
         }
         this.editMethodPopUpStage.close();
@@ -93,9 +94,9 @@ public class AddFunctionController {
         }
         if(selectedIndex != -1){
             functionListView.getItems().remove(selectedIndex);
-            this.functionListView.getItems().add(selectedIndex, attributeReference.getLastAddedOperationAttributeString());
+            this.functionListView.getItems().add(selectedIndex, new_attr.returnString());
         }else{
-            this.functionListView.getItems().add(attributeReference.getLastAddedOperationAttributeString());
+            this.functionListView.getItems().add(new_attr.returnString());
             System.out.println("FOO INDEX TO UPDATE " + this.selected_fucntion_index);
 
         }

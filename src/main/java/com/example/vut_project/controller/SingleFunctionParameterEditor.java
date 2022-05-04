@@ -19,19 +19,20 @@ public class SingleFunctionParameterEditor {
         this.reference = reference;
     }
 
-    public int getEnteredParameter(int selected_index, String old_param_name) {
+    public AttributeOperationController getEnteredParameter(int selected_index, String old_param_name) {
 
+        AttributeOperationController new_attr;
         if (this.functionParameterEditTextField.getText().isBlank() || this.functionDataTypeEditTextField.getText().isBlank()) {
             AlertBox.display("note", "Name and data type cannot be blank", "Cancel");
-            return -1;
+            return null;
         }
 
         if (selected_index == -1) {
-            reference.attributeReference.addOperationType(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
+            new_attr = reference.attributeReference.addOperationType(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
         } else {
-            reference.attributeReference.findOperationTypeByName(old_param_name.substring(0, old_param_name.lastIndexOf(" :"))).setParams(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
+            new_attr = reference.attributeReference.findOperationTypeByName(old_param_name.substring(0, old_param_name.lastIndexOf(" :"))).setParams(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
         }
-        return 0;
+        return new_attr;
         // TODO tu sa bude musiet ten parameter vytvarat a retrnovať
     }
 }

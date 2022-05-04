@@ -31,8 +31,9 @@ public class AttributeOperationController {
         this.dataType = dataType;
     }
 
-    public void setParams(String name, String dataType){
+    public AttributeOperationController setParams(String name, String dataType){
         this.setDataType(dataType);
         this.setName(name);
+        return this;
     }
 }
