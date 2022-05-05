@@ -13,11 +13,12 @@ import java.util.ArrayList;
  */
 public class AttributeController extends ElementController {
 
+    private final ArrayList<AttributeOperationController> attributeOperationsList;
+    public boolean primary;
+    public int row;
     private String type;
     private String datatype;
     private String accessType;
-    public int row;
-    private ArrayList<AttributeOperationController> attributeOperationsList;
 
     /**
      * Default Attribute constructor
@@ -31,15 +32,27 @@ public class AttributeController extends ElementController {
         this.accessType = accessType;
         this.datatype = datatype;
         this.row = row;
-        attributeOperationsList = new ArrayList<>();
+        this.attributeOperationsList = new ArrayList<>();
+        this.primary = false;
     }
+
+    public AttributeController(String name, String type, String datatype, String accessType, int row, boolean primary) {
+        super(name);
+        this.type = type;
+        this.accessType = accessType;
+        this.datatype = datatype;
+        this.row = row;
+        this.attributeOperationsList = new ArrayList<>();
+        this.primary = primary;
+    }
+
 
     public AttributeController(String name, String type) {
         super(name);
         this.type = type;
         this.accessType = "+";
         this.datatype = "int";
-        attributeOperationsList = new ArrayList<>();
+        this.attributeOperationsList = new ArrayList<>();
     }
 
     /**
@@ -51,20 +64,20 @@ public class AttributeController extends ElementController {
         return this.type;
     }
 
-    public String getDatatype() {
-        return this.datatype;
-    }
-
-    public String getAccessType() {
-        return this.accessType;
-    }
-
     public void setType(String type) {
         this.type = type;
     }
 
+    public String getDatatype() {
+        return this.datatype;
+    }
+
     public void setDatatype(String datatype) {
         this.datatype = datatype;
+    }
+
+    public String getAccessType() {
+        return this.accessType;
     }
 
     public void setAccessType(String accessType) {
@@ -76,35 +89,37 @@ public class AttributeController extends ElementController {
         if (this.type.equals("function")) {
             return this.accessType + this.getName() + "(" + operationTypesReturnList() + ") : " + this.datatype;
         } else {
+            if (primary) {
+                return this.accessType + " <<PK>> " + this.getName() + " : " + this.datatype;
+            }
             return this.accessType + this.getName() + " : " + this.datatype;
         }
     }
 
     public String operationTypesReturnList() {
         StringBuilder operationTypesReturnList = new StringBuilder();
-        for (AttributeOperationController attrOp : attributeOperationsList) {
+        for (AttributeOperationController attrOp : this.attributeOperationsList) {
             operationTypesReturnList.append(attrOp.returnString());
             operationTypesReturnList.append(", ");
         }
         if (operationTypesReturnList.toString().isBlank()) {
             return "";
         }
-        ;
-        return operationTypesReturnList.toString().substring(0, operationTypesReturnList.toString().lastIndexOf(","));
+        return operationTypesReturnList.substring(0, operationTypesReturnList.toString().lastIndexOf(","));
     }
 
     public AttributeOperationController getLastAddedOperationAttribute() {
-        return this.attributeOperationsList.get(attributeOperationsList.size() - 1);
+        return this.attributeOperationsList.get(this.attributeOperationsList.size() - 1);
     }
 
-    public String getLastAddedOperationAttributeString(){
+    public String getLastAddedOperationAttributeString() {
         AttributeOperationController attr = this.getLastAddedOperationAttribute();
         return attr.returnString();
     }
 
     public ArrayList<String> operationTypesNames() {
-        ArrayList<String> return_list = new ArrayList<String>();
-        for (AttributeOperationController attributeOperation : attributeOperationsList) {
+        ArrayList<String> return_list = new ArrayList<>();
+        for (AttributeOperationController attributeOperation : this.attributeOperationsList) {
             return_list.add(attributeOperation.getName());
         }
         return return_list;
@@ -115,12 +130,12 @@ public class AttributeController extends ElementController {
             AlertBox.display("Note", "Argument name is taken", "Understood");
         }
         AttributeOperationController new_attr = new AttributeOperationController(name, type);
-        attributeOperationsList.add(new_attr);
+        this.attributeOperationsList.add(new_attr);
         return new_attr;
     }
 
     public AttributeOperationController findOperationTypeByName(String name) {
-        for (AttributeOperationController attr : attributeOperationsList) {
+        for (AttributeOperationController attr : this.attributeOperationsList) {
             if (attr.getName().equals(name)) {
                 return attr;
             }
@@ -132,12 +147,14 @@ public class AttributeController extends ElementController {
     public void removeOperationTypeByName(String name) {
         AttributeOperationController attr = findOperationTypeByName(name);
         if (attr != null) {
-            attributeOperationsList.remove(attr);
+            this.removeOperationType(attr);
+        } else {
+            AlertBox.display("Error", "Error while deleting '" + name + "'", "OK");
         }
     }
 
     public void removeOperationType(AttributeOperationController attr) {
-        attributeOperationsList.remove(attr);
+        this.attributeOperationsList.remove(attr);
     }
 
     public void setParams(String name, String accessType, String datatype, String type) {
@@ -147,14 +164,19 @@ public class AttributeController extends ElementController {
         this.setType(type);
     }
 
-    public ArrayList<AttributeOperationController> getOperationControllerList(){
+    public ArrayList<AttributeOperationController> getOperationControllerList() {
         return this.attributeOperationsList;
     }
 
     public void copyParams(AttributeController new_attr) {
-        this.rename(new_attr.getName());
-        this.setAccessType(new_attr.getAccessType());
-        this.setDatatype(new_attr.getDatatype());
-        this.setType(new_attr.getType());
+        this.setParams(new_attr.getName(), new_attr.getAccessType(), new_attr.getDatatype(), new_attr.getType());
+    }
+
+    public boolean isPrimary() {
+        return this.primary;
+    }
+
+    public void setPrimary(Boolean primary) {
+        this.primary = primary;
     }
 }

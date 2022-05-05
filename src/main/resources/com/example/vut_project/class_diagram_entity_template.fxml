@@ -14,7 +14,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </VBox.margin>
         </TextField>
-        <ListView fx:id="entityAttributeView" editable="true" prefHeight="263.0" prefWidth="198.0">
+        <ListView fx:id="entityAttributeView" prefHeight="263.0" prefWidth="198.0">
             <VBox.margin>
                 <Insets top="5.0" />
             </VBox.margin>
@@ -24,6 +24,7 @@
                         <MenuItem fx:id="addAttributeContextMenuButton" mnemonicParsing="false" onAction="#onAddAttributeClick" text="Add Attribute" />
                         <MenuItem fx:id="addFunctionDiagramContextMenuButton" mnemonicParsing="false" onAction="#onAddFunctionDiagramClick" text="Add Function" />
                         <MenuItem fx:id="renameAttributeDiagramContextMenuButton" mnemonicParsing="false" onAction="#onRenameAttributeDiagramClick" text="Edit" />
+                        <MenuItem fx:id="primaryDiagramClick" mnemonicParsing="false" onAction="#onPrimaryDiagramClick" text="Toggle primary" />
                         <MenuItem fx:id="deleteAttributeContextMenuButton" mnemonicParsing="false" onAction="#onDeleteAttributeClick" text="Delete" />
                         <MenuItem fx:id="addConstraintContextMenuButton" mnemonicParsing="false" onAction="#onAddConstraintClick" text="Add Constraint" />
                         <MenuItem fx:id="pasteConstraintContextMenuButton" mnemonicParsing="false" onAction="#onPasteConstraintClick" text="Paste Constraint" />

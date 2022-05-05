@@ -307,6 +307,12 @@ public class HelloController {
                 curClass.removeAttribute(curClass.findAttributeByName(attribute_name));
                 System.out.println("After: " + curClass.getAttributesList().toString());
             }
+            else {
+                AlertBox.display("Error", "Error while deleting attribute '" + attribute_name + "'", "OK");
+            }
+        }
+        else {
+            AlertBox.display("Error", "Error while deleting in class'" + class_name + "'", "OK");
         }
     }
 

@@ -1,3 +1,5 @@
+>	Null pointer exception název parametru
+>	Empty stringy
 
 
 >	Parsování ze souboru + nekonzistence načítání + zápis seq

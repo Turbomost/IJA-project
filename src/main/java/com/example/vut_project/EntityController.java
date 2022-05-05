@@ -58,13 +58,14 @@ public class EntityController extends VBox {
     private ContextMenu contextMenuOnElement;
     @FXML
     private VBox classVBox;
-    private HelloController referece;
+    private HelloController reference;
     private SequenceDiagramController sequenceControllerReference;
     private String old_class_name;
     private String old_attribute_name;
     private int AttrClickedFXID;
     private Object identifier;
     private int index = 0;
+    private AttributeController primaryAttribute;
 
     /**
      * Constructor for new Entity
@@ -84,7 +85,7 @@ public class EntityController extends VBox {
         old_class_name = classNameTextField.getText();
         entityAttributeView.setEditable(false);
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
-        this.referece = reference;
+        this.reference = reference;
     }
 
     /**
@@ -102,12 +103,12 @@ public class EntityController extends VBox {
         classNameTextField.setText(class_name.getName());
         old_class_name = classNameTextField.getText();
         for (AttributeController attribute : class_name.getAttributes()) {
-            observableListOfAttributes.add(attribute.getName());
+            entityAttributeView.getItems().add(attribute.getWholeAttributeString());
         }
-        this.entityAttributeView.setItems(observableListOfAttributes);
-        entityAttributeView.setEditable(true);
+        //this.entityAttributeView.setItems(observableListOfAttributes);
+        entityAttributeView.setEditable(false);
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
-        this.referece = reference;
+        this.reference = reference;
     }
 
     public EntityController(SequenceDiagramController sequenceReference, int i) throws IOException {
@@ -131,7 +132,7 @@ public class EntityController extends VBox {
         this.identifier = mouseEvent.getSource();
         System.out.println(this.identifier);
         String selectedClassName = classNameTextField.getText();
-        referece.set_identifier(selectedClassName, this.identifier);
+        reference.set_identifier(selectedClassName, this.identifier);
     }
 
     /**
@@ -146,7 +147,7 @@ public class EntityController extends VBox {
         }
         AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0], i);
         if (event != null) {
-            if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
+            if (reference.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
             } else {
                 return null;
@@ -164,7 +165,7 @@ public class EntityController extends VBox {
         }
         AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0], this.entityAttributeView.getSelectionModel().getSelectedIndex());
         if (event != null) {
-            if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
+            if (reference.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
             } else {
                 return null;
@@ -181,7 +182,7 @@ public class EntityController extends VBox {
         }
         AttributeController attr = new AttributeController(attributeToAdd[1], attributeToAdd[3], attributeToAdd[2], attributeToAdd[0], this.entityAttributeView.getSelectionModel().getSelectedIndex());
         if (event != null) {
-            if (referece.AddAttribute(this.classNameTextField.getText(), attr)) {
+            if (reference.AddAttribute(this.classNameTextField.getText(), attr)) {
                 this.entityAttributeView.getItems().add(attr.getWholeAttributeString());
             } else {
                 return null;
@@ -209,12 +210,12 @@ public class EntityController extends VBox {
 
     public AttributeController onEditFunctionDiagramClick(ActionEvent event, int index, String old_function_name) throws IOException {
         //TODO POSLAT INFORMACIE PRI EDITE
-        AttributeController attr = referece.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
+        AttributeController attr = reference.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
         AttributeController new_attr = AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", attr);
 
         System.out.println(">>UPRAVENE " + new_attr.toString());
         if (event != null) {
-            if (referece.AddAttribute(this.classNameTextField.getText(), new_attr)) {
+            if (reference.AddAttribute(this.classNameTextField.getText(), new_attr)) {
                 this.entityAttributeView.getItems().add(new_attr.getWholeAttributeString());
             } else {
                 return null;
@@ -247,13 +248,34 @@ public class EntityController extends VBox {
     }
 
     public void onDeleteAttributeClick(ActionEvent event) {
+        String parsedAttributeName;
         int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();  // get cell index
         if (clickedFXID != -1) {
             String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
             System.out.println(clicked); // gets text from deleted cell
-            entityAttributeView.getItems().remove(clickedFXID); // remove cell from list viewW
-            referece.DeleteAttribute(this.classNameTextField.getText(), clicked);
+            entityAttributeView.getItems().remove(clickedFXID); // remove cell from list view
+            if (clicked.contains(" <<PK>> ")) {
+                this.primaryAttribute = null;
+                parsedAttributeName = clicked.substring(10, clicked.lastIndexOf(" :"));
+            } else {
+                parsedAttributeName = clicked.substring(2, clicked.lastIndexOf(" :"));
+            }
+            reference.DeleteAttribute(this.classNameTextField.getText(), parsedAttributeName);
         }
+    }
+
+    public void onPrimaryDiagramClick(ActionEvent event) {
+        String parsedAttributeName;
+        int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();
+        String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
+        if (clicked.contains(" <<PK>> ")) {
+            parsedAttributeName = clicked.substring(10, clicked.lastIndexOf(" :"));
+        } else {
+            parsedAttributeName = clicked.substring(2, clicked.lastIndexOf(" :"));
+        }
+        ClassController refClass = reference.classDiagramController.findClass(classNameTextField.getText());
+        AttributeController attr = refClass.findAttributeByName(parsedAttributeName);
+        setPrimaryAttribute(attr, clickedFXID, refClass);
     }
 
     @FXML
@@ -265,8 +287,15 @@ public class EntityController extends VBox {
         }
         System.out.println("Clicked on " + entityAttributeView.getItems().get(this.ClickedAttributeIndex));
         old_attribute_name = (String) entityAttributeView.getItems().get(this.ClickedAttributeIndex);
-        String parsedAttributeName = old_attribute_name.substring(2, old_attribute_name.lastIndexOf(" :"));
-        AttributeController found_attribute = referece.getAttributeControllerByName(this.classNameTextField.getText(), parsedAttributeName);
+
+        String parsedAttributeName;
+        if (old_attribute_name.contains(" <<PK>> ")) {
+            parsedAttributeName = old_attribute_name.substring(10, old_attribute_name.lastIndexOf(" :"));
+        } else {
+            parsedAttributeName = old_attribute_name.substring(2, old_attribute_name.lastIndexOf(" :"));
+        }
+        `
+        AttributeController found_attribute = reference.getAttributeControllerByName(this.classNameTextField.getText(), parsedAttributeName);
         System.out.println("FOUND REFERENCE " + found_attribute);
         System.out.println("TYPE: " + found_attribute.getType());
 
@@ -296,7 +325,7 @@ public class EntityController extends VBox {
             return;
         }
 
-        ClassController refClass = referece.classDiagramController.findClass(classNameTextField.getText());
+        ClassController refClass = reference.classDiagramController.findClass(classNameTextField.getText());
         if (!old_attribute_name.equals(new_attr.getName())) {
             if (refClass.findAttributeByName(new_attr.getName()) != null) {
                 System.out.println("TU SOM TO ZHODIL ");
@@ -326,7 +355,7 @@ public class EntityController extends VBox {
             System.out.println("CHANGING");
             System.out.println("OLD NAME: " + old_attribute_name);
             System.out.println("Attribute changed, new name: " + new_attribute_name);
-            referece.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
+            reference.DeleteAttribute(classNameTextField.getText(), old_attribute_name);
             //referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
             onAddAttributeClick(null);
         }
@@ -335,7 +364,7 @@ public class EntityController extends VBox {
     @FXML
     public void onClassDiagramNameEnter(ActionEvent event) {
         System.out.println(this.old_class_name);
-        if (referece.RenameClass(this.old_class_name, this.classNameTextField.getText())) {
+        if (reference.RenameClass(this.old_class_name, this.classNameTextField.getText())) {
             this.old_class_name = classNameTextField.getText();
         } else {
             this.classNameTextField.setText(this.old_class_name);
@@ -350,15 +379,15 @@ public class EntityController extends VBox {
 
     @FXML
     public void onAddConstraintClick(Event event) {
-        referece.SetConstraintFrom(classNameTextField.getText());
+        reference.SetConstraintFrom(classNameTextField.getText());
     }
 
     @FXML
     public void onPasteConstraintClick(Event event) {
-        referece.SetConstraintTo(classNameTextField.getText());
+        reference.SetConstraintTo(classNameTextField.getText());
     }
 
-    public void handleCloseButton(){
+    public void handleCloseButton() {
         functionPopUpStage.close();
     }
 
@@ -368,8 +397,8 @@ public class EntityController extends VBox {
     public void onDeleteDiagramClick(ActionEvent event) {
         System.out.println("Delete Diagram Context Menu Click");
         this.identifier = classVBox;
-        referece.set_identifier(classNameTextField.getText(), this.identifier);
-        referece.DeleteDiagram(event);
+        reference.set_identifier(classNameTextField.getText(), this.identifier);
+        reference.DeleteDiagram(event);
     }
 
     @FXML
@@ -440,6 +469,25 @@ public class EntityController extends VBox {
 
     public String getNameTextField() {
         return this.classNameTextField.getText();
+    }
+
+    public void setPrimaryAttribute(AttributeController new_attr, int index, ClassController ref_class) {
+        if (new_attr.getType().equals("function")) {
+            AlertBox.display("warning", "Function cannot be primary key", "OK");
+            return;
+        }
+        if (new_attr == this.primaryAttribute) {
+            this.primaryAttribute = null;
+            new_attr.setPrimary(false);
+        } else {
+            if (this.primaryAttribute != null) {
+                this.primaryAttribute.setPrimary(false);
+                entityAttributeView.getItems().set(ref_class.getAttrPosition(this.primaryAttribute), this.primaryAttribute.getWholeAttributeString());
+            }
+            new_attr.setPrimary(true);
+            this.primaryAttribute = new_attr;
+        }
+        entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
     }
 
 }
