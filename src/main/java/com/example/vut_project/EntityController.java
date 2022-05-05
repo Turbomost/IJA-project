@@ -39,13 +39,18 @@ public class EntityController extends VBox {
     public VBox sequenceVBox;
     public int i = -1;
     @FXML
+    public ListView entityAttributeView;
+    public AddFunctionController addFunctionController;
+    public int ClickedAttributeIndex;
+    Pane functionPupUpSpace;
+    Scene functionPopUpScene;
+    Stage functionPopUpStage;
+    @FXML
     private TextField classNameTextField;
     @FXML
     private TextField sequenceDiagramNameTextField;
     @FXML
     private MenuItem deleteDiagramContextButton;
-    @FXML
-    public ListView entityAttributeView;
     @FXML
     private MenuItem addAttributeContextMenuButton;
     private MenuItem deleteAttributeContextMenuButton;
@@ -55,17 +60,11 @@ public class EntityController extends VBox {
     private VBox classVBox;
     private HelloController referece;
     private SequenceDiagramController sequenceControllerReference;
-    public AddFunctionController addFunctionController;
     private String old_class_name;
     private String old_attribute_name;
     private int AttrClickedFXID;
     private Object identifier;
     private int index = 0;
-    public int ClickedAttributeIndex;
-
-    Pane functionPupUpSpace;
-    Scene functionPopUpScene;
-    Stage functionPopUpStage;
 
     /**
      * Constructor for new Entity
@@ -221,7 +220,7 @@ public class EntityController extends VBox {
                 return null;
             }
         }
-       // FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
+        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
         //Pane functionPupUpSpace = loader.load();
         //Scene functionPopUpScene = new Scene(functionPupUpSpace);
         //Stage functionPopUpStage = new Stage();
@@ -232,12 +231,18 @@ public class EntityController extends VBox {
         //loader.setController(this.addFunctionController);
         //AttributeController attr = new AttributeController();
         System.out.println("#SENT " + new_attr);
-        this.addFunctionController.parseEntityControllerAsReference(this, new_attr);
-        this.addFunctionController.displayExistingMethodParameters();
+        System.out.println(attr.operationTypesNames());
+
+        attr.rename(new_attr.getName());
+
+        this.addFunctionController.parseEntityControllerAsReference(this, attr);
+        //this.addFunctionController.displayExistingMethodParameters();
         //this.addFunctionController.displayExistingMethodParameters();
         //referece.AddAttribute(this.classNameTextField.getText(), attr);
 
         functionPopUpStage.show();
+
+        attr.rename(old_function_name);
         return new_attr;
     }
 
@@ -300,7 +305,7 @@ public class EntityController extends VBox {
             }
         }
         AttributeController old_attr = refClass.findAttributeByName(old_attribute_name);
-        old_attr.setParams(new_attr.getName(), new_attr.getAccessType(), new_attr.getDatatype(), new_attr.getType());
+        old_attr.copyParams(new_attr);
         entityAttributeView.getItems().set(index, old_attr.getWholeAttributeString());
     }
 
@@ -429,7 +434,7 @@ public class EntityController extends VBox {
         sequenceControllerReference.createLifeLineBindToEntity(event, sequenceControllerReference.findEntity(sequenceDiagramNameTextField.getText()));
     }
 
-    public String getNameTextField(){
+    public String getNameTextField() {
         return this.classNameTextField.getText();
     }
 

@@ -150,4 +150,11 @@ public class AttributeController extends ElementController {
     public ArrayList<AttributeOperationController> getOperationControllerList(){
         return this.attributeOperationsList;
     }
+
+    public void copyParams(AttributeController new_attr) {
+        this.rename(new_attr.getName());
+        this.setAccessType(new_attr.getAccessType());
+        this.setDatatype(new_attr.getDatatype());
+        this.setType(new_attr.getType());
+    }
 }

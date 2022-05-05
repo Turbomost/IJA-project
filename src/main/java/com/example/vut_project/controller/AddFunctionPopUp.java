@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class AddFunctionPopUp {
     public static String[] AddFunctionPopUpDisplay(String title, String message, String button_message) {
-        String accessRule[] = { "private", "public", "protected", "package" };
+        String accessRule[] = {"private", "public", "protected", "package"};
         // create a choiceBox
         final String[] attributeName = {null};
 
@@ -31,36 +31,33 @@ public class AddFunctionPopUp {
         // add a listener
         choiceBox1.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             // if the item of the list is changed
-            public void changed(ObservableValue ov, Number value, Number new_value)
-            {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
                 chosenAccessRule[0] = (String) accessRule[new_value.intValue()];
                 System.out.println("CHOSEN CD: " + chosenAccessRule[0]);
             }
         });
 
         final String[] chosenDataType = {null};
-        String dataTypePopUpChooser[] = { " int", " bool", " string", " void " };
+        String dataTypePopUpChooser[] = {" int", " bool", " string", " void "};
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         // add a listener
         choiceBox2.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             // if the item of the list is changed
-            public void changed(ObservableValue ov, Number value, Number new_value)
-            {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
                 chosenDataType[0] = (String) dataTypePopUpChooser[new_value.intValue()];
                 System.out.println("CHOSEN CD: " + chosenDataType[0]);
             }
         });
 
         final String[] type = {null}; // function or attribute
-        String[] chosenType = { "attribute", "function" };
+        String[] chosenType = {"attribute", "function"};
         ChoiceBox choiceBox3 = new ChoiceBox(FXCollections.observableArrayList(chosenType));
         choiceBox3.setAccessibleText("Data Type");
         // add a listener
         choiceBox3.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             // if the item of the list is changed
-            public void changed(ObservableValue ov, Number value, Number new_value)
-            {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
                 chosenType[0] = (String) chosenType[new_value.intValue()];
                 System.out.println("CHOSEN CD: " + chosenType[0]);
             }
@@ -83,7 +80,9 @@ public class AddFunctionPopUp {
         label.setText(message);
         Button closeButton = new Button(button_message);
         closeButton.setOnAction(e -> {
-            attributeName[0] = textField.getText(); attributePopUpWindow.close();});
+            attributeName[0] = textField.getText();
+            attributePopUpWindow.close();
+        });
 
         VBox layout = new VBox(10);
         HBox hbox = new HBox();
@@ -123,7 +122,7 @@ public class AddFunctionPopUp {
         addAttributeScene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.ENTER)){
+                if (event.getCode().equals(KeyCode.ENTER)) {
                     attributeName[0] = textField.getText();
                     attributePopUpWindow.close();
                 }
@@ -132,8 +131,9 @@ public class AddFunctionPopUp {
 
         attributePopUpWindow.setScene(addAttributeScene);
         attributePopUpWindow.showAndWait();
-        if (attributeName[0] == null) return null;
-        if (chosenAccessRule[0] == null) return null;
+        if ((attributeName[0] == null || chosenAccessRule[0] == null || chosenDataType[0] == null)) {
+            return null;
+        }
         if (chosenAccessRule[0].equals("private")) chosenAccessRule[0] = "- ";
         if (chosenAccessRule[0].equals("public")) chosenAccessRule[0] = "+ ";
         if (chosenAccessRule[0].equals("protected")) chosenAccessRule[0] = "# ";
@@ -141,13 +141,13 @@ public class AddFunctionPopUp {
         String[] result = {null, null, null, null};
         result[0] = chosenAccessRule[0];
         result[1] = attributeName[0];
-        result[2] =  chosenDataType[0];
+        result[2] = chosenDataType[0];
         result[3] = "function";
-        if (result[1] == null || result[2] == null || result[3] == null) return null;
         return result;
     }
+
     public static AttributeController EditFunctionPopUpDisplay(String title, String message, String button_message, AttributeController old_function) {
-        String accessRule[] = { "private", "public", "protected", "package" };
+        String[] accessRule = {"private", "public", "protected", "package"};
         // create a choiceBox
         final String[] attributeName = {null};
 
@@ -163,15 +163,14 @@ public class AddFunctionPopUp {
         // add a listener
         choiceBox1.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             // if the item of the list is changed
-            public void changed(ObservableValue ov, Number value, Number new_value)
-            {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
                 chosenAccessRule[0] = (String) accessRule[new_value.intValue()];
                 System.out.println("CHOSEN CD: " + chosenAccessRule[0]);
             }
         });
 
         final String[] chosenDataType = {null};
-        String dataTypePopUpChooser[] = { " int", " bool", " string", " void " };
+        String[] dataTypePopUpChooser = {" int", " bool", " string", " void "};
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         chosenDataType[0] = old_function.getDatatype();
@@ -179,23 +178,21 @@ public class AddFunctionPopUp {
         // add a listener
         choiceBox2.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             // if the item of the list is changed
-            public void changed(ObservableValue ov, Number value, Number new_value)
-            {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
                 chosenDataType[0] = (String) dataTypePopUpChooser[new_value.intValue()];
                 System.out.println("CHOSEN CD: " + chosenDataType[0]);
             }
         });
 
         final String[] type = {null}; // function or attribute
-        String[] chosenType = { "attribute", "function" };
+        String[] chosenType = {"attribute", "function"};
         ChoiceBox choiceBox3 = new ChoiceBox(FXCollections.observableArrayList(chosenType));
         choiceBox3.setAccessibleText("Data Type");
 
         // add a listener
         choiceBox3.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             // if the item of the list is changed
-            public void changed(ObservableValue ov, Number value, Number new_value)
-            {
+            public void changed(ObservableValue ov, Number value, Number new_value) {
                 chosenType[0] = (String) chosenType[new_value.intValue()];
                 System.out.println("CHOSEN CD: " + chosenType[0]);
             }
@@ -220,7 +217,9 @@ public class AddFunctionPopUp {
         label.setText(message);
         Button closeButton = new Button(button_message);
         closeButton.setOnAction(e -> {
-            attributeName[0] = textField.getText(); attributePopUpWindow.close();});
+            attributeName[0] = textField.getText();
+            attributePopUpWindow.close();
+        });
 
         VBox layout = new VBox(10);
         HBox hbox = new HBox();
@@ -260,7 +259,7 @@ public class AddFunctionPopUp {
         addAttributeScene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.ENTER)){
+                if (event.getCode().equals(KeyCode.ENTER)) {
                     attributeName[0] = textField.getText();
                     attributePopUpWindow.close();
                 }
