@@ -15,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class AddFunctionController {
     private final ObservableList<String> observableListOfFunctions = FXCollections.observableArrayList();
@@ -33,14 +32,14 @@ public class AddFunctionController {
     Pane editMethodPupUpSpace;
     Scene editMethodPopUpScene;
     Stage editMethodPopUpStage;
-    private int selected_fucntion_index;
+    private int selected_function_index;
     private String old_param_name;
 
     public void parseEntityControllerAsReference(EntityController reference, AttributeController attributeReference){
         this.entityControllerReference = reference;
         this.attributeReference = attributeReference;
         this.methodNameTextField.setText(attributeReference.getName());
-        this.selected_fucntion_index = entityControllerReference.ClickedAttributeIndex;
+        this.selected_function_index = entityControllerReference.ClickedAttributeIndex;
     }
 
     public void onSaveFunctionButtonClick(ActionEvent event) {
@@ -83,7 +82,7 @@ public class AddFunctionController {
             System.out.println("CLICKED TEXT :" + old_param_name);
         }
         System.out.println("SELECTED INDEX " + selectedIndex);
-        attributeReference.row = this.selected_fucntion_index;
+        attributeReference.row = this.selected_function_index;
         System.out.println("SELECTED FUNCTION INDEX " + attributeReference.row);
         //this.functionListView.getItems().remove();
         AttributeOperationController new_attr = this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name);
@@ -101,7 +100,7 @@ public class AddFunctionController {
             this.functionListView.getItems().add(selectedIndex, new_attr.returnString());
         }else{
             this.functionListView.getItems().add(new_attr.returnString());
-            System.out.println("FOO INDEX TO UPDATE " + this.selected_fucntion_index);
+            System.out.println("FOO INDEX TO UPDATE " + this.selected_function_index);
         }
         //this.functionListView.getItems().add(this.singleFunctionParameterEditorReference.getEnteredParameter());
     }
@@ -120,7 +119,7 @@ public class AddFunctionController {
         attributeReference.removeOperationTypeByName(old_param_name);
 
         this.functionListView.getItems().remove(selectedIndex);
-        entityControllerReference.entityAttributeView.getItems().set(this.selected_fucntion_index, attributeReference.getWholeAttributeString());
+        entityControllerReference.entityAttributeView.getItems().set(this.selected_function_index, attributeReference.getWholeAttributeString());
     }
     public String getFunctionName(){
         return this.methodNameTextField.getText();

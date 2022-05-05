@@ -30,6 +30,7 @@ public class SingleFunctionParameterEditor {
         if (selected_index == -1) {
             new_attr = reference.attributeReference.addOperationType(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
         } else {
+            System.out.println(reference.attributeReference.getOperationControllerList().toString()); //TODO why its empty?????
             new_attr = reference.attributeReference.findOperationTypeByName(old_param_name.substring(0, old_param_name.lastIndexOf(" :"))).setParams(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
         }
         return new_attr;

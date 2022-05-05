@@ -62,6 +62,11 @@ public class EntityController extends VBox {
     private Object identifier;
     private int index = 0;
     public int ClickedAttributeIndex;
+
+    Pane functionPupUpSpace;
+    Scene functionPopUpScene;
+    Stage functionPopUpStage;
+
     /**
      * Constructor for new Entity
      *
@@ -186,9 +191,9 @@ public class EntityController extends VBox {
             index++;
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
-        Pane functionPupUpSpace = loader.load();
-        Scene functionPopUpScene = new Scene(functionPupUpSpace);
-        Stage functionPopUpStage = new Stage();
+        functionPupUpSpace = loader.load();
+        functionPopUpScene = new Scene(functionPupUpSpace);
+        functionPopUpStage = new Stage();
         functionPopUpStage.setTitle("Add operation");
         functionPopUpStage.setScene(functionPopUpScene);
 
@@ -216,15 +221,15 @@ public class EntityController extends VBox {
                 return null;
             }
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
-        Pane functionPupUpSpace = loader.load();
-        Scene functionPopUpScene = new Scene(functionPupUpSpace);
-        Stage functionPopUpStage = new Stage();
+       // FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
+        //Pane functionPupUpSpace = loader.load();
+        //Scene functionPopUpScene = new Scene(functionPupUpSpace);
+        //Stage functionPopUpStage = new Stage();
         functionPopUpStage.setTitle("Edit function");
         functionPopUpStage.setScene(functionPopUpScene);
 
-        this.addFunctionController = loader.getController();
-
+        //this.addFunctionController = loader.getController();
+        //loader.setController(this.addFunctionController);
         //AttributeController attr = new AttributeController();
         System.out.println("#SENT " + new_attr);
         this.addFunctionController.parseEntityControllerAsReference(this, new_attr);
