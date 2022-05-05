@@ -115,7 +115,7 @@ public class EditConstraintPopUp {
             reference.setLabel(constraintName[0]);
             reference.plabel.setText(reference.getLineString());
             reference.plabel.setAlignment(Pos.CENTER);
-            reference.plabel.layoutXProperty().bind(reference.endXProperty().subtract(reference.endXProperty().subtract(reference.startXProperty()).divide(2)).subtract(125));
+            reference.plabel.layoutXProperty().bind(reference.endXProperty().subtract(reference.endXProperty().subtract(reference.startXProperty()).divide(2)).subtract(reference.getLineString().length()*2.5));
             reference.plabel.layoutYProperty().bind(reference.endYProperty().subtract(reference.endYProperty().subtract(reference.startYProperty()).divide(2)).subtract(20));
 
             editConstraintPopUpWindow.close();

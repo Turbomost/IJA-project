@@ -109,7 +109,7 @@ public class BoundLine extends Line {
     public void create_label() {
         this.plabel.setText(this.getLineString());
         this.plabel.setAlignment(Pos.CENTER);
-        this.plabel.layoutXProperty().bind(this.endXProperty().subtract(this.endXProperty().subtract(this.startXProperty()).divide(2)).subtract(55));
+        this.plabel.layoutXProperty().bind(this.endXProperty().subtract(this.endXProperty().subtract(this.startXProperty()).divide(2)).subtract(this.getLineString().length()*2.5));
         this.plabel.layoutYProperty().bind(this.endYProperty().subtract(this.endYProperty().subtract(this.startYProperty()).divide(2)).subtract(20));
     }
 
