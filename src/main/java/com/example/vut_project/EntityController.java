@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Entity class represents every Class in ClassDiagram. It's used for storing data and Click events.
@@ -65,7 +66,6 @@ public class EntityController extends VBox {
     private int AttrClickedFXID;
     private Object identifier;
     private int index = 0;
-    private AttributeController primaryAttribute;
 
     /**
      * Constructor for new Entity
@@ -216,7 +216,7 @@ public class EntityController extends VBox {
         functionPopUpStage = new Stage();
         functionPopUpStage.setTitle("Edit operation");
         functionPopUpStage.setScene(functionPopUpScene);
-        for (AttributeController attr : reference.classDiagramController.findClass(classNameTextField.getText()).getAttributes()){
+        for (AttributeController attr : reference.classDiagramController.findClass(classNameTextField.getText()).getAttributes()) {
             this.addFunctionController = loader.getController();
             this.addFunctionController.parseEntityControllerAsReference(this, attr);
             this.addFunctionController.displayExistingMethodParameters();
@@ -230,11 +230,11 @@ public class EntityController extends VBox {
 
         System.out.println(">>UPRAVENE " + new_attr.toString());
         if (event != null) {
-            if (reference.AddAttribute(this.classNameTextField.getText(), new_attr)) {
-                this.entityAttributeView.getItems().add(new_attr.getWholeAttributeString());
-            } else {
+            //if (reference.AddAttribute(this.classNameTextField.getText(), new_attr)) {
+                this.entityAttributeView.getItems().set(index,new_attr.getWholeAttributeString());
+            /*} else {
                 return null;
-            }
+            }*/
         }
         // FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml")); //new object (aba class diagram) is created as pane
         //Pane functionPupUpSpace = loader.load();
@@ -250,10 +250,8 @@ public class EntityController extends VBox {
         System.out.println(attr.operationTypesNames());
 
         attr.rename(new_attr.getName());
-
         this.addFunctionController.parseEntityControllerAsReference(this, attr);
-        //this.addFunctionController.displayExistingMethodParameters();
-        //this.addFunctionController.displayExistingMethodParameters();
+        this.addFunctionController.displayExistingMethodParameters();
         //referece.AddAttribute(this.classNameTextField.getText(), attr);
 
         functionPopUpStage.show();
@@ -270,7 +268,6 @@ public class EntityController extends VBox {
             System.out.println(clicked); // gets text from deleted cell
             entityAttributeView.getItems().remove(clickedFXID); // remove cell from list view
             if (clicked.contains(" <<PK>> ")) {
-                this.primaryAttribute = null;
                 parsedAttributeName = clicked.substring(10, clicked.lastIndexOf(" :"));
             } else {
                 parsedAttributeName = clicked.substring(2, clicked.lastIndexOf(" :"));
@@ -400,7 +397,7 @@ public class EntityController extends VBox {
 
     @FXML
     public void onPasteConstraintClick(Event event) {
-        reference.SetConstraintTo(classNameTextField.getText());
+        reference.SetConstraintTo(classNameTextField.getText(), "TODO");
     }
 
     public void handleCloseButton() {
@@ -492,18 +489,20 @@ public class EntityController extends VBox {
             AlertBox.display("warning", "Function cannot be primary key", "OK");
             return;
         }
-        if (new_attr == this.primaryAttribute) {
-            this.primaryAttribute = null;
+
+        if (new_attr.isPrimary()) {
             new_attr.setPrimary(false);
-        } else {
-            if (this.primaryAttribute != null) {
-                this.primaryAttribute.setPrimary(false);
-                entityAttributeView.getItems().set(ref_class.getAttrPosition(this.primaryAttribute), this.primaryAttribute.getWholeAttributeString());
-            }
-            new_attr.setPrimary(true);
-            this.primaryAttribute = new_attr;
+            entityAttributeView.getItems().set(ref_class.getAttrPosition(new_attr), new_attr.getWholeAttributeString());
+            return;
         }
-        entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
+
+        for (AttributeController attr : ref_class.getAttributes()) {
+            attr.setPrimary(false);
+            entityAttributeView.getItems().set(ref_class.getAttrPosition(attr), attr.getWholeAttributeString());
+        }
+
+        new_attr.setPrimary(true);
+        entityAttributeView.getItems().set(ref_class.getAttrPosition(new_attr), new_attr.getWholeAttributeString());
     }
 
 }

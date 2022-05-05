@@ -34,6 +34,7 @@ public class AddFunctionController {
     Stage editMethodPopUpStage;
     private int selected_function_index;
     private String old_param_name;
+    public int selected_operation_index;
 
     public void parseEntityControllerAsReference(EntityController reference, AttributeController attributeReference){
         this.entityControllerReference = reference;
@@ -62,6 +63,7 @@ public class AddFunctionController {
 
     public void onEditFunctionContextMenuClick(ActionEvent event) throws IOException {
         if (functionListView.getSelectionModel().getSelectedIndex() == -1) return;
+        this.selected_operation_index = functionListView.getSelectionModel().getSelectedIndex();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/single_method_edit.fxml")); //new object (aba class diagram) is created as pane
         this.editMethodPupUpSpace = loader.load();
         this.editMethodPopUpScene = new Scene(editMethodPupUpSpace);
@@ -70,6 +72,7 @@ public class AddFunctionController {
         this.editMethodPopUpStage.setScene(editMethodPopUpScene);
         this.singleFunctionParameterEditorReference = loader.getController();
         this.singleFunctionParameterEditorReference.parseAddFunctionControllerReference(this);
+        this.singleFunctionParameterEditorReference.setFieldsWhileEdit(attributeReference.getOperationControllerList().get(this.selected_operation_index));
         this.editMethodPopUpStage.show();
     }
 
@@ -88,7 +91,7 @@ public class AddFunctionController {
         System.out.println("SELECTED FUNCTION INDEX " + attributeReference.row);
         //this.functionListView.getItems().remove();
         AttributeOperationController new_attr = this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name);
-        System.out.println("New created attribute at functioncontroller " + new_attr.getName() + " for function " + attributeReference.getName());
+        //System.out.println("New created attribute at functioncontroller " + new_attr.getName() + " for function " + attributeReference.getName());
         if (new_attr == null){
             return;
         }
@@ -108,6 +111,7 @@ public class AddFunctionController {
     }
 
     public void displayExistingMethodParameters(){
+        this.functionListView.getItems().clear();
         for (AttributeOperationController operation : this.attributeReference.getOperationControllerList()){
             this.functionListView.getItems().add(operation.returnString());
         }

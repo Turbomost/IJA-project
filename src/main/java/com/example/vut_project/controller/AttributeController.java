@@ -128,6 +128,7 @@ public class AttributeController extends ElementController {
     public AttributeOperationController addOperationType(String name, String type) {
         if (operationTypesNames().contains(name)) {
             AlertBox.display("Note", "Argument name is taken", "Understood");
+            return null;
         }
         AttributeOperationController new_attr = new AttributeOperationController(name, type);
         this.attributeOperationsList.add(new_attr);
