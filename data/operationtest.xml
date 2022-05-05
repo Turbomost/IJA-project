@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program>
+  <element type="operation" name="Andyho_oktavka">
+    <arg type="parameter_name">first_param</arg>
+    <arg type="parameter_type">first_type</arg>
+  </element>
+  <element type="operation" name="Andyho_oktavka">
+    <arg type="function_name">stat_na_miste</arg>
+    <arg type="parameter_name">second_param</arg>
+    <arg type="parameter_type">second_type</arg>
+  </element>
+
+
+</program>

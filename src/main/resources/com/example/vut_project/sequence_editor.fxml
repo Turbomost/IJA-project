@@ -30,7 +30,6 @@
         <ToolBar prefHeight="40.0" prefWidth="200.0">
             <items>
                 <Button mnemonicParsing="false" onAction="#onNewSequenceDiagramButtonClick" text="New Sequence Diagram" />
-            <Button mnemonicParsing="false" onAction="#onNewLifeLineButtonClick" text="New Life Line" />
             </items>
         </ToolBar>
         <Pane fx:id="sequenceSpace" prefHeight="736.0" prefWidth="1600.0" />

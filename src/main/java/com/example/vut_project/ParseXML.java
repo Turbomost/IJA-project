@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Parsing XML from file
@@ -72,17 +73,18 @@ public class ParseXML extends HelloController {
                                     System.out.println("PK>   " + fieldNode.getTextContent());
                                     System.out.println("Access node " + accessNodes.getLength());
                                     System.out.println("Type node " + typeNodes.getLength());
-                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute", typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent(), j);
+                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute", " " + typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent() + " ", j);
+
                                     new_class.addAttribute(new_attribute);
                                 }
                                 if (arg.getTextContent().equals("attribute")) {
                                     System.out.println("ATTR> " + fieldNode.getTextContent());
-                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute", typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent(), j);
+                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute", " " + typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent() + " ", j);
                                     new_class.addAttribute(new_attribute);
                                 }
                                 if (arg.getTextContent().equals("function")) {
                                     System.out.println("FUNC> " + fieldNode.getTextContent());
-                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "function", typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent(), j);
+                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "function", " " + typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent() + " ", j);
                                     new_class.addAttribute(new_attribute);
                                 }
                                 if (arg.getTextContent().equals("position_x")) {
@@ -135,10 +137,12 @@ public class ParseXML extends HelloController {
                             Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
                             if (arg.getTextContent().equals("constraint_from")){
                                 System.out.println("CONSTRAINT FROM: " + fieldNode.getTextContent());
+                                if(fieldNode.getTextContent() != null)
                                 reference.SetConstraintFrom(fieldNode.getTextContent());
                             }
                             if (arg.getTextContent().equals("constraint_to")){
                                 System.out.println("CONSTRAINT TO: " + fieldNode.getTextContent());
+                                if(fieldNode.getTextContent() != null)
                                 reference.SetConstraintTo(fieldNode.getTextContent());
                             }
                         }
@@ -146,6 +150,68 @@ public class ParseXML extends HelloController {
                             SetConstraintFrom(constraint_from.getName());
                             SetConstraintTo(constraint_to.getName());
                         }*/
+                    }
+                }
+            }
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void load_operations(HelloController reference){
+        this.reference = reference;
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new File(FILENAME));
+            doc.getDocumentElement().normalize();
+            System.out.println("Root Element :" + doc.getDocumentElement().getNodeName()); //class diagram or sequence diagram
+            System.out.println(doc.getDocumentElement().getNodeName().equals("constraint"));
+            System.out.println("------");
+
+            NodeList nodeList = doc.getElementsByTagName("element"); //creating list nodes, nodeList is list of <element> tags
+            for (int i = 0; i < nodeList.getLength(); i++) { //for every element
+                Node nNode = nodeList.item(i);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) { //for each element
+                    Element eElement = (Element) nNode; //each element is basically element, but it is called as node xD
+                    NodeList fieldNodes = eElement.getElementsByTagName("arg"); //creating list of arguments inside every element (class, constraint)
+                    System.out.println("------");
+                    System.out.println("NEW ELEMENT");
+                    //parsing element information
+                    String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
+                    String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
+                    if (elementType.equals("operation")){
+                        System.out.println("operation");
+                        String operationForClass = null;
+                        String operationForArgument = null;
+                        String operationName = null;
+                        String operationType = null;
+                        for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
+                            Node fieldNode = fieldNodes.item(j);
+                            NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
+                            Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
+                            System.out.println("OPERATION FOR CLASS: " + elementName);
+                            operationForClass = elementName;
+                            if(arg.getTextContent().equals("function_name")){
+                                System.out.println("FUNCTION NAME: " + fieldNode.getTextContent());
+                                operationForArgument = fieldNode.getTextContent();
+                            }
+                            if (arg.getTextContent().equals("parameter_name")){
+                                System.out.println("OPERATION NAME: " + fieldNode.getTextContent());
+                                operationName = fieldNode.getTextContent() + " ";
+                            }
+                            if (arg.getTextContent().equals("parameter_type")){
+                                System.out.println("OPERATION TYPE: " + fieldNode.getTextContent());
+                                operationType = fieldNode.getTextContent() + " ";
+                            }
+                                if (operationName != null && operationType != null && operationForArgument != null){
+                                    System.out.println("CREATING OPERATION");
+                                    ClassController found_class = reference.classDiagramController.findClass(operationForClass);
+                                    AttributeController attr = found_class.findAttributeByName(operationForArgument);
+                                    attr.addOperationType(operationName, operationType);
+                                }
+                        }
                     }
                 }
             }

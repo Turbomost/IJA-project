@@ -132,6 +132,7 @@ public class HelloController {
                 parse.input_file_from_button(path);
                 classDiagramController = parse.start_parse(this);
                 parse.load_constraints(this);
+                parse.load_operations(this);
                 this.displayLoadedClassDiagramEntity(classDiagramController);
             } else {
                 AlertBox.display("Error", "You need to choose XML file format", "I will choose an XML file next time");
