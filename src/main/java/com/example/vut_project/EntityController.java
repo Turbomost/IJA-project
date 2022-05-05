@@ -294,7 +294,7 @@ public class EntityController extends VBox {
         } else {
             parsedAttributeName = old_attribute_name.substring(2, old_attribute_name.lastIndexOf(" :"));
         }
-        `
+        
         AttributeController found_attribute = reference.getAttributeControllerByName(this.classNameTextField.getText(), parsedAttributeName);
         System.out.println("FOUND REFERENCE " + found_attribute);
         System.out.println("TYPE: " + found_attribute.getType());
