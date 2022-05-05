@@ -50,6 +50,8 @@ public class ParseXML extends HelloController {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) { //for each element
                     Element eElement = (Element) nNode; //each element is basically element, but it is called as node xD
                     NodeList fieldNodes = eElement.getElementsByTagName("arg"); //creating list of arguments inside every element (class, constraint)
+                    NodeList accessNodes = eElement.getElementsByTagName("attr_access");
+                    NodeList typeNodes = eElement.getElementsByTagName("attr_type");
                     System.out.println("------");
                     System.out.println("NEW ELEMENT");
                     //parsing element information
@@ -68,17 +70,19 @@ public class ParseXML extends HelloController {
                                 //TODO -> FILL CLASS WITH ITS ATTRIBUTES
                                 if (arg.getTextContent().equals("primarykey")) {
                                     System.out.println("PK>   " + fieldNode.getTextContent());
-                                    AttributeController new_attribute = new AttributeController("<<PK>> " + fieldNode.getTextContent(), "primarykey");
+                                    System.out.println("Access node " + accessNodes.getLength());
+                                    System.out.println("Type node " + typeNodes.getLength());
+                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute", typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent(), j);
                                     new_class.addAttribute(new_attribute);
                                 }
                                 if (arg.getTextContent().equals("attribute")) {
                                     System.out.println("ATTR> " + fieldNode.getTextContent());
-                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute");
+                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute", typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent(), j);
                                     new_class.addAttribute(new_attribute);
                                 }
                                 if (arg.getTextContent().equals("function")) {
                                     System.out.println("FUNC> " + fieldNode.getTextContent());
-                                    OperationController new_attribute = OperationController.create(fieldNode.getTextContent() + "()", "function");
+                                    AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "function", typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent(), j);
                                     new_class.addAttribute(new_attribute);
                                 }
                                 if (arg.getTextContent().equals("position_x")) {
