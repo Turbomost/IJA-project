@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -27,6 +28,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import javax.crypto.spec.PSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -380,7 +382,8 @@ public class HelloController {
         if (this.constraint_from != null) {
             this.constraint_to = classDiagramController.findClass(constraint_to);
             System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
-            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type);
+            Label label = new Label();
+            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type, label, "TODO LABEL");
             boundLine.create_line();
             this.constraint_from.addConstraint(boundLine);
             this.constraint_to.addConstraint(boundLine);
@@ -388,7 +391,13 @@ public class HelloController {
             boundLine.setStrokeWidth(3.0);
             boundLine.toBack();
             boundLine.setViewOrder(1.0);
-            projectSpace.getChildren().add(boundLine);
+            boundLine.create_label();
+            //label.setText(boundLine.getLineString());
+            //label.setAlignment(Pos.CENTER);
+            //label.layoutXProperty().bind(boundLine.endXProperty().subtract(boundLine.endXProperty().subtract(boundLine.startXProperty()).divide(2)).subtract(50));
+            //label.layoutYProperty().bind(boundLine.endYProperty().subtract(boundLine.endYProperty().subtract(boundLine.startYProperty()).divide(2)).subtract(20));
+
+            projectSpace.getChildren().addAll(boundLine, label);
         }
     }
 
@@ -405,6 +414,7 @@ public class HelloController {
         System.out.println("AFTER DELETING IN CLASS CONTROLLER");
         System.out.println(this.constraint_from.getName() + " " + this.constraint_from.getConstraintList());
         System.out.println(this.constraint_to.getName() + " " + this.constraint_to.getConstraintList());
+        projectSpace.getChildren().remove(toDelete.getPLabel());
         projectSpace.getChildren().remove(toDelete);
         this.constraint_from = remember_from;
         this.constraint_to = remember_to;

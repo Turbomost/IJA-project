@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="classVBox" onMouseClicked="#onClassDiagramClick" prefHeight="150.0" prefWidth="250.0" style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+<fx:root fx:id="classVBox" onMouseClicked="#onClassDiagramClick" prefHeight="150.0" prefWidth="250.0" style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <TextField fx:id="classNameTextField" alignment="CENTER" onAction="#onClassDiagramNameEnter" onMouseClicked="#onClassDiagramNameClick" promptText="Class Name" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-weight: bold;">
             <VBox.margin>

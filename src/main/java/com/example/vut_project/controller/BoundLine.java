@@ -3,13 +3,16 @@ package com.example.vut_project.controller;
 import com.example.vut_project.HelloController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Text;
 
 public class BoundLine extends Line {
     DoubleProperty fromX;
@@ -21,8 +24,12 @@ public class BoundLine extends Line {
     HelloController reference;
     BoundLine self;
     String LineType;
+    String label_string;
+    String left_cardinality;
+    String right_cardinality;
+    Label plabel;
 
-    public BoundLine(Double startX, Double startY, Double endX, Double endY, ClassController from, ClassController to, HelloController reference, String LineType) {
+    public BoundLine(Double startX, Double startY, Double endX, Double endY, ClassController from, ClassController to, HelloController reference, String LineType, Label plabel, String label) {
         this.fromX = new SimpleDoubleProperty(startX);
         this.fromY = new SimpleDoubleProperty(startY);
         this.toX = new SimpleDoubleProperty(endX);
@@ -30,10 +37,12 @@ public class BoundLine extends Line {
         this.from = from;
         this.to = to;
         this.LineType = LineType;
-
+        this.label_string = label;
+        this.plabel = plabel;
+        this.left_cardinality = "none";
+        this.right_cardinality = "none";
         from.addConstraint(this);
         to.addConstraint(this);
-
         setStrokeWidth(2);
         setStroke(Color.GRAY.deriveColor(0, 1, 1, 0.5));
         setStrokeLineCap(StrokeLineCap.BUTT);
@@ -66,6 +75,13 @@ public class BoundLine extends Line {
         setEndY(this.toY.getValue() + 150);
     }
 
+    public void create_label(){
+        this.plabel.setText(this.getLineString());
+        this.plabel.setAlignment(Pos.CENTER);
+        this.plabel.layoutXProperty().bind(this.endXProperty().subtract(this.endXProperty().subtract(this.startXProperty()).divide(2)).subtract(50));
+        this.plabel.layoutYProperty().bind(this.endYProperty().subtract(this.endYProperty().subtract(this.startYProperty()).divide(2)).subtract(20));
+    }
+
     public void update_position(double fromX, double fromY, double toX, double toY) {
         setStartX(fromX);
         setStartY(fromY);
@@ -87,9 +103,16 @@ public class BoundLine extends Line {
         System.out.println("Clicked");
         ContextMenu menu = new ContextMenu();
         MenuItem item = new MenuItem("Delete Constraint");
-        menu.getItems().add(item);
+        MenuItem item2 = new MenuItem("Edit");
+        menu.getItems().addAll(item, item2);
         item.setOnAction(e -> onDeleteConstraintClick(event));
+        item2.setOnAction(e -> onEditConstraintClick(event));
         menu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
+    }
+
+    private void onEditConstraintClick(MouseEvent event) {
+        System.out.println("On edit constraint click");
+        EditConstraintPopUp.display(this);
     }
 
     public void onDeleteConstraintClick(MouseEvent event) {
@@ -111,8 +134,34 @@ public class BoundLine extends Line {
         return this.LineType;
     }
 
-    public void setLineType(String LineType) {
-        this.LineType = LineType;
+    public void setLineType(String lineType) {
+        this.LineType = lineType;
     }
 
+    public void setLeftCardinality(String left_card){
+        System.out.println("LEFT CARDINALITY SET TO " + left_card);
+        this.left_cardinality = left_card;
+    }
+
+    public void setRightCardinality(String right_card){
+        System.out.println("RIGHT CARDINALITY SET TO " + right_card);
+        this.right_cardinality = right_card;
+    }
+
+    public String getLabel() {
+        return this.label_string;
+    }
+
+    public Label getPLabel() {
+        return this.plabel;
+    }
+
+    public void setLabel(String Label) {
+        System.out.println("ACTUALIZING LABEL TO " + Label);
+        this.label_string = Label;
+    }
+
+    public String getLineString(){
+        return this.left_cardinality + "     " + this.label_string + " < " + this.LineType + " >" + "     " + this.right_cardinality;
+    }
 }
