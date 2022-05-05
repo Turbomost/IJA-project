@@ -1,4 +1,5 @@
 Typ constraintů + kardinalita
+Constrainty -> typy, šipky, edit, edit typ, edit name
 
 Typy zpráv v seq
 Zápis seq

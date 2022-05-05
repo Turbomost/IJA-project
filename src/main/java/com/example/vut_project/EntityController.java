@@ -28,7 +28,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Entity class represents every Class in ClassDiagram. It's used for storing data and Click events.
@@ -231,7 +230,7 @@ public class EntityController extends VBox {
         System.out.println(">>UPRAVENE " + new_attr.toString());
         if (event != null) {
             //if (reference.AddAttribute(this.classNameTextField.getText(), new_attr)) {
-                this.entityAttributeView.getItems().set(index,new_attr.getWholeAttributeString());
+            this.entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
             /*} else {
                 return null;
             }*/
@@ -397,7 +396,7 @@ public class EntityController extends VBox {
 
     @FXML
     public void onPasteConstraintClick(Event event) {
-        reference.SetConstraintTo(classNameTextField.getText(), "TODO");
+        reference.SetConstraintTo(classNameTextField.getText(), "");
     }
 
     public void handleCloseButton() {

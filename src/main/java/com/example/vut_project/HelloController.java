@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -28,7 +27,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import javax.crypto.spec.PSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -383,7 +381,7 @@ public class HelloController {
             this.constraint_to = classDiagramController.findClass(constraint_to);
             System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
             Label label = new Label();
-            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type, label, "TODO LABEL");
+            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type, label, "new constraint");
             boundLine.create_line();
             this.constraint_from.addConstraint(boundLine);
             this.constraint_to.addConstraint(boundLine);

@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.text.Text;
 
 public class BoundLine extends Line {
     DoubleProperty fromX;
@@ -39,8 +38,8 @@ public class BoundLine extends Line {
         this.LineType = LineType;
         this.label_string = label;
         this.plabel = plabel;
-        this.left_cardinality = "none";
-        this.right_cardinality = "none";
+        this.left_cardinality = "";
+        this.right_cardinality = "";
         from.addConstraint(this);
         to.addConstraint(this);
         setStrokeWidth(2);
@@ -68,17 +67,49 @@ public class BoundLine extends Line {
         return "Generalization";
     }
 
+    public static String LabelToString(String label) {
+        if (label.equals("Zero or More")) {
+            return "0 .. N";
+        }
+        if (label.equals("One or More")) {
+            return "1 .. N";
+        }
+        if (label.equals("Zero or One")) {
+            return "0 .. 1";
+        }
+        if (label.equals("Exactly One")) {
+            return "1";
+        }
+        return "";
+    }
+
+    public static String StringToLabel(String label) {
+        if (label.equals("0 .. N")) {
+            return "Zero or More";
+        }
+        if (label.equals("1 .. N")) {
+            return "One or More";
+        }
+        if (label.equals("0 .. 1")) {
+            return "Zero or One";
+        }
+        if (label.equals("1")) {
+            return "Exactly One";
+        }
+        return "";
+    }
+
     public void create_line() {
-        setStartX(this.fromX.getValue() + 100);
+        setStartX(this.fromX.getValue() + 125);
         setStartY(this.fromY.getValue() + 150);
-        setEndX(this.toX.getValue() + 100);
+        setEndX(this.toX.getValue() + 125);
         setEndY(this.toY.getValue() + 150);
     }
 
-    public void create_label(){
+    public void create_label() {
         this.plabel.setText(this.getLineString());
         this.plabel.setAlignment(Pos.CENTER);
-        this.plabel.layoutXProperty().bind(this.endXProperty().subtract(this.endXProperty().subtract(this.startXProperty()).divide(2)).subtract(50));
+        this.plabel.layoutXProperty().bind(this.endXProperty().subtract(this.endXProperty().subtract(this.startXProperty()).divide(2)).subtract(55));
         this.plabel.layoutYProperty().bind(this.endYProperty().subtract(this.endYProperty().subtract(this.startYProperty()).divide(2)).subtract(20));
     }
 
@@ -90,12 +121,12 @@ public class BoundLine extends Line {
     }
 
     public void update_position_from(double fromX, double fromY) {
-        setStartX(fromX + 100);
+        setStartX(fromX + 125);
         setStartY(fromY + 150);
     }
 
     public void update_position_to(double toX, double toY) {
-        setEndX(toX + 100);
+        setEndX(toX + 125);
         setEndY(toY + 150);
     }
 
@@ -135,15 +166,16 @@ public class BoundLine extends Line {
     }
 
     public void setLineType(String lineType) {
+        System.out.println("TYPE SET TO " + lineType);
         this.LineType = lineType;
     }
 
-    public void setLeftCardinality(String left_card){
+    public void setLeftCardinality(String left_card) {
         System.out.println("LEFT CARDINALITY SET TO " + left_card);
         this.left_cardinality = left_card;
     }
 
-    public void setRightCardinality(String right_card){
+    public void setRightCardinality(String right_card) {
         System.out.println("RIGHT CARDINALITY SET TO " + right_card);
         this.right_cardinality = right_card;
     }
@@ -152,16 +184,19 @@ public class BoundLine extends Line {
         return this.label_string;
     }
 
-    public Label getPLabel() {
-        return this.plabel;
-    }
-
     public void setLabel(String Label) {
         System.out.println("ACTUALIZING LABEL TO " + Label);
         this.label_string = Label;
     }
 
-    public String getLineString(){
+    public Label getPLabel() {
+        return this.plabel;
+    }
+
+    public String getLineString() {
+        if (this.LineType.isBlank()) {
+            return this.left_cardinality + "     " + this.label_string + "     " + this.right_cardinality;
+        }
         return this.left_cardinality + "     " + this.label_string + " < " + this.LineType + " >" + "     " + this.right_cardinality;
     }
 }

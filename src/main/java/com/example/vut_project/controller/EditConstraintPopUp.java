@@ -52,8 +52,9 @@ public class EditConstraintPopUp {
         HBox hboxChoice = new HBox();
 
         final String[] choiceBoxLeftResult = {null};
-        choiceBoxLeftResult[0] = reference.left_cardinality;
-        String constraintLeftRoll[] = {"1..n", "0..n", "0..1", "1..1"};
+        choiceBoxLeftResult[0] = BoundLine.StringToLabel(reference.left_cardinality);
+        //String constraintLeftRoll[] = {"1", "0 .. 1", "0 .. N", "1 .. N"};
+        String[] constraintLeftRoll = {"Zero or More", "One or More", "Zero or One", "Exactly One"};
         ChoiceBox constraintChoiceBoxLeft = new ChoiceBox(FXCollections.observableArrayList(constraintLeftRoll));
         constraintChoiceBoxLeft.setValue(choiceBoxLeftResult[0]);
         constraintChoiceBoxLeft.setAccessibleText("Constraint Left");
@@ -69,23 +70,24 @@ public class EditConstraintPopUp {
 
         final String[] choiceBoxDataTypeResult = {null};
         choiceBoxDataTypeResult[0] = reference.getLineType();
-        String constraintDataType[] = {BoundLine.BoundLineAssociation(), BoundLine.BoundLineAggregation(), BoundLine.BoundLineComposition(), BoundLine.BoundLineGeneralization()}; // TODO ake to boli xd si nepamatam sad noises ... tak zatial datove typy
+        String[] constraintDataType = {BoundLine.BoundLineAssociation(), BoundLine.BoundLineAggregation(), BoundLine.BoundLineComposition(), BoundLine.BoundLineGeneralization()}; // TODO ake to boli xd si nepamatam sad noises ... tak zatial datove typy
         ChoiceBox constraintChoiceBoxMiddle = new ChoiceBox(FXCollections.observableArrayList(constraintDataType));
         constraintChoiceBoxMiddle.setValue(choiceBoxDataTypeResult[0]);
-        constraintChoiceBoxLeft.setAccessibleText("Constraint Data Type");
+        constraintChoiceBoxMiddle.setAccessibleText("Constraint Data Type");
         // add a listener
-        constraintChoiceBoxLeft.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+        constraintChoiceBoxMiddle.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             // if the item of the list is changed
             public void changed(ObservableValue ov, Number value, Number new_value) {
                 choiceBoxDataTypeResult[0] = constraintDataType[new_value.intValue()];
-                System.out.println("LEFT CARDINALITY: " + choiceBoxDataTypeResult[0]);
+                System.out.println("TYPE: " + choiceBoxDataTypeResult[0]);
             }
         });
 
 
         final String[] choiceBoxRightResult = {null};
-        choiceBoxRightResult[0] = reference.right_cardinality;
-        String constraintRightRoll[] = {"1..n", "0..n", "0..1", "1..1"};
+        choiceBoxRightResult[0] = BoundLine.StringToLabel(reference.right_cardinality);
+        //String[] constraintRightRoll = {"1", "0 .. 1", "0 .. N", "1 .. N"};
+        String[] constraintRightRoll = {"Zero or More", "One or More", "Zero or One", "Exactly One"};
         ChoiceBox constraintChoiceBoxRight = new ChoiceBox(FXCollections.observableArrayList(constraintRightRoll));
         constraintChoiceBoxRight.setValue(choiceBoxRightResult[0]);
         constraintChoiceBoxRight.setAccessibleText("Constraint Right");
@@ -94,7 +96,7 @@ public class EditConstraintPopUp {
             // if the item of the list is changed
             public void changed(ObservableValue ov, Number value, Number new_value) {
                 choiceBoxRightResult[0] = constraintRightRoll[new_value.intValue()];
-                System.out.println("LEFT CARDINALITY: " + choiceBoxRightResult[0]);
+                System.out.println("RIGHT CARDINALITY: " + choiceBoxRightResult[0]);
             }
         });
 
@@ -106,11 +108,16 @@ public class EditConstraintPopUp {
 
         editButton.setOnAction(e -> {
             constraintName[0] = constraintNameTextField.getText();
-            reference.setLeftCardinality(choiceBoxLeftResult[0]);
+            reference.setLeftCardinality(BoundLine.LabelToString(choiceBoxLeftResult[0]));
             reference.setLineType(choiceBoxDataTypeResult[0]);
-            reference.setRightCardinality(choiceBoxRightResult[0]);
+            //reference.setRightCardinality(choiceBoxRightResult[0]);
+            reference.setRightCardinality(BoundLine.LabelToString(choiceBoxRightResult[0]));
             reference.setLabel(constraintName[0]);
             reference.plabel.setText(reference.getLineString());
+            reference.plabel.setAlignment(Pos.CENTER);
+            reference.plabel.layoutXProperty().bind(reference.endXProperty().subtract(reference.endXProperty().subtract(reference.startXProperty()).divide(2)).subtract(125));
+            reference.plabel.layoutYProperty().bind(reference.endYProperty().subtract(reference.endYProperty().subtract(reference.startYProperty()).divide(2)).subtract(20));
+
             editConstraintPopUpWindow.close();
         });
 

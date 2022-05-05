@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class AddFunctionPopUp {
     public static String[] AddFunctionPopUpDisplay(String title, String message, String button_message) {
-        String accessRule[] = {"private", "public", "protected", "package"};
+        String[] accessRule = {"private", "public", "protected", "package"};
         // create a choiceBox
         final String[] attributeName = {null};
 
@@ -38,7 +38,7 @@ public class AddFunctionPopUp {
         });
 
         final String[] chosenDataType = {null};
-        String dataTypePopUpChooser[] = {"int", "bool", "string", "void"};
+        String[] dataTypePopUpChooser = {"int", "bool", "string", "void"};
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         // add a listener
