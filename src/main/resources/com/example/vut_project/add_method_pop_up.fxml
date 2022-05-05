@@ -8,20 +8,20 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="274.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.vut_project.controller.AddFunctionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="321.0" prefWidth="274.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="com.example.vut_project.controller.AddFunctionController">
    <children>
+      <TextField fx:id="methodNameTextField" alignment="CENTER" editable="false" layoutX="27.0" layoutY="7.0" prefHeight="25.0" prefWidth="219.0" promptText="Method Name" style="-fx-background-color: transparent; -fx-border-color: transparent;" />
       <ListView fx:id="functionListView" layoutX="5.0" layoutY="42.0" prefHeight="236.0" prefWidth="264.0">
          <contextMenu>
             <ContextMenu>
               <items>
-                  <MenuItem mnemonicParsing="false" text="Add" onAction="#onAddFunctionContextMenuClick"/>
-                  <MenuItem mnemonicParsing="false" text="Edit" onAction="#onEditFunctionContextMenuClick"/>
-                  <MenuItem mnemonicParsing="false" text="Delete" onAction="#onDeleteFunctionContextMenuClick"/>
+                  <MenuItem mnemonicParsing="false" onAction="#onAddFunctionContextMenuClick" text="Add" />
+                  <MenuItem mnemonicParsing="false" onAction="#onEditFunctionContextMenuClick" text="Edit" />
+                  <MenuItem mnemonicParsing="false" onAction="#onDeleteFunctionContextMenuClick" text="Delete" />
               </items>
             </ContextMenu>
          </contextMenu></ListView>
-      <TextField fx:id="methodNameTextField" layoutX="27.0" layoutY="7.0" prefHeight="25.0" prefWidth="219.0" promptText="Method Name" />
-      <Button fx:id="saveFunctionButton" layoutX="117.0" layoutY="288.0" mnemonicParsing="false" onAction="#onSaveFunctionButtonClick" text="Save">
+      <Button fx:id="saveFunctionButton" layoutX="117.0" layoutY="288.0" mnemonicParsing="false" onAction="#onSaveFunctionButtonClick" text="Close">
          <opaqueInsets>
             <Insets />
          </opaqueInsets></Button>

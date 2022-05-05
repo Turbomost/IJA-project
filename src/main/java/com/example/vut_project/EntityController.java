@@ -82,7 +82,7 @@ public class EntityController extends VBox {
         ClassController new_class = diagram.createClass(new_name);
         classNameTextField.setText(new_class.getName());
         old_class_name = classNameTextField.getText();
-        entityAttributeView.setEditable(true);
+        entityAttributeView.setEditable(false);
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
         this.referece = reference;
     }
@@ -356,6 +356,10 @@ public class EntityController extends VBox {
     @FXML
     public void onPasteConstraintClick(Event event) {
         referece.SetConstraintTo(classNameTextField.getText());
+    }
+
+    public void handleCloseButton(){
+        functionPopUpStage.close();
     }
 
     /* *********************************     SEQUENCE DIAGRAM PART      ***************************************** */

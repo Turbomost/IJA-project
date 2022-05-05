@@ -42,8 +42,9 @@ public class AddFunctionController {
         this.selected_function_index = entityControllerReference.ClickedAttributeIndex;
     }
 
-    public void onSaveFunctionButtonClick(ActionEvent event) {
-        System.out.println("SAVE PARAMETERS ");
+    public void onSaveFunctionButtonClick(ActionEvent event) { //CLOSE BUTTON IRW
+        System.out.println("CLOSE BUTTON ");
+        entityControllerReference.handleCloseButton();
     }
 
     public void onAddFunctionContextMenuClick(ActionEvent event) throws IOException {
