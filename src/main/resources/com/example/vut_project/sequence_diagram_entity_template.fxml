@@ -8,15 +8,15 @@
 
 <fx:root fx:id="sequenceVBox" onMouseClicked="#onSequenceClicked" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black; -fx-background-color: white;" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="sequenceDiagramNameTextField" alignment="CENTER" onKeyReleased="#onSequenceDiagramNameEntered" onMouseClicked="#onSequenceDiagramNameClick" prefHeight="16.0" prefWidth="148.0" promptText="Class Name" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+      <TextField fx:id="sequenceDiagramNameTextField" alignment="CENTER" editable="false" onKeyReleased="#onSequenceDiagramNameEntered" onMouseClicked="#onSequenceDiagramNameClick" prefHeight="16.0" prefWidth="148.0" promptText="Class Name" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-font-weight: bold;">
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
          <contextMenu>
             <ContextMenu>
               <items>
-                <MenuItem fx:id="DeleteSequenceDiagram" onAction="#onDeleteSequenceDiagramContextMenuClick" mnemonicParsing="false" text="Delete Diagram" />
-                <MenuItem fx:id="AddLifeLine" onAction="#onAddLifeLineContextMenuClick" mnemonicParsing="false" text="Add Life Line" />
+                <MenuItem fx:id="DeleteSequenceDiagram" mnemonicParsing="false" onAction="#onDeleteSequenceDiagramContextMenuClick" text="Delete Diagram" />
+                <MenuItem fx:id="AddLifeLine" mnemonicParsing="false" onAction="#onAddLifeLineContextMenuClick" text="Add Life Line" />
               </items>
             </ContextMenu>
          </contextMenu>
