@@ -285,7 +285,7 @@ public class EntityController extends VBox {
             System.out.println("jsi mimo");
             return;
         }
-        System.out.println("Clicked on " + entityAttributeView.getItems().get(this.ClickedAttributeIndex));
+        System.out.println("Clicked on <" + entityAttributeView.getItems().get(this.ClickedAttributeIndex) + ">");
         old_attribute_name = (String) entityAttributeView.getItems().get(this.ClickedAttributeIndex);
 
         String parsedAttributeName;
@@ -294,10 +294,11 @@ public class EntityController extends VBox {
         } else {
             parsedAttributeName = old_attribute_name.substring(2, old_attribute_name.lastIndexOf(" :"));
         }
-        
+
         AttributeController found_attribute = reference.getAttributeControllerByName(this.classNameTextField.getText(), parsedAttributeName);
         System.out.println("FOUND REFERENCE " + found_attribute);
         System.out.println("TYPE: " + found_attribute.getType());
+        System.out.println("DATATYPE: " + found_attribute.getDatatype());
 
         System.out.println(parsedAttributeName);
         if (found_attribute.getType().equals("attribute")) {

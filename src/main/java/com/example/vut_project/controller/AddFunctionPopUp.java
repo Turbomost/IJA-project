@@ -38,7 +38,7 @@ public class AddFunctionPopUp {
         });
 
         final String[] chosenDataType = {null};
-        String dataTypePopUpChooser[] = {" int", " bool", " string", " void "};
+        String dataTypePopUpChooser[] = {"int", "bool", "string", "void"};
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         // add a listener
@@ -170,7 +170,7 @@ public class AddFunctionPopUp {
         });
 
         final String[] chosenDataType = {null};
-        String[] dataTypePopUpChooser = {" int", " bool", " string", " void "};
+        String[] dataTypePopUpChooser = {"int", "bool", "string", "void"};
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         chosenDataType[0] = old_function.getDatatype();

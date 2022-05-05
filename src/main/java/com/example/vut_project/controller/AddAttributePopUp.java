@@ -42,7 +42,7 @@ public class AddAttributePopUp {
         });
 
         final String[] chosenDataType = {null};
-        String dataTypePopUpChooser[] = { " int", " bool", " string" };
+        String dataTypePopUpChooser[] = { "int", "bool", "string" };
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         // add a listener
@@ -175,7 +175,7 @@ public class AddAttributePopUp {
         });
 
         final String[] chosenDataType = {null};
-        String dataTypePopUpChooser[] = { " int", " bool", " string" };
+        String dataTypePopUpChooser[] = { "int", "bool", "string" };
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
         chosenDataType[0] = found_attribute.getDatatype();
