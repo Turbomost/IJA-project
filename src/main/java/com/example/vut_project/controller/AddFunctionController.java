@@ -48,6 +48,7 @@ public class AddFunctionController {
     }
 
     public void onAddFunctionContextMenuClick(ActionEvent event) throws IOException {
+        functionListView.getSelectionModel().select(-1);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/single_method_edit.fxml")); //new object (aba class diagram) is created as pane
         this.editMethodPupUpSpace = loader.load();
         this.editMethodPopUpScene = new Scene(editMethodPupUpSpace);

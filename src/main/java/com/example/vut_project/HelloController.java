@@ -94,6 +94,7 @@ public class HelloController {
     protected void displayLoadedClassDiagramEntity(ClassDiagramController classDiagram) throws IOException {
         for (ClassController class_name : classDiagram.return_list()) {
             EntityController new_entity = new EntityController(class_name, this);
+            new_entity.makeResourceForFunctionLoad();
             draggableMaker.makeDraggable(new_entity, class_name);
             new_entity.setLayoutX(class_name.getPosition_x());
             new_entity.setLayoutY(class_name.getPosition_y());

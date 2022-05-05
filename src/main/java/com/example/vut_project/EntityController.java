@@ -176,6 +176,7 @@ public class EntityController extends VBox {
     }
 
     public AttributeController onAddFunctionDiagramClick(ActionEvent event) throws IOException {
+
         String[] attributeToAdd = AddFunctionPopUp.AddFunctionPopUpDisplay("function", "Choose Function Properties", "Add Function");
         if (attributeToAdd == null) {
             return null;
@@ -206,6 +207,20 @@ public class EntityController extends VBox {
 
         functionPopUpStage.show();
         return attr;
+    }
+
+    public void makeResourceForFunctionLoad() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/vut_project/add_method_pop_up.fxml"));
+        functionPupUpSpace = loader.load();
+        functionPopUpScene = new Scene(functionPupUpSpace);
+        functionPopUpStage = new Stage();
+        functionPopUpStage.setTitle("Edit operation");
+        functionPopUpStage.setScene(functionPopUpScene);
+        for (AttributeController attr : reference.classDiagramController.findClass(classNameTextField.getText()).getAttributes()){
+            this.addFunctionController = loader.getController();
+            this.addFunctionController.parseEntityControllerAsReference(this, attr);
+            this.addFunctionController.displayExistingMethodParameters();
+        }
     }
 
     public AttributeController onEditFunctionDiagramClick(ActionEvent event, int index, String old_function_name) throws IOException {
