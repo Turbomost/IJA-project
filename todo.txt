@@ -1,10 +1,7 @@
->	Null pointer exception název parametru
->	Empty stringy
+Typ constraintů + kardinalita + generalizace
 
->	Parsování ze souboru + nekonzistence načítání + zápis seq
->	Zápis do souboru + zápis seq
+Typy zpráv v seq
+Zápis seq
 
-Provázanost
+Provázanost, Nekonzistence načítání 
 Undo
-typ constraintů + kardinalita + generalizace
-typy zpráv v seq
