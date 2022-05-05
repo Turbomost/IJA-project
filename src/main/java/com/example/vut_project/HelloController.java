@@ -16,6 +16,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -51,6 +52,7 @@ public class HelloController {
     public SequenceDiagramController sequenceDiagramController;
     public Center startCenter;
     public Center endCenter;
+    public Button quitButton;
     DraggableMarker draggableMaker = new DraggableMarker(); //class, that makes all objects movable
     ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
     int i = 0;
@@ -405,5 +407,10 @@ public class HelloController {
         projectSpace.getChildren().remove(toDelete);
         this.constraint_from = remember_from;
         this.constraint_to = remember_to;
+    }
+
+    public void onQuitButtonClick(ActionEvent event) {
+        System.out.println("QUIT");
+        System.exit(0);
     }
 }
