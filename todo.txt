@@ -1,7 +1,7 @@
-Typ constraintů + kardinalita + generalizace
+Typ constraintů + kardinalita
 
 Typy zpráv v seq
 Zápis seq
 
-Provázanost, Nekonzistence načítání 
+Provázanost, Nekonzistence načítání, Generalizace
 Undo

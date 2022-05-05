@@ -76,6 +76,7 @@ public class ParseXML extends HelloController {
                                     System.out.println("Type node " + typeNodes.getLength() + " (" + typeNodes.item(j).getTextContent() + ")");
                                     AttributeController new_attribute = new AttributeController(fieldNode.getTextContent(), "attribute", typeNodes.item(j).getTextContent(), accessNodes.item(j).getTextContent() + " ", j);
 
+                                    new_attribute.setPrimary(true);
                                     new_class.addAttribute(new_attribute);
                                 }
                                 if (arg.getTextContent().equals("attribute")) {
@@ -144,8 +145,9 @@ public class ParseXML extends HelloController {
                             }
                             if (arg.getTextContent().equals("constraint_to")) {
                                 System.out.println("CONSTRAINT TO: " + fieldNode.getTextContent());
-                                if (fieldNode.getTextContent() != null)
-                                    reference.SetConstraintTo(fieldNode.getTextContent());
+                                if (fieldNode.getTextContent() != null) {
+                                    reference.SetConstraintTo(fieldNode.getTextContent(), elementName);
+                                }
                             }
                         }
                         /*if(constraint_from != null && constraint_to != null){

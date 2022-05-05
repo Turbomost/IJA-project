@@ -19,16 +19,17 @@ public class BoundLine extends Line {
     ClassController from;
     ClassController to;
     HelloController reference;
-
     BoundLine self;
+    String LineType;
 
-    public BoundLine(Double startX, Double startY, Double endX, Double endY, ClassController from, ClassController to, HelloController reference) {
+    public BoundLine(Double startX, Double startY, Double endX, Double endY, ClassController from, ClassController to, HelloController reference, String LineType) {
         this.fromX = new SimpleDoubleProperty(startX);
         this.fromY = new SimpleDoubleProperty(startY);
         this.toX = new SimpleDoubleProperty(endX);
         this.toY = new SimpleDoubleProperty(endY);
         this.from = from;
         this.to = to;
+        this.LineType = LineType;
 
         from.addConstraint(this);
         to.addConstraint(this);
@@ -40,6 +41,22 @@ public class BoundLine extends Line {
         setOnMouseClicked(event -> onMouseClicked(event));
         this.reference = reference;
 
+    }
+
+    public static String BoundLineAssociation() {
+        return "Association";
+    }
+
+    public static String BoundLineAggregation() {
+        return "Aggregation";
+    }
+
+    public static String BoundLineComposition() {
+        return "Composition";
+    }
+
+    public static String BoundLineGeneralization() {
+        return "Generalization";
     }
 
     public void create_line() {
@@ -89,4 +106,13 @@ public class BoundLine extends Line {
     public void setSelfReference(BoundLine self) {
         this.self = self;
     }
+
+    public String getLineType() {
+        return this.LineType;
+    }
+
+    public void setLineType(String LineType) {
+        this.LineType = LineType;
+    }
+
 }

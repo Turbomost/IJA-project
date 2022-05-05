@@ -376,11 +376,11 @@ public class HelloController {
         System.out.println("From: " + this.constraint_from.getName());
     }
 
-    public void SetConstraintTo(String constraint_to) {
+    public void SetConstraintTo(String constraint_to, String type) {
         if (this.constraint_from != null) {
             this.constraint_to = classDiagramController.findClass(constraint_to);
             System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
-            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this);
+            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type);
             boundLine.create_line();
             this.constraint_from.addConstraint(boundLine);
             this.constraint_to.addConstraint(boundLine);
