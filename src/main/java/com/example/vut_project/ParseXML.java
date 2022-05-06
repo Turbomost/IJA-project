@@ -131,6 +131,9 @@ public class ParseXML extends HelloController {
                     String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
                     String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
                     if (elementType.equals("constraint")) {
+                        String constraintLeft = eElement.getAttribute("left");
+                        String constraintRight = eElement.getAttribute("right");
+                        String constraintType = eElement.getAttribute("consType");
                         System.out.println("constraint");
                         ClassController constraint_from = null;
                         ClassController constraint_to = null;
@@ -146,7 +149,7 @@ public class ParseXML extends HelloController {
                             if (arg.getTextContent().equals("constraint_to")) {
                                 System.out.println("CONSTRAINT TO: " + fieldNode.getTextContent());
                                 if (fieldNode.getTextContent() != null) {
-                                    reference.SetConstraintTo(fieldNode.getTextContent(), elementName);
+                                    reference.SetConstraintTo(fieldNode.getTextContent(), constraintType, elementName, constraintLeft, constraintRight);
                                 }
                             }
                         }

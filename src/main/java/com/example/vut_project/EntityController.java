@@ -396,7 +396,7 @@ public class EntityController extends VBox {
 
     @FXML
     public void onPasteConstraintClick(Event event) {
-        reference.SetConstraintTo(classNameTextField.getText(), "");
+        reference.SetConstraintTo(classNameTextField.getText(), "", "new constraint", "", "");
     }
 
     public void handleCloseButton() {

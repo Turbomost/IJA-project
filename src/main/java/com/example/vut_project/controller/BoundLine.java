@@ -28,7 +28,7 @@ public class BoundLine extends Line {
     String right_cardinality;
     Label plabel;
 
-    public BoundLine(Double startX, Double startY, Double endX, Double endY, ClassController from, ClassController to, HelloController reference, String LineType, Label plabel, String label) {
+    public BoundLine(Double startX, Double startY, Double endX, Double endY, ClassController from, ClassController to, HelloController reference, String LineType, Label plabel, String label, String left, String right) {
         this.fromX = new SimpleDoubleProperty(startX);
         this.fromY = new SimpleDoubleProperty(startY);
         this.toX = new SimpleDoubleProperty(endX);
@@ -38,8 +38,8 @@ public class BoundLine extends Line {
         this.LineType = LineType;
         this.label_string = label;
         this.plabel = plabel;
-        this.left_cardinality = "";
-        this.right_cardinality = "";
+        this.left_cardinality = left;
+        this.right_cardinality = right;
         from.addConstraint(this);
         to.addConstraint(this);
         setStrokeWidth(2);
@@ -109,7 +109,7 @@ public class BoundLine extends Line {
     public void create_label() {
         this.plabel.setText(this.getLineString());
         this.plabel.setAlignment(Pos.CENTER);
-        this.plabel.layoutXProperty().bind(this.endXProperty().subtract(this.endXProperty().subtract(this.startXProperty()).divide(2)).subtract(this.getLineString().length()*2.5));
+        this.plabel.layoutXProperty().bind(this.endXProperty().subtract(this.endXProperty().subtract(this.startXProperty()).divide(2)).subtract(this.getLineString().length() * 2.5));
         this.plabel.layoutYProperty().bind(this.endYProperty().subtract(this.endYProperty().subtract(this.startYProperty()).divide(2)).subtract(20));
     }
 
@@ -197,6 +197,22 @@ public class BoundLine extends Line {
         if (this.LineType.isBlank()) {
             return this.left_cardinality + "     " + this.label_string + "     " + this.right_cardinality;
         }
-        return this.left_cardinality + "     " + this.label_string + " < " + this.LineType + " >" + "     " + this.right_cardinality;
+        return this.left_cardinality + "     " + this.label_string + LineTypeToString(this.LineType) + "     " + this.right_cardinality;
+    }
+
+    public String LineTypeToString(String type){
+        if (this.LineType.equals(BoundLineComposition())) {
+            return " { " + type + " }" ;
+        }
+        if (this.LineType.equals(BoundLineAssociation())) {
+            return " < " + type + " >" ;
+        }
+        if (this.LineType.equals(BoundLineAggregation())) {
+            return " > " + type + " <" ;
+        }
+        if (this.LineType.equals(BoundLineGeneralization())) {
+            return " --> " + type + " <-- " ;
+        }
+        return "";
     }
 }

@@ -13,8 +13,8 @@
         <arg type="function">zaparkovat</arg>
           <attr_access type="attribute_access">+</attr_access>
           <attr_type type="attribute_type">int</attr_type>
-        <arg type="position_x">400</arg>
-        <arg type="position_y">100</arg>
+        <arg type="position_x">500</arg>
+        <arg type="position_y">50</arg>
     </element>
 
     <element type="class" name="Vaskovo_faro">
@@ -36,8 +36,8 @@
         <arg type="function">upozornit_zandarov</arg>
           <attr_access type="attribute_access">+</attr_access>
           <attr_type type="attribute_type">void</attr_type>
-        <arg type="position_x">100</arg>
-        <arg type="position_y">100</arg>
+        <arg type="position_x">50</arg>
+        <arg type="position_y">50</arg>
     </element>
 
 
@@ -63,22 +63,50 @@
         <arg type="function">upozornit_danovy_urad</arg>
           <attr_access type="attribute_access">-</attr_access>
           <attr_type type="attribute_type">string</attr_type>
-        <arg type="position_x">250</arg>
-        <arg type="position_y">300</arg>
+        <arg type="position_x">500</arg>
+        <arg type="position_y">500</arg>
     </element>
 
-    <element type="constraint" name="name">
+    <element type="class" name="Krivkova_Tesla">
+        <arg type="primarykey">znacka</arg>
+          <attr_access type="attribute_access">-</attr_access>
+          <attr_type type="attribute_type">string</attr_type>
+        <arg type="attribute">farba</arg>
+          <attr_access type="attribute_access">+</attr_access>
+          <attr_type type="attribute_type">string</attr_type>
+        <arg type="attribute">motor</arg>
+          <attr_access type="attribute_access">+</attr_access>
+          <attr_type type="attribute_type">string</attr_type>
+        <arg type="function">vytvorit_IPP_projekt</arg>
+          <attr_access type="attribute_access">+</attr_access>
+          <attr_type type="attribute_type">int</attr_type>
+        <arg type="function">Moc_me_to_nenadchlo</arg>
+          <attr_access type="attribute_access">+</attr_access>
+          <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">Uvidime_se_pristi_rok</arg>
+          <attr_access type="attribute_access">+</attr_access>
+          <attr_type type="attribute_type">void</attr_type>
+        <arg type="position_x">50</arg>
+        <arg type="position_y">500</arg>
+    </element>
+
+    <element type="constraint" name="Constraint 1" left = "1" right = "0 .. N" consType = "Association">
       <arg type="constraint_from">Andyho_oktavka</arg>
       <arg type="constraint_to">Vaskovo_faro</arg>
     </element>
 
-    <element type="constraint" name="name">
+    <element type="constraint" name="Constraint 2" left = "1 .. N" right = "0 .. 1" consType = "Aggregation">
       <arg type="constraint_from">Andyho_oktavka</arg>
       <arg type="constraint_to">Kikova_Sedma</arg>
     </element>
 
-    <element type="constraint" name="name">
+    <element type="constraint" name="Constraint 3" left = "0 .. N" right = "1" consType = "Composition">
       <arg type="constraint_from">Kikova_Sedma</arg>
+      <arg type="constraint_to">Krivkova_Tesla</arg>
+    </element>
+
+    <element type="constraint" name="Constraint 4" left = "1" right = "1" consType = "Generalization">
+      <arg type="constraint_from">Krivkova_Tesla</arg>
       <arg type="constraint_to">Vaskovo_faro</arg>
     </element>
 
@@ -104,6 +132,18 @@
       <arg type="function_name">upozornit_danovy_urad</arg>
       <arg type="parameter_name">poslat_email</arg>
       <arg type="parameter_type">string</arg>
+    </element>
+
+    <element type="operation" name="Krivkova_Tesla">
+      <arg type="function_name">vytvorit_IPP_projekt</arg>
+      <arg type="parameter_name">pocet_stran</arg>
+      <arg type="parameter_type">int</arg>
+    </element>
+
+    <element type="operation" name="Krivkova_Tesla">
+      <arg type="function_name">Uvidime_se_pristi_rok</arg>
+      <arg type="parameter_name">rok</arg>
+      <arg type="parameter_type">long_int</arg>
     </element>
 
 </program>

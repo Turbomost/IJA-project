@@ -310,17 +310,15 @@ public class HelloController {
                 System.out.println("Before: " + curClass.getAttributesList().toString());
                 curClass.removeAttribute(curClass.findAttributeByName(attribute_name));
                 System.out.println("After: " + curClass.getAttributesList().toString());
-            }
-            else {
+            } else {
                 AlertBox.display("Error", "Error while deleting attribute '" + attribute_name + "'", "OK");
             }
-        }
-        else {
+        } else {
             AlertBox.display("Error", "Error while deleting in class'" + class_name + "'", "OK");
         }
     }
 
-    public void renameFunctionBasic(String class_name, String function_name){
+    public void renameFunctionBasic(String class_name, String function_name) {
         ClassController curClass = this.classDiagramController.findClass(class_name);
         AttributeController function_to_change;
         if (curClass != null) {
@@ -337,13 +335,13 @@ public class HelloController {
     }
 
 
-    public boolean AddAttribute(String class_name, AttributeController attr ) {
+    public boolean AddAttribute(String class_name, AttributeController attr) {
         ClassController curClass = this.classDiagramController.findClass(class_name);
         System.out.println("before adding");
         return curClass.addAttribute(attr);
     }
 
-    public AttributeController getAttributeControllerByName(String class_name, String attribute_name){
+    public AttributeController getAttributeControllerByName(String class_name, String attribute_name) {
         ClassController curClass = this.classDiagramController.findClass(class_name);
         return curClass.findAttributeByName(attribute_name);
     }
@@ -376,12 +374,12 @@ public class HelloController {
         System.out.println("From: " + this.constraint_from.getName());
     }
 
-    public void SetConstraintTo(String constraint_to, String type) {
+    public void SetConstraintTo(String constraint_to, String type, String name, String left, String right) {
         if (this.constraint_from != null) {
             this.constraint_to = classDiagramController.findClass(constraint_to);
             System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
             Label label = new Label();
-            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type, label, "new constraint");
+            BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type, label, name, left, right);
             boundLine.create_line();
             this.constraint_from.addConstraint(boundLine);
             this.constraint_to.addConstraint(boundLine);
@@ -394,7 +392,6 @@ public class HelloController {
             //label.setAlignment(Pos.CENTER);
             //label.layoutXProperty().bind(boundLine.endXProperty().subtract(boundLine.endXProperty().subtract(boundLine.startXProperty()).divide(2)).subtract(50));
             //label.layoutYProperty().bind(boundLine.endYProperty().subtract(boundLine.endYProperty().subtract(boundLine.startYProperty()).divide(2)).subtract(20));
-
             projectSpace.getChildren().addAll(boundLine, label);
         }
     }
