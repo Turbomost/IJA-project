@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<program>
+  <element type="sequence" name="Andyho_oktavka">
+      <arg type="position_x">100</arg>
+      <arg type="position_y">50</arg>
+  </element>
+
+  <element type="life_line" name="Andyho_oktavka">
+    <arg type="line">some_line_identificator</arg>
+    <arg type="position_y">100</arg>
+    <arg type="length">30</arg>
+  </element>
+
+  <element type="life_line" name="Andyho_oktavka">
+    <arg type="line">other_line_identificator</arg>
+    <arg type="position_x">100</arg>
+    <arg type="position_y">160</arg>
+    <arg type="length">40</arg>
+  </element>
+
+</program>

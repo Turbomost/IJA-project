@@ -1,15 +1,14 @@
 package com.example.vut_project;
 
-import com.example.vut_project.controller.DragResizer;
-import com.example.vut_project.controller.DraggableMarker;
-import com.example.vut_project.controller.LifeLine;
-import com.example.vut_project.controller.SequenceChoiceBox;
+import com.example.vut_project.controller.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -76,6 +75,23 @@ public class SequenceDiagramController {
     public void onFileOpenButtonClick(ActionEvent event) {
         System.out.println("Open sequence from file click");
         System.out.println(helloControllerReference.classDiagramController.getClassList().toString());
+        ParseXML parse = new ParseXML();
+        FileChooser fileChooser = new FileChooser();
+        File result = fileChooser.showOpenDialog(null);  //select file to open
+        if (result != null) {
+            File filePath = new File(result.getAbsolutePath());
+            String path = filePath.toString();
+            String lowercaseName = path.toLowerCase();
+            if (lowercaseName.endsWith(".xml")) {
+                parse.input_file_from_button(path);
+                //classDiagramController = parse.start_parse(this);
+                parse.load_sequence(this);
+                //parse.load_operations(this);
+            } else {
+                AlertBox.display("Error", "You need to choose XML file format", "I will choose an XML file next time");
+                System.out.println("Need to be a xml file");
+            }
+        }
     }
 
     public void onDeleteLifeLineClick(Event event) {

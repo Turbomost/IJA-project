@@ -25,6 +25,7 @@ public class ParseXML extends HelloController {
     private static String FILENAME = "";
     ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
     HelloController reference;
+    SequenceDiagramController sequenceDiagramController;
 
     public void input_file_from_button(String file_path) {
         FILENAME = file_path;
@@ -228,5 +229,76 @@ public class ParseXML extends HelloController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void load_sequence(SequenceDiagramController sequence_reference){
+        System.out.println("LOAD SEQUENCE AT PARSEXML");
+        this.sequenceDiagramController = sequence_reference;
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new File(FILENAME));
+            doc.getDocumentElement().normalize();
+            System.out.println("Root Element :" + doc.getDocumentElement().getNodeName()); //class diagram or sequence diagram
+            System.out.println("------");
+
+            NodeList nodeList = doc.getElementsByTagName("element"); //creating list nodes, nodeList is list of <element> tags
+            System.out.println("NODE LIST_ " + nodeList.toString());
+            for (int i = 0; i < nodeList.getLength(); i++) { //for every element
+                Node nNode = nodeList.item(i);
+                System.out.println("GET NODE NAME " + nNode.getNodeName());
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) { //for each element
+                    Element eElement = (Element) nNode; //each element is basically element, but it is called as node xD
+                    NodeList fieldNodes = eElement.getElementsByTagName("arg"); //creating list of arguments inside every element (class, constraint)
+                    System.out.println("------");
+                    System.out.println("NEW ELEMENT");
+                    //parsing element information
+                    String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
+                    if (elementType.equals("sequence")) { //creating class
+                        //TODO CREATE SEQUENCE NAMED
+                        String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
+                        System.out.println("SEQUENCE FOR CLASS NAME " + elementName);
+                        for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
+                            Node fieldNode = fieldNodes.item(j);
+                            NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
+                            Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
+                            if (arg.getTextContent().equals("position_x")) {
+                                System.out.println("position X: " + fieldNode.getTextContent());
+                            }
+                            if (arg.getTextContent().equals("position_y")) {
+                                System.out.println("position Y: " + fieldNode.getTextContent());
+                            }
+                        }
+                    }
+                    if (elementType.equals("life_line")){
+                        String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
+                        System.out.println("LIFE LINE FOR CLASS NAME: " + elementName);
+                        for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
+                            Node fieldNode = fieldNodes.item(j);
+                            NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
+                            Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
+                            if (arg.getTextContent().equals("line")) {
+                                System.out.println("LIFE LINE IDENTIFICATOR: " + fieldNode.getTextContent());
+                            }
+                            if (arg.getTextContent().equals("position_y")) {
+                                System.out.println("LIFE LINE POSITION Y: " + fieldNode.getTextContent());
+                            }
+                            if (arg.getTextContent().equals("position_x")) {
+                                System.out.println("LIFE LINE POSITION X: " + fieldNode.getTextContent());
+                            }
+                            if (arg.getTextContent().equals("length")) {
+                                System.out.println("LIFE LINE LENGTH: " + fieldNode.getTextContent());
+                            }
+                        }
+
+                    }
+                }
+            }
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
