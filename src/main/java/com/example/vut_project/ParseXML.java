@@ -17,6 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Parsing XML from file
@@ -231,9 +232,9 @@ public class ParseXML extends HelloController {
         }
     }
 
-    public void load_sequence(SequenceDiagramController sequence_reference){
+    public ArrayList<EntityController> load_sequence(SequenceDiagramController sequenceDiagramController){
+        ArrayList<EntityController> entityList = new ArrayList<>();
         System.out.println("LOAD SEQUENCE AT PARSEXML");
-        this.sequenceDiagramController = sequence_reference;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -241,7 +242,7 @@ public class ParseXML extends HelloController {
             doc.getDocumentElement().normalize();
             System.out.println("Root Element :" + doc.getDocumentElement().getNodeName()); //class diagram or sequence diagram
             System.out.println("------");
-
+            EntityController new_entity = null;
             NodeList nodeList = doc.getElementsByTagName("element"); //creating list nodes, nodeList is list of <element> tags
             System.out.println("NODE LIST_ " + nodeList.toString());
             for (int i = 0; i < nodeList.getLength(); i++) { //for every element
@@ -256,7 +257,9 @@ public class ParseXML extends HelloController {
                     String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
                     if (elementType.equals("sequence")) { //creating class
                         //TODO CREATE SEQUENCE NAMED
+                        new_entity = new EntityController(sequenceDiagramController, i);
                         String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
+                        new_entity.setSequenceNameTextField(elementName);
                         System.out.println("SEQUENCE FOR CLASS NAME " + elementName);
                         for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
                             Node fieldNode = fieldNodes.item(j);
@@ -293,12 +296,17 @@ public class ParseXML extends HelloController {
 
                     }
                 }
+                if (new_entity!=null){
+                    entityList.add(new_entity);
+                    new_entity=null;
+                }
+
             }
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return entityList;
     }
 }

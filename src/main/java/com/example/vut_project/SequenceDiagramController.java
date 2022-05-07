@@ -21,6 +21,7 @@ public class SequenceDiagramController {
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
     private int i = 0;
+   // private ArrayList <EntityController> entityControllerList;
 
     public void parseHelloControllerAsReference(HelloController reference) {
         this.helloControllerReference = reference;
@@ -73,6 +74,7 @@ public class SequenceDiagramController {
     }
 
     public void onFileOpenButtonClick(ActionEvent event) {
+        this.EntityList = new ArrayList<>();
         System.out.println("Open sequence from file click");
         System.out.println(helloControllerReference.classDiagramController.getClassList().toString());
         ParseXML parse = new ParseXML();
@@ -85,12 +87,22 @@ public class SequenceDiagramController {
             if (lowercaseName.endsWith(".xml")) {
                 parse.input_file_from_button(path);
                 //classDiagramController = parse.start_parse(this);
-                parse.load_sequence(this);
+                this.EntityList = parse.load_sequence(this);
+                this.displayLoadedSequenceDiagram();
                 //parse.load_operations(this);
             } else {
                 AlertBox.display("Error", "You need to choose XML file format", "I will choose an XML file next time");
                 System.out.println("Need to be a xml file");
             }
+        }
+    }
+
+    public void displayLoadedSequenceDiagram(){
+        for (EntityController seq : EntityList) {
+            seq.setLayoutY(20);
+            createLifeLineBindToEntity(null, seq);
+            draggableMaker.makeDraggableOnXAxis(seq, seq);;
+            sequenceSpace.getChildren().add(seq);
         }
     }
 
