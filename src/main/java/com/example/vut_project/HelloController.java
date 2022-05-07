@@ -97,7 +97,7 @@ public class HelloController {
             new_entity.makeResourceForFunctionLoad();
             draggableMaker.makeDraggable(new_entity, class_name);
             new_entity.setLayoutX(class_name.getPosition_x());
-            new_entity.setLayoutY(class_name.getPosition_y());
+            new_entity.setLayoutY(class_name.getPosition_y() + 60);
             Entity_Controller_list.add(new_entity);                             //save to list
             projectSpace.getChildren().add(new_entity);                         //add it to project space pane
         }

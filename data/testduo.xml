@@ -13,7 +13,7 @@
         <arg type="function">zaparkovat</arg>
           <attr_access type="attribute_access">+</attr_access>
           <attr_type type="attribute_type">int</attr_type>
-        <arg type="position_x">500</arg>
+        <arg type="position_x">700</arg>
         <arg type="position_y">50</arg>
     </element>
 
@@ -63,7 +63,7 @@
         <arg type="function">upozornit_danovy_urad</arg>
           <attr_access type="attribute_access">-</attr_access>
           <attr_type type="attribute_type">string</attr_type>
-        <arg type="position_x">500</arg>
+        <arg type="position_x">700</arg>
         <arg type="position_y">500</arg>
     </element>
 
