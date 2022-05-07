@@ -7,7 +7,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,7 +75,7 @@ public class SequenceDiagramController {
         sequenceSpace.getChildren().add(p);
     }
 
-    public void onFileOpenButtonClick(ActionEvent event) {
+    public void onFileOpenButtonClick(ActionEvent event) throws IOException, ParserConfigurationException, SAXException {
         this.EntityList = new ArrayList<>();
         System.out.println("Open sequence from file click");
         System.out.println(helloControllerReference.classDiagramController.getClassList().toString());
@@ -88,7 +90,7 @@ public class SequenceDiagramController {
                 parse.input_file_from_button(path);
                 //classDiagramController = parse.start_parse(this);
                 this.EntityList = parse.load_sequence(this);
-                this.displayLoadedSequenceDiagram();
+                this.displayLoadedSequenceDiagram(parse);
                 //parse.load_operations(this);
             } else {
                 AlertBox.display("Error", "You need to choose XML file format", "I will choose an XML file next time");
@@ -97,13 +99,14 @@ public class SequenceDiagramController {
         }
     }
 
-    public void displayLoadedSequenceDiagram(){
+    public void displayLoadedSequenceDiagram(ParseXML parse) throws IOException, ParserConfigurationException, SAXException {
         for (EntityController seq : EntityList) {
             seq.setLayoutY(20);
-            createLifeLineBindToEntity(null, seq);
+            //createLifeLineBindToEntity(null, seq);
             draggableMaker.makeDraggableOnXAxis(seq, seq);;
             sequenceSpace.getChildren().add(seq);
         }
+        parse.load_life_lines(this);
     }
 
     public void onDeleteLifeLineClick(Event event) {
@@ -119,6 +122,19 @@ public class SequenceDiagramController {
         }
         return null;
     }
+
+    public EntityController findSequenceEntity(String name) {
+        System.out.println("Trying to find entity in: " + EntityList);
+        for (EntityController entity : EntityList) {
+            System.out.println("FINDING ENTITY: " + entity.getSequenceNameTextField());
+            System.out.println("COMPARED TO: " + name);
+            if (entity.getSequenceNameTextField().equals(name)) {
+                return entity;
+            }
+        }
+        return null;
+    }
+
 
     public ArrayList<String> returnList() {
         ArrayList<String> nameList = new ArrayList<>();

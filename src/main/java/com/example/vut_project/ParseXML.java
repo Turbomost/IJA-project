@@ -6,9 +6,9 @@
 
 package com.example.vut_project;
 
-import com.example.vut_project.controller.AttributeController;
-import com.example.vut_project.controller.ClassController;
-import com.example.vut_project.controller.ClassDiagramController;
+import com.example.vut_project.controller.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -273,28 +273,7 @@ public class ParseXML extends HelloController {
                             }
                         }
                     }
-                    if (elementType.equals("life_line")){
-                        String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
-                        System.out.println("LIFE LINE FOR CLASS NAME: " + elementName);
-                        for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
-                            Node fieldNode = fieldNodes.item(j);
-                            NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
-                            Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
-                            if (arg.getTextContent().equals("line")) {
-                                System.out.println("LIFE LINE IDENTIFICATOR: " + fieldNode.getTextContent());
-                            }
-                            if (arg.getTextContent().equals("position_y")) {
-                                System.out.println("LIFE LINE POSITION Y: " + fieldNode.getTextContent());
-                            }
-                            if (arg.getTextContent().equals("position_x")) {
-                                System.out.println("LIFE LINE POSITION X: " + fieldNode.getTextContent());
-                            }
-                            if (arg.getTextContent().equals("length")) {
-                                System.out.println("LIFE LINE LENGTH: " + fieldNode.getTextContent());
-                            }
-                        }
 
-                    }
                 }
                 if (new_entity!=null){
                     entityList.add(new_entity);
@@ -308,5 +287,62 @@ public class ParseXML extends HelloController {
             e.printStackTrace();
         }
         return entityList;
+    }
+
+    public void load_life_lines(SequenceDiagramController sequenceDiagramController) throws IOException, SAXException, ParserConfigurationException {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document doc = db.parse(new File(FILENAME));
+        doc.getDocumentElement().normalize();
+        System.out.println("Root Element :" + doc.getDocumentElement().getNodeName()); //class diagram or sequence diagram
+        System.out.println("------");
+        EntityController new_entity = null;
+        NodeList nodeList = doc.getElementsByTagName("element"); //creating list nodes, nodeList is list of <element> tags
+        System.out.println("NODE LIST_ " + nodeList.toString());
+        for (int i = 0; i < nodeList.getLength(); i++) { //for every element
+            Node nNode = nodeList.item(i);
+            Element eElement = (Element) nNode; //each element is basically element, but it is called as node xD
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) { //for each element
+                NodeList fieldNodes = eElement.getElementsByTagName("arg"); //creating list of arguments inside every element (class, constraint)
+                System.out.println("------");
+                System.out.println("NEW ELEMENT");
+                //parsing element information
+                String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
+                if (elementType.equals("life_line")) {
+                    DragResizer resizableMaker;
+                    resizableMaker = new DragResizer();
+                    String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
+                    System.out.println("LIFE LINE FOR CLASS NAME: " + elementName);
+                    EntityController line_for_entity = null;
+                    LifeLine life_line_class = null;
+                    AnchorPane p = null;
+                    for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
+                        Node fieldNode = fieldNodes.item(j);
+                        NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
+                        Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
+                        if (arg.getTextContent().equals("line")) {
+                            System.out.println("SEARCHING FOR: " + fieldNode.getTextContent());
+                            System.out.println("EELEMENT NAME:" + elementName);
+                            System.out.println(sequenceDiagramController);
+                            line_for_entity = sequenceDiagramController.findSequenceEntity(elementName);
+                            sequenceDiagramController.createLifeLineBindToEntity(null, line_for_entity);
+                            System.out.println("LINE FOR ENTITY: " + line_for_entity.getSequenceNameTextField());
+                            life_line_class = new LifeLine(line_for_entity, p);
+                            System.out.println("LIFE LINE IDENTIFICATOR: " + fieldNode.getTextContent());
+                        }
+                        if (arg.getTextContent().equals("position_y")) {
+                            System.out.println("LIFE LINE POSITION Y: " + fieldNode.getTextContent());
+                            //sequenceDiagramController.
+                        }
+                        if (arg.getTextContent().equals("position_x")) {
+                            System.out.println("LIFE LINE POSITION X: " + fieldNode.getTextContent());
+                        }
+                        if (arg.getTextContent().equals("length")) {
+                            System.out.println("LIFE LINE LENGTH: " + fieldNode.getTextContent());
+                        }
+                    }
+                }
+            }
+        }
     }
 }
