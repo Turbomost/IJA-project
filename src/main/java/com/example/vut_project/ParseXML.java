@@ -321,6 +321,7 @@ public class ParseXML extends HelloController {
                         NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
                         Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
                         if (arg.getTextContent().equals("line")) {
+                            p = new AnchorPane();
                             System.out.println("SEARCHING FOR: " + fieldNode.getTextContent());
                             System.out.println("EELEMENT NAME:" + elementName);
                             System.out.println(sequenceDiagramController);

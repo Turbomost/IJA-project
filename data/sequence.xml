@@ -10,6 +10,12 @@
       <arg type="position_y">100</arg>
   </element>
 
+  <element type="sequence" name="Kikova_sedma">
+      <arg type="position_x">200</arg>
+      <arg type="position_y">100</arg>
+  </element>
+
+
   <element type="life_line" name="Andyho_oktavka">
     <arg type="line">some_line_identificator</arg>
     <arg type="position_y">100</arg>
@@ -25,6 +31,13 @@
   <element type="life_line" name="Vaskovo_fáro">
     <arg type="line">other_line_identificator</arg>
     <arg type="position_x">100</arg>
+    <arg type="position_y">160</arg>
+    <arg type="length">40</arg>
+  </element>
+
+  <element type="life_line" name="Kikova_sedma">
+    <arg type="line">other_line_identificator</arg>
+    <arg type="position_x">200</arg>
     <arg type="position_y">160</arg>
     <arg type="length">40</arg>
   </element>

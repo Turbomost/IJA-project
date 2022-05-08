@@ -1,3 +1,9 @@
+/**
+ * @Brief: Entity for easier class identification at scene
+ * @File: EntityController
+ * @Author(s): A. Ľupták, V. Valenta
+ */
+
 package com.example.vut_project.controller;
 
 import com.example.vut_project.EntityController;

@@ -377,7 +377,7 @@ public class HelloController {
     public void SetConstraintTo(String constraint_to, String type, String name, String left, String right) {
         if (this.constraint_from != null) {
             this.constraint_to = classDiagramController.findClass(constraint_to);
-            System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
+//            System.out.println("To: " + this.constraint_to.getName() + " From: " + this.constraint_from.getName());
             Label label = new Label();
             BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type, label, name, left, right);
             boundLine.create_line();
