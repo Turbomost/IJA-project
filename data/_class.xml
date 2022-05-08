@@ -43,7 +43,7 @@
     <element type="class" name="ClassDiagram">
         <arg type="attribute">classes</arg>
           <attr_access type="attribute_access">+</attr_access>  
-          <attr_type type="attribute_type">List</attr_type>
+          <attr_type type="attribute_type">List&lt;UMLClassifier&gt;</attr_type>
         <arg type="function">createClass</arg>
           <attr_access type="attribute_access">+</attr_access>
           <attr_type type="attribute_type">UMLClass</attr_type>
@@ -57,7 +57,7 @@
     <element type="class" name="UMLClass">
         <arg type="attribute">attributes</arg>
           <attr_access type="attribute_access">+</attr_access>  
-          <attr_type type="attribute_type">List</attr_type>
+          <attr_type type="attribute_type">List&lt;UMLAttributes&gt;</attr_type>
         <arg type="function">addAttribute</arg>
           <attr_access type="attribute_access">+</attr_access>
           <attr_type type="attribute_type">boolean</attr_type>
