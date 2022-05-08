@@ -6,7 +6,6 @@
 
 package com.example.vut_project.controller;
 
-import com.example.vut_project.EntityController;
 import com.example.vut_project.SequenceDiagramController;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -17,7 +16,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 
 public class DragResizer {
 

@@ -1,7 +1,9 @@
-Typ constraintů + kardinalita
-Constrainty -> typy, šipky, edit, edit typ, edit name
+Constrainty -> šipky?
+Custom datové typy všude
+Renamování parametrů funkce, když měním pouze typ
 
-Typy zpráv v seq
+Zprávy v seq diagramu + typy zpráv v seq
+Zápis do souboru
 Zápis seq
 
 Provázanost, Nekonzistence načítání, Generalizace

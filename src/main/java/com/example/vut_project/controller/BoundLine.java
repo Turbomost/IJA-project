@@ -206,18 +206,18 @@ public class BoundLine extends Line {
         return this.left_cardinality + "     " + this.label_string + LineTypeToString(this.LineType) + "     " + this.right_cardinality;
     }
 
-    public String LineTypeToString(String type){
+    public String LineTypeToString(String type) {
         if (this.LineType.equals(BoundLineComposition())) {
-            return " { " + type + " }" ;
+            return " { " + type + " }";
         }
         if (this.LineType.equals(BoundLineAssociation())) {
-            return " < " + type + " >" ;
+            return " < " + type + " >";
         }
         if (this.LineType.equals(BoundLineAggregation())) {
-            return " > " + type + " <" ;
+            return " > " + type + " <";
         }
         if (this.LineType.equals(BoundLineGeneralization())) {
-            return " --> " + type + " <-- " ;
+            return " --> " + type + " <-- ";
         }
         return "";
     }

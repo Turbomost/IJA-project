@@ -127,10 +127,10 @@ public class ClassController extends ElementController {
                 return attr;
             }
         }
-        if (!name.contains("(")){
+        if (!name.contains("(")) {
             return null;
         }
-        String substr = name.substring(0,name.lastIndexOf("("));
+        String substr = name.substring(0, name.lastIndexOf("("));
         System.out.println("<" + substr + ">");
         for (AttributeController attr : this.AttributeList) {
             if (attr.getName().equals(substr)) {

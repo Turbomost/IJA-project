@@ -20,24 +20,23 @@ public class AttributeOperationController {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getDataType() {
         return this.dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
     public String returnString() {
         return this.name + " : " + this.dataType;
     }
 
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public void setDataType(String dataType){
-        this.dataType = dataType;
-    }
-
-    public AttributeOperationController setParams(String name, String dataType){
+    public AttributeOperationController setParams(String name, String dataType) {
         this.setDataType(dataType);
         this.setName(name);
         return this;

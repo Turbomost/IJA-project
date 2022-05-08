@@ -14,8 +14,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
 public class Center {
-    private ReadOnlyDoubleWrapper centerX = new ReadOnlyDoubleWrapper();
-    private ReadOnlyDoubleWrapper centerY = new ReadOnlyDoubleWrapper();
+    private final ReadOnlyDoubleWrapper centerX = new ReadOnlyDoubleWrapper();
+    private final ReadOnlyDoubleWrapper centerY = new ReadOnlyDoubleWrapper();
 
     public Center(Node node) {
         calcCenter(node.getBoundsInParent());

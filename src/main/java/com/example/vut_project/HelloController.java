@@ -53,8 +53,8 @@ public class HelloController {
     public Center startCenter;
     public Center endCenter;
     public Button quitButton;
-    DraggableMarker draggableMaker = new DraggableMarker(); //class, that makes all objects movable
     public ClassDiagramController classDiagramController = new ClassDiagramController("AllClasses");
+    DraggableMarker draggableMaker = new DraggableMarker(); //class, that makes all objects movable
     int i = 0;
     int position = 0;
     private Object identifier;

@@ -27,22 +27,21 @@ public class AddFunctionController {
     @FXML
     public Button saveFunctionButton;
     public MenuItem editFunctionContextMenuClick;
+    public AttributeController attributeReference;
+    public int selected_operation_index;
     @FXML
-    ListView functionListView;
+     ListView functionListView;
     @FXML
     TextField methodNameTextField;
     EntityController entityControllerReference;
-    public AttributeController attributeReference;
     SingleFunctionParameterEditor singleFunctionParameterEditorReference;
-
     Pane editMethodPupUpSpace;
     Scene editMethodPopUpScene;
     Stage editMethodPopUpStage;
     private int selected_function_index;
     private String old_param_name;
-    public int selected_operation_index;
 
-    public void parseEntityControllerAsReference(EntityController reference, AttributeController attributeReference){
+    public void parseEntityControllerAsReference(EntityController reference, AttributeController attributeReference) {
         this.entityControllerReference = reference;
         this.attributeReference = attributeReference;
         this.methodNameTextField.setText(attributeReference.getName());
@@ -82,12 +81,12 @@ public class AddFunctionController {
         this.editMethodPopUpStage.show();
     }
 
-    public void handleAddParameterButtonClick(){
+    public void handleAddParameterButtonClick() {
         //System.out.println(this.singleFunctionParameterEditorReference.getEnteredParameter());
         int selectedIndex = functionListView.getSelectionModel().getSelectedIndex();
-        if(selectedIndex != -1) {
+        if (selectedIndex != -1) {
             old_param_name = functionListView.getItems().get(selectedIndex).toString();
-            if (old_param_name.isBlank()){
+            if (old_param_name.isBlank()) {
                 return;
             }
             System.out.println("CLICKED TEXT :" + old_param_name);
@@ -98,27 +97,27 @@ public class AddFunctionController {
         //this.functionListView.getItems().remove();
         AttributeOperationController new_attr = this.singleFunctionParameterEditorReference.getEnteredParameter(selectedIndex, old_param_name);
         //System.out.println("New created attribute at functioncontroller " + new_attr.getName() + " for function " + attributeReference.getName());
-        if (new_attr == null){
+        if (new_attr == null) {
             return;
         }
         this.editMethodPopUpStage.close();
-        if(attributeReference.row != -1){
+        if (attributeReference.row != -1) {
             System.out.println("WHOLE STRING TO DISPLAY " + attributeReference.getWholeAttributeString());
             entityControllerReference.entityAttributeView.getItems().set(attributeReference.row, attributeReference.getWholeAttributeString());
         }
-        if(selectedIndex != -1){
+        if (selectedIndex != -1) {
             functionListView.getItems().remove(selectedIndex);
             this.functionListView.getItems().add(selectedIndex, new_attr.returnString());
-        }else{
+        } else {
             this.functionListView.getItems().add(new_attr.returnString());
             System.out.println("FOO INDEX TO UPDATE " + this.selected_function_index);
         }
         //this.functionListView.getItems().add(this.singleFunctionParameterEditorReference.getEnteredParameter());
     }
 
-    public void displayExistingMethodParameters(){
+    public void displayExistingMethodParameters() {
         this.functionListView.getItems().clear();
-        for (AttributeOperationController operation : this.attributeReference.getOperationControllerList()){
+        for (AttributeOperationController operation : this.attributeReference.getOperationControllerList()) {
             this.functionListView.getItems().add(operation.returnString());
         }
     }
@@ -133,7 +132,8 @@ public class AddFunctionController {
         this.functionListView.getItems().remove(selectedIndex);
         entityControllerReference.entityAttributeView.getItems().set(this.selected_function_index, attributeReference.getWholeAttributeString());
     }
-    public String getFunctionName(){
+
+    public String getFunctionName() {
         return this.methodNameTextField.getText();
     }
 }

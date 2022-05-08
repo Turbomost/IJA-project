@@ -29,7 +29,7 @@ public class SequenceDiagramController {
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
     private int i = 0;
-   // private ArrayList <EntityController> entityControllerList;
+    // private ArrayList <EntityController> entityControllerList;
 
     public void parseHelloControllerAsReference(HelloController reference) {
         this.helloControllerReference = reference;
@@ -109,7 +109,7 @@ public class SequenceDiagramController {
         for (EntityController seq : EntityList) {
             seq.setLayoutY(20);
             //createLifeLineBindToEntity(null, seq);
-            draggableMaker.makeDraggableOnXAxis(seq, seq);;
+            draggableMaker.makeDraggableOnXAxis(seq, seq);
             sequenceSpace.getChildren().add(seq);
         }
         parse.load_life_lines(this);

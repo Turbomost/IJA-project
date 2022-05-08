@@ -7,7 +7,6 @@
 package com.example.vut_project.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -25,7 +24,7 @@ public class SingleFunctionParameterEditor {
         this.reference = reference;
     }
 
-    public void setFieldsWhileEdit(AttributeOperationController attr){
+    public void setFieldsWhileEdit(AttributeOperationController attr) {
         this.functionParameterEditTextField.setText(attr.getName());
         this.functionDataTypeEditTextField.setText(attr.getDataType());
     }
@@ -42,7 +41,7 @@ public class SingleFunctionParameterEditor {
         } else {
             System.out.println(reference.attributeReference.operationTypesNames());
             System.out.println(reference.attributeReference.getOperationControllerList().toString());
-            if (reference.attributeReference.findOperationTypeByName(this.functionParameterEditTextField.getText()) != null){
+            if (reference.attributeReference.findOperationTypeByName(this.functionParameterEditTextField.getText()) != null) {
                 AlertBox.display("Warning", "Argument name is taken", "Understood");
                 return null;
             }

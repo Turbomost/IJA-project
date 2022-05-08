@@ -8,7 +8,6 @@ package com.example.vut_project;
 
 import com.example.vut_project.controller.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -232,7 +231,7 @@ public class ParseXML extends HelloController {
         }
     }
 
-    public ArrayList<EntityController> load_sequence(SequenceDiagramController sequenceDiagramController){
+    public ArrayList<EntityController> load_sequence(SequenceDiagramController sequenceDiagramController) {
         ArrayList<EntityController> entityList = new ArrayList<>();
         System.out.println("LOAD SEQUENCE AT PARSEXML");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -275,9 +274,9 @@ public class ParseXML extends HelloController {
                     }
 
                 }
-                if (new_entity!=null){
+                if (new_entity != null) {
                     entityList.add(new_entity);
-                    new_entity=null;
+                    new_entity = null;
                 }
 
             }
