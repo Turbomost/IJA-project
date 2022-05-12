@@ -419,4 +419,10 @@ public class HelloController {
         System.out.println("QUIT");
         System.exit(0);
     }
+
+    public void onSaveClick(ActionEvent event) {
+        System.out.println("Saving file");
+        ParseXML parseXML = new ParseXML();
+        parseXML.saveClassDiagramInFile(this);
+    }
 }

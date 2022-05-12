@@ -14,6 +14,10 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -343,6 +347,84 @@ public class ParseXML extends HelloController {
                     }
                 }
             }
+        }
+    }
+    public void saveClassDiagramInFile(HelloController helloControllerReference){
+        try {
+            DocumentBuilderFactory dbFactory =
+                    DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.newDocument();
+
+            // root element
+            Element rootElement = doc.createElement("program");
+            doc.appendChild(rootElement);
+//TODO for loop from here FOR CLASS CREATING
+            // element
+            Element superElement = doc.createElement("element");
+            rootElement.appendChild(superElement);
+
+            // setting attribute to element
+            Attr attr = doc.createAttribute("type");
+            attr.setValue("class");
+            superElement.setAttributeNode(attr);
+            attr = doc.createAttribute("name");
+            attr.setValue("CLASS_NAME");                                                // TODO inset class name
+            superElement.setAttributeNode(attr);
+
+            // element
+            Element argElement = doc.createElement("arg");
+            Attr attrType = doc.createAttribute("type");
+            attrType.setValue("attribute");                                             // TODO function or attribute
+            argElement.setAttributeNode(attrType);
+            argElement.appendChild(doc.createTextNode("ATTRIBUTE_NAME"));         // TODO inset attribute name
+            superElement.appendChild(argElement);
+
+            // subelement attribute access
+            Element attrAccessElement = doc.createElement("attr_access");
+            Attr subAttrAccess = doc.createAttribute("type");
+            subAttrAccess.setValue("attribute_access");
+            attrAccessElement.setAttributeNode(subAttrAccess);
+            attrAccessElement.appendChild(doc.createTextNode("+"));              // TODO insert access type + - #
+            superElement.appendChild(attrAccessElement);
+
+            // subelement attribute type
+            Element attrTypeElement = doc.createElement("attr_type");
+            Attr subAttrType = doc.createAttribute("type");
+            subAttrType.setValue("attribute_type");
+            attrTypeElement.setAttributeNode(subAttrType);
+            attrTypeElement.appendChild(doc.createTextNode("String"));               // TODO insert data type
+            superElement.appendChild(attrTypeElement);
+
+            // position X
+            Element classPositionElementX = doc.createElement("arg");
+            Attr subPositionX = doc.createAttribute("type");
+            subPositionX.setValue("position_x");
+            classPositionElementX.setAttributeNode(subPositionX);
+            classPositionElementX.appendChild(doc.createTextNode("500"));               // TODO position
+            superElement.appendChild(classPositionElementX);
+
+            // position Y
+            Element classPositionElementY = doc.createElement("arg");
+            Attr subPositionY = doc.createAttribute("type");
+            subPositionY.setValue("position_y");
+            classPositionElementY.setAttributeNode(subPositionY);
+            classPositionElementY.appendChild(doc.createTextNode("200"));               // TODO position
+            superElement.appendChild(classPositionElementY);
+// TODO for LOOP till HERE
+
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\writetest.xml")); // TODO edit path
+            transformer.transform(source, result);
+
+            // Output to console for testing, but its broken so vscode and format
+            StreamResult consoleResult = new StreamResult(System.out);
+            transformer.transform(source, consoleResult);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
