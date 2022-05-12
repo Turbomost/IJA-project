@@ -105,13 +105,13 @@ public class AddAttributePopUp {
         //Text description2 = new Text("Data type");
         //Text description3 = new Text("Type");
         hboxDescription.getChildren().addAll(description1);
-        hboxDescription.setMargin(description1, new Insets(10, 32, 0, 10));
+        hboxDescription.setMargin(description1, new Insets(10, 0, 0, 0));
        // hboxDescription.setMargin(description2, new Insets(10, 8, 0, 10));
         //hboxDescription.setMargin(description3, new Insets(10, 30, 0, 10));
         hboxDescription.setAlignment(Pos.CENTER);
         hbox.getChildren().addAll(choiceBox1);
         hbox.setAlignment(Pos.CENTER);
-        hbox.setMargin(choiceBox1, new Insets(0, 10, 10, 10));
+        hbox.setMargin(choiceBox1, new Insets(0, 0, 10, 0));
         //hbox.setMargin(choiceBox2, new Insets(0, 10, 10, 10));
         //hbox.setMargin(choiceBox3, new Insets(0, 10, 10, 10));
 
@@ -253,13 +253,13 @@ public class AddAttributePopUp {
         //Text description2 = new Text("Data type");
         //Text description3 = new Text("Type");
         hboxDescription.getChildren().addAll(description1);
-        hboxDescription.setMargin(description1, new Insets(10, 32, 0, 10));
+        hboxDescription.setMargin(description1, new Insets(10, 0, 0, 0));
         //hboxDescription.setMargin(description2, new Insets(10, 8, 0, 10));
         //hboxDescription.setMargin(description3, new Insets(10, 30, 0, 10));
         hboxDescription.setAlignment(Pos.CENTER);
         hbox.getChildren().addAll(choiceBox1);
         hbox.setAlignment(Pos.CENTER);
-        hbox.setMargin(choiceBox1, new Insets(0, 10, 10, 10));
+        hbox.setMargin(choiceBox1, new Insets(0, 0, 10, 0));
         //hbox.setMargin(choiceBox2, new Insets(0, 10, 10, 10));
         //hbox.setMargin(choiceBox3, new Insets(0, 10, 10, 10));
 
