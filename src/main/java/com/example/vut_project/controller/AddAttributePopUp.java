@@ -44,7 +44,7 @@ public class AddAttributePopUp {
             }
         });
 
-        final String[] chosenDataType = {null};
+      /*  final String[] chosenDataType = {null};
         String[] dataTypePopUpChooser = {"int", "bool", "string"};
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
@@ -55,7 +55,13 @@ public class AddAttributePopUp {
                 chosenDataType[0] = (String) dataTypePopUpChooser[new_value.intValue()];
                 System.out.println("CHOSEN CD: " + chosenDataType[0]);
             }
-        });
+        });*/
+        TextField dataTypeTextField = new TextField();
+        dataTypeTextField.setEditable(true);
+        dataTypeTextField.prefWidthProperty();
+        dataTypeTextField.prefHeightProperty();
+        dataTypeTextField.setPromptText("Attribute Data Type");
+
 
         final String[] type = {null}; // function or attribute
         String[] chosenType = {"attribute", "function"};
@@ -96,17 +102,17 @@ public class AddAttributePopUp {
         HBox hboxDescription = new HBox();
 
         Text description1 = new Text("Access type");
-        Text description2 = new Text("Data type");
+        //Text description2 = new Text("Data type");
         //Text description3 = new Text("Type");
-        hboxDescription.getChildren().addAll(description1, description2);
+        hboxDescription.getChildren().addAll(description1);
         hboxDescription.setMargin(description1, new Insets(10, 32, 0, 10));
-        hboxDescription.setMargin(description2, new Insets(10, 8, 0, 10));
+       // hboxDescription.setMargin(description2, new Insets(10, 8, 0, 10));
         //hboxDescription.setMargin(description3, new Insets(10, 30, 0, 10));
         hboxDescription.setAlignment(Pos.CENTER);
-        hbox.getChildren().addAll(choiceBox1, choiceBox2);
+        hbox.getChildren().addAll(choiceBox1);
         hbox.setAlignment(Pos.CENTER);
         hbox.setMargin(choiceBox1, new Insets(0, 10, 10, 10));
-        hbox.setMargin(choiceBox2, new Insets(0, 10, 10, 10));
+        //hbox.setMargin(choiceBox2, new Insets(0, 10, 10, 10));
         //hbox.setMargin(choiceBox3, new Insets(0, 10, 10, 10));
 
         HBox hboxButton = new HBox();
@@ -121,7 +127,10 @@ public class AddAttributePopUp {
         HBox hboxTextField = new HBox();
         hboxTextField.setAlignment(Pos.CENTER);
         hboxTextField.getChildren().add(textField);
-        layout.getChildren().addAll(hboxLabel, hboxDescription, hbox, hboxTextField, hboxButton);
+        HBox hboxDataTypeTextField = new HBox();
+        hboxDataTypeTextField.setAlignment(Pos.CENTER);
+        hboxDataTypeTextField.getChildren().add(dataTypeTextField);
+        layout.getChildren().addAll(hboxLabel, hboxDescription, hbox, hboxTextField, hboxDataTypeTextField ,hboxButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene addAttributeScene = new Scene(layout);
@@ -147,9 +156,12 @@ public class AddAttributePopUp {
         String[] result = {null, null, null, null};
         result[0] = chosenAccessRule[0];
         result[1] = attributeName[0];
-        result[2] = chosenDataType[0];
+        result[2] = dataTypeTextField.getText();
         result[3] = "attribute";
-        if (result[1] == null || result[2] == null || result[3] == null) return null;
+        if (result[1] == null || result[2] == null || result[3] == null || dataTypeTextField.getText().isEmpty()){ // TODO toto treba inde kontrolovat
+            //AlertBox.display("Note", "All fields have to be filled", "Understood");
+            return null;
+        }
         return result;
     }
 
@@ -176,7 +188,7 @@ public class AddAttributePopUp {
             }
         });
 
-        final String[] chosenDataType = {null};
+       /* final String[] chosenDataType = {null};
         String[] dataTypePopUpChooser = {"int", "bool", "string"};
         ChoiceBox choiceBox2 = new ChoiceBox(FXCollections.observableArrayList(dataTypePopUpChooser));
         choiceBox2.setAccessibleText("Data Type");
@@ -203,7 +215,14 @@ public class AddAttributePopUp {
                 System.out.println("CHOSEN CD: " + chosenType[0]);
             }
         });
+        */
 
+        TextField dataTypeTextField = new TextField();
+        dataTypeTextField.setEditable(true);
+        dataTypeTextField.prefWidthProperty();
+        dataTypeTextField.prefHeightProperty();
+        dataTypeTextField.setPromptText("Attribute Data Type");
+        dataTypeTextField.setText(found_attribute.getDatatype());
 
         TextField textField = new TextField();
         textField.setEditable(true);
@@ -231,17 +250,17 @@ public class AddAttributePopUp {
         HBox hboxDescription = new HBox();
 
         Text description1 = new Text("Access type");
-        Text description2 = new Text("Data type");
+        //Text description2 = new Text("Data type");
         //Text description3 = new Text("Type");
-        hboxDescription.getChildren().addAll(description1, description2);
+        hboxDescription.getChildren().addAll(description1);
         hboxDescription.setMargin(description1, new Insets(10, 32, 0, 10));
-        hboxDescription.setMargin(description2, new Insets(10, 8, 0, 10));
+        //hboxDescription.setMargin(description2, new Insets(10, 8, 0, 10));
         //hboxDescription.setMargin(description3, new Insets(10, 30, 0, 10));
         hboxDescription.setAlignment(Pos.CENTER);
-        hbox.getChildren().addAll(choiceBox1, choiceBox2);
+        hbox.getChildren().addAll(choiceBox1);
         hbox.setAlignment(Pos.CENTER);
         hbox.setMargin(choiceBox1, new Insets(0, 10, 10, 10));
-        hbox.setMargin(choiceBox2, new Insets(0, 10, 10, 10));
+        //hbox.setMargin(choiceBox2, new Insets(0, 10, 10, 10));
         //hbox.setMargin(choiceBox3, new Insets(0, 10, 10, 10));
 
         HBox hboxButton = new HBox();
@@ -256,7 +275,11 @@ public class AddAttributePopUp {
         HBox hboxTextField = new HBox();
         hboxTextField.setAlignment(Pos.CENTER);
         hboxTextField.getChildren().add(textField);
-        layout.getChildren().addAll(hboxLabel, hboxDescription, hbox, hboxTextField, hboxButton);
+        HBox hboxDataTypeTextField = new HBox();
+        hboxDataTypeTextField.setAlignment(Pos.CENTER);
+        hboxDataTypeTextField.getChildren().add(dataTypeTextField);
+
+        layout.getChildren().addAll(hboxLabel, hboxDescription, hbox, hboxTextField, hboxDataTypeTextField,hboxButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene addAttributeScene = new Scene(layout);
@@ -282,9 +305,12 @@ public class AddAttributePopUp {
         String[] result = {null, null, null, null};
         result[0] = chosenAccessRule[0];
         result[1] = attributeName[0];
-        result[2] = chosenDataType[0];
+        result[2] = dataTypeTextField.getText();
         result[3] = "attribute";
-        if (result[1] == null || result[2] == null || result[3] == null) return null;
+        if (result[1] == null || result[2] == null || result[3] == null || dataTypeTextField.getText().isEmpty()){
+            //AlertBox.display("Note", "All fields have to be filled", "Understood");
+            return null;
+        }
         return result;
     }
 }

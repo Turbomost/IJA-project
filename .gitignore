@@ -35,3 +35,5 @@ replay_pid*
 *.html
 *.html
 *.html
+doc/apidocs/com.example.vut_project/com/example/vut_project/class-use/EntityController.html
+doc/apidocs/allclasses-index.html
