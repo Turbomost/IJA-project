@@ -41,11 +41,15 @@ public class SingleFunctionParameterEditor {
         } else {
             System.out.println(reference.attributeReference.operationTypesNames());
             System.out.println(reference.attributeReference.getOperationControllerList().toString());
+            new_attr = reference.attributeReference.findOperationTypeByName(old_param_name.substring(0, old_param_name.lastIndexOf(" :"))).setParams(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
+
             if (reference.attributeReference.findOperationTypeByName(this.functionParameterEditTextField.getText()) != null) {
+                if (new_attr.getName().equals(old_param_name.substring(0, old_param_name.lastIndexOf(" :")))) {
+                    return new_attr;
+                }
                 AlertBox.display("Warning", "Argument name is taken", "Understood");
                 return null;
             }
-            new_attr = reference.attributeReference.findOperationTypeByName(old_param_name.substring(0, old_param_name.lastIndexOf(" :"))).setParams(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
         }
         return new_attr;
     }

@@ -1,10 +1,16 @@
+### TODO ###
+
 Constrainty -> šipky?
-Custom datové typy všude
-Renamování parametrů funkce, když měním pouze typ
 
-Zprávy v seq diagramu + typy zpráv v seq
+
+Zprávy v seq diagramu + typy zpráv v seq (Typy šipek)
 Zápis do souboru
-Zápis seq
+Zápis seq do souboru
 
-Provázanost, Nekonzistence načítání, Generalizace
+Provázanost vč. názvů funkcí, Nekonzistence načítání, Generalizace
 Undo
+
+
+### Na čo se nebude hrabat (říkáme tomu placené funkce) ###
+
+Víc seq diagramů (provázanost s mazáním)
