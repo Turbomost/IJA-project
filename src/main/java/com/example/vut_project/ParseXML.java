@@ -8,6 +8,7 @@ package com.example.vut_project;
 
 import com.example.vut_project.controller.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -270,9 +271,11 @@ public class ParseXML extends HelloController {
                             Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
                             if (arg.getTextContent().equals("position_x")) {
                                 System.out.println("position X: " + fieldNode.getTextContent());
+                                new_entity.setLayoutX(Double.parseDouble(fieldNode.getTextContent()));
                             }
                             if (arg.getTextContent().equals("position_y")) {
                                 System.out.println("position Y: " + fieldNode.getTextContent());
+                                new_entity.setLayoutY(Double.parseDouble(fieldNode.getTextContent()));
                             }
                         }
                     }
@@ -331,18 +334,21 @@ public class ParseXML extends HelloController {
                             line_for_entity = sequenceDiagramController.findSequenceEntity(elementName);
                             sequenceDiagramController.createLifeLineBindToEntity(null, line_for_entity);
                             System.out.println("LINE FOR ENTITY: " + line_for_entity.getSequenceNameTextField());
-                            life_line_class = new LifeLine(line_for_entity, p);
                             System.out.println("LIFE LINE IDENTIFICATOR: " + fieldNode.getTextContent());
                         }
                         if (arg.getTextContent().equals("position_y")) {
                             System.out.println("LIFE LINE POSITION Y: " + fieldNode.getTextContent());
-                            //sequenceDiagramController.
+                            line_for_entity.getLifeLineList().get(line_for_entity.getLifeLineList().size()-1).getAnchorPane().setLayoutY(Double.parseDouble(fieldNode.getTextContent()));
                         }
                         if (arg.getTextContent().equals("position_x")) {
                             System.out.println("LIFE LINE POSITION X: " + fieldNode.getTextContent());
                         }
                         if (arg.getTextContent().equals("length")) {
                             System.out.println("LIFE LINE LENGTH: " + fieldNode.getTextContent());
+                            int lastIndex = line_for_entity.getLifeLineList().size()-1;
+                            line_for_entity.getLifeLineList().get(lastIndex).getAnchorPane().setMinHeight(Double.parseDouble(fieldNode.getTextContent()));
+                            System.out.println(">>>> " + line_for_entity.getLifeLineList().get(lastIndex).getAnchorPane().getMinHeight());
+                            line_for_entity.getLifeLineList().get(lastIndex).getLifeLine().setEndY(line_for_entity.getLifeLineList().get(lastIndex).getLifeLine().getStartY() + Double.parseDouble(fieldNode.getTextContent()));
                         }
                     }
                 }

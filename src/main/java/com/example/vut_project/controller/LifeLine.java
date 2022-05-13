@@ -66,4 +66,8 @@ public class LifeLine extends Line {
     public ArrayList<MessageLine> getMessageLineList(){
         return MesssageLineList;
     }
+
+    public void setAnchorPaneYLaout(Double layoutY){
+        this.anchorPane.setLayoutY(layoutY);
+    }
 }
