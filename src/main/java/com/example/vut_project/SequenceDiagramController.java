@@ -9,6 +9,7 @@ package com.example.vut_project;
 import com.example.vut_project.controller.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
@@ -156,5 +157,18 @@ public class SequenceDiagramController {
             sequenceSpace.getChildren().remove(lifeLine.getAnchorPane());
             sequenceSpace.getChildren().remove(lifeLine);
         }
+    }
+
+    public void onCreateMessageLifeLineClick(MouseEvent event) {
+        System.out.println("On add message life line click");
+
+    }
+
+    public void onPasteMessageLifeLineClick(MouseEvent event) {
+        System.out.println("On paste message life line click");
+    }
+
+    public void onCreateConstructorMessageLifeLineClick(MouseEvent event) {
+        System.out.println("Create constructor life line click");
     }
 }

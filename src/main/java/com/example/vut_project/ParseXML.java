@@ -481,7 +481,7 @@ public class ParseXML extends HelloController {
             argElement.appendChild(doc.createTextNode("PARAMETER_TYPE"));         // TODO operation parameter type
             superElement.appendChild(argElement);
 //TODO END LOOP FOR OPERATIONS
-            
+
             // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();

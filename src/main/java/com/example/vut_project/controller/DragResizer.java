@@ -50,8 +50,14 @@ public class DragResizer {
                     System.out.println("Secondary mouse button on Life Line");
                     ContextMenu menu = new ContextMenu();
                     MenuItem item = new MenuItem("Delete Life Line");
-                    menu.getItems().add(item);
+                    MenuItem item2 = new MenuItem("Create Message");
+                    MenuItem item3 = new MenuItem("Paste Message");
+                    MenuItem item4 = new MenuItem("Constructor Message");
+                    menu.getItems().addAll(item2, item3, item4, item);
                     item.setOnAction(e -> reference.onDeleteLifeLineClick(event));
+                    item2.setOnAction(e -> reference.onCreateMessageLifeLineClick(event));
+                    item3.setOnAction(e -> reference.onPasteMessageLifeLineClick(event));
+                    item4.setOnAction(e -> reference.onCreateConstructorMessageLifeLineClick(event));
                     menu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
 
                 } else {
