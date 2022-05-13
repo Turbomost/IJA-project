@@ -36,6 +36,7 @@ public class EntityController extends VBox {
 
     private final ObservableList<String> observableListOfAttributes = FXCollections.observableArrayList();
     private final ArrayList<LifeLine> LifeLineList;
+    private final ArrayList<MessageLine> MessageLineList;
     public VBox sequenceVBox;
     public int i = -1;
     @FXML
@@ -79,6 +80,7 @@ public class EntityController extends VBox {
         fxmlLoader.setController(this);
         fxmlLoader.load();
         this.LifeLineList = new ArrayList<>();
+        this.MessageLineList = new ArrayList<>();
         ClassController new_class = diagram.createClass(new_name);
         classNameTextField.setText(new_class.getName());
         old_class_name = classNameTextField.getText();
@@ -99,6 +101,7 @@ public class EntityController extends VBox {
         fxmlLoader.setController(this);
         fxmlLoader.load();
         this.LifeLineList = new ArrayList<>();
+        this.MessageLineList =  new ArrayList<>();
         classNameTextField.setText(class_name.getName());
         old_class_name = classNameTextField.getText();
         for (AttributeController attribute : class_name.getAttributes()) {
@@ -116,6 +119,7 @@ public class EntityController extends VBox {
         fxmlLoader.setController(this);
         fxmlLoader.load();
         this.LifeLineList = new ArrayList<>();
+        this.MessageLineList = new ArrayList<>();
         this.sequenceControllerReference = sequenceReference;
         this.i = i;
     }
@@ -503,5 +507,5 @@ public class EntityController extends VBox {
         new_attr.setPrimary(true);
         entityAttributeView.getItems().set(ref_class.getAttrPosition(new_attr), new_attr.getWholeAttributeString());
     }
-
+    
 }

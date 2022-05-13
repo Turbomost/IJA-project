@@ -9,6 +9,8 @@ package com.example.vut_project;
 import com.example.vut_project.controller.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -29,6 +31,10 @@ public class SequenceDiagramController {
     private HelloController helloControllerReference;
     private DraggableMarker draggableMaker;
     private DragResizer resizableMaker;
+    private EntityController messageFromEntity;
+    private EntityController messageToEntity;
+    private LifeLine messageFromLifeLine;
+    private LifeLine messageToLifeLine;
     private int i = 0;
     // private ArrayList <EntityController> entityControllerList;
 
@@ -116,8 +122,12 @@ public class SequenceDiagramController {
         parse.load_life_lines(this);
     }
 
-    public void onDeleteLifeLineClick(Event event) {
+    public void onDeleteLifeLineClick(Event event, LifeLine line) {
         System.out.println("There should be life line deleted");
+        for(MessageLine messageLine : line.getMessageLineList()){
+            sequenceSpace.getChildren().remove(messageLine.plabel);
+            sequenceSpace.getChildren().remove(messageLine);
+        }
         sequenceSpace.getChildren().remove(event.getSource());
     }
 
@@ -159,16 +169,39 @@ public class SequenceDiagramController {
         }
     }
 
-    public void onCreateMessageLifeLineClick(MouseEvent event) {
-        System.out.println("On add message life line click");
-
+    public void onCreateMessageLifeLineClick(MouseEvent event, LifeLine line) {
+        System.out.println("On create message life line click");
+        this.messageFromEntity = line.getStick_to_entity();
+        this.messageFromLifeLine = line;
     }
 
-    public void onPasteMessageLifeLineClick(MouseEvent event) {
+    public void onPasteMessageLifeLineClick(MouseEvent event, LifeLine line) {
         System.out.println("On paste message life line click");
+        this.messageToEntity = line.getStick_to_entity();
+        this.messageToLifeLine = line;
+        this.createMessageLine(line);
     }
 
     public void onCreateConstructorMessageLifeLineClick(MouseEvent event) {
         System.out.println("Create constructor life line click");
+    }
+
+    public void createMessageLine(LifeLine line){
+        Label label = new Label();
+        MessageLine messageLine = new MessageLine(this, this.messageFromEntity, this.messageToEntity, this.messageFromLifeLine, this.messageToLifeLine, label);
+        messageLine.create_line();
+        messageLine.setStrokeWidth(3.0);
+        messageLine.toBack();
+        messageLine.setViewOrder(1.0);
+        messageLine.create_label();
+        draggableMaker.makeDraggableOnYAxis(messageLine, messageLine);
+        this.messageFromLifeLine.addMessageLineToList(messageLine);
+        this.messageToLifeLine.addMessageLineToList(messageLine);
+        sequenceSpace.getChildren().addAll(messageLine, label);
+    }
+
+    public void deleteMessageFromSpace(MessageLine messageToDelete){
+        this.sequenceSpace.getChildren().remove(messageToDelete.plabel);
+        this.sequenceSpace.getChildren().remove(messageToDelete);
     }
 }

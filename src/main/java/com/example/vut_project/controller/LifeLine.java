@@ -11,16 +11,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
+import java.util.ArrayList;
+
 
 public class LifeLine extends Line {
     Line life_line;
     EntityController stick_to_entity;
-    AnchorPane anchorPane;
+    public AnchorPane anchorPane;
+    private final ArrayList<MessageLine> MesssageLineList;
 
     public LifeLine(EntityController stick_to_entity, AnchorPane anchorPane) {
         this.stick_to_entity = stick_to_entity;
         this.anchorPane = anchorPane;
         this.life_line = new Line();
+        this.MesssageLineList = new ArrayList<>();
         this.life_line.setStrokeWidth(10.0);
 
         this.anchorPane.setLayoutX(this.stick_to_entity.getLayoutX() + this.stick_to_entity.sequenceVBox.getPrefWidth() / 2);
@@ -45,5 +49,21 @@ public class LifeLine extends Line {
 
     public AnchorPane getAnchorPane() {
         return this.anchorPane;
+    }
+
+    public EntityController getStick_to_entity(){
+        return this.stick_to_entity;
+    }
+
+    public void addMessageLineToList(MessageLine messageLine){
+        this.MesssageLineList.add(messageLine);
+    }
+
+    public void removeMessageFromLineList(MessageLine messageLine){
+        this.MesssageLineList.remove(messageLine);
+    }
+
+    public ArrayList<MessageLine> getMessageLineList(){
+        return MesssageLineList;
     }
 }
