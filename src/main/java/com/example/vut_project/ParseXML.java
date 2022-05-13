@@ -502,4 +502,80 @@ public class ParseXML extends HelloController {
             e.printStackTrace();
         }
     }
+    public void saveSequenceDiagramInFile(SequenceDiagramController sequenceDiagramController){
+        try {
+            DocumentBuilderFactory dbFactory =
+                    DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.newDocument();
+
+            Element rootElement = doc.createElement("program");
+            doc.appendChild(rootElement);
+//TODO loop through all SEQUENCE DIAGRAMS
+            Element superElement = doc.createElement("element");
+            rootElement.appendChild(superElement);
+
+            Attr attr = doc.createAttribute("type");
+            attr.setValue("sequence");
+            superElement.setAttributeNode(attr);
+            attr = doc.createAttribute("name");
+            attr.setValue("SEQUENCE_DIAGRAM_NAME");                                 // TODO inset sequence diagram name
+            superElement.setAttributeNode(attr);
+
+            Element argElement = doc.createElement("arg");
+            Attr attrType = doc.createAttribute("type");
+            attrType.setValue("position_x");
+            argElement.setAttributeNode(attrType);
+            argElement.appendChild(doc.createTextNode("POSITION X"));         // TODO position
+            superElement.appendChild(argElement);
+
+            argElement = doc.createElement("arg");
+            attrType = doc.createAttribute("type");
+            attrType.setValue("position_y");
+            argElement.setAttributeNode(attrType);
+            argElement.appendChild(doc.createTextNode("POSITION Y"));         // TODO position
+            superElement.appendChild(argElement);
+//TODO end of loop through sequence diagrams
+//TODO loop through all sequence diagram life lines
+            superElement = doc.createElement("element");
+            rootElement.appendChild(superElement);
+            // setting attribute to element
+            attr = doc.createAttribute("type");
+            attr.setValue("life_line");
+            superElement.setAttributeNode(attr);
+            attr = doc.createAttribute("name");
+            attr.setValue("REFERENCE_TO_DIAGRAM");                                 // TODO inset sequence diagram name
+            superElement.setAttributeNode(attr);
+
+            argElement = doc.createElement("arg");
+            attrType = doc.createAttribute("type");
+            attrType.setValue("line");
+            argElement.setAttributeNode(attrType);
+            argElement.appendChild(doc.createTextNode("SOME LINE IDENTIFICATOR"));         // TODO identificator, if we gave some
+            superElement.appendChild(argElement);
+
+            argElement = doc.createElement("arg");
+            attrType = doc.createAttribute("type");
+            attrType.setValue("position_y");
+            argElement.setAttributeNode(attrType);
+            argElement.appendChild(doc.createTextNode("500"));                          // TODO position
+            superElement.appendChild(argElement);
+
+            argElement = doc.createElement("arg");
+            attrType = doc.createAttribute("type");
+            attrType.setValue("length");
+            argElement.setAttributeNode(attrType);
+            argElement.appendChild(doc.createTextNode("40"));                          // TODO line length, endY - startY
+            superElement.appendChild(argElement);
+//TODO end of life line loop
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\writetest.xml")); // TODO edit path
+            transformer.transform(source, result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

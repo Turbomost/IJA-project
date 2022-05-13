@@ -209,4 +209,8 @@ public class SequenceDiagramController {
         this.sequenceSpace.getChildren().remove(messageToDelete);
     }
 
+    public void onSaveButtonClick(ActionEvent event) {
+        ParseXML parseXML = new ParseXML();
+        parseXML.saveSequenceDiagramInFile(this);
+    }
 }
