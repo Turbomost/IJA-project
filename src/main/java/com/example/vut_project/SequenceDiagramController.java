@@ -163,6 +163,10 @@ public class SequenceDiagramController {
 
     public void deleteAllLifeLines(ArrayList<LifeLine> lifelines) {
         for (LifeLine lifeLine : lifelines) {
+            for (MessageLine messageLine : lifeLine.getMessageLineList()){
+                this.sequenceSpace.getChildren().remove(messageLine.plabel);
+                this.sequenceSpace.getChildren().remove(messageLine);
+            }
             System.out.println(lifeLine.getClass());
             sequenceSpace.getChildren().remove(lifeLine.getAnchorPane());
             sequenceSpace.getChildren().remove(lifeLine);
@@ -204,4 +208,5 @@ public class SequenceDiagramController {
         this.sequenceSpace.getChildren().remove(messageToDelete.plabel);
         this.sequenceSpace.getChildren().remove(messageToDelete);
     }
+
 }
