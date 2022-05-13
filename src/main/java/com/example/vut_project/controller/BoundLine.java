@@ -20,6 +20,10 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 
 public class BoundLine extends Line {
+    private static final double arrowLength = 20;
+    private static final double arrowWidth = 7;
+    public Line arrow1;
+    public Line arrow2;
     DoubleProperty fromX;
     DoubleProperty fromY;
     DoubleProperty toX;
@@ -54,7 +58,9 @@ public class BoundLine extends Line {
         getStrokeDashArray().setAll(10.0, 5.0);
         setOnMouseClicked(event -> onMouseClicked(event));
         this.reference = reference;
-
+        this.arrow1 = new Line();
+        this.arrow2 = new Line();
+        update();
     }
 
     public static String BoundLineAssociation() {
@@ -105,11 +111,68 @@ public class BoundLine extends Line {
         return "";
     }
 
+    public void update() {
+        System.out.println("eyoou");
+        double ex = this.getEndX();
+        double ey = this.getEndY();
+        double sx = this.getStartX();
+        double sy = this.getStartY();
+
+        arrow1.setEndX(ex);
+        arrow1.setEndY(ey);
+        arrow2.setEndX(ex);
+        arrow2.setEndY(ey);
+
+        if (ex == sx && ey == sy) {
+            // arrow parts of length 0
+            arrow1.setStartX(ex);
+            arrow1.setStartY(ey);
+            arrow2.setStartX(ex);
+            arrow2.setStartY(ey);
+        } else {
+            double hypot = Math.hypot(sx - ex, sy - ey);
+            double factor = arrowLength / hypot;
+            double factorO = arrowWidth / hypot;
+
+            // part in direction of main line
+            double dx = (sx - ex) * factor;
+            double dy = (sy - ey) * factor;
+
+            // part ortogonal to main line
+            double ox = (sx - ex) * factorO;
+            double oy = (sy - ey) * factorO;
+
+            arrow1.setStartX(ex + dx - oy);
+            arrow1.setStartY(ey + dy + ox);
+            arrow2.setStartX(ex + dx + oy);
+            arrow2.setStartY(ey + dy - ox);
+        }
+    }
+
+    public double getXdiff(double x1, double x2) {
+        if (Math.abs(x2 - x1) < 100) {
+            return 0;
+        }
+        if (x2 > x1)
+            return 120;
+        return -120;
+    }
+
+    public double getYdiff(double y1, double y2) {
+        if (Math.abs(y2 - y1) < 60) {
+            return 0;
+        }
+        if (y2 > y1)
+            return 60;
+        return -80;
+    }
+
     public void create_line() {
         setStartX(this.fromX.getValue() + 125);
         setStartY(this.fromY.getValue() + 150);
-        setEndX(this.toX.getValue() + 125);
-        setEndY(this.toY.getValue() + 150);
+        setEndX(this.toX.getValue() + 125 + getXdiff(this.toX.getValue() + 125, this.getStartX()));
+        setEndY(this.toY.getValue() + 150 + getYdiff(this.toY.getValue() + 150, this.getStartY()));
+        update();
     }
 
     public void create_label() {
@@ -124,16 +187,19 @@ public class BoundLine extends Line {
         setStartY(fromY);
         setEndX(toX);
         setEndY(toY);
+        update();
     }
 
     public void update_position_from(double fromX, double fromY) {
         setStartX(fromX + 125);
         setStartY(fromY + 150);
+        update();
     }
 
     public void update_position_to(double toX, double toY) {
-        setEndX(toX + 125);
-        setEndY(toY + 150);
+        setEndX(toX + 125 + getXdiff(toX + 125, this.getStartX()));
+        setEndY(toY + 150 + getYdiff(toY + 150, this.getStartY()));
+        update();
     }
 
     public void onMouseClicked(MouseEvent event) {

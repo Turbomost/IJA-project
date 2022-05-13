@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -392,7 +393,7 @@ public class HelloController {
             //label.setAlignment(Pos.CENTER);
             //label.layoutXProperty().bind(boundLine.endXProperty().subtract(boundLine.endXProperty().subtract(boundLine.startXProperty()).divide(2)).subtract(50));
             //label.layoutYProperty().bind(boundLine.endYProperty().subtract(boundLine.endYProperty().subtract(boundLine.startYProperty()).divide(2)).subtract(20));
-            projectSpace.getChildren().addAll(boundLine, label);
+            projectSpace.getChildren().addAll(boundLine, label, boundLine.arrow1, boundLine.arrow2);
         }
     }
 
@@ -410,6 +411,8 @@ public class HelloController {
         System.out.println(this.constraint_from.getName() + " " + this.constraint_from.getConstraintList());
         System.out.println(this.constraint_to.getName() + " " + this.constraint_to.getConstraintList());
         projectSpace.getChildren().remove(toDelete.getPLabel());
+        projectSpace.getChildren().remove(toDelete.arrow1);
+        projectSpace.getChildren().remove(toDelete.arrow2);
         projectSpace.getChildren().remove(toDelete);
         this.constraint_from = remember_from;
         this.constraint_to = remember_to;
