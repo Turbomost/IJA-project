@@ -15,10 +15,12 @@ public class AttributeController extends ElementController {
 
     private final ArrayList<AttributeOperationController> attributeOperationsList;
     public boolean primary;
+    public boolean override;
     public int row;
     private String type;
     private String datatype;
     private String accessType;
+
 
     /**
      * Default Attribute constructor
@@ -87,9 +89,12 @@ public class AttributeController extends ElementController {
 
     public String getWholeAttributeString() {
         if (this.type.equals("function")) {
-            return this.accessType + this.getName() + "(" + operationTypesReturnList() + ") : " + this.datatype;
+            if (this.isOverride()){
+                return this.accessType + "@Override " + this.getName() + "(" + this.operationTypesReturnList() + ") : " + this.datatype;
+            }
+            return this.accessType + this.getName() + "(" + this.operationTypesReturnList() + ") : " + this.datatype;
         } else {
-            if (primary) {
+            if (this.isPrimary()) {
                 return this.accessType + " <<PK>> " + this.getName() + " : " + this.datatype;
             }
             return this.accessType + this.getName() + " : " + this.datatype;
@@ -179,5 +184,13 @@ public class AttributeController extends ElementController {
 
     public void setPrimary(Boolean primary) {
         this.primary = primary;
+    }
+
+    public boolean isOverride() {
+        return this.override;
+    }
+
+    public void setOverride(Boolean override) {
+        this.primary = override;
     }
 }

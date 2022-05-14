@@ -122,11 +122,7 @@ public class BoundLine extends Line {
     public void setLineVisibility() {
         if (this.LineType.equals(BoundLineAssociation())) {
             toggleVisibility(true, true, false, false);
-        } else if (this.LineType.equals(BoundLineGeneralization())) {
-            toggleVisibility(true, true, true, false);
-        } else {
-            toggleVisibility(true, true, true, true);
-        }
+        } else toggleVisibility(true, true, true, !this.LineType.equals(BoundLineGeneralization()));
     }
 
     public void toggleVisibility(boolean b, boolean b1, boolean b2, boolean b3) {
@@ -245,14 +241,6 @@ public class BoundLine extends Line {
         this.plabel.layoutYProperty().bind(this.endYProperty().subtract(this.endYProperty().subtract(this.startYProperty()).divide(2)).subtract(20));
     }
 
-    public void update_position(double fromX, double fromY, double toX, double toY) {
-        setStartX(fromX);
-        setStartY(fromY);
-        setEndX(toX);
-        setEndY(toY);
-        update();
-    }
-
     public void update_position_from(double fromX, double fromY) {
         setEndX(this.toX.getValue() + 125 + getXdiff(this.toX.getValue() + 125, this.fromX.getValue() + 125));
         setEndY(this.toY.getValue() + 150 + getYdiff(this.toY.getValue() + 150, this.fromY.getValue() + 150));
@@ -286,13 +274,13 @@ public class BoundLine extends Line {
     }
 
     public void onDeleteConstraintClick(MouseEvent event) {
-        System.out.println("BEFORE CONSTRAINT DELETING FROM" + this.from.getConstraintList());
-        System.out.println("BEFORE CONSTRAINT DELETING TO" + this.to.getConstraintList());
+        System.out.println("BEFORE CONSTRAINT DELETING FROM" + this.from.getConstraintListString());
+        System.out.println("BEFORE CONSTRAINT DELETING TO" + this.to.getConstraintListString());
         this.from.removeConstraint(self);
         this.to.removeConstraint(self);
         System.out.println("deleting constraint");
-        System.out.println("AFTER CONSTRAINT DELETING FROM " + this.from.getName() + this.from.getConstraintList());
-        System.out.println("AFTER CONSTRAINT DELETING TO " + this.to.getName() + this.to.getConstraintList());
+        System.out.println("AFTER CONSTRAINT DELETING FROM " + this.from.getName() + this.from.getConstraintListString());
+        System.out.println("AFTER CONSTRAINT DELETING TO " + this.to.getName() + this.to.getConstraintListString());
         this.reference.DeleteConstraint(this.self, this.from, this.to);
     }
 

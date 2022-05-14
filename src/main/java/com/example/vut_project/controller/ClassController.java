@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ClassController extends ElementController {
 
     private final ArrayList<AttributeController> AttributeList;
-    private ArrayList<BoundLine> ConstraintList;
+    private final ArrayList<BoundLine> ConstraintList;
     private boolean isAbstract = false;
 
     private double layout_x = 10;
@@ -67,7 +67,7 @@ public class ClassController extends ElementController {
         }
         this.AttributeList.add(attr);
         System.out.println("successfully added " + attr.getName());
-        System.out.println(this.AttributeList.toString());
+        System.out.println(this.AttributeList);
         return true;
     }
 
@@ -204,14 +204,14 @@ public class ClassController extends ElementController {
 
     public void addConstraint(BoundLine line) {
         ConstraintList.add(line);
-        System.out.println(ConstraintList.toString());
+        System.out.println(ConstraintList);
     }
 
     public void removeConstraint(BoundLine line) {
         ConstraintList.remove(line);
     }
 
-    public ArrayList getConstraintList() {
+    public ArrayList<String> getConstraintListString() {
         ArrayList<String> nameList = new ArrayList<>();
         for (BoundLine con : this.ConstraintList) {
             nameList.add(con.toString());
@@ -237,5 +237,22 @@ public class ClassController extends ElementController {
         while (ConstraintList.size() != 0) {
             ConstraintList.get(0).onDeleteConstraintClick(null);
         }
+    }
+
+    public boolean hasGeneralization() {
+        for (BoundLine Line : this.ConstraintList) {
+            if (Line.LineType.equals(BoundLine.BoundLineGeneralization()) && Line.to == this) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void updateOverrides() {
+        //TODO
+    }
+    
+    public ArrayList<BoundLine> getConstraintList(){
+        return this.ConstraintList;
     }
 }

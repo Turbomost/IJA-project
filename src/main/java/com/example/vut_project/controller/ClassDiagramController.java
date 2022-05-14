@@ -131,5 +131,13 @@ public class ClassDiagramController extends ElementController {
         }
         return nameList;
     }
+
+    public void setOverrides(){
+        for (ClassController Class : this.classList){
+            if (Class.hasGeneralization()){
+                Class.updateOverrides();
+            }
+        }
+    }
 }
 
