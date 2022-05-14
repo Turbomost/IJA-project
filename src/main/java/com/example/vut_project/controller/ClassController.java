@@ -248,29 +248,41 @@ public class ClassController extends ElementController {
         this.GeneralizationList.removeAll(this.GeneralizationList);
         for (BoundLine Line : this.ConstraintList) {
             if (Line.LineType.equals(BoundLine.BoundLineGeneralization()) && Line.from == this) {
+                System.out.println("Generalization[" + this.getName() + "] = " + Line.to.getName());
                 this.GeneralizationList.add(Line.to);
             }
         }
     }
 
     public void updateOverrides(HelloController reference) {
+        //System.out.println(" --> START UPDATE");
         for (AttributeController attr : this.AttributeList) {
-            attr.setOverride(false);
-            for (ClassController Class : GeneralizationList) {
-                for (AttributeController currAttr : Class.AttributeList) {
-                    if (currAttr.getType().equals("function")) {
-                        if (attr.getName().equals(currAttr.getName())) {
-                            attr.setOverride(true);
+            //System.out.println(" --> attr: " + attr.getName());
+            if (attr.getType().equals("function")) {
+                //System.out.println(" --> attr je funkce");
+                attr.setOverride(false);
+                for (ClassController Class : GeneralizationList) {
+                    //System.out.println(" --> comparing to class: " + Class.getName());
+                    for (AttributeController currAttr : Class.AttributeList) {
+                        //System.out.println(" --> attr in class: " + currAttr.getName());
+                        if (currAttr.getType().equals("function")) {
+                            //System.out.println(" --> attr in class is function");
+                            if (attr.getName().equals(currAttr.getName())) {
+                                //System.out.println(" --> FOUND!! <-- ");
+                                attr.setOverride(true);
+                            }
                         }
                     }
                 }
-            }
-            EntityController entity = reference.findEntityByName(this.getName());
-            if (entity != null) {
-                int index = entity.getAttributeIndex(attr.getName());
-                if (index != -1) {
-                    entity.entityAttributeView.getItems().set(index, attr.getWholeAttributeString());
-                    System.out.println("NAME changed:: {" + attr.getWholeAttributeString() + "}");
+                EntityController entity = reference.findEntityByName(this.getName());
+                if (entity != null) {
+                    //System.out.println(">> Found entity: " + entity.getNameTextField());
+                    int index = entity.getAttributeIndex(attr.getName());
+                    //System.out.println(">> index : " + index);
+                    if (index != -1) {
+                        entity.entityAttributeView.getItems().set(index, attr.getWholeAttributeString());
+                        //System.out.println("NAME changed:: {" + attr.getWholeAttributeString() + "}");
+                    }
                 }
             }
         }

@@ -512,7 +512,7 @@ public class ParseXML extends HelloController {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\writetest.xml")); // TODO edit path
+            StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\write.xml")); // TODO edit path
             transformer.transform(source, result);
 
             // Output to console for testing, but its broken so vscode and format
