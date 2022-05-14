@@ -194,6 +194,9 @@ public class SequenceDiagramController {
         Label label = new Label();
         MessageLine messageLine = new MessageLine(this, this.messageFromEntity, this.messageToEntity, this.messageFromLifeLine, this.messageToLifeLine, label);
         messageLine.create_line();
+        if(messageFromEntity.getLayoutX() > messageToEntity.getLayoutX()){
+            messageLine.makeDashed();
+        }
         messageLine.setStrokeWidth(3.0);
         messageLine.toBack();
         messageLine.setViewOrder(1.0);

@@ -10,7 +10,9 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 
 public class MessageLine extends Line {
 
@@ -92,5 +94,12 @@ public class MessageLine extends Line {
     public void update_position(Double toY){
         this.setStartY(toY);
         this.setEndY(toY);
+    }
+
+    public void makeDashed(){
+        setStrokeWidth(2);
+        setStroke(Color.GRAY.deriveColor(0, 1, 1, 0.5));
+        setStrokeLineCap(StrokeLineCap.BUTT);
+        getStrokeDashArray().setAll(10.0, 5.0);
     }
 }
