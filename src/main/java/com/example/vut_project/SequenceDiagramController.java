@@ -53,7 +53,7 @@ public class SequenceDiagramController {
         if (chosen == null) {
             return;
         }
-        new_entity = new EntityController(this, i);
+        new_entity = new EntityController(helloControllerReference, this, i);
         new_entity.setLayoutX(20 + 100 * i++);
         new_entity.setLayoutY(20);
         EntityList.add(new_entity);
@@ -102,7 +102,7 @@ public class SequenceDiagramController {
             if (lowercaseName.endsWith(".xml")) {
                 parse.input_file_from_button(path);
                 //classDiagramController = parse.start_parse(this);
-                this.EntityList = parse.load_sequence(this);
+                this.EntityList = parse.load_sequence(helloControllerReference, this);
                 this.displayLoadedSequenceDiagram(parse);
                 //parse.load_operations(this);
             } else {

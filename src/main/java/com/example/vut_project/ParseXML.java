@@ -235,7 +235,7 @@ public class ParseXML extends HelloController {
         }
     }
 
-    public ArrayList<EntityController> load_sequence(SequenceDiagramController sequenceDiagramController) {
+    public ArrayList<EntityController> load_sequence(HelloController helloControllerReference, SequenceDiagramController sequenceDiagramController) {
         ArrayList<EntityController> entityList = new ArrayList<>();
         System.out.println("LOAD SEQUENCE AT PARSEXML");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -260,7 +260,7 @@ public class ParseXML extends HelloController {
                     String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
                     if (elementType.equals("sequence")) { //creating class
                         //TODO CREATE SEQUENCE NAMED
-                        new_entity = new EntityController(sequenceDiagramController, i);
+                        new_entity = new EntityController(helloControllerReference, sequenceDiagramController, i);
                         String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
                         new_entity.setSequenceNameTextField(elementName);
                         System.out.println("SEQUENCE FOR CLASS NAME " + elementName);
@@ -291,6 +291,7 @@ public class ParseXML extends HelloController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        helloControllerReference.sequenceDiagramControllerList.add(sequenceDiagramController);
         return entityList;
     }
 

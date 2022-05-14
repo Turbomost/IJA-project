@@ -24,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -115,13 +116,14 @@ public class EntityController extends VBox {
         this.reference.classDiagramController.setOverrides(this.reference);
     }
 
-    public EntityController(SequenceDiagramController sequenceReference, int i) throws IOException {
+    public EntityController(HelloController helloControllerReference, SequenceDiagramController sequenceReference, int i) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/vut_project/sequence_diagram_entity_template.fxml")); //new object (aba class diagram) is created as pane
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
         this.LifeLineList = new ArrayList<>();
         this.MessageLineList = new ArrayList<>();
+        this.reference = helloControllerReference;
         this.sequenceControllerReference = sequenceReference;
         this.i = i;
     }
@@ -513,7 +515,12 @@ public class EntityController extends VBox {
     public void onAddLifeLineContextMenuClick(ActionEvent event) {
         System.out.println("On add life line click");
         sequenceControllerReference.createLifeLineBindToEntity(event, sequenceControllerReference.findEntity(sequenceDiagramNameTextField.getText()));
-        this.checkForLifeLinesInSequence();
+        System.out.println("REFERENCE " + this.reference);
+        try{
+            this.checkForLifeLinesInSequence();
+        } catch (Exception e) {
+            this.checkForLifeLineColourAfterAdd();
+        }
     }
 
     public String getNameTextField() {
@@ -586,6 +593,18 @@ public class EntityController extends VBox {
             if (sequenceDiagramController != null) {
                 System.out.println("NIE JE NULL");
                 for (LifeLine lifeLine : sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()) {
+                    System.out.println("LOOP CEZ LIFE LAJNY");
+                    lifeLine.checkForClassAvailability(sequenceDiagramController);
+                }
+            }
+        }
+    }
+
+    public void checkForLifeLineColourAfterAdd() {
+        for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
+            if (sequenceDiagramController != null) {
+                System.out.println("NIE JE NULL");
+                for (LifeLine lifeLine : sequenceDiagramController.findSequenceEntity(this.getSequenceNameTextField()).getLifeLineList()) {
                     System.out.println("LOOP CEZ LIFE LAJNY");
                     lifeLine.checkForClassAvailability(sequenceDiagramController);
                 }

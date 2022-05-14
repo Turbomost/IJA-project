@@ -54,7 +54,7 @@ public class ClassDiagramController extends ElementController {
      * @return true if successful, otherwise false
      */
     public int deleteClass(ClassController name, ArrayList<SequenceDiagramController> sequenceDiagramControllerList) {
-        int choice = -1;
+        int choice = 1;
         if (this.classList.contains(name)) {
             for (SequenceDiagramController sequenceDiagramController : sequenceDiagramControllerList) {
                 if (sequenceDiagramController != null) {
