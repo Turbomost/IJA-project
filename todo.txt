@@ -1,9 +1,8 @@
 ### TODO ###
 
-Fix 4x constrainty 
-Zápis seq do souboru
+Načítání a zápis seq
 
-Nekonzistence + nekonzistence při načítání
+Nekonzistence (červené lifeliny i metody, když class neexistuje) + nekonzistence při načítání
 Undo
 
 ### Na čo se nebude hrabat (placené funkce) ###
