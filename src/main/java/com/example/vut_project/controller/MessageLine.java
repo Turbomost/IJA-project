@@ -55,6 +55,10 @@ public class MessageLine extends Line {
 
     public void checkForOperationAvailability() {
         ClassController r = fromEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(fromEntity.getSequenceNameTextField());
+        if (r == null){
+            setStroke(Color.RED);
+            return;
+        }
         AttributeController a = r.findAttributeByName(label_string);
         if (a == null){
             System.out.println("operation does not exist!");

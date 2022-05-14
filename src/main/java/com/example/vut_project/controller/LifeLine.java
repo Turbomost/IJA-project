@@ -76,6 +76,9 @@ public class LifeLine extends Line {
     public void checkForClassAvailability(SequenceDiagramController sequenceDiagramController) {
         //System.out.println(sequenceDiagramController.getHelloControllerReference().classDiagramController.findClass(stick_to_entity.getSequenceNameTextField()).getName());
         if (sequenceDiagramController.getHelloControllerReference().classDiagramController.findClass(stick_to_entity.getSequenceNameTextField()) == null){
+            for (MessageLine messageLine : getMessageLineList()){
+                messageLine.setStroke(Color.RED);
+            }
             life_line.setStroke(Color.RED);
         }else{
             life_line.setStroke(Color.BLACK);
