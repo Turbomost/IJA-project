@@ -1,18 +1,14 @@
 ### TODO ###
 
--- Zápis do souboru
-
+Fix 4x constrainty 
 Zápis seq do souboru
 
-Provázanost vč. názvů funkcí, Nekonzistence načítání
+Nekonzistence + nekonzistence při načítání
+Víc seq diagramů
 Undo
 
 ### Na čo se nebude hrabat (placené funkce) ###
 
-Víc seq diagramů (provázanost s mazáním)
-V žádném fukin případě se nebudou třídy vytvářet před načítaním ze souboru
-
-
-### REMEMBER YOU FUCKING IDIOT ###
-
-Když se přejemenovává Classa, tak se musí stisknout enter, jinak jsme fucked 
+Víc seq diagramů (provázanost)
+Nesmí se vytvářet třídy před načítaním ze souboru
+Když se přejemenovává Classa, tak se musí stisknout enter 
