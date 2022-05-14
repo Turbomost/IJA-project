@@ -177,7 +177,7 @@ public class EntityController extends VBox {
                 return null;
             }
         }
-
+        this.checkForOperationsInSequence();
         this.reference.classDiagramController.setOverrides(this.reference);
         return attr;
     }
@@ -213,6 +213,7 @@ public class EntityController extends VBox {
         //referece.AddAttribute(this.classNameTextField.getText(), attr);
 
         functionPopUpStage.show();
+        this.checkForOperationsInSequence();
         return attr;
     }
 
@@ -231,7 +232,7 @@ public class EntityController extends VBox {
     }
 
     public AttributeController onEditFunctionDiagramClick(ActionEvent event, int index, String old_function_name) throws IOException {
-        //TODO POSLAT INFORMACIE PRI EDITE
+
         AttributeController attr = reference.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
         AttributeController new_attr = AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", attr);
 
@@ -265,6 +266,11 @@ public class EntityController extends VBox {
 
         attr.rename(old_function_name);
         this.reference.classDiagramController.setOverrides(this.reference);
+        if (this.sequenceControllerReference != null){
+            for (MessageLine messageLine : MessageLineList){
+                messageLine.checkForOperationAvailability();
+            }
+        }
         return new_attr;
     }
 
@@ -284,6 +290,7 @@ public class EntityController extends VBox {
             }
             reference.DeleteAttribute(this.classNameTextField.getText(), parsedAttributeName);
         }
+        this.checkForOperationsInSequence();
         this.reference.classDiagramController.setOverrides(this.reference);
     }
 
@@ -335,6 +342,7 @@ public class EntityController extends VBox {
             System.out.println("INSIDE");
             this.renameFunctionInEntityController(parsedAttributeName.substring(0, parsedAttributeName.lastIndexOf("(")), this.ClickedAttributeIndex);
         }
+        this.checkForOperationsInSequence();
         this.reference.classDiagramController.setOverrides(this.reference);
     }
 
@@ -391,6 +399,7 @@ public class EntityController extends VBox {
             //referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
             onAddAttributeClick(null);
         }
+        this.checkForOperationsInSequence();
         this.reference.classDiagramController.setOverrides(this.reference);
     }
 
@@ -432,7 +441,7 @@ public class EntityController extends VBox {
         System.out.println("Delete Diagram Context Menu Click");
         this.identifier = classVBox;
         reference.set_identifier(classNameTextField.getText(), this.identifier);
-        reference.DeleteDiagram(event);
+        reference.DeleteDiagram(event, this);
         this.reference.classDiagramController.setOverrides(this.reference);
     }
 
@@ -465,6 +474,10 @@ public class EntityController extends VBox {
 
     public String getSequenceNameTextField() {
         return this.sequenceDiagramNameTextField.getText();
+    }
+
+    public void setClassNameTextField(String name){
+        this.classNameTextField.setText(name);
     }
 
     public void setSequenceNameTextField(String name) {
@@ -531,21 +544,47 @@ public class EntityController extends VBox {
         for (int i = 0; i < entityAttributeView.getItems().size(); i++) {
             String text = entityAttributeView.getItems().get(i).toString();
 
-            if (!name.contains("(")){
-                return -1;
-            }
+            if (text.contains("(")) {
 
-            if (text.contains(" @Override ")) {
-                if (name.equals(text.substring(12, text.lastIndexOf("(")))) {
-                    return i;
-                }
-            }
-            else {
-                if (name.equals(text.substring(2, text.lastIndexOf("(")))) {
-                    return i;
+                if (text.contains(" @Override ")) {
+                    if (name.equals(text.substring(12, text.lastIndexOf("(")))) {
+                        return i;
+                    }
+                } else {
+                    if (name.equals(text.substring(2, text.lastIndexOf("(")))) {
+                        return i;
+                    }
                 }
             }
         }
         return -1;
+    }
+
+    public SequenceDiagramController getSequenceControllerReference() {
+        return this.sequenceControllerReference;
+    }
+
+    private void checkForOperationsInSequence(){
+        if (this.reference.sequenceDiagramController != null){
+            System.out.println(">>> NASIEL SOM REFERENCE");
+            for (LifeLine lifeLine : this.reference.sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()){
+                System.out.println(">>> PRECHADZAM CEZ LIFE LINES");
+                for (MessageLine messageLine : lifeLine.getMessageLineList()){
+                    System.out.println(">>> PRECHADZAM CEZ MESSAGE LINES");
+                    System.out.println(messageLine);
+                    messageLine.checkForOperationAvailability();
+                }
+            }
+        }
+    }
+
+    public void checkForLifeLinesInSequence(){
+        if (this.reference.sequenceDiagramController != null){
+            System.out.println("NIE JE NULL");
+            for (LifeLine lifeLine : this.reference.sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()) {
+                System.out.println("LOOP CEZ LIFE LAJNY");
+                lifeLine.checkForClassAvailability();
+            }
+        }
     }
 }

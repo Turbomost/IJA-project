@@ -49,7 +49,21 @@ public class MessageLine extends Line {
         label_string = "Empty Message";
         this.arrow1 = new Line();
         this.arrow2 = new Line();
+        checkForOperationAvailability();
         update();
+    }
+
+    public void checkForOperationAvailability() {
+        ClassController r = fromEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(fromEntity.getSequenceNameTextField());
+        AttributeController a = r.findAttributeByName(label_string);
+        if (a == null){
+            System.out.println("operation does not exist!");
+            setStroke(Color.RED);
+        }else{
+            System.out.println("NASTAVUJEM NA BLACK");
+            if (a.getType().equals("function")) setStroke(Color.BLACK);
+            if (a.getType().equals("attribute")) setStroke(Color.ORANGE);
+        }
     }
 
     public void update() {
@@ -105,6 +119,7 @@ public class MessageLine extends Line {
     private void onEditMessageClick(MouseEvent event) {
         System.out.println("on edite message click");
         EditMessagePopUp.EditMessagePopUpDisplay(this, "Edit", "Edit Message", "Edit");
+        this.checkForOperationAvailability();
     }
 
     private void onDeleteMessageClick(MouseEvent event) {

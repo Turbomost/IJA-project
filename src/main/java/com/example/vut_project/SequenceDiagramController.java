@@ -166,6 +166,8 @@ public class SequenceDiagramController {
     public void deleteAllLifeLines(ArrayList<LifeLine> lifelines) {
         for (LifeLine lifeLine : lifelines) {
             for (MessageLine messageLine : lifeLine.getMessageLineList()){
+                this.sequenceSpace.getChildren().remove(messageLine.arrow1);
+                this.sequenceSpace.getChildren().remove(messageLine.arrow2);
                 this.sequenceSpace.getChildren().remove(messageLine.plabel);
                 this.sequenceSpace.getChildren().remove(messageLine);
             }
@@ -218,5 +220,9 @@ public class SequenceDiagramController {
     public void onSaveButtonClick(ActionEvent event) {
         ParseXML parseXML = new ParseXML();
         parseXML.saveSequenceDiagramInFile(this);
+    }
+
+    public HelloController getHelloControllerReference(){
+        return this.helloControllerReference;
     }
 }
