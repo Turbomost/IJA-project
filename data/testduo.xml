@@ -105,7 +105,7 @@
       <arg type="constraint_to">Krivkova_Tesla</arg>
     </element>
 
-    <element type="constraint" name="Constraint 4" left = "1" right = "1" consType = "Generalization">
+    <element consType="Generalization" left="1" name="new constraint" right="1" type="constraint">
       <arg type="constraint_from">Krivkova_Tesla</arg>
       <arg type="constraint_to">Vaskovo_faro</arg>
     </element>
@@ -135,7 +135,7 @@
     </element>
 
     <element type="operation" name="Krivkova_Tesla">
-      <arg type="function_name">vytvorit_IPP_projekt</arg>
+      <arg type="function_name">zamknut</arg>
       <arg type="parameter_name">pocet_stran</arg>
       <arg type="parameter_type">int</arg>
     </element>
