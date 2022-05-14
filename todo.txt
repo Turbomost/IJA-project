@@ -4,7 +4,6 @@ Fix 4x constrainty
 Zápis seq do souboru
 
 Nekonzistence + nekonzistence při načítání
-Víc seq diagramů
 Undo
 
 ### Na čo se nebude hrabat (placené funkce) ###

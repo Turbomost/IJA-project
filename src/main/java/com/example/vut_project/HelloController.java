@@ -379,8 +379,8 @@ public class HelloController {
             Label label = new Label();
             BoundLine boundLine = new BoundLine(this.constraint_from.getPosition_x(), this.constraint_from.getPosition_y(), this.constraint_to.getPosition_x(), this.constraint_to.getPosition_y(), this.constraint_from, this.constraint_to, this, type, label, name, left, right);
             boundLine.create_line();
-            this.constraint_from.addConstraint(boundLine);
-            this.constraint_to.addConstraint(boundLine);
+            //this.constraint_from.addConstraint(boundLine);
+            //this.constraint_to.addConstraint(boundLine);
             boundLine.setSelfReference(boundLine);
             boundLine.setStrokeWidth(3.0);
             boundLine.toBack();

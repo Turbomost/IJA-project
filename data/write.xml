@@ -1,63 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <program>
     <element name="class 0" type="class">
-        <arg type="function">a</arg>
-        <attr_access type="attribute_access">#</attr_access>
-        <attr_type type="attribute_type">a</attr_type>
-        <arg type="position_x">91</arg>
-        <arg type="position_y">-12</arg>
+        <arg type="position_x">10</arg>
+        <arg type="position_y">10</arg>
     </element>
     <element name="class 1" type="class">
-        <arg type="function">a</arg>
-        <attr_access type="attribute_access">~</attr_access>
-        <attr_type type="attribute_type">a</attr_type>
-        <arg type="position_x">611</arg>
-        <arg type="position_y">-12</arg>
+        <arg type="position_x">408</arg>
+        <arg type="position_y">7</arg>
     </element>
-    <element name="class 2" type="class">
-        <arg type="function">a</arg>
-        <attr_access type="attribute_access">-</attr_access>
-        <attr_type type="attribute_type">a</attr_type>
-        <arg type="position_x">636</arg>
-        <arg type="position_y">257</arg>
-    </element>
-    <element name="class 3" type="class">
-        <arg type="function">a</arg>
-        <attr_access type="attribute_access">+</attr_access>
-        <attr_type type="attribute_type">a</attr_type>
-        <arg type="position_x">39</arg>
-        <arg type="position_y">225</arg>
-    </element>
-    <element consType="Generalization" left="1" name="new constraint" right="1" type="constraint">
+    <element consType="" left="" name="new constraint" right="" type="constraint">
         <arg type="constraint_from">class 0</arg>
         <arg type="constraint_to">class 1</arg>
-    </element>
-    <element consType="Generalization" left="1" name="new constraint" right="1" type="constraint">
-        <arg type="constraint_from">class 0</arg>
-        <arg type="constraint_to">class 1</arg>
-    </element>
-    <element consType="Generalization" left="1" name="new constraint" right="1" type="constraint">
-        <arg type="constraint_from">class 0</arg>
-        <arg type="constraint_to">class 1</arg>
-    </element>
-    <element consType="Generalization" left="1" name="new constraint" right="1" type="constraint">
-        <arg type="constraint_from">class 0</arg>
-        <arg type="constraint_to">class 1</arg>
-    </element>
-    <element consType="Association" left="0 .. N" name="new constraint" right="1" type="constraint">
-        <arg type="constraint_from">class 2</arg>
-        <arg type="constraint_to">class 3</arg>
-    </element>
-    <element consType="Association" left="0 .. N" name="new constraint" right="1" type="constraint">
-        <arg type="constraint_from">class 2</arg>
-        <arg type="constraint_to">class 3</arg>
-    </element>
-    <element consType="Association" left="0 .. N" name="new constraint" right="1" type="constraint">
-        <arg type="constraint_from">class 2</arg>
-        <arg type="constraint_to">class 3</arg>
-    </element>
-    <element consType="Association" left="0 .. N" name="new constraint" right="1" type="constraint">
-        <arg type="constraint_from">class 2</arg>
-        <arg type="constraint_to">class 3</arg>
     </element>
 </program>

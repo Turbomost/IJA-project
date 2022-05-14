@@ -8,7 +8,6 @@ package com.example.vut_project;
 
 import com.example.vut_project.controller.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -338,14 +337,14 @@ public class ParseXML extends HelloController {
                         }
                         if (arg.getTextContent().equals("position_y")) {
                             System.out.println("LIFE LINE POSITION Y: " + fieldNode.getTextContent());
-                            line_for_entity.getLifeLineList().get(line_for_entity.getLifeLineList().size()-1).getAnchorPane().setLayoutY(Double.parseDouble(fieldNode.getTextContent()));
+                            line_for_entity.getLifeLineList().get(line_for_entity.getLifeLineList().size() - 1).getAnchorPane().setLayoutY(Double.parseDouble(fieldNode.getTextContent()));
                         }
                         if (arg.getTextContent().equals("position_x")) {
                             System.out.println("LIFE LINE POSITION X: " + fieldNode.getTextContent());
                         }
                         if (arg.getTextContent().equals("length")) {
                             System.out.println("LIFE LINE LENGTH: " + fieldNode.getTextContent());
-                            int lastIndex = line_for_entity.getLifeLineList().size()-1;
+                            int lastIndex = line_for_entity.getLifeLineList().size() - 1;
                             line_for_entity.getLifeLineList().get(lastIndex).getAnchorPane().setMinHeight(Double.parseDouble(fieldNode.getTextContent()));
                             System.out.println(">>>> " + line_for_entity.getLifeLineList().get(lastIndex).getAnchorPane().getMinHeight());
                             line_for_entity.getLifeLineList().get(lastIndex).getLifeLine().setEndY(line_for_entity.getLifeLineList().get(lastIndex).getLifeLine().getStartY() + Double.parseDouble(fieldNode.getTextContent()));
@@ -355,7 +354,8 @@ public class ParseXML extends HelloController {
             }
         }
     }
-    public void saveClassDiagramInFile(HelloController helloControllerReference){
+
+    public void saveClassDiagramInFile(HelloController helloControllerReference) {
         try {
             DocumentBuilderFactory dbFactory =
                     DocumentBuilderFactory.newInstance();
@@ -366,145 +366,149 @@ public class ParseXML extends HelloController {
             Element rootElement = doc.createElement("program");
             doc.appendChild(rootElement);
 //TODO for loop from here FOR CLASS CREATING
-        for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
-
-            // element
-            Element superElement = doc.createElement("element");
-            rootElement.appendChild(superElement);
-
-            // setting attribute to element
-            Attr attr = doc.createAttribute("type");
-            attr.setValue("class");
-            superElement.setAttributeNode(attr);
-            attr = doc.createAttribute("name");
-            attr.setValue(each_class.getName());                                                //inset class name
-            superElement.setAttributeNode(attr);
-//TODO for loop for CLASS ATTRIBUTES AND FUNCTIONS
-            for (AttributeController each_attribute : each_class.getAttributes()) {
+            for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
 
                 // element
-                Element argElement = doc.createElement("arg");
-                Attr attrType = doc.createAttribute("type");
-                attrType.setValue(each_attribute.getType());                                             //function or attribute
-                argElement.setAttributeNode(attrType);
-                argElement.appendChild(doc.createTextNode(each_attribute.getName()));         //inset attribute name
-                superElement.appendChild(argElement);
+                Element superElement = doc.createElement("element");
+                rootElement.appendChild(superElement);
 
-                // subelement attribute access
-                Element attrAccessElement = doc.createElement("attr_access");
-                Attr subAttrAccess = doc.createAttribute("type");
-                subAttrAccess.setValue("attribute_access");
-                attrAccessElement.setAttributeNode(subAttrAccess);
-                attrAccessElement.appendChild(doc.createTextNode(each_attribute.getAccessType().substring(0,1)));              //insert access type + - #
-                superElement.appendChild(attrAccessElement);
+                // setting attribute to element
+                Attr attr = doc.createAttribute("type");
+                attr.setValue("class");
+                superElement.setAttributeNode(attr);
+                attr = doc.createAttribute("name");
+                attr.setValue(each_class.getName());                                                //inset class name
+                superElement.setAttributeNode(attr);
+//TODO for loop for CLASS ATTRIBUTES AND FUNCTIONS
+                for (AttributeController each_attribute : each_class.getAttributes()) {
 
-                // subelement attribute type
-                Element attrTypeElement = doc.createElement("attr_type");
-                Attr subAttrType = doc.createAttribute("type");
-                subAttrType.setValue("attribute_type");
-                attrTypeElement.setAttributeNode(subAttrType);
-                attrTypeElement.appendChild(doc.createTextNode(each_attribute.getDatatype()));               //insert data type
-                superElement.appendChild(attrTypeElement);
-            }
+                    // element
+                    Element argElement = doc.createElement("arg");
+                    Attr attrType = doc.createAttribute("type");
+                    attrType.setValue(each_attribute.getType());                                             //function or attribute
+                    argElement.setAttributeNode(attrType);
+                    argElement.appendChild(doc.createTextNode(each_attribute.getName()));         //inset attribute name
+                    superElement.appendChild(argElement);
+
+                    // subelement attribute access
+                    Element attrAccessElement = doc.createElement("attr_access");
+                    Attr subAttrAccess = doc.createAttribute("type");
+                    subAttrAccess.setValue("attribute_access");
+                    attrAccessElement.setAttributeNode(subAttrAccess);
+                    attrAccessElement.appendChild(doc.createTextNode(each_attribute.getAccessType().substring(0, 1)));              //insert access type + - #
+                    superElement.appendChild(attrAccessElement);
+
+                    // subelement attribute type
+                    Element attrTypeElement = doc.createElement("attr_type");
+                    Attr subAttrType = doc.createAttribute("type");
+                    subAttrType.setValue("attribute_type");
+                    attrTypeElement.setAttributeNode(subAttrType);
+                    attrTypeElement.appendChild(doc.createTextNode(each_attribute.getDatatype()));               //insert data type
+                    superElement.appendChild(attrTypeElement);
+                }
 //TODO END LOOP FOR CLASS ATTRIBUTES AND FUNCTIONS
-            // position X
-            Element classPositionElementX = doc.createElement("arg");
-            Attr subPositionX = doc.createAttribute("type");
-            subPositionX.setValue("position_x");
-            classPositionElementX.setAttributeNode(subPositionX);
-            classPositionElementX.appendChild(doc.createTextNode(String.valueOf((int)each_class.getPosition_x())));               //position
-            superElement.appendChild(classPositionElementX);
+                // position X
+                Element classPositionElementX = doc.createElement("arg");
+                Attr subPositionX = doc.createAttribute("type");
+                subPositionX.setValue("position_x");
+                classPositionElementX.setAttributeNode(subPositionX);
+                classPositionElementX.appendChild(doc.createTextNode(String.valueOf((int) each_class.getPosition_x())));               //position
+                superElement.appendChild(classPositionElementX);
 
-            // position Y
-            Element classPositionElementY = doc.createElement("arg");
-            Attr subPositionY = doc.createAttribute("type");
-            subPositionY.setValue("position_y");
-            classPositionElementY.setAttributeNode(subPositionY);
-            classPositionElementY.appendChild(doc.createTextNode(String.valueOf((int)each_class.getPosition_y())));               //position
-            superElement.appendChild(classPositionElementY);
-        }
+                // position Y
+                Element classPositionElementY = doc.createElement("arg");
+                Attr subPositionY = doc.createAttribute("type");
+                subPositionY.setValue("position_y");
+                classPositionElementY.setAttributeNode(subPositionY);
+                classPositionElementY.appendChild(doc.createTextNode(String.valueOf((int) each_class.getPosition_y())));               //position
+                superElement.appendChild(classPositionElementY);
+            }
 // TODO for LOOP for CLASS CREATING till HERE
 
 // TODO for LOOP for creating CONSTRAINTS
-      for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
-          for (BoundLine each_constraint : each_class.getConstraintList()) {
+            System.out.println("LIST: " + helloControllerReference.classDiagramController.return_list());
+            for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
+                System.out.println("CLASS LIST: " + each_class.getConstraintList());
+                for (BoundLine each_constraint : each_class.getConstraintList()) {
+                    if (each_constraint.getConstraintFrom().equals(each_class)) {
 
-              Element superElement = doc.createElement("element");
-              rootElement.appendChild(superElement);
+                        Element superElement = doc.createElement("element");
+                        rootElement.appendChild(superElement);
 
-              // setting attribute to element
-              Attr attr = doc.createAttribute("type");
-              attr.setValue("constraint");
-              superElement.setAttributeNode(attr);
-              attr = doc.createAttribute("name");
-              attr.setValue(each_constraint.getLabel());                                           //constraint name
-              superElement.setAttributeNode(attr);
-              attr = doc.createAttribute("left");
-              attr.setValue(each_constraint.getLeftCardinality());                                                //left cardinality
-              superElement.setAttributeNode(attr);
-              attr = doc.createAttribute("right");
-              attr.setValue(each_constraint.getRightCardinality());                                                //right cardinality
-              superElement.setAttributeNode(attr);
-              attr = doc.createAttribute("consType");
-              attr.setValue(each_constraint.getLineType());                                       //constraint type
-              superElement.setAttributeNode(attr);
+                        // setting attribute to element
+                        Attr attr = doc.createAttribute("type");
+                        attr.setValue("constraint");
+                        superElement.setAttributeNode(attr);
+                        attr = doc.createAttribute("name");
+                        attr.setValue(each_constraint.getLabel());                                           //constraint name
+                        superElement.setAttributeNode(attr);
+                        attr = doc.createAttribute("left");
+                        attr.setValue(each_constraint.getLeftCardinality());                                                //left cardinality
+                        superElement.setAttributeNode(attr);
+                        attr = doc.createAttribute("right");
+                        attr.setValue(each_constraint.getRightCardinality());                                                //right cardinality
+                        superElement.setAttributeNode(attr);
+                        attr = doc.createAttribute("consType");
+                        attr.setValue(each_constraint.getLineType());                                       //constraint type
+                        superElement.setAttributeNode(attr);
 
-              Element argElement = doc.createElement("arg");
-              Attr attrType = doc.createAttribute("type");
-              attrType.setValue("constraint_from");
-              argElement.setAttributeNode(attrType);
-              argElement.appendChild(doc.createTextNode(each_constraint.getConstraintFrom().getName()));         //constraint from
-              superElement.appendChild(argElement);
+                        Element argElement = doc.createElement("arg");
+                        Attr attrType = doc.createAttribute("type");
+                        attrType.setValue("constraint_from");
+                        argElement.setAttributeNode(attrType);
+                        argElement.appendChild(doc.createTextNode(each_constraint.getConstraintFrom().getName()));         //constraint from
+                        superElement.appendChild(argElement);
 
-              argElement = doc.createElement("arg");
-              attrType = doc.createAttribute("type");
-              attrType.setValue("constraint_to");
-              argElement.setAttributeNode(attrType);
-              argElement.appendChild(doc.createTextNode(each_constraint.getConstraintTo().getName()));         //constraint to
-              superElement.appendChild(argElement);
-          }
-      }
+                        argElement = doc.createElement("arg");
+                        attrType = doc.createAttribute("type");
+                        attrType.setValue("constraint_to");
+                        argElement.setAttributeNode(attrType);
+                        argElement.appendChild(doc.createTextNode(each_constraint.getConstraintTo().getName()));         //constraint to
+                        superElement.appendChild(argElement);
+                    }
+                }
+            }
 // TODO end loop creating constraints
 
 //TODO operations loop
-    for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
-        for (AttributeController each_attribute : each_class.getAttributes()) {
-            if (each_attribute.getType().equals("function")) {
-                for (AttributeOperationController each_operation : each_attribute.getOperationControllerList()) {
-                    Element superElement = doc.createElement("element");
-                    rootElement.appendChild(superElement);
+            for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
+                for (AttributeController each_attribute : each_class.getAttributes()) {
+                    if (each_attribute.getType().equals("function")) {
+                        for (AttributeOperationController each_operation : each_attribute.getOperationControllerList()) {
+                            Element superElement = doc.createElement("element");
+                            rootElement.appendChild(superElement);
 
-                    Attr attr = doc.createAttribute("type");
-                    attr.setValue("operation");
-                    superElement.setAttributeNode(attr);
-                    attr = doc.createAttribute("name");
-                    attr.setValue(each_class.getName());                        // operation bellongs to class name
-                    superElement.setAttributeNode(attr);
+                            Attr attr = doc.createAttribute("type");
+                            attr.setValue("operation");
+                            superElement.setAttributeNode(attr);
+                            attr = doc.createAttribute("name");
+                            attr.setValue(each_class.getName());                        // operation bellongs to class name
+                            superElement.setAttributeNode(attr);
 
-                    Element argElement = doc.createElement("arg");
-                    Attr attrType = doc.createAttribute("type");
-                    attrType.setValue("function_name");
-                    argElement.setAttributeNode(attrType);
-                    argElement.appendChild(doc.createTextNode(each_attribute.getName()));         // function name
-                    superElement.appendChild(argElement);
+                            Element argElement = doc.createElement("arg");
+                            Attr attrType = doc.createAttribute("type");
+                            attrType.setValue("function_name");
+                            argElement.setAttributeNode(attrType);
+                            argElement.appendChild(doc.createTextNode(each_attribute.getName()));         // function name
+                            superElement.appendChild(argElement);
 
-                    argElement = doc.createElement("arg");
-                    attrType = doc.createAttribute("type");
-                    attrType.setValue("parameter_name");
-                    argElement.setAttributeNode(attrType);
-                    argElement.appendChild(doc.createTextNode(each_operation.getName()));         // TODO function parameter name
-                    superElement.appendChild(argElement);
+                            argElement = doc.createElement("arg");
+                            attrType = doc.createAttribute("type");
+                            attrType.setValue("parameter_name");
+                            argElement.setAttributeNode(attrType);
+                            argElement.appendChild(doc.createTextNode(each_operation.getName()));         // TODO function parameter name
+                            superElement.appendChild(argElement);
 
-                    argElement = doc.createElement("arg");
-                    attrType = doc.createAttribute("type");
-                    attrType.setValue("parameter_type");
-                    argElement.setAttributeNode(attrType);
-                    argElement.appendChild(doc.createTextNode(each_operation.getDataType()));         // TODO operation parameter type
-                    superElement.appendChild(argElement);
+                            argElement = doc.createElement("arg");
+                            attrType = doc.createAttribute("type");
+                            attrType.setValue("parameter_type");
+                            argElement.setAttributeNode(attrType);
+                            argElement.appendChild(doc.createTextNode(each_operation.getDataType()));         // TODO operation parameter type
+                            superElement.appendChild(argElement);
+                        }
+                    }
                 }
             }
-        }
-    }
 
 //TODO END LOOP FOR OPERATIONS
 
@@ -522,7 +526,8 @@ public class ParseXML extends HelloController {
             e.printStackTrace();
         }
     }
-    public void saveSequenceDiagramInFile(SequenceDiagramController sequenceDiagramController){
+
+    public void saveSequenceDiagramInFile(SequenceDiagramController sequenceDiagramController) {
         try {
             DocumentBuilderFactory dbFactory =
                     DocumentBuilderFactory.newInstance();
