@@ -10,7 +10,6 @@ import com.example.vut_project.EntityController;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.StrokeLineCap;
 
 import java.util.ArrayList;
 
@@ -68,7 +67,7 @@ public class LifeLine extends Line {
         return MesssageLineList;
     }
 
-    public void setAnchorPaneYLaout(Double layoutY){
+    public void setAnchorPaneYLayout(Double layoutY){
         this.anchorPane.setLayoutY(layoutY);
     }
 

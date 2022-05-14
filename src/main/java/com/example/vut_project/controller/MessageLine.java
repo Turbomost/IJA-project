@@ -110,7 +110,7 @@ public class MessageLine extends Line {
         ContextMenu menu = new ContextMenu();
         MenuItem item = new MenuItem("Delete Message");
         MenuItem item2 = new MenuItem("Edit");
-        menu.getItems().addAll(item, item2);
+        menu.getItems().addAll(item2, item);
         item.setOnAction(e -> onDeleteMessageClick(event));
         item2.setOnAction(e -> onEditMessageClick(event));
         menu.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());

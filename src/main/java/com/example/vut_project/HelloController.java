@@ -145,17 +145,6 @@ public class HelloController {
         }
     }
 
-    /**
-     * Function for clicking on New Project button
-     *
-     * @throws Exception
-     */
-    @FXML
-    protected void onNewProjectButtonClick() throws Exception { //stage in new window
-        System.out.println("Stage in new window");
-        this.displayNewProjectScene();
-    }
-
     @FXML
     protected void onSequenceDiagramClick(ActionEvent event) throws IOException { // space for sequence diagram
         System.out.println("Sequence diagram");
@@ -244,13 +233,6 @@ public class HelloController {
                 attributeFieldCounter = attributeFieldCounter + 1;
             }
         }
-    }
-
-    /**
-     * @param event
-     */
-    public void onAddDiagramButtonClick(ActionEvent event) {
-        // TODO
     }
 
     /**
