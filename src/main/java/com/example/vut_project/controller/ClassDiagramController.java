@@ -7,6 +7,7 @@
 package com.example.vut_project.controller;
 
 import com.example.vut_project.EntityController;
+import com.example.vut_project.HelloController;
 import com.example.vut_project.SequenceDiagramController;
 
 import java.util.ArrayList;
@@ -132,11 +133,10 @@ public class ClassDiagramController extends ElementController {
         return nameList;
     }
 
-    public void setOverrides(){
-        for (ClassController Class : this.classList){
-            if (Class.hasGeneralization()){
-                Class.updateOverrides();
-            }
+    public void setOverrides(HelloController reference) {
+        for (ClassController Class : this.classList) {
+            Class.setGeneralizations();
+            Class.updateOverrides(reference);
         }
     }
 }

@@ -68,6 +68,7 @@ public class BoundLine extends Line {
 
         setLineVisibility();
         update();
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public static String BoundLineAssociation() {
@@ -232,6 +233,7 @@ public class BoundLine extends Line {
         setEndX(this.toX.getValue() + 125 + getXdiff(this.toX.getValue() + 125, this.fromX.getValue() + 125));
         setEndY(this.toY.getValue() + 150 + getYdiff(this.toY.getValue() + 150, this.fromY.getValue() + 150));
         update();
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public void create_label() {
@@ -271,6 +273,7 @@ public class BoundLine extends Line {
     private void onEditConstraintClick(MouseEvent event) {
         System.out.println("On edit constraint click");
         EditConstraintPopUp.display(this);
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public void onDeleteConstraintClick(MouseEvent event) {
@@ -282,6 +285,7 @@ public class BoundLine extends Line {
         System.out.println("AFTER CONSTRAINT DELETING FROM " + this.from.getName() + this.from.getConstraintListString());
         System.out.println("AFTER CONSTRAINT DELETING TO " + this.to.getName() + this.to.getConstraintListString());
         this.reference.DeleteConstraint(this.self, this.from, this.to);
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public void setSelfReference(BoundLine self) {
@@ -297,6 +301,7 @@ public class BoundLine extends Line {
         this.LineType = lineType;
         setLineVisibility();
         update();
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public void setLeftCardinality(String left_card) {

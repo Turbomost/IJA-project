@@ -6,6 +6,9 @@
 
 package com.example.vut_project.controller;
 
+import com.example.vut_project.EntityController;
+import com.example.vut_project.HelloController;
+
 import java.util.ArrayList;
 
 /**
@@ -16,6 +19,7 @@ public class ClassController extends ElementController {
 
     private final ArrayList<AttributeController> AttributeList;
     private final ArrayList<BoundLine> ConstraintList;
+    private final ArrayList<ClassController> GeneralizationList;
     private boolean isAbstract = false;
 
     private double layout_x = 10;
@@ -30,6 +34,7 @@ public class ClassController extends ElementController {
         super(name);
         AttributeList = new ArrayList<>();
         ConstraintList = new ArrayList<>();
+        GeneralizationList = new ArrayList<>();
     }
 
     /**
@@ -239,20 +244,37 @@ public class ClassController extends ElementController {
         }
     }
 
-    public boolean hasGeneralization() {
+    public void setGeneralizations() {
+        this.GeneralizationList.removeAll(GeneralizationList);
         for (BoundLine Line : this.ConstraintList) {
-            if (Line.LineType.equals(BoundLine.BoundLineGeneralization()) && Line.to == this) {
-                return true;
+            if (Line.LineType.equals(BoundLine.BoundLineGeneralization()) && Line.from == this) {
+                GeneralizationList.add(Line.to);
             }
         }
-        return false;
     }
 
-    public void updateOverrides() {
-        //TODO
+    public void updateOverrides(HelloController reference) {
+        for (AttributeController attr : this.AttributeList) {
+            attr.setOverride(false);
+            for (ClassController Class : GeneralizationList) {
+                for (AttributeController currAttr : Class.AttributeList) {
+                    if (currAttr.getType().equals("function")) {
+                        if (attr.getName().equals(currAttr.getName())) {
+                            attr.setOverride(true);
+                        }
+                    }
+                }
+            }
+            EntityController entity = reference.findEntityByName(this.getName());
+            int index = entity.getAttributeIndex(attr.getName());
+            if (index != -1) {
+                entity.entityAttributeView.getItems().set(index, attr.getWholeAttributeString());
+                System.out.println("NAME changed:: {" + attr.getWholeAttributeString() + "}");
+            }
+        }
     }
-    
-    public ArrayList<BoundLine> getConstraintList(){
+
+    public ArrayList<BoundLine> getConstraintList() {
         return this.ConstraintList;
     }
 }

@@ -191,6 +191,6 @@ public class AttributeController extends ElementController {
     }
 
     public void setOverride(Boolean override) {
-        this.primary = override;
+        this.override = override;
     }
 }

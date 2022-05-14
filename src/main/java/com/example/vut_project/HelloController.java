@@ -101,6 +101,7 @@ public class HelloController {
             Entity_Controller_list.add(new_entity);                             //save to list
             projectSpace.getChildren().add(new_entity);                         //add it to project space pane
         }
+        this.classDiagramController.setOverrides(this);
     }
 
     /**
@@ -133,10 +134,10 @@ public class HelloController {
             String lowercaseName = path.toLowerCase();
             if (lowercaseName.endsWith(".xml")) {
                 parse.input_file_from_button(path);
-                classDiagramController = parse.start_parse(this);
+                this.classDiagramController = parse.start_parse(this);
                 parse.load_constraints(this);
                 parse.load_operations(this);
-                this.displayLoadedClassDiagramEntity(classDiagramController);
+                this.displayLoadedClassDiagramEntity(this.classDiagramController);
             } else {
                 AlertBox.display("Error", "You need to choose XML file format", "I will choose an XML file next time");
                 System.out.println("Need to be a xml file");
@@ -204,9 +205,9 @@ public class HelloController {
     @FXML
     public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
         String new_name = "class " + i;
-        EntityController new_entity = new EntityController(new_name, classDiagramController, this);
+        EntityController new_entity = new EntityController(new_name, this.classDiagramController, this);
         projectSpace.getChildren().add(new_entity);
-        draggableMaker.makeDraggable(new_entity, classDiagramController.findClass(new_name));
+        draggableMaker.makeDraggable(new_entity, this.classDiagramController.findClass(new_name));
         position = (i++) % 20;
         new_entity.setLayoutX(position * 20);
         new_entity.setLayoutY(position * 20);
@@ -223,9 +224,9 @@ public class HelloController {
         System.out.println("EVENT CLASS DIAGRAM CLICK");
         Object source = mouseEvent.getSource();
         this.identifier = System.identityHashCode(source);
-        System.out.println(classDiagramController.getClassList().toString());
+        System.out.println(this.classDiagramController.getClassList().toString());
         System.out.println(this.identifier);
-        System.out.println(classDiagramController.getClassList().toString());
+        System.out.println(this.classDiagramController.getClassList().toString());
         AtomicInteger selectedListViewIndex = new AtomicInteger(-1);
         if (source instanceof GridPane) {
             if (mouseEvent.getButton() == MouseButton.SECONDARY) {
@@ -283,16 +284,17 @@ public class HelloController {
      */
 
     public void DeleteDiagram(ActionEvent event) {
-        ClassController deleting_class = classDiagramController.findClass(identifier_name);
-        System.out.println("Before deleting: " + classDiagramController.getClassList().toString());
-        boolean delete = classDiagramController.deleteClass(deleting_class, this.sequenceDiagramController);
-        System.out.println("After deleting: " + classDiagramController.getClassList().toString());
+        ClassController deleting_class = this.classDiagramController.findClass(identifier_name);
+        System.out.println("Before deleting: " + this.classDiagramController.getClassList().toString());
+        boolean delete = this.classDiagramController.deleteClass(deleting_class, this.sequenceDiagramController);
+        System.out.println("After deleting: " + this.classDiagramController.getClassList().toString());
         if (delete) {
             projectSpace.getChildren().remove(identifier);
             if (this.constraint_from == deleting_class) {
                 this.constraint_from = null;
             }
         }
+        this.classDiagramController.setOverrides(this);
     }
 
     // sets the actual selected class diagram
@@ -316,6 +318,7 @@ public class HelloController {
         } else {
             AlertBox.display("Error", "Error while deleting in class'" + class_name + "'", "OK");
         }
+        this.classDiagramController.setOverrides(this);
     }
 
     public void renameFunctionBasic(String class_name, String function_name) {
@@ -332,13 +335,16 @@ public class HelloController {
                 System.out.println("After: " + curClass.getAttributesList().toString());
             }
         }
+        this.classDiagramController.setOverrides(this);
     }
 
 
     public boolean AddAttribute(String class_name, AttributeController attr) {
         ClassController curClass = this.classDiagramController.findClass(class_name);
         System.out.println("before adding");
-        return curClass.addAttribute(attr);
+        boolean returnValue = curClass.addAttribute(attr);
+        this.classDiagramController.setOverrides(this);
+        return returnValue;
     }
 
     public AttributeController getAttributeControllerByName(String class_name, String attribute_name) {
@@ -348,7 +354,7 @@ public class HelloController {
 
     public boolean RenameClass(String old_name, String new_name) {
         ClassController curClass = this.classDiagramController.findClass(old_name);
-        for (String old_class : classDiagramController.getClassList()) {
+        for (String old_class : this.classDiagramController.getClassList()) {
             if (old_class.equals(new_name)) {
                 return false;
             }
@@ -356,20 +362,21 @@ public class HelloController {
         if (curClass == null) {
             return false;
         }
-        System.out.println("Before: Classes" + classDiagramController.getClassList().toString());
+        System.out.println("Before: Classes" + this.classDiagramController.getClassList().toString());
         curClass.rename(new_name);
         if (sequenceDiagramController != null) {
             EntityController entity = this.sequenceDiagramController.findEntity(old_name);
             entity.setSequenceNameTextField(new_name);
         }
-        System.out.println("After: Classes" + classDiagramController.getClassList().toString());
+        System.out.println("After: Classes" + this.classDiagramController.getClassList().toString());
         identifier_name = new_name;
+        this.classDiagramController.setOverrides(this);
         return true;
     }
 
     public void SetConstraintFrom(String constraint_from) {
         System.out.println("CLASS TO FIND " + constraint_from);
-        this.constraint_from = classDiagramController.findClass(constraint_from);
+        this.constraint_from = this.classDiagramController.findClass(constraint_from);
         System.out.println(this.constraint_from);
         System.out.println("From: " + this.constraint_from.getName());
     }
@@ -394,6 +401,7 @@ public class HelloController {
             //label.layoutYProperty().bind(boundLine.endYProperty().subtract(boundLine.endYProperty().subtract(boundLine.startYProperty()).divide(2)).subtract(20));
             projectSpace.getChildren().addAll(boundLine, label, boundLine.arrow1, boundLine.arrow2, boundLine.arrow3, boundLine.arrow4);
         }
+        this.classDiagramController.setOverrides(this);
     }
 
     public void DeleteConstraint(BoundLine toDelete, ClassController from, ClassController to) {
@@ -417,6 +425,7 @@ public class HelloController {
         projectSpace.getChildren().remove(toDelete);
         this.constraint_from = remember_from;
         this.constraint_to = remember_to;
+        this.classDiagramController.setOverrides(this);
     }
 
     public void onQuitButtonClick(ActionEvent event) {
@@ -428,5 +437,14 @@ public class HelloController {
         System.out.println("Saving file");
         ParseXML parseXML = new ParseXML();
         parseXML.saveClassDiagramInFile(this);
+    }
+
+    public EntityController findEntityByName(String name){
+        for (EntityController entity : this.Entity_Controller_list){
+            if (entity.getNameTextField().equals(name)){
+                return entity;
+            }
+        }
+        return null;
     }
 }
