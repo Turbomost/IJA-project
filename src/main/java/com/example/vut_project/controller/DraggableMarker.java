@@ -63,12 +63,15 @@ public class DraggableMarker {
     }
 
     public void makeDraggableOnYAxis(Node node, MessageLine messageLine) {
+        final Double[] pressedPosition = new Double[1];
         node.setOnMousePressed(mouseEvent -> {
+            pressedPosition[0] = messageLine.getLayoutY();
             mouseAnchorY = mouseEvent.getY();
         });
 
         node.setOnMouseDragged(mouseEvent -> {
-            messageLine.update_position(mouseEvent.getSceneY() - mouseAnchorY);
+            messageLine.update_position(mouseEvent.getSceneY() - pressedPosition[0] - 50);
+            //node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
         });
     }
 }
