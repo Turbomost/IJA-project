@@ -24,6 +24,8 @@ public class BoundLine extends Line {
     private static final double arrowWidth = 7;
     public Line arrow1;
     public Line arrow2;
+    public Line arrow3;
+    public Line arrow4;
     DoubleProperty fromX;
     DoubleProperty fromY;
     DoubleProperty toX;
@@ -58,8 +60,13 @@ public class BoundLine extends Line {
         getStrokeDashArray().setAll(10.0, 5.0);
         setOnMouseClicked(event -> onMouseClicked(event));
         this.reference = reference;
+
         this.arrow1 = new Line();
         this.arrow2 = new Line();
+        this.arrow3 = new Line();
+        this.arrow4 = new Line();
+
+        setLineVisibility();
         update();
     }
 
@@ -111,8 +118,25 @@ public class BoundLine extends Line {
         return "";
     }
 
+
+    public void setLineVisibility() {
+        if (this.LineType.equals(BoundLineAssociation())) {
+            toggleVisibility(true, true, false, false);
+        } else if (this.LineType.equals(BoundLineGeneralization())) {
+            toggleVisibility(true, true, true, false);
+        } else {
+            toggleVisibility(true, true, true, true);
+        }
+    }
+
+    public void toggleVisibility(boolean b, boolean b1, boolean b2, boolean b3) {
+        this.arrow1.setVisible(b);
+        this.arrow2.setVisible(b1);
+        this.arrow3.setVisible(b2);
+        this.arrow4.setVisible(b3);
+    }
+
     public void update() {
-        System.out.println("eyoou");
         double ex = this.getEndX();
         double ey = this.getEndY();
         double sx = this.getStartX();
@@ -129,6 +153,11 @@ public class BoundLine extends Line {
             arrow1.setStartY(ey);
             arrow2.setStartX(ex);
             arrow2.setStartY(ey);
+
+            arrow3.setStartX(ex);
+            arrow3.setStartY(ey);
+            arrow3.setEndX(ex);
+            arrow3.setEndY(ey);
         } else {
             double hypot = Math.hypot(sx - ex, sy - ey);
             double factor = arrowLength / hypot;
@@ -146,7 +175,41 @@ public class BoundLine extends Line {
             arrow1.setStartY(ey + dy + ox);
             arrow2.setStartX(ex + dx + oy);
             arrow2.setStartY(ey + dy - ox);
+
+
+            if (this.LineType.equals(BoundLineGeneralization())) {
+                arrow3.setStartX(arrow1.getStartX());
+                arrow3.setStartY(arrow1.getStartY());
+                arrow3.setEndX(arrow2.getStartX());
+                arrow3.setEndY(arrow2.getStartY());
+            } else if (this.LineType.equals(BoundLineAggregation()) || this.LineType.equals(BoundLineComposition())) {
+
+                arrow3.setEndX(arrow1.getStartX());
+                arrow3.setEndY(arrow1.getStartY());
+                arrow4.setEndX(arrow2.getStartX());
+                arrow4.setEndY(arrow2.getStartY());
+
+                arrow3.setStartX(ex + dx * 2);
+                arrow3.setStartY(ey + dy * 2);
+                arrow4.setStartX(ex + dx * 2);
+                arrow4.setStartY(ey + dy * 2);
+            }
+
+            if (this.LineType.equals(BoundLineComposition())) {
+                arrow1.setStrokeWidth(5);
+                arrow2.setStrokeWidth(5);
+                arrow3.setStrokeWidth(5);
+                arrow4.setStrokeWidth(5);
+            } else {
+                arrow1.setStrokeWidth(2);
+                arrow2.setStrokeWidth(2);
+                arrow3.setStrokeWidth(2);
+                arrow4.setStrokeWidth(2);
+            }
+
+
         }
+
     }
 
     public double getXdiff(double x1, double x2) {
@@ -154,8 +217,8 @@ public class BoundLine extends Line {
             return 0;
         }
         if (x2 > x1)
-            return 120;
-        return -120;
+            return 125;
+        return -125;
     }
 
     public double getYdiff(double y1, double y2) {
@@ -164,14 +227,14 @@ public class BoundLine extends Line {
         }
         if (y2 > y1)
             return 60;
-        return -80;
+        return -90;
     }
 
     public void create_line() {
-        setStartX(this.fromX.getValue() + 125);
-        setStartY(this.fromY.getValue() + 150);
-        setEndX(this.toX.getValue() + 125 + getXdiff(this.toX.getValue() + 125, this.getStartX()));
-        setEndY(this.toY.getValue() + 150 + getYdiff(this.toY.getValue() + 150, this.getStartY()));
+        setStartX(this.fromX.getValue() + 125 + getXdiff(this.fromX.getValue() + 125, this.toX.getValue() + 125));
+        setStartY(this.fromY.getValue() + 150 + getYdiff(this.fromY.getValue() + 150, this.toY.getValue() + 150));
+        setEndX(this.toX.getValue() + 125 + getXdiff(this.toX.getValue() + 125, this.fromX.getValue() + 125));
+        setEndY(this.toY.getValue() + 150 + getYdiff(this.toY.getValue() + 150, this.fromY.getValue() + 150));
         update();
     }
 
@@ -191,12 +254,16 @@ public class BoundLine extends Line {
     }
 
     public void update_position_from(double fromX, double fromY) {
-        setStartX(fromX + 125);
-        setStartY(fromY + 150);
+        setEndX(this.toX.getValue() + 125 + getXdiff(this.toX.getValue() + 125, this.fromX.getValue() + 125));
+        setEndY(this.toY.getValue() + 150 + getYdiff(this.toY.getValue() + 150, this.fromY.getValue() + 150));
+        setStartX(fromX + 125 + getXdiff(fromX + 125, this.getEndX()));
+        setStartY(fromY + 150 + getYdiff(fromY + 150, this.getEndY()));
         update();
     }
 
     public void update_position_to(double toX, double toY) {
+        setStartX(this.fromX.getValue() + 125 + getXdiff(this.fromX.getValue() + 125, this.toX.getValue() + 125));
+        setStartY(this.fromY.getValue() + 150 + getYdiff(this.fromY.getValue() + 150, this.toY.getValue() + 150));
         setEndX(toX + 125 + getXdiff(toX + 125, this.getStartX()));
         setEndY(toY + 150 + getYdiff(toY + 150, this.getStartY()));
         update();
@@ -240,6 +307,8 @@ public class BoundLine extends Line {
     public void setLineType(String lineType) {
         System.out.println("TYPE SET TO " + lineType);
         this.LineType = lineType;
+        setLineVisibility();
+        update();
     }
 
     public void setLeftCardinality(String left_card) {
@@ -286,5 +355,21 @@ public class BoundLine extends Line {
             return " --> " + type + " <-- ";
         }
         return "";
+    }
+
+    public void setFromX(double fromX) {
+        this.fromX.setValue(fromX);
+    }
+
+    public void setFromY(double fromY) {
+        this.fromY.setValue(fromY);
+    }
+
+    public void setToX(double toX) {
+        this.toX.setValue(toX);
+    }
+
+    public void setToY(double toY) {
+        this.toY.setValue(toY);
     }
 }

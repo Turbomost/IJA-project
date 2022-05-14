@@ -393,7 +393,7 @@ public class HelloController {
             //label.setAlignment(Pos.CENTER);
             //label.layoutXProperty().bind(boundLine.endXProperty().subtract(boundLine.endXProperty().subtract(boundLine.startXProperty()).divide(2)).subtract(50));
             //label.layoutYProperty().bind(boundLine.endYProperty().subtract(boundLine.endYProperty().subtract(boundLine.startYProperty()).divide(2)).subtract(20));
-            projectSpace.getChildren().addAll(boundLine, label, boundLine.arrow1, boundLine.arrow2);
+            projectSpace.getChildren().addAll(boundLine, label, boundLine.arrow1, boundLine.arrow2, boundLine.arrow3, boundLine.arrow4);
         }
     }
 
@@ -413,6 +413,8 @@ public class HelloController {
         projectSpace.getChildren().remove(toDelete.getPLabel());
         projectSpace.getChildren().remove(toDelete.arrow1);
         projectSpace.getChildren().remove(toDelete.arrow2);
+        projectSpace.getChildren().remove(toDelete.arrow3);
+        projectSpace.getChildren().remove(toDelete.arrow4);
         projectSpace.getChildren().remove(toDelete);
         this.constraint_from = remember_from;
         this.constraint_to = remember_to;

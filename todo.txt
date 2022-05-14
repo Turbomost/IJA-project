@@ -14,3 +14,4 @@ Undo
 ### Na čo se nebude hrabat (říkáme tomu placené funkce) ###
 
 Víc seq diagramů (provázanost s mazáním)
+V žádném fukin případě se nebudou třídy vytvářet před načítaním ze souboru

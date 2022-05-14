@@ -222,8 +222,12 @@ public class ClassController extends ElementController {
     public void update_constraint() {
         for (BoundLine line : ConstraintList) {
             if (line.from.equals(this)) {
+                line.setFromX(this.getPosition_x());
+                line.setFromY(this.getPosition_y());
                 line.update_position_from(this.getPosition_x(), this.getPosition_y());
             } else {
+                line.setToX(this.getPosition_x());
+                line.setToY(this.getPosition_y());
                 line.update_position_to(this.getPosition_x(), this.getPosition_y());
             }
         }
