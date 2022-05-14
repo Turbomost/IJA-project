@@ -49,7 +49,7 @@ public class HelloController {
     public Pane sequenceSpace;
     public StackPane Stackpane;
     public AnchorPane newrectangle;
-    public SequenceDiagramController sequenceDiagramController;
+    public ArrayList<SequenceDiagramController> sequenceDiagramControllerList = new ArrayList<SequenceDiagramController>();
     public Center startCenter;
     public Center endCenter;
     public Button quitButton;
@@ -166,8 +166,8 @@ public class HelloController {
         sequenceStage.setTitle("Sequence Diagram");
         sequenceStage.setScene(sequenceScene);
         sequenceStage.show();
-        this.sequenceDiagramController = loader.getController();
-        this.sequenceDiagramController.parseHelloControllerAsReference(this);
+        this.sequenceDiagramControllerList.add(loader.getController());
+        this.sequenceDiagramControllerList.get(sequenceDiagramControllerList.size()-1).parseHelloControllerAsReference(this);
 
     }
 
@@ -212,6 +212,7 @@ public class HelloController {
         new_entity.setLayoutX(position * 20);
         new_entity.setLayoutY(position * 20);
         Entity_Controller_list.add(new_entity);
+        new_entity.checkForLifeLinesInSequence();
     }
 
     /**
@@ -283,13 +284,14 @@ public class HelloController {
      * @param event
      */
 
-    public void DeleteDiagram(ActionEvent event) {
+    public void DeleteDiagram(ActionEvent event, EntityController entityControllerReference) {
         ClassController deleting_class = this.classDiagramController.findClass(identifier_name);
         System.out.println("Before deleting: " + this.classDiagramController.getClassList().toString());
-        boolean delete = this.classDiagramController.deleteClass(deleting_class, this.sequenceDiagramController);
+        boolean delete = this.classDiagramController.deleteClass(deleting_class, this.sequenceDiagramControllerList);
         System.out.println("After deleting: " + this.classDiagramController.getClassList().toString());
         if (delete) {
             projectSpace.getChildren().remove(identifier);
+            entityControllerReference.checkForLifeLinesInSequence();
             if (this.constraint_from == deleting_class) {
                 this.constraint_from = null;
             }
@@ -364,9 +366,11 @@ public class HelloController {
         }
         System.out.println("Before: Classes" + this.classDiagramController.getClassList().toString());
         curClass.rename(new_name);
-        if (sequenceDiagramController != null) {
-            EntityController entity = this.sequenceDiagramController.findEntity(old_name);
-            entity.setSequenceNameTextField(new_name);
+        for (SequenceDiagramController sequenceDiagramController : sequenceDiagramControllerList) {
+            if (sequenceDiagramController != null) {
+                EntityController entity = sequenceDiagramController.findEntity(old_name);
+                entity.setSequenceNameTextField(new_name);
+            }
         }
         System.out.println("After: Classes" + this.classDiagramController.getClassList().toString());
         identifier_name = new_name;

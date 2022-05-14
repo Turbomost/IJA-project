@@ -565,25 +565,29 @@ public class EntityController extends VBox {
     }
 
     private void checkForOperationsInSequence(){
-        if (this.reference.sequenceDiagramController != null){
-            System.out.println(">>> NASIEL SOM REFERENCE");
-            for (LifeLine lifeLine : this.reference.sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()){
-                System.out.println(">>> PRECHADZAM CEZ LIFE LINES");
-                for (MessageLine messageLine : lifeLine.getMessageLineList()){
-                    System.out.println(">>> PRECHADZAM CEZ MESSAGE LINES");
-                    System.out.println(messageLine);
-                    messageLine.checkForOperationAvailability();
+        for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
+            if (sequenceDiagramController != null) {
+                System.out.println(">>> NASIEL SOM REFERENCE");
+                for (LifeLine lifeLine : sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()) {
+                    System.out.println(">>> PRECHADZAM CEZ LIFE LINES");
+                    for (MessageLine messageLine : lifeLine.getMessageLineList()) {
+                        System.out.println(">>> PRECHADZAM CEZ MESSAGE LINES");
+                        System.out.println(messageLine);
+                        messageLine.checkForOperationAvailability();
+                    }
                 }
             }
         }
     }
 
     public void checkForLifeLinesInSequence(){
-        if (this.reference.sequenceDiagramController != null){
-            System.out.println("NIE JE NULL");
-            for (LifeLine lifeLine : this.reference.sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()) {
-                System.out.println("LOOP CEZ LIFE LAJNY");
-                lifeLine.checkForClassAvailability();
+        for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
+            if (sequenceDiagramController != null) {
+                System.out.println("NIE JE NULL");
+                for (LifeLine lifeLine : sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()) {
+                    System.out.println("LOOP CEZ LIFE LAJNY");
+                    lifeLine.checkForClassAvailability();
+                }
             }
         }
     }
