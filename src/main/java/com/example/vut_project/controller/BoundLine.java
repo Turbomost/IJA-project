@@ -309,6 +309,14 @@ public class BoundLine extends Line {
         this.right_cardinality = right_card;
     }
 
+    public String getLeftCardinality(){
+        return this.left_cardinality;
+    }
+
+    public String getRightCardinality(){
+        return this.right_cardinality;
+    }
+
     public String getLabel() {
         return this.label_string;
     }
@@ -359,5 +367,13 @@ public class BoundLine extends Line {
 
     public void setToY(double toY) {
         this.toY.setValue(toY);
+    }
+
+    public ClassController getConstraintFrom() {
+        return this.from;
+    }
+
+    public ClassController getConstraintTo(){
+        return this.to;
     }
 }
