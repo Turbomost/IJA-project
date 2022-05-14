@@ -1,9 +1,7 @@
 ### TODO ###
 
 -- Zápis do souboru
--- Generalizace
 
-Zprávy v seq diagramu + typy zpráv v seq (Typy šipek)
 Zápis seq do souboru
 
 Provázanost vč. názvů funkcí, Nekonzistence načítání

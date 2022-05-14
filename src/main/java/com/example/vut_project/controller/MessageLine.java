@@ -16,6 +16,10 @@ import javafx.scene.shape.StrokeLineCap;
 
 public class MessageLine extends Line {
 
+    private static final double arrowLength = 20;
+    private static final double arrowWidth = 7;
+    public Line arrow1;
+    public Line arrow2;
     DoubleProperty fromX;
     DoubleProperty fromY;
     DoubleProperty toX;
@@ -43,6 +47,48 @@ public class MessageLine extends Line {
         setOnMouseClicked(event -> onMouseClicked(event));
         plabel = label;
         label_string = "Empty Message";
+        this.arrow1 = new Line();
+        this.arrow2 = new Line();
+        update();
+    }
+
+    public void update() {
+        System.out.println("updating message positions");
+        double ex = this.getEndX();
+        double ey = this.getEndY();
+        double sx = this.getStartX();
+        double sy = this.getStartY();
+
+        arrow1.setEndX(ex);
+        arrow1.setEndY(ey);
+        arrow2.setEndX(ex);
+        arrow2.setEndY(ey);
+
+        if (ex == sx && ey == sy) {
+            // arrow parts of length 0
+            arrow1.setStartX(ex);
+            arrow1.setStartY(ey);
+            arrow2.setStartX(ex);
+            arrow2.setStartY(ey);
+
+        } else {
+            double hypot = Math.hypot(sx - ex, sy - ey);
+            double factor = arrowLength / hypot;
+            double factorO = arrowWidth / hypot;
+
+            // part in direction of main line
+            double dx = (sx - ex) * factor;
+            double dy = (sy - ey) * factor;
+
+            // part ortogonal to main line
+            double ox = (sx - ex) * factorO;
+            double oy = (sy - ey) * factorO;
+
+            arrow1.setStartX(ex + dx - oy);
+            arrow1.setStartY(ey + dy + ox);
+            arrow2.setStartX(ex + dx + oy);
+            arrow2.setStartY(ey + dy - ox);
+        }
     }
 
     private void onMouseClicked(MouseEvent event) {
@@ -94,6 +140,7 @@ public class MessageLine extends Line {
     public void update_position(Double toY){
         this.setStartY(toY);
         this.setEndY(toY);
+        update();
     }
 
     public void makeDashed(){

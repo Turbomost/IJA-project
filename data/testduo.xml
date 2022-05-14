@@ -77,7 +77,7 @@
         <arg type="attribute">motor</arg>
           <attr_access type="attribute_access">+</attr_access>
           <attr_type type="attribute_type">string</attr_type>
-        <arg type="function">vytvorit_IPP_projekt</arg>
+        <arg type="function">zamknut</arg>
           <attr_access type="attribute_access">+</attr_access>
           <attr_type type="attribute_type">int</attr_type>
         <arg type="function">Moc_me_to_nenadchlo</arg>

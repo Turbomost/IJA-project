@@ -124,7 +124,6 @@ public class EntityController extends VBox {
         this.MessageLineList = new ArrayList<>();
         this.sequenceControllerReference = sequenceReference;
         this.i = i;
-        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     /**
@@ -531,6 +530,11 @@ public class EntityController extends VBox {
     public int getAttributeIndex(String name) {
         for (int i = 0; i < entityAttributeView.getItems().size(); i++) {
             String text = entityAttributeView.getItems().get(i).toString();
+
+            if (!name.contains("(")){
+                return -1;
+            }
+
             if (text.contains(" @Override ")) {
                 if (name.equals(text.substring(12, text.lastIndexOf("(")))) {
                     return i;

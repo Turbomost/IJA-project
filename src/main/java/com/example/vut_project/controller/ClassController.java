@@ -245,10 +245,10 @@ public class ClassController extends ElementController {
     }
 
     public void setGeneralizations() {
-        this.GeneralizationList.removeAll(GeneralizationList);
+        this.GeneralizationList.removeAll(this.GeneralizationList);
         for (BoundLine Line : this.ConstraintList) {
             if (Line.LineType.equals(BoundLine.BoundLineGeneralization()) && Line.from == this) {
-                GeneralizationList.add(Line.to);
+                this.GeneralizationList.add(Line.to);
             }
         }
     }
@@ -266,10 +266,12 @@ public class ClassController extends ElementController {
                 }
             }
             EntityController entity = reference.findEntityByName(this.getName());
-            int index = entity.getAttributeIndex(attr.getName());
-            if (index != -1) {
-                entity.entityAttributeView.getItems().set(index, attr.getWholeAttributeString());
-                System.out.println("NAME changed:: {" + attr.getWholeAttributeString() + "}");
+            if (entity != null) {
+                int index = entity.getAttributeIndex(attr.getName());
+                if (index != -1) {
+                    entity.entityAttributeView.getItems().set(index, attr.getWholeAttributeString());
+                    System.out.println("NAME changed:: {" + attr.getWholeAttributeString() + "}");
+                }
             }
         }
     }

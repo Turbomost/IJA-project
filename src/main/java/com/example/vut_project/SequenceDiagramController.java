@@ -126,6 +126,8 @@ public class SequenceDiagramController {
         System.out.println("There should be life line deleted");
         for(MessageLine messageLine : line.getMessageLineList()){
             sequenceSpace.getChildren().remove(messageLine.plabel);
+            sequenceSpace.getChildren().remove(messageLine.arrow1);
+            sequenceSpace.getChildren().remove(messageLine.arrow2);
             sequenceSpace.getChildren().remove(messageLine);
         }
         sequenceSpace.getChildren().remove(event.getSource());
@@ -204,7 +206,8 @@ public class SequenceDiagramController {
         draggableMaker.makeDraggableOnYAxis(messageLine, messageLine);
         this.messageFromLifeLine.addMessageLineToList(messageLine);
         this.messageToLifeLine.addMessageLineToList(messageLine);
-        sequenceSpace.getChildren().addAll(messageLine, label);
+        sequenceSpace.getChildren().addAll(messageLine, label, messageLine.arrow1, messageLine.arrow2);
+        messageLine.update();
     }
 
     public void deleteMessageFromSpace(MessageLine messageToDelete){

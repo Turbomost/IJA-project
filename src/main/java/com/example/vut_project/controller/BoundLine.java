@@ -203,8 +203,6 @@ public class BoundLine extends Line {
                 arrow3.setStrokeWidth(2);
                 arrow4.setStrokeWidth(2);
             }
-
-
         }
 
     }
@@ -213,8 +211,7 @@ public class BoundLine extends Line {
         if (Math.abs(x2 - x1) < 100) {
             return 0;
         }
-        if (x2 > x1)
-            return 125;
+        if (x2 > x1) return 125;
         return -125;
     }
 
@@ -222,8 +219,7 @@ public class BoundLine extends Line {
         if (Math.abs(y2 - y1) < 60) {
             return 0;
         }
-        if (y2 > y1)
-            return 60;
+        if (y2 > y1) return 60;
         return -90;
     }
 
@@ -304,22 +300,22 @@ public class BoundLine extends Line {
         this.reference.classDiagramController.setOverrides(this.reference);
     }
 
+    public String getLeftCardinality() {
+        return this.left_cardinality;
+    }
+
     public void setLeftCardinality(String left_card) {
         System.out.println("LEFT CARDINALITY SET TO " + left_card);
         this.left_cardinality = left_card;
     }
 
+    public String getRightCardinality() {
+        return this.right_cardinality;
+    }
+
     public void setRightCardinality(String right_card) {
         System.out.println("RIGHT CARDINALITY SET TO " + right_card);
         this.right_cardinality = right_card;
-    }
-
-    public String getLeftCardinality(){
-        return this.left_cardinality;
-    }
-
-    public String getRightCardinality(){
-        return this.right_cardinality;
     }
 
     public String getLabel() {
@@ -378,7 +374,7 @@ public class BoundLine extends Line {
         return this.from;
     }
 
-    public ClassController getConstraintTo(){
+    public ClassController getConstraintTo() {
         return this.to;
     }
 }
