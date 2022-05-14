@@ -87,6 +87,7 @@ public class EntityController extends VBox {
         entityAttributeView.setEditable(false);
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
         this.reference = reference;
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     /**
@@ -101,7 +102,7 @@ public class EntityController extends VBox {
         fxmlLoader.setController(this);
         fxmlLoader.load();
         this.LifeLineList = new ArrayList<>();
-        this.MessageLineList =  new ArrayList<>();
+        this.MessageLineList = new ArrayList<>();
         classNameTextField.setText(class_name.getName());
         old_class_name = classNameTextField.getText();
         for (AttributeController attribute : class_name.getAttributes()) {
@@ -111,6 +112,7 @@ public class EntityController extends VBox {
         entityAttributeView.setEditable(false);
         entityAttributeView.setCellFactory(TextFieldListCell.forListView());
         this.reference = reference;
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public EntityController(SequenceDiagramController sequenceReference, int i) throws IOException {
@@ -122,6 +124,7 @@ public class EntityController extends VBox {
         this.MessageLineList = new ArrayList<>();
         this.sequenceControllerReference = sequenceReference;
         this.i = i;
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     /**
@@ -158,6 +161,7 @@ public class EntityController extends VBox {
         }
         this.ClickedAttributeIndex = index;
         index++;
+        this.reference.classDiagramController.setOverrides(this.reference);
         return attr;
     }
 
@@ -175,6 +179,7 @@ public class EntityController extends VBox {
             }
         }
 
+        this.reference.classDiagramController.setOverrides(this.reference);
         return attr;
     }
 
@@ -260,6 +265,7 @@ public class EntityController extends VBox {
         functionPopUpStage.show();
 
         attr.rename(old_function_name);
+        this.reference.classDiagramController.setOverrides(this.reference);
         return new_attr;
     }
 
@@ -270,20 +276,25 @@ public class EntityController extends VBox {
             String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
             System.out.println(clicked); // gets text from deleted cell
             entityAttributeView.getItems().remove(clickedFXID); // remove cell from list view
-            if (clicked.contains(" <<PK>> ")) {
+            if (clicked.contains(" @Override ")) {
+                parsedAttributeName = old_attribute_name.substring(12, old_attribute_name.lastIndexOf(" :"));
+            } else if (clicked.contains(" <<PK>> ")) {
                 parsedAttributeName = clicked.substring(10, clicked.lastIndexOf(" :"));
             } else {
                 parsedAttributeName = clicked.substring(2, clicked.lastIndexOf(" :"));
             }
             reference.DeleteAttribute(this.classNameTextField.getText(), parsedAttributeName);
         }
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public void onPrimaryDiagramClick(ActionEvent event) {
         String parsedAttributeName;
         int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();
         String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
-        if (clicked.contains(" <<PK>> ")) {
+        if (clicked.contains(" @Override ")) {
+            parsedAttributeName = old_attribute_name.substring(12, old_attribute_name.lastIndexOf(" :"));
+        } else if (clicked.contains(" <<PK>> ")) {
             parsedAttributeName = clicked.substring(10, clicked.lastIndexOf(" :"));
         } else {
             parsedAttributeName = clicked.substring(2, clicked.lastIndexOf(" :"));
@@ -291,6 +302,7 @@ public class EntityController extends VBox {
         ClassController refClass = reference.classDiagramController.findClass(classNameTextField.getText());
         AttributeController attr = refClass.findAttributeByName(parsedAttributeName);
         setPrimaryAttribute(attr, clickedFXID, refClass);
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     @FXML
@@ -304,7 +316,9 @@ public class EntityController extends VBox {
         old_attribute_name = (String) entityAttributeView.getItems().get(this.ClickedAttributeIndex);
 
         String parsedAttributeName;
-        if (old_attribute_name.contains(" <<PK>> ")) {
+        if (old_attribute_name.contains(" @Override ")) {
+            parsedAttributeName = old_attribute_name.substring(12, old_attribute_name.lastIndexOf(" :"));
+        } else if (old_attribute_name.contains(" <<PK>> ")) {
             parsedAttributeName = old_attribute_name.substring(10, old_attribute_name.lastIndexOf(" :"));
         } else {
             parsedAttributeName = old_attribute_name.substring(2, old_attribute_name.lastIndexOf(" :"));
@@ -322,17 +336,20 @@ public class EntityController extends VBox {
             System.out.println("INSIDE");
             this.renameFunctionInEntityController(parsedAttributeName.substring(0, parsedAttributeName.lastIndexOf("(")), this.ClickedAttributeIndex);
         }
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public void renameFunctionInEntityController(String old_function_name, int index) throws IOException {
         AttributeController new_attr = onEditFunctionDiagramClick(null, index, old_function_name);
         System.out.println("TO COMPARE " + old_function_name + " AND " + new_attr.getName());
         renamingProcess(old_function_name, index, new_attr);
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     public void renameAttributeInEntityController(String old_attribute_name, int index, AttributeController found_attribute) {
         AttributeController new_attr = onEditAttributeClick(null, found_attribute);
         renamingProcess(old_attribute_name, index, new_attr);
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     private void renamingProcess(String old_attribute_name, int index, AttributeController new_attr) {
@@ -375,6 +392,7 @@ public class EntityController extends VBox {
             //referece.AddAttribute(classNameTextField.getText(), new_attribute_name);
             onAddAttributeClick(null);
         }
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     @FXML
@@ -386,6 +404,7 @@ public class EntityController extends VBox {
             this.classNameTextField.setText(this.old_class_name);
             AlertBox.display("Note", "Class Diagram With Same Name Already Exists", "Understood");
         }
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     @FXML
@@ -415,6 +434,7 @@ public class EntityController extends VBox {
         this.identifier = classVBox;
         reference.set_identifier(classNameTextField.getText(), this.identifier);
         reference.DeleteDiagram(event);
+        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     @FXML
@@ -507,5 +527,21 @@ public class EntityController extends VBox {
         new_attr.setPrimary(true);
         entityAttributeView.getItems().set(ref_class.getAttrPosition(new_attr), new_attr.getWholeAttributeString());
     }
-    
+
+    public int getAttributeIndex(String name) {
+        for (int i = 0; i < entityAttributeView.getItems().size(); i++) {
+            String text = entityAttributeView.getItems().get(i).toString();
+            if (text.contains(" @Override ")) {
+                if (name.equals(text.substring(12, text.lastIndexOf("(")))) {
+                    return i;
+                }
+            }
+            else {
+                if (name.equals(text.substring(2, text.lastIndexOf("(")))) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
 }
