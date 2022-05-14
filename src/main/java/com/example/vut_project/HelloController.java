@@ -156,7 +156,7 @@ public class HelloController {
         sequenceStage.setScene(sequenceScene);
         sequenceStage.show();
         this.sequenceDiagramControllerList.add(loader.getController());
-        this.sequenceDiagramControllerList.get(sequenceDiagramControllerList.size()-1).parseHelloControllerAsReference(this);
+        this.sequenceDiagramControllerList.get(sequenceDiagramControllerList.size() - 1).parseHelloControllerAsReference(this);
 
     }
 
@@ -269,15 +269,20 @@ public class HelloController {
     public void DeleteDiagram(ActionEvent event, EntityController entityControllerReference) {
         ClassController deleting_class = this.classDiagramController.findClass(identifier_name);
         System.out.println("Before deleting: " + this.classDiagramController.getClassList().toString());
-        boolean delete = this.classDiagramController.deleteClass(deleting_class, this.sequenceDiagramControllerList);
+        int delete = this.classDiagramController.deleteClass(deleting_class, this.sequenceDiagramControllerList);
         System.out.println("After deleting: " + this.classDiagramController.getClassList().toString());
-        if (delete) {
+
+        if (delete > -1) {
             projectSpace.getChildren().remove(identifier);
-            entityControllerReference.checkForLifeLinesInSequence();
             if (this.constraint_from == deleting_class) {
                 this.constraint_from = null;
             }
         }
+
+        if (delete == 0) {
+            entityControllerReference.checkForLifeLinesInSequence();
+        }
+
         this.classDiagramController.setOverrides(this);
     }
 
@@ -425,9 +430,9 @@ public class HelloController {
         parseXML.saveClassDiagramInFile(this);
     }
 
-    public EntityController findEntityByName(String name){
-        for (EntityController entity : this.Entity_Controller_list){
-            if (entity.getNameTextField().equals(name)){
+    public EntityController findEntityByName(String name) {
+        for (EntityController entity : this.Entity_Controller_list) {
+            if (entity.getNameTextField().equals(name)) {
                 return entity;
             }
         }

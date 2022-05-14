@@ -7,9 +7,11 @@
 package com.example.vut_project.controller;
 
 import com.example.vut_project.EntityController;
+import com.example.vut_project.SequenceDiagramController;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 
 import java.util.ArrayList;
 
@@ -71,8 +73,9 @@ public class LifeLine extends Line {
         this.anchorPane.setLayoutY(layoutY);
     }
 
-    public void checkForClassAvailability() {
-        if (stick_to_entity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(stick_to_entity.getSequenceNameTextField()) == null){
+    public void checkForClassAvailability(SequenceDiagramController sequenceDiagramController) {
+        //System.out.println(sequenceDiagramController.getHelloControllerReference().classDiagramController.findClass(stick_to_entity.getSequenceNameTextField()).getName());
+        if (sequenceDiagramController.getHelloControllerReference().classDiagramController.findClass(stick_to_entity.getSequenceNameTextField()) == null){
             life_line.setStroke(Color.RED);
         }else{
             life_line.setStroke(Color.BLACK);

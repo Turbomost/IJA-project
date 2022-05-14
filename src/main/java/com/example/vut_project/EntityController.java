@@ -266,8 +266,8 @@ public class EntityController extends VBox {
 
         attr.rename(old_function_name);
         this.reference.classDiagramController.setOverrides(this.reference);
-        if (this.sequenceControllerReference != null){
-            for (MessageLine messageLine : MessageLineList){
+        if (this.sequenceControllerReference != null) {
+            for (MessageLine messageLine : MessageLineList) {
                 messageLine.checkForOperationAvailability();
             }
         }
@@ -476,13 +476,13 @@ public class EntityController extends VBox {
         return this.sequenceDiagramNameTextField.getText();
     }
 
-    public void setClassNameTextField(String name){
-        this.classNameTextField.setText(name);
-    }
-
     public void setSequenceNameTextField(String name) {
         System.out.println(name);
         this.sequenceDiagramNameTextField.setText(name);
+    }
+
+    public void setClassNameTextField(String name) {
+        this.classNameTextField.setText(name);
     }
 
     public void addLifeLine(LifeLine life_line) {
@@ -513,6 +513,7 @@ public class EntityController extends VBox {
     public void onAddLifeLineContextMenuClick(ActionEvent event) {
         System.out.println("On add life line click");
         sequenceControllerReference.createLifeLineBindToEntity(event, sequenceControllerReference.findEntity(sequenceDiagramNameTextField.getText()));
+        this.checkForLifeLinesInSequence();
     }
 
     public String getNameTextField() {
@@ -564,7 +565,7 @@ public class EntityController extends VBox {
         return this.sequenceControllerReference;
     }
 
-    private void checkForOperationsInSequence(){
+    private void checkForOperationsInSequence() {
         for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
             if (sequenceDiagramController != null) {
                 System.out.println(">>> NASIEL SOM REFERENCE");
@@ -580,13 +581,13 @@ public class EntityController extends VBox {
         }
     }
 
-    public void checkForLifeLinesInSequence(){
+    public void checkForLifeLinesInSequence() {
         for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
             if (sequenceDiagramController != null) {
                 System.out.println("NIE JE NULL");
                 for (LifeLine lifeLine : sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()) {
                     System.out.println("LOOP CEZ LIFE LAJNY");
-                    lifeLine.checkForClassAvailability();
+                    lifeLine.checkForClassAvailability(sequenceDiagramController);
                 }
             }
         }

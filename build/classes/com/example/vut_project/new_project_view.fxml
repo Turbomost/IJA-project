@@ -12,15 +12,8 @@
                 <Menu mnemonicParsing="false" text="File">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#onFileOpenButtonClick" text="Open Project"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onNewProjectButtonClick" text="New Project in new window"/>
                         <MenuItem mnemonicParsing="false" onAction="#onSequenceDiagramClick" text="Sequence Diagram"/>
                         <MenuItem mnemonicParsing="false" onAction="#onSaveClick" text="Save"/>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onAddDiagramButtonClick" text="Add Diagram"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

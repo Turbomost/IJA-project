@@ -53,26 +53,30 @@ public class ClassDiagramController extends ElementController {
      * @param name of class to be removed
      * @return true if successful, otherwise false
      */
-    public boolean deleteClass(ClassController name, ArrayList<SequenceDiagramController> sequenceDiagramControllerList) {
+    public int deleteClass(ClassController name, ArrayList<SequenceDiagramController> sequenceDiagramControllerList) {
+        int choice = -1;
         if (this.classList.contains(name)) {
             for (SequenceDiagramController sequenceDiagramController : sequenceDiagramControllerList) {
                 if (sequenceDiagramController != null) {
                     EntityController entity = sequenceDiagramController.findEntity(name.getName());
                     if (entity != null) {
-                        int choice = YesNoAlertBox.display("Warning", "Do you wanna delete class '" + name.getName() + "' from sequence diagram?", "Yes", "No");
+                        choice = YesNoAlertBox.display("Warning", "Do you wanna delete class '" + name.getName() + "' from sequence diagram?", "Yes", "No");
                         if (choice == 1) {
                             entity.onDeleteSequenceDiagramContextMenuClick(null);
                         } else if (choice == -1) {
-                            return false;
+                            return -1;
+                        }
+                        else{
+                            choice = 0;
                         }
                     }
                 }
             }
             name.delete_constraints();
             this.classList.remove(name);
-            return true;
+            return choice;
         }
-        return false;
+        return -1;
     }
 
     /**
