@@ -41,14 +41,19 @@ public class SingleFunctionParameterEditor {
         } else {
             System.out.println(reference.attributeReference.operationTypesNames());
             System.out.println(reference.attributeReference.getOperationControllerList().toString());
-            new_attr = reference.attributeReference.findOperationTypeByName(old_param_name.substring(0, old_param_name.lastIndexOf(" :"))).setParams(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
 
+            new_attr = reference.attributeReference.findOperationTypeByName(old_param_name.substring(0, old_param_name.lastIndexOf(" :")));
             if (reference.attributeReference.findOperationTypeByName(this.functionParameterEditTextField.getText()) != null) {
+                new_attr.setName(this.functionParameterEditTextField.getText());
                 if (new_attr.getName().equals(old_param_name.substring(0, old_param_name.lastIndexOf(" :")))) {
+                    new_attr.setDataType(this.functionDataTypeEditTextField.getText());
                     return new_attr;
+                } else {
+                    AlertBox.display("Warning", "Argument name is taken", "Understood");
+                    new_attr.setName(old_param_name.substring(0, old_param_name.lastIndexOf(" :")));
                 }
-                AlertBox.display("Warning", "Argument name is taken", "Understood");
-                return null;
+            } else {
+                new_attr.setParams(this.functionParameterEditTextField.getText(), this.functionDataTypeEditTextField.getText());
             }
         }
         return new_attr;

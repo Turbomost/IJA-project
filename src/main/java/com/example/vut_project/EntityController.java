@@ -24,7 +24,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -237,8 +236,10 @@ public class EntityController extends VBox {
 
         AttributeController attr = reference.getAttributeControllerByName(classNameTextField.getText(), old_function_name);
         AttributeController new_attr = AddFunctionPopUp.EditFunctionPopUpDisplay("Edit Function", "Choose Function Properties", "Edit Function", attr);
-
-        System.out.println(">>UPRAVENE " + new_attr.toString());
+        if (new_attr == null) {
+            return null;
+        }
+        //System.out.println(">>UPRAVENE " + new_attr.toString());
         if (event != null) {
             //if (reference.AddAttribute(this.classNameTextField.getText(), new_attr)) {
             this.entityAttributeView.getItems().set(index, new_attr.getWholeAttributeString());
@@ -299,18 +300,20 @@ public class EntityController extends VBox {
     public void onPrimaryDiagramClick(ActionEvent event) {
         String parsedAttributeName;
         int clickedFXID = entityAttributeView.getSelectionModel().getSelectedIndex();
-        String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
-        if (clicked.contains(" @Override ")) {
-            parsedAttributeName = old_attribute_name.substring(12, old_attribute_name.lastIndexOf(" :"));
-        } else if (clicked.contains(" <<PK>> ")) {
-            parsedAttributeName = clicked.substring(10, clicked.lastIndexOf(" :"));
-        } else {
-            parsedAttributeName = clicked.substring(2, clicked.lastIndexOf(" :"));
+        if (clickedFXID != -1) {
+            String clicked = (String) entityAttributeView.getItems().get(clickedFXID);
+            if (clicked.contains(" @Override ")) {
+                parsedAttributeName = old_attribute_name.substring(12, old_attribute_name.lastIndexOf(" :"));
+            } else if (clicked.contains(" <<PK>> ")) {
+                parsedAttributeName = clicked.substring(10, clicked.lastIndexOf(" :"));
+            } else {
+                parsedAttributeName = clicked.substring(2, clicked.lastIndexOf(" :"));
+            }
+            ClassController refClass = reference.classDiagramController.findClass(classNameTextField.getText());
+            AttributeController attr = refClass.findAttributeByName(parsedAttributeName);
+            setPrimaryAttribute(attr, clickedFXID, refClass);
+            this.reference.classDiagramController.setOverrides(this.reference);
         }
-        ClassController refClass = reference.classDiagramController.findClass(classNameTextField.getText());
-        AttributeController attr = refClass.findAttributeByName(parsedAttributeName);
-        setPrimaryAttribute(attr, clickedFXID, refClass);
-        this.reference.classDiagramController.setOverrides(this.reference);
     }
 
     @FXML
@@ -350,7 +353,7 @@ public class EntityController extends VBox {
 
     public void renameFunctionInEntityController(String old_function_name, int index) throws IOException {
         AttributeController new_attr = onEditFunctionDiagramClick(null, index, old_function_name);
-        System.out.println("TO COMPARE " + old_function_name + " AND " + new_attr.getName());
+        //System.out.println("TO COMPARE " + old_function_name + " AND " + new_attr.getName());
         renamingProcess(old_function_name, index, new_attr);
         this.reference.classDiagramController.setOverrides(this.reference);
     }
@@ -516,7 +519,7 @@ public class EntityController extends VBox {
         System.out.println("On add life line click");
         sequenceControllerReference.createLifeLineBindToEntity(event, sequenceControllerReference.findEntity(sequenceDiagramNameTextField.getText()));
         System.out.println("REFERENCE " + this.reference);
-        try{
+        try {
             this.checkForLifeLinesInSequence();
         } catch (Exception e) {
             this.checkForLifeLineColourAfterAdd();

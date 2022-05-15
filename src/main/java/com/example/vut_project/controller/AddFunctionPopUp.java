@@ -129,7 +129,7 @@ public class AddFunctionPopUp {
         HBox hboxFunctionReturnDataType = new HBox();
         hboxFunctionReturnDataType.setAlignment(Pos.CENTER);
         hboxFunctionReturnDataType.getChildren().add(returnDataTypeTextField);
-        layout.getChildren().addAll(hboxLabel, hboxDescription, hbox, hboxTextField, hboxFunctionReturnDataType,hboxButton);
+        layout.getChildren().addAll(hboxLabel, hboxDescription, hbox, hboxTextField, hboxFunctionReturnDataType, hboxButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene addAttributeScene = new Scene(layout);
@@ -146,9 +146,12 @@ public class AddFunctionPopUp {
 
         attributePopUpWindow.setScene(addAttributeScene);
         attributePopUpWindow.showAndWait();
-        if ((attributeName[0] == null || chosenAccessRule[0] == null || returnDataTypeTextField.getText().isEmpty())) {
+        if ((attributeName[0] == null || chosenAccessRule[0] == null)) {
             AlertBox.display("Note", "All fields have to be selected", "Understood");
             return null;
+        }
+        if (returnDataTypeTextField.getText().isBlank()){
+            returnDataTypeTextField.setText("void");
         }
         if (chosenAccessRule[0].equals("private")) chosenAccessRule[0] = "- ";
         if (chosenAccessRule[0].equals("public")) chosenAccessRule[0] = "+ ";
@@ -277,7 +280,7 @@ public class AddFunctionPopUp {
         HBox hboxFunctionReturnDataType = new HBox();
         hboxFunctionReturnDataType.setAlignment(Pos.CENTER);
         hboxFunctionReturnDataType.getChildren().add(returnDataTypeTextField);
-        layout.getChildren().addAll(hboxLabel, hboxDescription, hbox, hboxTextField, hboxFunctionReturnDataType,hboxButton);
+        layout.getChildren().addAll(hboxLabel, hboxDescription, hbox, hboxTextField, hboxFunctionReturnDataType, hboxButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene addAttributeScene = new Scene(layout);
@@ -296,7 +299,12 @@ public class AddFunctionPopUp {
         attributePopUpWindow.showAndWait();
         if (attributeName[0] == null) return null;
         if (chosenAccessRule[0] == null) return null;
-        if (returnDataTypeTextField.getText().isEmpty()) AlertBox.display("Note", "Function has to be void at least", "Daemn bro okay");
+        if (attributeName[0].isBlank()){
+            return null;
+        }
+        if (returnDataTypeTextField.getText().isBlank()) {
+            returnDataTypeTextField.setText("void");
+        }
         if (chosenAccessRule[0].equals("private")) chosenAccessRule[0] = "- ";
         if (chosenAccessRule[0].equals("public")) chosenAccessRule[0] = "+ ";
         if (chosenAccessRule[0].equals("protected")) chosenAccessRule[0] = "# ";
