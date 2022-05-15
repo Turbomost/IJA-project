@@ -1,5 +1,6 @@
 ### TODO ###
 
+Editace parametrů funkce kompletně nefunguje
 Načítání a zápis seq
 
 Nekonzistence (červené lifeliny i metody, když class neexistuje) + nekonzistence při načítání
@@ -7,6 +8,47 @@ Undo
 
 ### Na čo se nebude hrabat (placené funkce) ###
 
-Víc seq diagramů (provázanost)
 Nesmí se vytvářet třídy před načítaním ze souboru
 Když se přejemenovává Classa, tak se musí stisknout enter 
+
+### DEEP TESTOVÁNÍ CLASS DIAGRAM ###
+> Přidání třídy, posouvání třídy (TODO 1).
+> Přejmenování třídy (potvrzení enterem), při přejmenování se nenaruší žádná funkcionalita, ošetření přejmenování na existující jméno, prázdné jméno třídy je validní a funguje.
+> Přidání atributů, žádné pole nesmí být prázdné, nelze přidat atribut s existujícím jménem, zavření boxu.
+> Editace atributu, při nevalidním vstupu, existujícím jméně, nebo zavření boxu se změny neprojeví. Nelze editovat atribut, pokud není žádný vybrán, pokud je vybrán, není nutné kliknout přímo na ten atribut, lze editovat jen jméno, jen typ, jen acces type, nebo nic.
+> Přidání funkce, žádné pole nesmí být prázdné, nelze přidat funkci s existujícím jménem, zavření boxu, funkce bez parametrů
+> Přidávání parametrů (TODO 2), nelze přidat parametr s existujícím jménem (při existujícím, se dá název opravit, nebo zavřít křížkem),
+> Editace funkce (TODO 3)(TODO 4)(TODO 5), lze editovat pouze typ, jméno, nebo nic
+> Editace parametrů (TODO 0)(TODO 2)(TODO 6), editace bez vybrání neudělá nic
+> Mazání attributu, třída bez atributu nic nemaže, nevabraný atribut se nesmaže, po smazání je jméno potom znovu dostupné, lze smazat i atribut s primárním klíčem
+> Mazání funkce, lze smazat funkci včetně parametrů, lze smazat funkci s Override
+> Toggle primary (TODO 7), lze nastavit a zase zrušit primární klíč, lze přesunout primary na jiný atribut, nelze dát pk na funkci, původní se nezruší, pokud se pokusí nastavit funkci
+> Přidávání constraintů (TODO 8)(TODO 9), Add constraint uloží třídu, add constraint znovu změní vybranou třídu, smazání vybrané třídy zruší vybranou třídu
+> Editace constraintu, prázdný string je validní název, ničemu nevadí, Kardniality fungují, změny se projevují, pozice šipek je jasná, křížek discardne změny, text se centruje na šipce, constraint lze smazat, při smazání jedné ze tříd se všechny constrainty z nebo do té třídy smažou, 
+> Override, Projevuje se při změně typu constraintu na generalizaci, změně zpět na jiný typ, smazání cconstraintu, přejenování jedné i druhé metody, smazání nadřazené funkce, smazání nadřazeného classu
+> Načítání ze souboru, skvěle funguje, správné vykreslení, prvky jsou klikatelné, hýbatelné, editovatelné, mazatelné, stejně jako výše, načtou se PK, načte se Override
+> Ukládání do souboru a opětovné načtení (TODO 10)
+
+### TODO - CLASS DIAGRAM ###
+
++++++++	TODO 0	> (NULL PTR)	Editace parametrů funkce nefunguje
+
++	TODO 1	> (design)	Třída se dá přesunout mimo obrazovku
+
++++	TODO 2	> (NULL PTR)	Přidání, či editování parametru funkce s prázdným jménem, či datovým typem - close by měl buď zavřít, nebo by měla být umožněna dodatečná editace, která nehodí exception
+
+++	TODO 3	> (design)	Přejmenování funkce může být prázdné jméno, přejmenování typu taky (Možná nevadí - hláška must be void at least, možná změnit na 'should' be void at least, nebo dát implicitně void a nepoužívat hlášku, prázdné jméno funkce je validní a funkční jméno - změnit i u přidávání, nebo zakázat u editace kvůli konzistenci)
+
+++	TODO 4	> (design)	Přejmenovávání funkce i přes křížek vezme hodnotu v datovém typu (reálně asi žádný problém)
+
+++++	TODO 5	> (NULL PTR)	Přejmenování funkce na existující sice vyhodí hlášku, ale nahoře je poté napsaný nový název (při editaci parametrů poté NULL POINTER
+
+++++	TODO 6	> (NULL PTR)	Přejemování parametru na již existuící parametr - vyhodí hlášku a parametr se zdá být nezměněn, ale při opětovné editace je změněný (nemá se přejmenovávat, ale přesto se přejmenuje fyzicky) - nepřejmenovávat ani fyzicky, ať to pak při dodatečné editaci neháže NULL POINTER
+
++++	TODO 7	> (NULL PTR)	Toggle primary při nevybraném atributu - ošetřit podmínkou jinak NULL POINTER
+
++	TODO 8	> (design)	Vytváření více constraintů na dvou classách, kde už ten constraint je, bych nepovoloval
+
+++	TODO 9	> (design)	Zakázat constraint to and from na stejnou classu
+
+++++++	TODO 10	> (FUNKCE)	Neukládají se <<PK>> do souboru
