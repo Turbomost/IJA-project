@@ -29,11 +29,13 @@ public class DraggableMarker {
         });
 
         node.setOnMouseDragged(mouseEvent -> {
-            node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 60);
-            draggable_class.setPosition_x(node.getLayoutX());
-            draggable_class.setPosition_y(node.getLayoutY() - 60);
-            draggable_class.update_constraint();
+            if ((mouseEvent.getSceneX() - mouseAnchorX > 0 && mouseEvent.getSceneY() - mouseAnchorY - 60 > 0)){
+                node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
+                node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY - 60);
+                draggable_class.setPosition_x(node.getLayoutX());
+                draggable_class.setPosition_y(node.getLayoutY() - 60);
+                draggable_class.update_constraint();
+            }
         });
     }
 
@@ -55,11 +57,14 @@ public class DraggableMarker {
         });
 
         node.setOnMouseDragged(mouseEvent -> {
-            node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
-            for (int i = 0; i < entity.getLifeLineList().size(); i++) {
-                entity.getLifeLineList().get(i).getAnchorPane().setLayoutX(entity.getLayoutX() + entity.sequenceVBox.getPrefWidth() / 2);
+            if(mouseEvent.getSceneX() - mouseAnchorX > 0) {
+                node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
+                for (int i = 0; i < entity.getLifeLineList().size(); i++) {
+                    entity.getLifeLineList().get(i).getAnchorPane().setLayoutX(entity.getLayoutX() + entity.sequenceVBox.getPrefWidth() / 2);
+                }
             }
         });
+
     }
 
     public void makeDraggableOnYAxis(Node node, MessageLine messageLine) {

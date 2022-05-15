@@ -30,8 +30,8 @@ Když se přejemenovává Classa, tak se musí stisknout enter
 
 ### TODO - CLASS DIAGRAM ###
 
-+	TODO 1	> (design)	Třída se dá přesunout mimo obrazovku
++	TODO 1	> (design)	Třída se dá přesunout mimo obrazovku => FIXED v smere do záporných hodnôt 
 
-+++	TODO 4	> (design)	Přejmenovávání funkce i přes křížek vezme hodnotu v datovém typu (reálně asi žádný problém)
++++	TODO 4	> (design)	Přejmenovávání funkce i přes křížek vezme hodnotu v datovém typu (reálně asi žádný problém) => FIXED
 
-++++++	TODO 5	> (design)	Přejmenování funkce na existující sice vyhodí hlášku, ale nahoře je poté napsaný nový název (fyzicky asi v pořádku)
+++++++	TODO 5	> (design)	Přejmenování funkce na existující sice vyhodí hlášku, ale nahoře je poté napsaný nový název (fyzicky asi v pořádku) => FIXED

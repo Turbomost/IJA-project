@@ -117,6 +117,7 @@ public class AddFunctionController {
 
     public void displayExistingMethodParameters() {
         this.functionListView.getItems().clear();
+        this.methodNameTextField.setText(attributeReference.getName());
         for (AttributeOperationController operation : this.attributeReference.getOperationControllerList()) {
             this.functionListView.getItems().add(operation.returnString());
         }

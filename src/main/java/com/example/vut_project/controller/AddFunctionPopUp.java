@@ -169,7 +169,7 @@ public class AddFunctionPopUp {
         String[] accessRule = {"private", "public", "protected", "package"};
         // create a choiceBox
         final String[] attributeName = {null};
-
+        final String[] functionReturnType = {null};
         final String[] chosenAccessRule = {null};
         ChoiceBox choiceBox1 = new ChoiceBox(FXCollections.observableArrayList(accessRule));
         choiceBox1.setAccessibleText("Access type");
@@ -208,7 +208,8 @@ public class AddFunctionPopUp {
         returnDataTypeTextField.prefWidthProperty();
         returnDataTypeTextField.prefHeightProperty();
         returnDataTypeTextField.setPromptText("Function Return Data Type");
-        returnDataTypeTextField.setText(old_function.getDatatype());
+        functionReturnType[0] = old_function.getDatatype();
+        returnDataTypeTextField.setText(functionReturnType[0]);
 
         final String[] type = {null}; // function or attribute
         String[] chosenType = {"attribute", "function"};
@@ -244,6 +245,7 @@ public class AddFunctionPopUp {
         Button closeButton = new Button(button_message);
         closeButton.setOnAction(e -> {
             attributeName[0] = textField.getText();
+            functionReturnType[0] = returnDataTypeTextField.getText();
             attributePopUpWindow.close();
         });
 
@@ -290,6 +292,7 @@ public class AddFunctionPopUp {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
                     attributeName[0] = textField.getText();
+                    functionReturnType[0] = returnDataTypeTextField.getText();
                     attributePopUpWindow.close();
                 }
             }
@@ -311,7 +314,7 @@ public class AddFunctionPopUp {
         if (chosenAccessRule[0].equals("package")) chosenAccessRule[0] = "~ ";
         String[] result = {null, null, null, null};
         //old_function.setParams(attributeName[0], chosenAccessRule[0], chosenDataType[0], "function");
-        AttributeController new_attr = new AttributeController(attributeName[0], "function", returnDataTypeTextField.getText(), chosenAccessRule[0], old_function.row); //TODO SUS - správne poradie?
+        AttributeController new_attr = new AttributeController(attributeName[0], "function", functionReturnType[0], chosenAccessRule[0], old_function.row); //TODO SUS - správne poradie?
         return new_attr;
     }
 }
