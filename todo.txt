@@ -32,6 +32,6 @@ Když se přejemenovává Classa, tak se musí stisknout enter
 
 +	TODO 1	> (design)	Třída se dá přesunout mimo obrazovku
 
-++	TODO 4	> (design)	Přejmenovávání funkce i přes křížek vezme hodnotu v datovém typu (reálně asi žádný problém)
++++	TODO 4	> (design)	Přejmenovávání funkce i přes křížek vezme hodnotu v datovém typu (reálně asi žádný problém)
 
-++++	TODO 5	> (NULL PTR)	Přejmenování funkce na existující sice vyhodí hlášku, ale nahoře je poté napsaný nový název (při editaci parametrů poté NULL POINTER
+++++++	TODO 5	> (design)	Přejmenování funkce na existující sice vyhodí hlášku, ale nahoře je poté napsaný nový název (fyzicky asi v pořádku)
