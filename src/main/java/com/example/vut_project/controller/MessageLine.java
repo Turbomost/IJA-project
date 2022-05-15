@@ -54,7 +54,7 @@ public class MessageLine extends Line {
     }
 
     public void checkForOperationAvailability() {
-        ClassController r = fromEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(fromEntity.getSequenceNameTextField());
+        ClassController r = toEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(toEntity.getSequenceNameTextField());
         if (r == null){
             setStroke(Color.RED);
             return;
