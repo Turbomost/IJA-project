@@ -36,6 +36,7 @@ public class SequenceDiagramController {
     private LifeLine messageFromLifeLine;
     private LifeLine messageToLifeLine;
     private int i = 0;
+    private int life_line_number = 0;
     // private ArrayList <EntityController> entityControllerList;
 
     public void parseHelloControllerAsReference(HelloController reference) {
@@ -71,7 +72,7 @@ public class SequenceDiagramController {
     public void createLifeLineBindToEntity(ActionEvent event, EntityController entity) {
         System.out.println("New life line click");
         AnchorPane p = new AnchorPane();
-        LifeLine life_line_class = new LifeLine(entity, p);
+        LifeLine life_line_class = new LifeLine(entity, p, this.life_line_number++);
         p.setLayoutX(life_line_class.getAnchorPane().getLayoutX());
         p.setLayoutY(life_line_class.getAnchorPane().getLayoutY());
         System.out.println("p Layout x: " + p.getLayoutX() + ", p Layout y: " + p.getLayoutY());
@@ -120,6 +121,7 @@ public class SequenceDiagramController {
             sequenceSpace.getChildren().add(seq);
         }
         parse.load_life_lines(this);
+        parse.load_sequence_messages(this);
     }
 
     public void onDeleteLifeLineClick(Event event, LifeLine line) {
@@ -214,6 +216,16 @@ public class SequenceDiagramController {
         messageLine.update();
     }
 
+    public void setMessageFromEntity(EntityController fromEntity, LifeLine fromLifeLine){
+        this.messageFromEntity = fromEntity;
+        this.messageFromLifeLine = fromLifeLine;
+    }
+
+    public void setMessageToEntity(EntityController toEntity, LifeLine toLifeLine){
+        this.messageToEntity = toEntity;
+        this.messageToLifeLine = toLifeLine;
+    }
+
     public void deleteMessageFromSpace(MessageLine messageToDelete){
         this.sequenceSpace.getChildren().remove(messageToDelete.plabel);
         this.sequenceSpace.getChildren().remove(messageToDelete);
@@ -227,4 +239,14 @@ public class SequenceDiagramController {
     public HelloController getHelloControllerReference(){
         return this.helloControllerReference;
     }
+
+    public EntityController getEntityControllerByName(String entityName){
+        for (EntityController entity : EntityList){
+            if (entity.getSequenceNameTextField().equals("entityName")){
+                return entity;
+            }
+        }
+        return null;
+    }
+
 }

@@ -614,4 +614,30 @@ public class EntityController extends VBox {
             }
         }
     }
+
+    public LifeLine getLifeLineByYPosition(String PositionY){
+        System.out.println("FINDING LIFE LINE FOR SEQUENCE");
+        for (LifeLine lifeLine : sequenceControllerReference.findSequenceEntity(this.getSequenceNameTextField()).getLifeLineList()) {
+            System.out.println("LOOP THROUGH LIFE LINES");
+            System.out.println("COMPARING>" + lifeLine.getLifeLine().getStartY() + "<WITH>" + Double.parseDouble(PositionY) + "<");
+            if (lifeLine.getLifeLine().getStartY() == Double.parseDouble(PositionY)){
+                System.out.println("FOUND " + lifeLine.toString());
+                return lifeLine;
+            }
+        }
+        return null;
+    }
+
+    public LifeLine getLifeLineByIdentification(String LifeLineIdentificator){
+        System.out.println("FINDING LIFE LINE FOR SEQUENCE");
+        for (LifeLine lifeLine : sequenceControllerReference.findSequenceEntity(this.getSequenceNameTextField()).getLifeLineList()) {
+            System.out.println("LOOP THROUGH LIFE LINES");
+            System.out.println("COMPARING>" + lifeLine.getLifeLineIdentificator() + "<WITH>" + Integer.parseInt(LifeLineIdentificator) + "<");
+            if (lifeLine.getLifeLineIdentificator() == Integer.parseInt(LifeLineIdentificator)){
+                System.out.println("FOUND " + lifeLine.toString());
+                return lifeLine;
+            }
+        }
+        return null;
+    }
 }

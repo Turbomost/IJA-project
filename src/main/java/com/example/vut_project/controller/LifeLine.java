@@ -21,8 +21,9 @@ public class LifeLine extends Line {
     EntityController stick_to_entity;
     public AnchorPane anchorPane;
     private final ArrayList<MessageLine> MesssageLineList;
+    int life_line_identification_value;
 
-    public LifeLine(EntityController stick_to_entity, AnchorPane anchorPane) {
+    public LifeLine(EntityController stick_to_entity, AnchorPane anchorPane, int identification_value) {
         this.stick_to_entity = stick_to_entity;
         this.anchorPane = anchorPane;
         this.life_line = new Line();
@@ -39,6 +40,7 @@ public class LifeLine extends Line {
         this.life_line.setStartY(0);
         this.life_line.setEndY(80);
 
+        this.life_line_identification_value = identification_value;
 
         System.out.println("LIFE LINE INSIDE " + this.life_line);
         System.out.println("Layout x: " + this.anchorPane.getLayoutX() + ", Layout y: " + this.anchorPane.getLayoutY());
@@ -84,4 +86,9 @@ public class LifeLine extends Line {
             life_line.setStroke(Color.BLACK);
         }
     }
+
+    public int getLifeLineIdentificator(){
+        return this.life_line_identification_value;
+    }
+
 }

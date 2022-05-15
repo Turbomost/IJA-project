@@ -42,4 +42,18 @@
     <arg type="length">140</arg>
   </element>
 
+  <element type="message" name="Kikova_sedma">
+    <arg type="to_entity">Vaskovo_fáro</arg>
+    <arg type="identificator_from">0</arg>
+    <arg type="identificator_to">0</arg>
+    <arg type="message">RandomMessage</arg>
+  </element>
+
+  <element type="message" name="Andyho_oktavka">
+    <arg type="to_entity">Vaskovo_fáro</arg>
+    <arg type="identificator_from">0</arg>
+    <arg type="identificator_to">0</arg>
+    <arg type="message">RandomMessage</arg>
+  </element>
+
 </program>

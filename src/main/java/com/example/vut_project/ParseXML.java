@@ -356,6 +356,69 @@ public class ParseXML extends HelloController {
         }
     }
 
+    public void load_sequence_messages(SequenceDiagramController sequenceDiagramController) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        Document doc = db.parse(new File(FILENAME));
+        doc.getDocumentElement().normalize();
+        System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());
+        System.out.println("------");
+        EntityController new_entity = null;
+        NodeList nodeList = doc.getElementsByTagName("element");
+        System.out.println("NODE LIST> " + nodeList.toString());
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node nNode = nodeList.item(i);
+            Element eElement = (Element) nNode;
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                NodeList fieldNodes = eElement.getElementsByTagName("arg");
+                System.out.println("------");
+                System.out.println("NEW MESSAGE ELEMENT");
+                //parsing element information
+                String elementType = eElement.getAttribute("type");
+                if (elementType.equals("message")) {
+                    DragResizer resizableMaker;
+                    resizableMaker = new DragResizer();
+                    String elementName = eElement.getAttribute("name");
+                    System.out.println("MESSAGE STICK TO CLASS: " + elementName);
+                    EntityController message_from_entity = null; // beginning of line
+                    EntityController message_to_entity = null; // end of line
+                    LifeLine life_line_from = null; // beginning of life line
+                    LifeLine life_line_to = null;  // end of life line
+                    for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
+                        Node fieldNode = fieldNodes.item(j);
+                        NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
+                        message_from_entity = sequenceDiagramController.findSequenceEntity(elementName);
+                        Node arg = attributes.getNamedItem("type"); //getting type attributes from each argument
+                        if (arg.getTextContent().equals("to_entity")) { //message calls operation from entity
+                            message_to_entity = sequenceDiagramController.findSequenceEntity(fieldNode.getTextContent());
+                            System.out.println("MESSAGE TO ENTITY: " + fieldNode.getTextContent());
+                        }
+                        if (arg.getTextContent().equals("identificator_from")) { //life line identificator based on its position
+                            life_line_from = message_from_entity.getLifeLineByYPosition(fieldNode.getTextContent());
+                            System.out.println("MESSAGE IDENTIFICATOR FROM: " + fieldNode.getTextContent());
+                        }
+                        if (arg.getTextContent().equals("identificator_to")) { //life line identificator based on its position
+                            life_line_to = message_to_entity.getLifeLineByYPosition(fieldNode.getTextContent());
+                            System.out.println("MESSAGE IDENTIFICATOR TO: " + fieldNode.getTextContent());
+                        }
+                        if (arg.getTextContent().equals("message")) { //operation name
+                            sequenceDiagramController.setMessageFromEntity(message_from_entity, life_line_from);
+                            sequenceDiagramController.setMessageToEntity(message_to_entity, life_line_to);
+                            try {
+                                sequenceDiagramController.createMessageLine(null);
+                            } catch (Exception e) {
+                                System.out.println("!!! UNABLE TO CREATE MESSAGE LINE");
+                                System.out.println(life_line_from);
+                                System.out.println(life_line_to);
+                            }
+                            System.out.println("MESSAGE TEXT" + fieldNode.getTextContent());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void saveClassDiagramInFile(HelloController helloControllerReference) {
         try {
             DocumentBuilderFactory dbFactory =
