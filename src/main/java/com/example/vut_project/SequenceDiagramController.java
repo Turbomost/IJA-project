@@ -198,7 +198,9 @@ public class SequenceDiagramController {
         Label label = new Label();
         MessageLine messageLine = new MessageLine(this, this.messageFromEntity, this.messageToEntity, this.messageFromLifeLine, this.messageToLifeLine, label);
         messageLine.create_line();
+        messageLine.messageType = "request";
         if(messageFromEntity.getLayoutX() > messageToEntity.getLayoutX()){
+            messageLine.messageType = "reply";
             messageLine.makeDashed();
         }
         messageLine.setStrokeWidth(3.0);

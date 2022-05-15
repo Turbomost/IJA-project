@@ -25,6 +25,8 @@ public class MessageLine extends Line {
     DoubleProperty toX;
     DoubleProperty toY;
 
+    public String messageType = ""; // request / reply
+
     SequenceDiagramController sequenceDiagramControllerReference;
     LifeLine fromLifeLine;
     LifeLine toLifeLine;
@@ -48,26 +50,44 @@ public class MessageLine extends Line {
         plabel = label;
         label_string = "Empty Message";
         this.arrow1 = new Line();
+        this.arrow1.setStrokeWidth(2.0);
         this.arrow2 = new Line();
+        this.arrow2.setStrokeWidth(2.0);
         checkForOperationAvailability();
         update();
     }
 
     public void checkForOperationAvailability() {
-        ClassController r = toEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(toEntity.getSequenceNameTextField());
+        ClassController r = null;
+        if (this.messageType.equals("request")){
+            r = toEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(toEntity.getSequenceNameTextField());
+        }
+        if (this.messageType.equals("reply")){
+            r = fromEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(fromEntity.getSequenceNameTextField());
+        }
         if (r == null){
-            setStroke(Color.RED);
+            this.changeMessageLineColor(Color.RED);
             return;
         }
         AttributeController a = r.findAttributeByName(label_string);
         if (a == null){
             System.out.println("operation does not exist!");
-            setStroke(Color.RED);
+            this.changeMessageLineColor(Color.RED);
         }else{
             System.out.println("NASTAVUJEM NA BLACK");
-            if (a.getType().equals("function")) setStroke(Color.BLACK);
-            if (a.getType().equals("attribute")) setStroke(Color.ORANGE);
+            if (a.getType().equals("function")){
+                this.changeMessageLineColor(Color.BLACK);
+            }
+            if (a.getType().equals("attribute")){
+                this.changeMessageLineColor(Color.ORANGE);
+            }
         }
+    }
+
+    public void changeMessageLineColor(Color color){
+        arrow1.setStroke(color);
+        arrow2.setStroke(color);
+        setStroke(color);
     }
 
     public void update() {
@@ -164,8 +184,9 @@ public class MessageLine extends Line {
 
     public void makeDashed(){
         setStrokeWidth(2);
-        setStroke(Color.GRAY.deriveColor(0, 1, 1, 0.5));
+        setStroke(Color.BLACK.deriveColor(0, 1, 1, 0.5));
         setStrokeLineCap(StrokeLineCap.BUTT);
         getStrokeDashArray().setAll(10.0, 5.0);
+        this.checkForOperationAvailability();
     }
 }
