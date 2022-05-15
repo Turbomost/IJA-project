@@ -386,7 +386,7 @@ public class ParseXML extends HelloController {
                     // element
                     Element argElement = doc.createElement("arg");
                     Attr attrType = doc.createAttribute("type");
-                    attrType.setValue(each_attribute.getType());                                             //function or attribute
+                    attrType.setValue(each_attribute.isPrimary() ? "primarykey" : each_attribute.getType()); //function or attribute
                     argElement.setAttributeNode(attrType);
                     argElement.appendChild(doc.createTextNode(each_attribute.getName()));         //inset attribute name
                     superElement.appendChild(argElement);

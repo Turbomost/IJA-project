@@ -1,15 +1,134 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <program>
-    <element name="class 0" type="class">
-        <arg type="position_x">10</arg>
-        <arg type="position_y">10</arg>
+    <element name="Andyho_oktavka" type="class">
+        <arg type="primarykey">znacka</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">int</attr_type>
+        <arg type="function">stat_na_miste</arg>
+        <attr_access type="attribute_access">-</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="function">obdrzet_papucu</arg>
+        <attr_access type="attribute_access">#</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">zaparkovat</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">int</attr_type>
+        <arg type="position_x">700</arg>
+        <arg type="position_y">50</arg>
     </element>
-    <element name="class 1" type="class">
-        <arg type="position_x">408</arg>
-        <arg type="position_y">7</arg>
+    <element name="Vaskovo_faro" type="class">
+        <arg type="primarykey">znacka</arg>
+        <attr_access type="attribute_access">#</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="attribute">farba</arg>
+        <attr_access type="attribute_access">-</attr_access>
+        <attr_type type="attribute_type">int</attr_type>
+        <arg type="function">pridat</arg>
+        <attr_access type="attribute_access">~</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">zamknut</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">bool</attr_type>
+        <arg type="function">ist_rovno</arg>
+        <attr_access type="attribute_access">#</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">upozornit_zandarov</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="position_x">50</arg>
+        <arg type="position_y">50</arg>
     </element>
-    <element consType="" left="" name="new constraint" right="" type="constraint">
-        <arg type="constraint_from">class 0</arg>
-        <arg type="constraint_to">class 1</arg>
+    <element name="Kikova_Sedma" type="class">
+        <arg type="primarykey">znacka</arg>
+        <attr_access type="attribute_access">-</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="attribute">farba</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="attribute">motor</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="function">investovat</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">int</attr_type>
+        <arg type="function">objedat_dame_jidlo</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">driftovat</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">upozornit_danovy_urad</arg>
+        <attr_access type="attribute_access">-</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="position_x">700</arg>
+        <arg type="position_y">500</arg>
+    </element>
+    <element name="Krivkova_Tesla" type="class">
+        <arg type="primarykey">znacka</arg>
+        <attr_access type="attribute_access">-</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="attribute">farba</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="attribute">motor</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">string</attr_type>
+        <arg type="function">zamknut</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">int</attr_type>
+        <arg type="function">Moc_me_to_nenadchlo</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">Uvidime_se_pristi_rok</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="position_x">50</arg>
+        <arg type="position_y">500</arg>
+    </element>
+    <element consType="Association" left="1" name="Constraint 1" right="0 .. N" type="constraint">
+        <arg type="constraint_from">Andyho_oktavka</arg>
+        <arg type="constraint_to">Vaskovo_faro</arg>
+    </element>
+    <element consType="Aggregation" left="1 .. N" name="Constraint 2" right="0 .. 1" type="constraint">
+        <arg type="constraint_from">Andyho_oktavka</arg>
+        <arg type="constraint_to">Kikova_Sedma</arg>
+    </element>
+    <element consType="Composition" left="0 .. N" name="Constraint 3" right="1" type="constraint">
+        <arg type="constraint_from">Kikova_Sedma</arg>
+        <arg type="constraint_to">Krivkova_Tesla</arg>
+    </element>
+    <element consType="Generalization" left="1" name="new constraint" right="1" type="constraint">
+        <arg type="constraint_from">Krivkova_Tesla</arg>
+        <arg type="constraint_to">Vaskovo_faro</arg>
+    </element>
+    <element name="Andyho_oktavka" type="operation">
+        <arg type="function_name">stat_na_miste</arg>
+        <arg type="parameter_name">first_param</arg>
+        <arg type="parameter_type">first_type</arg>
+    </element>
+    <element name="Andyho_oktavka" type="operation">
+        <arg type="function_name">stat_na_miste</arg>
+        <arg type="parameter_name">second_param</arg>
+        <arg type="parameter_type">second_type</arg>
+    </element>
+    <element name="Vaskovo_faro" type="operation">
+        <arg type="function_name">upozornit_zandarov</arg>
+        <arg type="parameter_name">vymenit_svetlo</arg>
+        <arg type="parameter_type">string</arg>
+    </element>
+    <element name="Kikova_Sedma" type="operation">
+        <arg type="function_name">upozornit_danovy_urad</arg>
+        <arg type="parameter_name">poslat_email</arg>
+        <arg type="parameter_type">string</arg>
+    </element>
+    <element name="Krivkova_Tesla" type="operation">
+        <arg type="function_name">zamknut</arg>
+        <arg type="parameter_name">pocet_stran</arg>
+        <arg type="parameter_type">int</arg>
+    </element>
+    <element name="Krivkova_Tesla" type="operation">
+        <arg type="function_name">Uvidime_se_pristi_rok</arg>
+        <arg type="parameter_name">rok</arg>
+        <arg type="parameter_type">long_int</arg>
     </element>
 </program>
