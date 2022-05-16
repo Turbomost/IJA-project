@@ -252,6 +252,16 @@ public class MessageLine extends Line {
         update();
     }
 
+    public void update_position_x_left(Double toLeftX){
+        this.setStartX(toLeftX);
+        update();
+    }
+
+    public void update_position_x_right(Double toRightY){
+        this.setEndX(toRightY);
+        update();
+    }
+
     public Double get_position_y(){
         return this.getStartY();
     }
