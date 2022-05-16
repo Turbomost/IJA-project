@@ -4,6 +4,7 @@
 
 ### TODO - CLASS DIAGRAM ###
 ++++++   TODO 1.1   > (function high)   Přejmenování funkce na existující sice vyhodí hlášku, ale je napsaný nový název
+++       TODO 1.2   > (function low)    Při načítání diagramu smazat všechny classy
 
 ### TODO - SEQUENCE DIAGRAM ###
 ++      TODO 2.1   > (design low)       Life-line lze posunout do záporných hodnot (nad Sequence diagram)
