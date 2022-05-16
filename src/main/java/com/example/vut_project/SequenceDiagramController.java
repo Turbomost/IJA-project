@@ -230,6 +230,8 @@ public class SequenceDiagramController {
 
     public void deleteMessageFromSpace(MessageLine messageToDelete){
         this.sequenceSpace.getChildren().remove(messageToDelete.plabel);
+        this.sequenceSpace.getChildren().remove(messageToDelete.arrow1);
+        this.sequenceSpace.getChildren().remove(messageToDelete.arrow2);
         this.sequenceSpace.getChildren().remove(messageToDelete);
     }
 

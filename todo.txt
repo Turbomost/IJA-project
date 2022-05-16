@@ -11,7 +11,6 @@
 +++     TODO 2.5   > (design med)       Life-line se občas posouvá i při kliknutí pravým tlačítkem
 ++      TODO 2.6   > (design low)       Message-line lze posunout do záporných hodnot
 +       TODO 2.7   > (design low)       Při posouvání seq diagramů (tedy posouvání všech life-lines po x ose) roztahovat šipky se zprávami k nim nabindovaným, aby měla správnou délku (A řešit změnu typu zpráv, pokud se změní x-pozice)
-++++    TODO 2.8   > (design HIGH)      Po odstranění message-liny ručně zůstává část šipky
 +++++++ TODO 2.9   > (MUST HAVE)        Načítání seq diagramu ( + nekonzistence po načtení)
 +++++++ TODO 2.10  > (MUST HAVE)        Ukládání seq diagramu
 +       TODO 2.11  > (design low)       Kvůli offsetu při přidávání se pozdější seq diagramy vykrelují mimo okno (resetovat offset jako u class diagramů)
@@ -19,7 +18,7 @@
 ### TODO - JEDEN SEQUENCE DIAGRAM - NEKONZISTENCE ###
 +++++++ TODO 3.2  > (function HIGH)     Zpětná zpráva by neměla být červená nikdy a už vůbec ne oranžová
 ++++    TODO 3.3  > (function med)      Při přejmenování message-line na funkci, která se nachází ve vyšší třídě (přes generalize) zůstává červená. Budeme muset ještě checkovat, zda se ta metoda nachází nejen v aktuální třídě, ale i ve třídách, které generalizuje
-++      TODO 3.6  > (design low)        Koncová část šipky má z nějakýho random důvodu občas špatnou barvu xd
+++      TODO 3.6  > (design low)        Koncová část šipky má z nějakýho random důvodu občas špatnou barvu, upřímně nevím, jak se ta barva nastavuje xd
 
 ### TODO - VÍCE SEQUENCE DIAGRAMŮ ###
 TBD
@@ -52,7 +51,7 @@ TBD
 > Odstraňování life-lines, odstraňování seq diagramu odstraní i jeho life-line (to i from)
 > Přejmenování třídy v class diagramu přejmenuje i třídu v seq diagramu
 > Přidávání message-lines (TODO 2.5), posouvání message-lines (TODO 2.6)(TODO 2.7)
-> Odstraňování message-lines (TODO 2.8), při odstranění seq diagramu, se odstraní všechny její message-liny
+> Odstraňování message-lines, při odstranění seq diagramu, se odstraní všechny její message-liny
 > Načítání a ukládání (TODO 2.9)(TODO 2.10)
 
 ### DEEP TESTOVÁNÍ - JEDEN SEQUENCE DIAGRAM - NEKONZISTENCE ###
