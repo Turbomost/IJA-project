@@ -579,12 +579,15 @@ public class EntityController extends VBox {
         for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
             if (sequenceDiagramController != null) {
                 System.out.println(">>> NASIEL SOM REFERENCE");
-                for (LifeLine lifeLine : sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()) {
-                    System.out.println(">>> PRECHADZAM CEZ LIFE LINES");
-                    for (MessageLine messageLine : lifeLine.getMessageLineList()) {
-                        System.out.println(">>> PRECHADZAM CEZ MESSAGE LINES");
-                        System.out.println(messageLine);
-                        messageLine.checkForOperationAvailability();
+                EntityController entity = sequenceDiagramController.findSequenceEntity(this.getNameTextField());
+                if (entity != null) {
+                    for (LifeLine lifeLine : entity.getLifeLineList()) {
+                        System.out.println(">>> PRECHADZAM CEZ LIFE LINES");
+                        for (MessageLine messageLine : lifeLine.getMessageLineList()) {
+                            System.out.println(">>> PRECHADZAM CEZ MESSAGE LINES");
+                            System.out.println(messageLine);
+                            messageLine.checkForOperationAvailability();
+                        }
                     }
                 }
             }
@@ -595,9 +598,12 @@ public class EntityController extends VBox {
         for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
             if (sequenceDiagramController != null) {
                 System.out.println("NIE JE NULL");
-                for (LifeLine lifeLine : sequenceDiagramController.findSequenceEntity(this.getNameTextField()).getLifeLineList()) {
-                    System.out.println("LOOP CEZ LIFE LAJNY");
-                    lifeLine.checkForClassAvailability(sequenceDiagramController);
+                EntityController entity = sequenceDiagramController.findSequenceEntity(this.getNameTextField());
+                if (entity != null) {
+                    for (LifeLine lifeLine : entity.getLifeLineList()) {
+                        System.out.println("LOOP CEZ LIFE LAJNY");
+                        lifeLine.checkForClassAvailability(sequenceDiagramController);
+                    }
                 }
             }
         }
@@ -607,20 +613,23 @@ public class EntityController extends VBox {
         for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
             if (sequenceDiagramController != null) {
                 System.out.println("NIE JE NULL");
-                for (LifeLine lifeLine : sequenceDiagramController.findSequenceEntity(this.getSequenceNameTextField()).getLifeLineList()) {
-                    System.out.println("LOOP CEZ LIFE LAJNY");
-                    lifeLine.checkForClassAvailability(sequenceDiagramController);
+                EntityController entity = sequenceDiagramController.findSequenceEntity(this.getSequenceNameTextField());
+                if (entity != null) {
+                    for (LifeLine lifeLine : entity.getLifeLineList()) {
+                        System.out.println("LOOP CEZ LIFE LAJNY");
+                        lifeLine.checkForClassAvailability(sequenceDiagramController);
+                    }
                 }
             }
         }
     }
 
-    public LifeLine getLifeLineByYPosition(String PositionY){
+    public LifeLine getLifeLineByYPosition(String PositionY) {
         System.out.println("FINDING LIFE LINE FOR SEQUENCE");
         for (LifeLine lifeLine : sequenceControllerReference.findSequenceEntity(this.getSequenceNameTextField()).getLifeLineList()) {
             System.out.println("LOOP THROUGH LIFE LINES");
             System.out.println("COMPARING>" + lifeLine.getLifeLine().getStartY() + "<WITH>" + Double.parseDouble(PositionY) + "<");
-            if (lifeLine.getLifeLine().getStartY() == Double.parseDouble(PositionY)){
+            if (lifeLine.getLifeLine().getStartY() == Double.parseDouble(PositionY)) {
                 System.out.println("FOUND " + lifeLine.toString());
                 return lifeLine;
             }
@@ -628,12 +637,12 @@ public class EntityController extends VBox {
         return null;
     }
 
-    public LifeLine getLifeLineByIdentification(String LifeLineIdentificator){
+    public LifeLine getLifeLineByIdentification(String LifeLineIdentificator) {
         System.out.println("FINDING LIFE LINE FOR SEQUENCE");
         for (LifeLine lifeLine : sequenceControllerReference.findSequenceEntity(this.getSequenceNameTextField()).getLifeLineList()) {
             System.out.println("LOOP THROUGH LIFE LINES");
             System.out.println("COMPARING>" + lifeLine.getLifeLineIdentificator() + "<WITH>" + Integer.parseInt(LifeLineIdentificator) + "<");
-            if (lifeLine.getLifeLineIdentificator() == Integer.parseInt(LifeLineIdentificator)){
+            if (lifeLine.getLifeLineIdentificator() == Integer.parseInt(LifeLineIdentificator)) {
                 System.out.println("FOUND " + lifeLine.toString());
                 return lifeLine;
             }

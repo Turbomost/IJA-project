@@ -4,12 +4,6 @@
 
 ### TODO - CLASS DIAGRAM ###
 ++++++   TODO 1.1   > (function high)   Přejmenování funkce na existující sice vyhodí hlášku, ale je napsaný nový název
-++++++++ TODO 1.2   > (NULL POINTER EX) Přidání nové třídy, pokud je spuštěné okno seq diagramu hodí NULL POINTER - findSequenceEntity zřejmě opet hází null
-
-Caused by: java.lang.NullPointerException
-at com.example.vut_project/com.example.vut_project.EntityController.checkForLifeLinesInSequence(EntityController.java:598)
-at com.example.vut_project/com.example.vut_project.HelloController.onNewElementClick(HelloController.java:204)
-
 
 ### TODO - SEQUENCE DIAGRAM ###
 ++      TODO 2.1   > (design low)       Life-line lze posunout do záporných hodnot (nad Sequence diagram)
@@ -28,8 +22,7 @@ at com.example.vut_project/com.example.vut_project.HelloController.onNewElementC
 +++     TODO 3.1  > (function low)      Při přidání message-liny existující funkce ('Empty Message') je message-line červená - stačí asi místo 'Empty Message' vypisovat prázdný string (název funkce nemůže být prázdný)
 +++++++ TODO 3.2  > (function HIGH)     Zpětná zpráva by neměla být červená nikdy a už vůbec ne oranžová
 ++++    TODO 3.3  > (function med)      Při přejmenování message-line na funkci, která se nachází ve vyšší třídě (přes generalize) zůstává červená. Budeme muset ještě checkovat, zda se ta metoda nachází nejen v aktuální třídě, ale i ve třídách, které generalizuje
-+++++++ TODO 3.4  > (function HIGH)     Opětovné přidání třídy do class diagramu - life-liny třídy v seq by měly být potom opět černé
-+++++++ TODO 3.5  > (NULL POINTER)      VIZ 1.2
++++++++ TODO 3.4  > (function HIGH)     Opětovné přidání třídy do class diagramu - message liny, které v classe jsou musí být taky černé
 ++      TODO 3.6  > (design low)        Koncová část šipky má z nějakýho random důvodu občas špatnou barvu xd
 
 ### TODO - VÍCE SEQUENCE DIAGRAMŮ ###
@@ -72,7 +65,7 @@ TBD
 > Smazání diagramu z class diagramu (life-lines i message-lines červené červené)
 > Přidání Life-liny smazanému class diagramu (červená)
 > Přdání message-line červené life-lině ze všech stran (červená)
-> Přejmenování funkce v class diagramu (červená message-line), Přejmenování funkce zpět na existující (černá message-line), smazání funkce (červená), přidání funkce (černá), (TODO 3.4)(TODO 3.5)(TODO 3.6)
+> Přejmenování funkce v class diagramu (červená message-line), Přejmenování funkce zpět na existující (černá message-line), smazání funkce (červená), přidání funkce (černá)(TODO 3.6)
 
 ### Na čo se nebude hrabat ###
 > Nesmí se vytvářet třídy před načítaním ze souboru

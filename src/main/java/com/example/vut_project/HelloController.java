@@ -356,12 +356,19 @@ public class HelloController {
         for (SequenceDiagramController sequenceDiagramController : sequenceDiagramControllerList) {
             if (sequenceDiagramController != null) {
                 EntityController entity = sequenceDiagramController.findEntity(old_name);
-                entity.setSequenceNameTextField(new_name);
+                if (entity != null) {
+                    entity.setSequenceNameTextField(new_name);
+                }
+
             }
         }
         System.out.println("After: Classes" + this.classDiagramController.getClassList().toString());
         identifier_name = new_name;
         this.classDiagramController.setOverrides(this);
+
+        EntityController new_entity = findEntityByName(curClass.getName());
+        new_entity.checkForLifeLinesInSequence();
+
         return true;
     }
 
