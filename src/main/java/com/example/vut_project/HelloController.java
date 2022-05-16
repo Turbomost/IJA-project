@@ -102,6 +102,7 @@ public class HelloController {
             projectSpace.getChildren().add(new_entity);                         //add it to project space pane
         }
         this.classDiagramController.setOverrides(this);
+        this.refreshSequenceDiagram();
     }
 
     /**
@@ -458,4 +459,22 @@ public class HelloController {
         }
         return null;
     }
+
+    public void refreshSequenceDiagram(){
+        try {
+            for(SequenceDiagramController sequenceDiagramController : sequenceDiagramControllerList){
+                for (EntityController entityController : sequenceDiagramController.getEntityList()){
+                    for (LifeLine lifeLine : entityController.getLifeLineList()){
+                        lifeLine.checkForClassAvailability(sequenceDiagramController);
+                        for (MessageLine messageLine : lifeLine.getMessageLineList()){
+                            messageLine.checkForOperationAvailability();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("!!! SOMETHING AT SEQUENCE REFRESH WENT WRONG !!!");
+        }
+    }
+
 }
