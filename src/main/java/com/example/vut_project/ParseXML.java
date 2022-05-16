@@ -334,6 +334,7 @@ public class ParseXML extends HelloController {
                             line_for_entity = sequenceDiagramController.findSequenceEntity(elementName);
                             sequenceDiagramController.setLifeLineIdentificator(Integer.parseInt(fieldNode.getTextContent()));
                             sequenceDiagramController.createLifeLineBindToEntity(null, line_for_entity);
+                            line_for_entity.getLifeLineList().get(line_for_entity.getLifeLineList().size()-1).checkForClassAvailability(sequenceDiagramController);
                             System.out.println("LINE FOR ENTITY: " + line_for_entity.getSequenceNameTextField());
                             System.out.println("LIFE LINE IDENTIFICATOR: " + fieldNode.getTextContent());
                         }

@@ -78,7 +78,7 @@ public class SequenceDiagramController {
         System.out.println("New life line click");
         AnchorPane p = new AnchorPane();
         LifeLine life_line_class = new LifeLine(entity, p, this.life_line_number++);
-        life_line_class.checkForClassAvailability(this);
+        //life_line_class.checkForClassAvailability(this);
         p.setLayoutX(life_line_class.getAnchorPane().getLayoutX());
         p.setLayoutY(life_line_class.getAnchorPane().getLayoutY());
         System.out.println("p Layout x: " + p.getLayoutX() + ", p Layout y: " + p.getLayoutY());
