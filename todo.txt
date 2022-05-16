@@ -6,12 +6,10 @@
 ++       TODO 1.2   > (function low)    Při načítání diagramu smazat všechny classy
 
 ### TODO - SEQUENCE DIAGRAM ###
-++      TODO 2.6   > (design low)       Message-line lze posunout do záporných hodnot
 +       TODO 2.7   > (design low)       Při posouvání seq diagramů (tedy posouvání všech life-lines po x ose) roztahovat šipky se zprávami k nim nabindovaným, aby měla správnou délku (A řešit změnu typu zpráv, pokud se změní x-pozice)
 +       TODO 2.11  > (design low)       Kvůli offsetu při přidávání se pozdější seq diagramy vykrelují mimo okno (resetovat offset jako u class diagramů)
 
 ### TODO - JEDEN SEQUENCE DIAGRAM - NEKONZISTENCE ###
-++++    TODO 3.3  > (function med)      Při přejmenování message-line na funkci, která se nachází ve vyšší třídě (přes generalize) zůstává červená. Budeme muset ještě checkovat, zda se ta metoda nachází nejen v aktuální třídě, ale i ve třídách, které generalizuje
 
 ### TODO - VÍCE SEQUENCE DIAGRAMŮ ###
 TBD

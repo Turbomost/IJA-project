@@ -54,10 +54,31 @@ public class MessageLine extends Line {
         update();
     }
 
+    public AttributeController FindFunction(ClassController Class, String function){
+        AttributeController attr = Class.findAttributeByName(function);
+        if (attr != null){
+            return attr;
+        }
+        for (BoundLine boundLine : Class.getConstraintList()){
+            if (boundLine.from.equals(Class) && boundLine.getLineType().equals(BoundLine.BoundLineGeneralization())){
+                if ((attr = this.FindFunction(boundLine.to, function)) != null){
+                    return attr;
+                }
+            }
+        }
+        return null;
+    }
+
     public void checkForOperationAvailability() {
         ClassController r = null;
         if (this.messageType.equals("request")) {
             r = toEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(toEntity.getSequenceNameTextField());
+            for (BoundLine boundLine : r.getConstraintList()){
+                if (boundLine.to.equals(r) && boundLine.getLineType().equals(BoundLine.BoundLineGeneralization())){
+                    toEntity = sequenceDiagramControllerReference.findEntity(boundLine.from.getName());
+                    this.checkForOperationAvailability();
+                }
+            }
         }
         if (this.messageType.equals("reply")) {
             this.changeMessageLineColor(Color.BLACK);
@@ -76,7 +97,8 @@ public class MessageLine extends Line {
             System.out.println("ARGS: <" + args + ">");
         }
 
-        AttributeController a = r.findAttributeByName(function);
+
+        AttributeController a = this.FindFunction(r, function);
         if (a == null) {
             System.out.println("operation does not exist!");
             this.changeMessageLineColor(Color.RED);
