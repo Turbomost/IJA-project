@@ -105,14 +105,17 @@ public class DragResizer {
     protected void mouseDragged(MouseEvent event, Region region, LifeLine line, SequenceDiagramController reference) {
         if (!dragging) {
             if (!isInDraggableZone(event, region)) {
-                System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
-                double length = line.getEndY() - line.getStartY();
-                System.out.println(length);
-                line.getAnchorPane().setLayoutY(event.getSceneY() - 60);
-                //region.setLayoutY(event.getSceneY() - mouseAnchorY - 140);
-                System.out.println("Set to: " + region.getLayoutX());
-                System.out.println("Set to: " + region.getLayoutY());
-                System.out.println("After Move " + region.getChildrenUnmodifiable().get(0));
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (event.getSceneY() - 125 < 0) return;
+                        System.out.println("Before Move " + region.getChildrenUnmodifiable().get(0));
+                        double length = line.getEndY() - line.getStartY();
+                        System.out.println(length);
+                        line.getAnchorPane().setLayoutY(event.getSceneY() - 60);
+                        //region.setLayoutY(event.getSceneY() - mouseAnchorY - 140);
+                        System.out.println("Set to: " + region.getLayoutX());
+                        System.out.println("Set to: " + region.getLayoutY());
+                        System.out.println("After Move " + region.getChildrenUnmodifiable().get(0));
+                }
             }
             return;
         }
@@ -121,14 +124,16 @@ public class DragResizer {
 
         double newHeight = region.getMinHeight() + (mousey - y);
 
+        if (newHeight > 10)
         region.setMinHeight(newHeight);
 
         y = mousey;
-
-        System.out.println("RESIZE TO > " + y);
-        line.getLifeLine().setEndY(y);
-        line.getLifeLine().setFill(Color.BLACK);
-        System.out.println("Line resize end " + line);
+        if (y > 10) {
+            System.out.println("RESIZE TO > " + y);
+            line.getLifeLine().setEndY(y);
+            line.getLifeLine().setFill(Color.BLACK);
+            System.out.println("Line resize end " + line);
+        }
     }
 
     protected void mousePressed(MouseEvent event, Region region) {
