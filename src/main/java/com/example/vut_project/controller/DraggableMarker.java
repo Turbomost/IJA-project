@@ -75,7 +75,14 @@ public class DraggableMarker {
         });
 
         node.setOnMouseDragged(mouseEvent -> {
-            messageLine.update_position(mouseEvent.getSceneY() - pressedPosition[0] - 50);
+            int offset = 55;
+            Double messageStart = messageLine.getToLifeLine().getAnchorPane().getLayoutY() + offset - 3;
+            Double messageEnd = messageStart + messageLine.getToLifeLine().getLifeLine().getEndY() - messageLine.getToLifeLine().getLifeLine().getStartY() + 7;
+            Double position = mouseEvent.getSceneY() - pressedPosition[0];
+            System.out.println("GOT " + messageStart + " | " + messageEnd + " | " + position);
+            if (( position > 120) && (position > messageStart) && (position < messageEnd)){
+                messageLine.update_position(mouseEvent.getSceneY() - pressedPosition[0] - offset);
+            }
             //node.setLayoutY(mouseEvent.getSceneY() - mouseAnchorY);
         });
     }
