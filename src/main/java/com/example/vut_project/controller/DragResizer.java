@@ -53,7 +53,7 @@ public class DragResizer {
                     MenuItem item2 = new MenuItem("Create Message");
                     MenuItem item3 = new MenuItem("Paste Message");
                     MenuItem item4 = new MenuItem("Constructor Message");
-                    menu.getItems().addAll(item2, item3, item4, item);
+                    menu.getItems().addAll(item2, item3, item);
                     item.setOnAction(e -> reference.onDeleteLifeLineClick(event, line));
                     item2.setOnAction(e -> reference.onCreateMessageLifeLineClick(event, line));
                     item3.setOnAction(e -> reference.onPasteMessageLifeLineClick(event, line));
