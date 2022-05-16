@@ -54,14 +54,14 @@ public class MessageLine extends Line {
         update();
     }
 
-    public AttributeController FindFunction(ClassController Class, String function){
+    public AttributeController FindFunction(ClassController Class, String function) {
         AttributeController attr = Class.findAttributeByName(function);
-        if (attr != null){
+        if (attr != null) {
             return attr;
         }
-        for (BoundLine boundLine : Class.getConstraintList()){
-            if (boundLine.from.equals(Class) && boundLine.getLineType().equals(BoundLine.BoundLineGeneralization())){
-                if ((attr = this.FindFunction(boundLine.to, function)) != null){
+        for (BoundLine boundLine : Class.getConstraintList()) {
+            if (boundLine.from.equals(Class) && boundLine.getLineType().equals(BoundLine.BoundLineGeneralization())) {
+                if ((attr = this.FindFunction(boundLine.to, function)) != null) {
                     return attr;
                 }
             }
@@ -70,23 +70,29 @@ public class MessageLine extends Line {
     }
 
     public void checkForOperationAvailability() {
-        ClassController r = null;
-        if (this.messageType.equals("request")) {
-            r = toEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(toEntity.getSequenceNameTextField());
-            for (BoundLine boundLine : r.getConstraintList()){
-                if (boundLine.to.equals(r) && boundLine.getLineType().equals(BoundLine.BoundLineGeneralization())){
-                    toEntity = sequenceDiagramControllerReference.findEntity(boundLine.from.getName());
-                    this.checkForOperationAvailability();
-                }
-            }
+        System.out.println("CHECK OPERATIONS: " + this.messageType);
+
+        if (label_string.toLowerCase().contains("<<create>>")) {
+            this.changeMessageLineColor(Color.BLACK);
+            return;
         }
         if (this.messageType.equals("reply")) {
             this.changeMessageLineColor(Color.BLACK);
             return;
         }
+
+        ClassController r = toEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(toEntity.getSequenceNameTextField());
         if (r == null) {
             this.changeMessageLineColor(Color.RED);
             return;
+        }
+        if (this.messageType.equals("request")) {
+            for (BoundLine boundLine : r.getConstraintList()) {
+                if (boundLine.to.equals(r) && boundLine.getLineType().equals(BoundLine.BoundLineGeneralization())) {
+                    toEntity = sequenceDiagramControllerReference.findEntity(boundLine.from.getName());
+                    this.checkForOperationAvailability();
+                }
+            }
         }
 
         String function = label_string;
@@ -252,21 +258,21 @@ public class MessageLine extends Line {
         update();
     }
 
-    public void update_position_x_start(Double toLeftX){
+    public void update_position_x_start(Double toLeftX) {
         this.setStartX(toLeftX);
         update();
     }
 
-    public void update_position_x_end(Double toRightY){
+    public void update_position_x_end(Double toRightY) {
         this.setEndX(toRightY);
         update();
     }
 
-    public Double get_position_y(){
+    public Double get_position_y() {
         return this.getStartY();
     }
 
-    public Double get_position_x(){
+    public Double get_position_x() {
         return this.getStartX();
     }
 
@@ -294,7 +300,7 @@ public class MessageLine extends Line {
         return this.toLifeLine;
     }
 
-    public String getMessageType(){
+    public String getMessageType() {
         return this.messageType;
     }
 }

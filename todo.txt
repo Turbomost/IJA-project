@@ -5,7 +5,6 @@
 ### TODO - CLASS DIAGRAM ###
 
 ### TODO - SEQUENCE DIAGRAM ###
-+       TODO 2.7   > (design low)       Při posouvání seq diagramů (tedy posouvání všech life-lines po x ose) roztahovat šipky se zprávami k nim nabindovaným, aby měla správnou délku (A řešit změnu typu zpráv, pokud se změní x-pozice)
 
 ### TODO - JEDEN SEQUENCE DIAGRAM - NEKONZISTENCE ###
 
