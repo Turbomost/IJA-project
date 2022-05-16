@@ -394,11 +394,11 @@ public class ParseXML extends HelloController {
                             System.out.println("MESSAGE TO ENTITY: " + fieldNode.getTextContent());
                         }
                         if (arg.getTextContent().equals("identificator_from")) { //life line identificator based on its position
-                            life_line_from = message_from_entity.getLifeLineByYPosition(fieldNode.getTextContent());
+                            life_line_from = message_from_entity.getLifeLineByIdentification(fieldNode.getTextContent());
                             System.out.println("MESSAGE IDENTIFICATOR FROM: " + fieldNode.getTextContent());
                         }
                         if (arg.getTextContent().equals("identificator_to")) { //life line identificator based on its position
-                            life_line_to = message_to_entity.getLifeLineByYPosition(fieldNode.getTextContent());
+                            life_line_to = message_to_entity.getLifeLineByIdentification(fieldNode.getTextContent());
                             System.out.println("MESSAGE IDENTIFICATOR TO: " + fieldNode.getTextContent());
                         }
                         if (arg.getTextContent().equals("message_text")) { //operation name
@@ -670,6 +670,55 @@ public class ParseXML extends HelloController {
             }
         }
 //TODO end of life line loop
+//TODO start of message lines loading
+            for (EntityController entity : sequenceDiagramController.getEntityList() ) {
+                for (LifeLine life_line : entity.getLifeLineList()) {
+                    for (MessageLine message_line : life_line.getMessageLineList()) {
+                        if (life_line.getStickToEntity().equals(message_line.getFromEntity())) {
+                            Element superElement = doc.createElement("element");
+                            rootElement.appendChild(superElement);
+                            // setting attribute to element
+                            Attr attr = doc.createAttribute("type");
+                            attr.setValue("message");
+                            superElement.setAttributeNode(attr);
+                            attr = doc.createAttribute("name");
+                            attr.setValue(message_line.getFromEntity().getSequenceNameTextField());                                 // from entity
+                            superElement.setAttributeNode(attr);
+
+                            Element argElement = doc.createElement("arg");
+                            Attr attrType = doc.createAttribute("type");
+                            attrType.setValue("to_entity");
+                            argElement.setAttributeNode(attrType);
+                            argElement.appendChild(doc.createTextNode(message_line.getToEntity().getSequenceNameTextField()));         // to entity
+                            superElement.appendChild(argElement);
+
+                            argElement = doc.createElement("arg");
+                            attrType = doc.createAttribute("type");
+                            attrType.setValue("identificator_from");
+                            argElement.setAttributeNode(attrType);
+                            argElement.appendChild(doc.createTextNode(String.valueOf(message_line.getFromLifeLine().getLifeLineIdentificator())));  //  from life line
+
+                            superElement.appendChild(argElement);
+
+                            argElement = doc.createElement("arg");
+                            attrType = doc.createAttribute("type");
+                            attrType.setValue("identificator_to");
+                            argElement.setAttributeNode(attrType);
+                            argElement.appendChild(doc.createTextNode(String.valueOf(message_line.getToLifeLine().getLifeLineIdentificator())));  // to life line
+                            superElement.appendChild(argElement);
+
+                            argElement = doc.createElement("arg");
+                            attrType = doc.createAttribute("type");
+                            attrType.setValue("message_text");
+                            argElement.setAttributeNode(attrType);
+                            argElement.appendChild(doc.createTextNode(message_line.getLineString()));                          // to life line
+                            superElement.appendChild(argElement);
+                        }
+                    }
+                }
+            }
+//TODO end of message lines
+
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
