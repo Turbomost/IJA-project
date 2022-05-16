@@ -69,6 +69,11 @@ public class SequenceDiagramController {
         System.out.println("On New Life Line Button Click");
     }
 
+    //DO NOT USE THIS FUNCTION! ONLY USE WHILE LOADING FROM FILE
+    public void setLifeLineIdentificator(int life_line_identificator){
+        this.life_line_number = life_line_identificator;
+    }
+
     public void createLifeLineBindToEntity(ActionEvent event, EntityController entity) {
         System.out.println("New life line click");
         AnchorPane p = new AnchorPane();

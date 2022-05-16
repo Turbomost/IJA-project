@@ -332,6 +332,7 @@ public class ParseXML extends HelloController {
                             System.out.println("EELEMENT NAME:" + elementName);
                             System.out.println(sequenceDiagramController);
                             line_for_entity = sequenceDiagramController.findSequenceEntity(elementName);
+                            sequenceDiagramController.setLifeLineIdentificator(Integer.parseInt(fieldNode.getTextContent()));
                             sequenceDiagramController.createLifeLineBindToEntity(null, line_for_entity);
                             System.out.println("LINE FOR ENTITY: " + line_for_entity.getSequenceNameTextField());
                             System.out.println("LIFE LINE IDENTIFICATOR: " + fieldNode.getTextContent());
@@ -384,6 +385,7 @@ public class ParseXML extends HelloController {
                     EntityController message_to_entity = null; // end of line
                     LifeLine life_line_from = null; // beginning of life line
                     LifeLine life_line_to = null;  // end of life line
+                    MessageLine created_message_line = null; // returned created message line
                     for (int j = 0; j < fieldNodes.getLength(); j++) { //for each argument
                         Node fieldNode = fieldNodes.item(j);
                         NamedNodeMap attributes = fieldNode.getAttributes(); //converting nodes (arguments) into iterable from added dependency
@@ -405,13 +407,20 @@ public class ParseXML extends HelloController {
                             sequenceDiagramController.setMessageFromEntity(message_from_entity, life_line_from);
                             sequenceDiagramController.setMessageToEntity(message_to_entity, life_line_to);
                             try {
-                                sequenceDiagramController.createMessageLine(null, fieldNode.getTextContent());
+                                created_message_line = sequenceDiagramController.createMessageLine(null, fieldNode.getTextContent());
                             } catch (Exception e) {
-                                System.out.println("!!! UNABLE TO CREATE MESSAGE LINE");
+                                System.out.println("!!! UNABLE TO CREATE MESSAGE LINE WHILE LOADING, EXCEPTION!!!");
                                 System.out.println(life_line_from);
                                 System.out.println(life_line_to);
                             }
                             System.out.println("MESSAGE TEXT" + fieldNode.getTextContent());
+                        }
+                        if (arg.getTextContent().equals("position_y")){
+                            if (created_message_line != null){
+                                created_message_line.update_position(Double.parseDouble(fieldNode.getTextContent()));
+                            }else{
+                                System.out.println("!!! MESSAGE LINE WAS NOT CREATED, CANT SET POSITION !!!");
+                            }
                         }
                     }
                 }
@@ -670,7 +679,7 @@ public class ParseXML extends HelloController {
             }
         }
 //TODO end of life line loop
-//TODO start of message lines loading
+//TODO start of message lines saving
             for (EntityController entity : sequenceDiagramController.getEntityList() ) {
                 for (LifeLine life_line : entity.getLifeLineList()) {
                     for (MessageLine message_line : life_line.getMessageLineList()) {
@@ -712,6 +721,13 @@ public class ParseXML extends HelloController {
                             attrType.setValue("message_text");
                             argElement.setAttributeNode(attrType);
                             argElement.appendChild(doc.createTextNode(message_line.getLineString()));                          // to life line
+                            superElement.appendChild(argElement);
+
+                            argElement = doc.createElement("arg");
+                            attrType = doc.createAttribute("type");
+                            attrType.setValue("position_y");
+                            argElement.setAttributeNode(attrType);
+                            argElement.appendChild(doc.createTextNode(String.valueOf(message_line.get_position_y().intValue())));                          // to life line
                             superElement.appendChild(argElement);
                         }
                     }
