@@ -4,12 +4,8 @@
 
 ### TODO - CLASS DIAGRAM ###
 ++       TODO 1.2   > (function low)    Při načítání diagramu smazat všechny classy
-+        TODO 1.3   > (function low)    Edge case - při přejmenování např. třídy Class 0 na Class 1 a poté vytvoření nové třídy se vytvoří Class 1 (tedy se stejným názvem) - přidat while cyklus a zvyšovat identifikátor
 
 ### TODO - SEQUENCE DIAGRAM ###
-++      TODO 2.1   > (design low)       Life-line lze posunout do záporných hodnot (nad Sequence diagram)
-++      TODO 2.2   > (design low)       Life-line lze roztáhnout i do záporných hodnot
-+++     TODO 2.5   > (design med)       Life-line se občas posouvá i při kliknutí pravým tlačítkem
 ++      TODO 2.6   > (design low)       Message-line lze posunout do záporných hodnot
 +       TODO 2.7   > (design low)       Při posouvání seq diagramů (tedy posouvání všech life-lines po x ose) roztahovat šipky se zprávami k nim nabindovaným, aby měla správnou délku (A řešit změnu typu zpráv, pokud se změní x-pozice)
 +       TODO 2.11  > (design low)       Kvůli offsetu při přidávání se pozdější seq diagramy vykrelují mimo okno (resetovat offset jako u class diagramů)
@@ -42,18 +38,18 @@ TBD
 > Ukládání do souboru a opětovné načtení
 
 ### DEEP TESTOVÁNÍ - JEDEN SEQUENCE DIAGRAM ###
-> Přidání seq diagramu (TODO 2.11), posouvání seq diagramu, nelze posunout do záporných hodnot, při přejmenování diagramu v class diagramu se přejmenuje i diagram v class diagramu
+> Přidání seq diagramu, posouvání seq diagramu, nelze posunout do záporných hodnot, při přejmenování diagramu v class diagramu se přejmenuje i diagram v class diagramu
 > Ostraňování seq diagramu, při odstranění diagramu v class diagramu se odstraní i seq diagram (choice box)
-> Přidání life-lines, posouvání life-lines (TODO 2.1), posunutí seq diagramu posouvá i všechny jeho life-lines, roztahování life-lines (TODO 2.2)
+> Přidání life-lines, posouvání life-lines, posunutí seq diagramu posouvá i všechny jeho life-lines, roztahování life-lines
 > Odstraňování life-lines, odstraňování seq diagramu odstraní i jeho life-line (to i from)
 > Přejmenování třídy v class diagramu přejmenuje i třídu v seq diagramu
-> Přidávání message-lines (TODO 2.5), posouvání message-lines (TODO 2.6)(TODO 2.7)
+> Přidávání message-lines, posouvání message-lines
 > Odstraňování message-lines, při odstranění seq diagramu, se odstraní všechny její message-liny
-> Načítání a ukládání (TODO 2.9)(TODO 2.10)
+> Načítání a ukládání
 
 ### DEEP TESTOVÁNÍ - JEDEN SEQUENCE DIAGRAM - NEKONZISTENCE ###
-> Přidání message-line, Přidání neexistující message-line (červená), přidávání zpětné message-line (TODO 3.2)
-> Přejmenování message-line (TODO 3.3), přejmenování na existující (červená), přejmenování na neexistující (červená), přejmenování zpětné message-liny (TODO 3.2)
+> Přidání message-line, Přidání neexistující message-line (červená), přidávání zpětné message-lines
+> Přejmenování message-line, přejmenování na existující (červená), přejmenování na neexistující (červená), přejmenování zpětné message-liny
 > Smazání diagramu z class diagramu (life-lines i message-lines červené červené)
 > Přidání Life-liny smazanému class diagramu (červená)
 > Přdání message-line červené life-lině ze všech stran (červená)
@@ -68,4 +64,3 @@ TBD
 ### Na čo se nebude hrabat ###
 > Nesmí se vytvářet třídy před načítaním ze souboru => Bylo by třeba fixnout
 > Když se přejemenovává Classa, tak se musí stisknout enter
-> Empty Message

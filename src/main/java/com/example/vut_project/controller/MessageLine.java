@@ -61,6 +61,7 @@ public class MessageLine extends Line {
         }
         if (this.messageType.equals("reply")) {
             this.changeMessageLineColor(Color.BLACK);
+            return;
         }
         if (r == null) {
             this.changeMessageLineColor(Color.RED);

@@ -193,6 +193,9 @@ public class HelloController {
      */
     @FXML
     public void onNewElementClick(ActionEvent event) throws NullPointerException, IOException { //Creating new element (class diagram) after button click
+        while(this.classDiagramController.findClass("class " + i) != null){
+            i++;
+        }
         String new_name = "class " + i;
         EntityController new_entity = new EntityController(new_name, this.classDiagramController, this);
         projectSpace.getChildren().add(new_entity);
