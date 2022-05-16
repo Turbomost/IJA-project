@@ -190,7 +190,7 @@ public class SequenceDiagramController {
         this.messageToEntity = line.getStick_to_entity();
         this.messageToLifeLine = line;
         if (!this.messageFromEntity.equals(this.messageToEntity) && !this.messageFromLifeLine.getStick_to_entity().equals(this.messageToLifeLine.getStick_to_entity())) {
-            this.createMessageLine(line);
+            this.createMessageLine(line, "Empty Message");
         }
     }
 
@@ -198,10 +198,11 @@ public class SequenceDiagramController {
         System.out.println("Create constructor life line click");
     }
 
-    public void createMessageLine(LifeLine line){
+    public void createMessageLine(LifeLine line, String label_message){
         Label label = new Label();
         MessageLine messageLine = new MessageLine(this, this.messageFromEntity, this.messageToEntity, this.messageFromLifeLine, this.messageToLifeLine, label);
         messageLine.create_line();
+        messageLine.setLabel_string(label_message);
         messageLine.messageType = "request";
         if(messageFromEntity.getLayoutX() > messageToEntity.getLayoutX()){
             messageLine.messageType = "reply";

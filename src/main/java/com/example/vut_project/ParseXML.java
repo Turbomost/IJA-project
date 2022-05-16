@@ -401,11 +401,11 @@ public class ParseXML extends HelloController {
                             life_line_to = message_to_entity.getLifeLineByYPosition(fieldNode.getTextContent());
                             System.out.println("MESSAGE IDENTIFICATOR TO: " + fieldNode.getTextContent());
                         }
-                        if (arg.getTextContent().equals("message")) { //operation name
+                        if (arg.getTextContent().equals("message_text")) { //operation name
                             sequenceDiagramController.setMessageFromEntity(message_from_entity, life_line_from);
                             sequenceDiagramController.setMessageToEntity(message_to_entity, life_line_to);
                             try {
-                                sequenceDiagramController.createMessageLine(null);
+                                sequenceDiagramController.createMessageLine(null, fieldNode.getTextContent());
                             } catch (Exception e) {
                                 System.out.println("!!! UNABLE TO CREATE MESSAGE LINE");
                                 System.out.println(life_line_from);
@@ -593,8 +593,7 @@ public class ParseXML extends HelloController {
 
     public void saveSequenceDiagramInFile(SequenceDiagramController sequenceDiagramController) {
         try {
-            DocumentBuilderFactory dbFactory =
-                    DocumentBuilderFactory.newInstance();
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
 

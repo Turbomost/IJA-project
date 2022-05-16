@@ -32,28 +32,28 @@
     <arg type="line">other_line_identificator</arg>
     <arg type="position_x">100</arg>
     <arg type="position_y">160</arg>
-    <arg type="length">40</arg>
+    <arg type="length">140</arg>
   </element>
 
   <element type="life_line" name="Kikova_sedma">
     <arg type="line">other_line_identificator</arg>
     <arg type="position_x">200</arg>
     <arg type="position_y">160</arg>
-    <arg type="length">140</arg>
+    <arg type="length">240</arg>
   </element>
 
   <element type="message" name="Kikova_sedma">
     <arg type="to_entity">Vaskovo_fáro</arg>
     <arg type="identificator_from">0</arg>
     <arg type="identificator_to">0</arg>
-    <arg type="message">RandomMessage</arg>
+    <arg type="message_text">RandomMessage</arg>
   </element>
 
   <element type="message" name="Andyho_oktavka">
     <arg type="to_entity">Vaskovo_fáro</arg>
     <arg type="identificator_from">0</arg>
     <arg type="identificator_to">0</arg>
-    <arg type="message">RandomMessage</arg>
+    <arg type="message_text">AnotherMessage</arg>
   </element>
 
 </program>
