@@ -109,7 +109,7 @@ public class SequenceDiagramController {
             String lowercaseName = path.toLowerCase();
             if (lowercaseName.endsWith(".xml")) {
                 parse.input_file_from_button(path);
-                this.EntityList = null;
+                //this.EntityList = new ArrayList<>(); // think this does not bellong here.?
                 this.sequenceSpace.getChildren().clear();
                 //classDiagramController = parse.start_parse(this);
                 this.EntityList = parse.load_sequence(helloControllerReference, this);

@@ -252,12 +252,12 @@ public class MessageLine extends Line {
         update();
     }
 
-    public void update_position_x_left(Double toLeftX){
+    public void update_position_x_start(Double toLeftX){
         this.setStartX(toLeftX);
         update();
     }
 
-    public void update_position_x_right(Double toRightY){
+    public void update_position_x_end(Double toRightY){
         this.setEndX(toRightY);
         update();
     }
@@ -292,5 +292,9 @@ public class MessageLine extends Line {
 
     public LifeLine getToLifeLine() {
         return this.toLifeLine;
+    }
+
+    public String getMessageType(){
+        return this.messageType;
     }
 }
