@@ -254,4 +254,8 @@ public class SequenceDiagramController {
         return null;
     }
 
+    public ArrayList<EntityController> getEntityList(){
+        return this.EntityList;
+    }
+
 }

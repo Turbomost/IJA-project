@@ -580,7 +580,8 @@ public class ParseXML extends HelloController {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\write.xml")); // TODO edit path
+            //StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\write.xml")); // TODO edit path
+            StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\writesequencetest.xml"));
             transformer.transform(source, result);
 
             // Output to console for testing, but its broken so vscode and format
@@ -600,67 +601,81 @@ public class ParseXML extends HelloController {
             Element rootElement = doc.createElement("program");
             doc.appendChild(rootElement);
 //TODO loop through all SEQUENCE DIAGRAMS
-            Element superElement = doc.createElement("element");
-            rootElement.appendChild(superElement);
+   for (EntityController entity : sequenceDiagramController.getEntityList() ) {
+       Element superElement = doc.createElement("element");
+       rootElement.appendChild(superElement);
 
-            Attr attr = doc.createAttribute("type");
-            attr.setValue("sequence");
-            superElement.setAttributeNode(attr);
-            attr = doc.createAttribute("name");
-            attr.setValue("SEQUENCE_DIAGRAM_NAME");                                 // TODO inset sequence diagram name
-            superElement.setAttributeNode(attr);
+       Attr attr = doc.createAttribute("type");
+       attr.setValue("sequence");
+       superElement.setAttributeNode(attr);
+       attr = doc.createAttribute("name");
+       attr.setValue(entity.getSequenceNameTextField());                                 // inset sequence diagram name
+       superElement.setAttributeNode(attr);
 
-            Element argElement = doc.createElement("arg");
-            Attr attrType = doc.createAttribute("type");
-            attrType.setValue("position_x");
-            argElement.setAttributeNode(attrType);
-            argElement.appendChild(doc.createTextNode("POSITION X"));         // TODO position
-            superElement.appendChild(argElement);
+       Element argElement = doc.createElement("arg");
+       Attr attrType = doc.createAttribute("type");
+       attrType.setValue("position_x");
+       argElement.setAttributeNode(attrType);
+       argElement.appendChild(doc.createTextNode(String.valueOf((int)(entity.getLayoutX()))));         //  position
+       superElement.appendChild(argElement);
 
-            argElement = doc.createElement("arg");
-            attrType = doc.createAttribute("type");
-            attrType.setValue("position_y");
-            argElement.setAttributeNode(attrType);
-            argElement.appendChild(doc.createTextNode("POSITION Y"));         // TODO position
-            superElement.appendChild(argElement);
+       argElement = doc.createElement("arg");
+       attrType = doc.createAttribute("type");
+       attrType.setValue("position_y");
+       argElement.setAttributeNode(attrType);
+       argElement.appendChild(doc.createTextNode(String.valueOf((int)(entity.getLayoutY()))));         // position
+       superElement.appendChild(argElement);
+   }
 //TODO end of loop through sequence diagrams
 //TODO loop through all sequence diagram life lines
-            superElement = doc.createElement("element");
-            rootElement.appendChild(superElement);
-            // setting attribute to element
-            attr = doc.createAttribute("type");
-            attr.setValue("life_line");
-            superElement.setAttributeNode(attr);
-            attr = doc.createAttribute("name");
-            attr.setValue("REFERENCE_TO_DIAGRAM");                                 // TODO inset sequence diagram name
-            superElement.setAttributeNode(attr);
+        for (EntityController entity : sequenceDiagramController.getEntityList() ) {
+            for (LifeLine life_line : entity.getLifeLineList()) {
+                Element superElement = doc.createElement("element");
+                rootElement.appendChild(superElement);
+                // setting attribute to element
+                Attr attr = doc.createAttribute("type");
+                attr.setValue("life_line");
+                superElement.setAttributeNode(attr);
+                attr = doc.createAttribute("name");
+                attr.setValue(entity.getSequenceNameTextField());                                 // inset sequence diagram name
+                superElement.setAttributeNode(attr);
 
-            argElement = doc.createElement("arg");
-            attrType = doc.createAttribute("type");
-            attrType.setValue("line");
-            argElement.setAttributeNode(attrType);
-            argElement.appendChild(doc.createTextNode("SOME LINE IDENTIFICATOR"));         // TODO identificator, if we gave some
-            superElement.appendChild(argElement);
+                Element argElement = doc.createElement("arg");
+                Attr attrType = doc.createAttribute("type");
+                attrType.setValue("line");
+                argElement.setAttributeNode(attrType);
+                argElement.appendChild(doc.createTextNode(String.valueOf(life_line.getLifeLineIdentificator())));         // identificator, if we gave some
+                superElement.appendChild(argElement);
 
-            argElement = doc.createElement("arg");
-            attrType = doc.createAttribute("type");
-            attrType.setValue("position_y");
-            argElement.setAttributeNode(attrType);
-            argElement.appendChild(doc.createTextNode("500"));                          // TODO position
-            superElement.appendChild(argElement);
+                argElement = doc.createElement("arg");
+                attrType = doc.createAttribute("type");
+                attrType.setValue("position_y");
+                argElement.setAttributeNode(attrType);
+                argElement.appendChild(doc.createTextNode(String.valueOf((int)(life_line.getLayoutY()))));                          // position
+                argElement.appendChild(doc.createTextNode(String.valueOf((int)(life_line.getLifeLine().getLayoutY()))));
+                argElement.appendChild(doc.createTextNode(String.valueOf((int)(life_line.getAnchorPane().getLayoutY()))));
+                System.out.println("FIRST layout " + String.valueOf((int)(life_line.getLayoutY())));
+                System.out.println("SECOND life line " + String.valueOf((int)(life_line.getLifeLine().getLayoutY())));
+                System.out.println("THIRD anchor pane " + String.valueOf((int)(life_line.getAnchorPane().getLayoutY())));
 
-            argElement = doc.createElement("arg");
-            attrType = doc.createAttribute("type");
-            attrType.setValue("length");
-            argElement.setAttributeNode(attrType);
-            argElement.appendChild(doc.createTextNode("40"));                          // TODO line length, endY - startY
-            superElement.appendChild(argElement);
+                superElement.appendChild(argElement);
+
+                argElement = doc.createElement("arg");
+                attrType = doc.createAttribute("type");
+                attrType.setValue("length");
+                argElement.setAttributeNode(attrType);
+                argElement.appendChild(doc.createTextNode(String.valueOf((int)(life_line.getLifeLine().getEndY() - life_line.getLifeLine().getStartY()))));                          // TODO line length, endY - startY
+                //System.out.println("LENGTH MORE " + (life_line.getLifeLine().getEndY() - life_line.getLifeLine().getStartY()));
+                superElement.appendChild(argElement);
+            }
+        }
 //TODO end of life line loop
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\writetest.xml")); // TODO edit path
+            //StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\write.xml"));
+            StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\writesequencetest.xml")); // TODO edit path
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();
