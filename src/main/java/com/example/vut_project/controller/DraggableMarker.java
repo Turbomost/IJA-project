@@ -61,13 +61,14 @@ public class DraggableMarker {
                 node.setLayoutX(mouseEvent.getSceneX() - mouseAnchorX);
                 for (int i = 0; i < entity.getLifeLineList().size(); i++) {
                     entity.getLifeLineList().get(i).getAnchorPane().setLayoutX(entity.getLayoutX() + entity.sequenceVBox.getPrefWidth() / 2);
-                    Double updateTo = entity.getLifeLineList().get(i).getAnchorPane().getLayoutX();
+                  /*  Double updateTo = entity.getLifeLineList().get(i).getAnchorPane().getLayoutX();
                     for (MessageLine messageLine : entity.getLifeLineList().get(i).getMessageLineList()){
-                        if (messageLine.getEndY() < updateTo)
+                        System.out.println("START : " + messageLine.getStartY() + " | " + updateTo);
+                        if (messageLine.getStartY() < updateTo)
                             messageLine.update_position_x_right(updateTo);
-                        if (messageLine.getEndY() > updateTo)
+                        if (messageLine.getStartY() > updateTo)
                             messageLine.update_position_x_left(updateTo);
-                    }
+                    }*/
                 }
             }
         });

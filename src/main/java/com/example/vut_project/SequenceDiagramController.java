@@ -56,6 +56,9 @@ public class SequenceDiagramController {
         }
         new_entity = new EntityController(helloControllerReference, this, i);
         new_entity.setLayoutX(20 + 100 * i++);
+        if (i > 10) {
+            i = 0;
+        }
         new_entity.setLayoutY(20);
         EntityList.add(new_entity);
         createLifeLineBindToEntity(event, new_entity);
@@ -70,7 +73,7 @@ public class SequenceDiagramController {
     }
 
     //DO NOT USE THIS FUNCTION! ONLY USE WHILE LOADING FROM FILE
-    public void setLifeLineIdentificator(int life_line_identificator){
+    public void setLifeLineIdentificator(int life_line_identificator) {
         this.life_line_number = life_line_identificator;
     }
 
@@ -106,6 +109,8 @@ public class SequenceDiagramController {
             String lowercaseName = path.toLowerCase();
             if (lowercaseName.endsWith(".xml")) {
                 parse.input_file_from_button(path);
+                this.EntityList = null;
+                this.sequenceSpace.getChildren().clear();
                 //classDiagramController = parse.start_parse(this);
                 this.EntityList = parse.load_sequence(helloControllerReference, this);
                 this.displayLoadedSequenceDiagram(parse);
@@ -130,7 +135,7 @@ public class SequenceDiagramController {
 
     public void onDeleteLifeLineClick(Event event, LifeLine line) {
         System.out.println("There should be life line deleted");
-        for(MessageLine messageLine : line.getMessageLineList()){
+        for (MessageLine messageLine : line.getMessageLineList()) {
             sequenceSpace.getChildren().remove(messageLine.plabel);
             sequenceSpace.getChildren().remove(messageLine.arrow1);
             sequenceSpace.getChildren().remove(messageLine.arrow2);
@@ -171,7 +176,7 @@ public class SequenceDiagramController {
 
     public void deleteAllLifeLines(ArrayList<LifeLine> lifelines) {
         for (LifeLine lifeLine : lifelines) {
-            for (MessageLine messageLine : lifeLine.getMessageLineList()){
+            for (MessageLine messageLine : lifeLine.getMessageLineList()) {
                 this.sequenceSpace.getChildren().remove(messageLine.arrow1);
                 this.sequenceSpace.getChildren().remove(messageLine.arrow2);
                 this.sequenceSpace.getChildren().remove(messageLine.plabel);
@@ -204,13 +209,13 @@ public class SequenceDiagramController {
         System.out.println("Create constructor life line click");
     }
 
-    public MessageLine createMessageLine(LifeLine line, String label_message){
+    public MessageLine createMessageLine(LifeLine line, String label_message) {
         Label label = new Label();
         MessageLine messageLine = new MessageLine(this, this.messageFromEntity, this.messageToEntity, this.messageFromLifeLine, this.messageToLifeLine, label);
         messageLine.create_line();
         messageLine.setLabel_string(label_message);
         messageLine.messageType = "request";
-        if(messageFromEntity.getLayoutX() > messageToEntity.getLayoutX()){
+        if (messageFromEntity.getLayoutX() > messageToEntity.getLayoutX()) {
             messageLine.messageType = "reply";
             messageLine.makeDashed();
         }
@@ -227,17 +232,17 @@ public class SequenceDiagramController {
         return messageLine;
     }
 
-    public void setMessageFromEntity(EntityController fromEntity, LifeLine fromLifeLine){
+    public void setMessageFromEntity(EntityController fromEntity, LifeLine fromLifeLine) {
         this.messageFromEntity = fromEntity;
         this.messageFromLifeLine = fromLifeLine;
     }
 
-    public void setMessageToEntity(EntityController toEntity, LifeLine toLifeLine){
+    public void setMessageToEntity(EntityController toEntity, LifeLine toLifeLine) {
         this.messageToEntity = toEntity;
         this.messageToLifeLine = toLifeLine;
     }
 
-    public void deleteMessageFromSpace(MessageLine messageToDelete){
+    public void deleteMessageFromSpace(MessageLine messageToDelete) {
         this.sequenceSpace.getChildren().remove(messageToDelete.plabel);
         this.sequenceSpace.getChildren().remove(messageToDelete.arrow1);
         this.sequenceSpace.getChildren().remove(messageToDelete.arrow2);
@@ -249,20 +254,20 @@ public class SequenceDiagramController {
         parseXML.saveSequenceDiagramInFile(this);
     }
 
-    public HelloController getHelloControllerReference(){
+    public HelloController getHelloControllerReference() {
         return this.helloControllerReference;
     }
 
-    public EntityController getEntityControllerByName(String entityName){
-        for (EntityController entity : EntityList){
-            if (entity.getSequenceNameTextField().equals("entityName")){
+    public EntityController getEntityControllerByName(String entityName) {
+        for (EntityController entity : EntityList) {
+            if (entity.getSequenceNameTextField().equals("entityName")) {
                 return entity;
             }
         }
         return null;
     }
 
-    public ArrayList<EntityController> getEntityList(){
+    public ArrayList<EntityController> getEntityList() {
         return this.EntityList;
     }
 

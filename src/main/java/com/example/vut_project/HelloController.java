@@ -134,6 +134,7 @@ public class HelloController {
             String lowercaseName = path.toLowerCase();
             if (lowercaseName.endsWith(".xml")) {
                 parse.input_file_from_button(path);
+                projectSpace.getChildren().clear();
                 this.classDiagramController = parse.start_parse(this);
                 parse.load_constraints(this);
                 parse.load_operations(this);

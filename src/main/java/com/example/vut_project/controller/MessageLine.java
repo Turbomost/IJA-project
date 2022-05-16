@@ -266,6 +266,10 @@ public class MessageLine extends Line {
         return this.getStartY();
     }
 
+    public Double get_position_x(){
+        return this.getStartX();
+    }
+
     public void makeDashed() {
         setStrokeWidth(2);
         setStroke(Color.BLACK.deriveColor(0, 1, 1, 0.5));
