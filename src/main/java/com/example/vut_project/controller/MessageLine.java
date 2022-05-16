@@ -48,7 +48,7 @@ public class MessageLine extends Line {
         this.toY = new SimpleDoubleProperty(lifeLineTo.anchorPane.getLayoutY());
         setOnMouseClicked(event -> onMouseClicked(event));
         plabel = label;
-        label_string = "Empty Message";
+        label_string = "";
         this.arrow1 = new Line();
         this.arrow1.setStrokeWidth(2.0);
         this.arrow2 = new Line();

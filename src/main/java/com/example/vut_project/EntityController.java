@@ -575,7 +575,7 @@ public class EntityController extends VBox {
         return this.sequenceControllerReference;
     }
 
-    private void checkForOperationsInSequence() {
+    public void checkForOperationsInSequence() {
         for (SequenceDiagramController sequenceDiagramController : this.reference.sequenceDiagramControllerList) {
             if (sequenceDiagramController != null) {
                 System.out.println(">>> NASIEL SOM REFERENCE");

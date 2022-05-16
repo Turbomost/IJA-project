@@ -368,6 +368,7 @@ public class HelloController {
 
         EntityController new_entity = findEntityByName(curClass.getName());
         new_entity.checkForLifeLinesInSequence();
+        new_entity.checkForOperationsInSequence();
 
         return true;
     }

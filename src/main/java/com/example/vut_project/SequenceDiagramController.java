@@ -189,7 +189,9 @@ public class SequenceDiagramController {
         System.out.println("On paste message life line click");
         this.messageToEntity = line.getStick_to_entity();
         this.messageToLifeLine = line;
-        this.createMessageLine(line);
+        if (!this.messageFromEntity.equals(this.messageToEntity) && !this.messageFromLifeLine.getStick_to_entity().equals(this.messageToLifeLine.getStick_to_entity())) {
+            this.createMessageLine(line);
+        }
     }
 
     public void onCreateConstructorMessageLifeLineClick(MouseEvent event) {
