@@ -3,8 +3,8 @@
 -----------------------------------
 
 ### TODO - CLASS DIAGRAM ###
-++++++   TODO 1.1   > (function high)   Přejmenování funkce na existující sice vyhodí hlášku, ale je napsaný nový název
 ++       TODO 1.2   > (function low)    Při načítání diagramu smazat všechny classy
++        TODO 1.3   > (function low)    Edge case - při přejmenování např. třídy Class 0 na Class 1 a poté vytvoření nové třídy se vytvoří Class 1 (tedy se stejným názvem) - přidat while cyklus a zvyšovat identifikátor
 
 ### TODO - SEQUENCE DIAGRAM ###
 ++      TODO 2.1   > (design low)       Life-line lze posunout do záporných hodnot (nad Sequence diagram)
@@ -32,7 +32,7 @@ TBD
 > Editace atributu, při nevalidním vstupu, existujícím jméně, nebo zavření boxu se změny neprojeví. Nelze editovat atribut, pokud není žádný vybrán, pokud je vybrán, není nutné kliknout přímo na ten atribut, lze editovat jen jméno, jen typ, jen acces type, nebo nic.
 > Přidání funkce, žádné pole nesmí být prázdné, nelze přidat funkci s existujícím jménem, zavření boxu, funkce bez parametrů
 > Přidávání parametrů, přidání, či editování parametru funkce s prázdným jménem nepovolí, či datovým typem, nelze přidat parametr s existujícím jménem (při existujícím, se dá název opravit, nebo zavřít křížkem),
-> Editace funkce (TODO 1.1), prázdné jméno, prázdný typ (implicitně void), při zruřeší editace se zachová staré jméno a datový typ, lze editovat pouze typ, jméno, nebo nic
+> Editace funkce, prázdné jméno, prázdný typ (implicitně void), při zruřeší editace se zachová staré jméno a datový typ, lze editovat pouze typ, jméno, nebo nic
 > Editace parametrů, editace bez vybrání neudělá nic
 > Mazání attributu, třída bez atributu nic nemaže, nevabraný atribut se nesmaže, po smazání je jméno potom znovu dostupné, lze smazat i atribut s primárním klíčem
 > Mazání funkce, lze smazat funkci včetně parametrů, lze smazat funkci s Override
