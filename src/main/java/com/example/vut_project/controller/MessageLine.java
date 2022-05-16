@@ -20,21 +20,18 @@ public class MessageLine extends Line {
     private static final double arrowWidth = 7;
     public Line arrow1;
     public Line arrow2;
+    public String messageType = ""; // request / reply
+    public Label plabel;
     DoubleProperty fromX;
     DoubleProperty fromY;
     DoubleProperty toX;
     DoubleProperty toY;
-
-    public String messageType = ""; // request / reply
-
     SequenceDiagramController sequenceDiagramControllerReference;
     LifeLine fromLifeLine;
     LifeLine toLifeLine;
     EntityController fromEntity;
     EntityController toEntity;
-
     String label_string;
-    public Label plabel;
 
     public MessageLine(SequenceDiagramController sequenceDiagramControllerReference, EntityController fromEntity, EntityController toEntity, LifeLine lifeLineFrom, LifeLine lifeLineTo, Label label) {
         this.sequenceDiagramControllerReference = sequenceDiagramControllerReference;
@@ -59,32 +56,38 @@ public class MessageLine extends Line {
 
     public void checkForOperationAvailability() {
         ClassController r = null;
-        if (this.messageType.equals("request")){
+        if (this.messageType.equals("request")) {
             r = toEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(toEntity.getSequenceNameTextField());
         }
-        if (this.messageType.equals("reply")){
-            r = fromEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(fromEntity.getSequenceNameTextField());
+        if (this.messageType.equals("reply")) {
+            this.changeMessageLineColor(Color.BLACK);
         }
-        if (r == null){
+        if (r == null) {
             this.changeMessageLineColor(Color.RED);
             return;
         }
-        AttributeController a = r.findAttributeByName(label_string);
-        if (a == null){
+
+        String function = label_string;
+        if (label_string.contains("(")) {
+            function = label_string.substring(0, label_string.lastIndexOf("("));
+        }
+
+        AttributeController a = r.findAttributeByName(function);
+        if (a == null) {
             System.out.println("operation does not exist!");
             this.changeMessageLineColor(Color.RED);
-        }else{
+        } else {
             System.out.println("NASTAVUJEM NA BLACK");
-            if (a.getType().equals("function")){
+            if (a.getType().equals("function")) {
                 this.changeMessageLineColor(Color.BLACK);
             }
-            if (a.getType().equals("attribute")){
+            if (a.getType().equals("attribute")) {
                 this.changeMessageLineColor(Color.ORANGE);
             }
         }
     }
 
-    public void changeMessageLineColor(Color color){
+    public void changeMessageLineColor(Color color) {
         arrow1.setStroke(color);
         arrow2.setStroke(color);
         setStroke(color);
@@ -153,40 +156,56 @@ public class MessageLine extends Line {
         sequenceDiagramControllerReference.deleteMessageFromSpace(this);
     }
 
-    public void create_line(){
+    public void create_line() {
         setStartX(this.fromX.getValue());
         setStartY(this.fromY.getValue());
         setEndX(this.toX.getValue());
         setEndY(this.toY.getValue());
     }
 
-    public void setLabel_string(String message){
+    public void setLabel_string(String message) {
         this.label_string = message;
         create_label();
     }
 
-    public String getLineString(){
+    public String getLineString() {
         return this.label_string;
     }
 
-    public void create_label(){
+    public void create_label() {
         this.plabel.setText(this.getLineString());
         this.plabel.setAlignment(Pos.CENTER);
         this.plabel.layoutXProperty().bind(this.endXProperty().subtract(this.endXProperty().subtract(this.startXProperty()).divide(2)).subtract(this.getLineString().length() * 2.5));
         this.plabel.layoutYProperty().bind(this.endYProperty().subtract(this.endYProperty().subtract(this.startYProperty()).divide(2)).subtract(20));
     }
 
-    public void update_position(Double toY){
+    public void update_position(Double toY) {
         this.setStartY(toY);
         this.setEndY(toY);
         update();
     }
 
-    public void makeDashed(){
+    public void makeDashed() {
         setStrokeWidth(2);
         setStroke(Color.BLACK.deriveColor(0, 1, 1, 0.5));
         setStrokeLineCap(StrokeLineCap.BUTT);
         getStrokeDashArray().setAll(10.0, 5.0);
         this.checkForOperationAvailability();
+    }
+
+    public EntityController getFromEntity() {
+        return this.fromEntity;
+    }
+
+    public EntityController getToEntity() {
+        return this.toEntity;
+    }
+
+    public LifeLine getFromLifeLine() {
+        return this.fromLifeLine;
+    }
+
+    public LifeLine getToLifeLine() {
+        return this.toLifeLine;
     }
 }

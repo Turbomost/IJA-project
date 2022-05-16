@@ -19,7 +19,6 @@
 ### TODO - JEDEN SEQUENCE DIAGRAM - NEKONZISTENCE ###
 +++++++ TODO 3.2  > (function HIGH)     Zpětná zpráva by neměla být červená nikdy a už vůbec ne oranžová
 ++++    TODO 3.3  > (function med)      Při přejmenování message-line na funkci, která se nachází ve vyšší třídě (přes generalize) zůstává červená. Budeme muset ještě checkovat, zda se ta metoda nachází nejen v aktuální třídě, ale i ve třídách, které generalizuje
-++      TODO 3.6  > (design low)        Koncová část šipky má z nějakýho random důvodu občas špatnou barvu, upřímně nevím, jak se ta barva nastavuje xd
 
 ### TODO - VÍCE SEQUENCE DIAGRAMŮ ###
 TBD
@@ -61,8 +60,9 @@ TBD
 > Smazání diagramu z class diagramu (life-lines i message-lines červené červené)
 > Přidání Life-liny smazanému class diagramu (červená)
 > Přdání message-line červené life-lině ze všech stran (červená)
-> Přejmenování funkce v class diagramu (červená message-line), Přejmenování funkce zpět na existující (černá message-line), smazání funkce (červená), přidání funkce (černá)(TODO 3.6)
+> Přejmenování funkce v class diagramu (červená message-line), Přejmenování funkce zpět na existující (černá message-line), smazání funkce (červená), přidání funkce (černá)
 
 ### Na čo se nebude hrabat ###
-> Nesmí se vytvářet třídy před načítaním ze souboru
+> Nesmí se vytvářet třídy před načítaním ze souboru => Bylo by třeba fixnout
 > Když se přejemenovává Classa, tak se musí stisknout enter
+> Empty Message

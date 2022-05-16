@@ -190,7 +190,7 @@ public class SequenceDiagramController {
         this.messageToEntity = line.getStick_to_entity();
         this.messageToLifeLine = line;
         if (!this.messageFromEntity.equals(this.messageToEntity) && !this.messageFromLifeLine.getStick_to_entity().equals(this.messageToLifeLine.getStick_to_entity())) {
-            this.createMessageLine(line, "");
+            this.createMessageLine(line, "Empty Message");
         }
     }
 
@@ -217,6 +217,7 @@ public class SequenceDiagramController {
         this.messageToLifeLine.addMessageLineToList(messageLine);
         sequenceSpace.getChildren().addAll(messageLine, label, messageLine.arrow1, messageLine.arrow2);
         messageLine.update();
+        messageLine.checkForOperationAvailability();
     }
 
     public void setMessageFromEntity(EntityController fromEntity, LifeLine fromLifeLine){
