@@ -17,7 +17,6 @@
 +       TODO 2.11  > (design low)       Kvůli offsetu při přidávání se pozdější seq diagramy vykrelují mimo okno (resetovat offset jako u class diagramů)
 
 ### TODO - JEDEN SEQUENCE DIAGRAM - NEKONZISTENCE ###
-+++++++ TODO 3.2  > (function HIGH)     Zpětná zpráva by neměla být červená nikdy a už vůbec ne oranžová
 ++++    TODO 3.3  > (function med)      Při přejmenování message-line na funkci, která se nachází ve vyšší třídě (přes generalize) zůstává červená. Budeme muset ještě checkovat, zda se ta metoda nachází nejen v aktuální třídě, ale i ve třídách, které generalizuje
 
 ### TODO - VÍCE SEQUENCE DIAGRAMŮ ###
@@ -61,6 +60,12 @@ TBD
 > Přidání Life-liny smazanému class diagramu (červená)
 > Přdání message-line červené life-lině ze všech stran (červená)
 > Přejmenování funkce v class diagramu (červená message-line), Přejmenování funkce zpět na existující (černá message-line), smazání funkce (červená), přidání funkce (černá)
+
+### DEEP TESTOVÁNÍ - VÍCE SEQUENCE DIAGRAMŮ ###
+TBD
+
+### DEEP TESTOVÁNÍ - VÍCE SEQUENCE DIAGRAMŮ - NEKONZISTENCE ###
+TBD
 
 ### Na čo se nebude hrabat ###
 > Nesmí se vytvářet třídy před načítaním ze souboru => Bylo by třeba fixnout

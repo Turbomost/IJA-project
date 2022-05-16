@@ -186,11 +186,13 @@ public class SequenceDiagramController {
     }
 
     public void onPasteMessageLifeLineClick(MouseEvent event, LifeLine line) {
-        System.out.println("On paste message life line click");
-        this.messageToEntity = line.getStick_to_entity();
-        this.messageToLifeLine = line;
-        if (!this.messageFromEntity.equals(this.messageToEntity) && !this.messageFromLifeLine.getStick_to_entity().equals(this.messageToLifeLine.getStick_to_entity())) {
-            this.createMessageLine(line, "Empty Message");
+        if (this.messageFromEntity != null) {
+            System.out.println("On paste message life line click");
+            this.messageToEntity = line.getStick_to_entity();
+            this.messageToLifeLine = line;
+            if (!this.messageFromEntity.equals(this.messageToEntity) && !this.messageFromLifeLine.getStick_to_entity().equals(this.messageToLifeLine.getStick_to_entity())) {
+                this.createMessageLine(line, "Empty Message");
+            }
         }
     }
 
@@ -198,7 +200,7 @@ public class SequenceDiagramController {
         System.out.println("Create constructor life line click");
     }
 
-    public void createMessageLine(LifeLine line, String label_message){
+    public MessageLine createMessageLine(LifeLine line, String label_message){
         Label label = new Label();
         MessageLine messageLine = new MessageLine(this, this.messageFromEntity, this.messageToEntity, this.messageFromLifeLine, this.messageToLifeLine, label);
         messageLine.create_line();
@@ -218,6 +220,7 @@ public class SequenceDiagramController {
         sequenceSpace.getChildren().addAll(messageLine, label, messageLine.arrow1, messageLine.arrow2);
         messageLine.update();
         messageLine.checkForOperationAvailability();
+        return messageLine;
     }
 
     public void setMessageFromEntity(EntityController fromEntity, LifeLine fromLifeLine){

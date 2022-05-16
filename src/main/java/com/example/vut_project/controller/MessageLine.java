@@ -68,8 +68,11 @@ public class MessageLine extends Line {
         }
 
         String function = label_string;
+        String args = "";
         if (label_string.contains("(")) {
             function = label_string.substring(0, label_string.lastIndexOf("("));
+            args = label_string.substring(label_string.lastIndexOf("(") + 1, label_string.lastIndexOf(")"));
+            System.out.println("ARGS: <" + args + ">");
         }
 
         AttributeController a = r.findAttributeByName(function);
@@ -79,7 +82,48 @@ public class MessageLine extends Line {
         } else {
             System.out.println("NASTAVUJEM NA BLACK");
             if (a.getType().equals("function")) {
-                this.changeMessageLineColor(Color.BLACK);
+
+                // Function without brackets
+                if (!label_string.contains("(")) {
+                    this.changeMessageLineColor(Color.ORANGE);
+                } else {
+
+                    // Function with no parameters
+                    if (a.getOperationControllerList().size() == 0) {
+                        if (args.equals("")) {
+                            System.out.println("Empty args Black");
+                            this.changeMessageLineColor(Color.BLACK);
+                        } else {
+                            System.out.println("No empty args");
+                            this.changeMessageLineColor(Color.ORANGE);
+                        }
+                    }
+
+                    // Regex doesn't match
+                    else if (!args.matches("^\\w+(, ?\\w+)*$")) {
+                        System.out.println("Regex error");
+                        this.changeMessageLineColor(Color.ORANGE);
+                        return;
+                    } else {
+                        // Regex do match
+                        int lastIndex = 0;
+                        int count = 0;
+                        while (lastIndex != -1) {
+                            lastIndex = args.indexOf(",", lastIndex);
+                            if (lastIndex != -1) {
+                                count++;
+                                lastIndex += 1;
+                            }
+                        }
+                        if (a.getOperationControllerList().size() == count + 1) {
+                            System.out.println("good");
+                            this.changeMessageLineColor(Color.BLACK);
+                        } else {
+                            System.out.println("argcount mismatch a.size: " + a.getOperationControllerList().size() + "commas count -1: " + (count - 1));
+                            this.changeMessageLineColor(Color.ORANGE);
+                        }
+                    }
+                }
             }
             if (a.getType().equals("attribute")) {
                 this.changeMessageLineColor(Color.ORANGE);
@@ -183,6 +227,10 @@ public class MessageLine extends Line {
         this.setStartY(toY);
         this.setEndY(toY);
         update();
+    }
+
+    public Double get_position_y(){
+        return this.getStartY();
     }
 
     public void makeDashed() {
