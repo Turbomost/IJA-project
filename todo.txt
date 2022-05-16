@@ -3,11 +3,9 @@
 -----------------------------------
 
 ### TODO - CLASS DIAGRAM ###
-++       TODO 1.2   > (function low)    Při načítání diagramu smazat všechny classy
 
 ### TODO - SEQUENCE DIAGRAM ###
 +       TODO 2.7   > (design low)       Při posouvání seq diagramů (tedy posouvání všech life-lines po x ose) roztahovat šipky se zprávami k nim nabindovaným, aby měla správnou délku (A řešit změnu typu zpráv, pokud se změní x-pozice)
-+       TODO 2.11  > (design low)       Kvůli offsetu při přidávání se pozdější seq diagramy vykrelují mimo okno (resetovat offset jako u class diagramů)
 
 ### TODO - JEDEN SEQUENCE DIAGRAM - NEKONZISTENCE ###
 
@@ -60,5 +58,4 @@ TBD
 TBD
 
 ### Na čo se nebude hrabat ###
-> Nesmí se vytvářet třídy před načítaním ze souboru => Bylo by třeba fixnout
 > Když se přejemenovává Classa, tak se musí stisknout enter
