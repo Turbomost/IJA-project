@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<program>
+    <element name="System" type="sequence">
+        <arg type="position_x">166</arg>
+        <arg type="position_y">20</arg>
+    </element>
+    <element name="Administrator" type="sequence">
+        <arg type="position_x">392</arg>
+        <arg type="position_y">20</arg>
+    </element>
+    <element name="Member" type="sequence">
+        <arg type="position_x">571</arg>
+        <arg type="position_y">20</arg>
+    </element>
+    <element name="Redactor" type="sequence">
+        <arg type="position_x">735</arg>
+        <arg type="position_y">20</arg>
+    </element>
+    <element name="Article" type="sequence">
+        <arg type="position_x">916</arg>
+        <arg type="position_y">20</arg>
+    </element>
+    <element name="Main" type="sequence">
+        <arg type="position_x">4</arg>
+        <arg type="position_y">20</arg>
+    </element>
+    <element name="Comment" type="sequence">
+        <arg type="position_x">1108</arg>
+        <arg type="position_y">20</arg>
+    </element>
+    <element name="System" type="life_line">
+        <arg type="line">0</arg>
+        <arg type="position_y">0093</arg>
+        <arg type="length">549</arg>
+    </element>
+    <element name="Administrator" type="life_line">
+        <arg type="line">1</arg>
+        <arg type="position_y">00116</arg>
+        <arg type="length">16</arg>
+    </element>
+    <element name="Administrator" type="life_line">
+        <arg type="line">7</arg>
+        <arg type="position_y">00278</arg>
+        <arg type="length">28</arg>
+    </element>
+    <element name="Administrator" type="life_line">
+        <arg type="line">11</arg>
+        <arg type="position_y">00544</arg>
+        <arg type="length">31</arg>
+    </element>
+    <element name="Member" type="life_line">
+        <arg type="line">2</arg>
+        <arg type="position_y">00158</arg>
+        <arg type="length">28</arg>
+    </element>
+    <element name="Member" type="life_line">
+        <arg type="line">6</arg>
+        <arg type="position_y">00353</arg>
+        <arg type="length">34</arg>
+    </element>
+    <element name="Member" type="life_line">
+        <arg type="line">10</arg>
+        <arg type="position_y">00498</arg>
+        <arg type="length">12</arg>
+    </element>
+    <element name="Redactor" type="life_line">
+        <arg type="line">3</arg>
+        <arg type="position_y">00218</arg>
+        <arg type="length">31</arg>
+    </element>
+    <element name="Redactor" type="life_line">
+        <arg type="line">12</arg>
+        <arg type="position_y">00117</arg>
+        <arg type="length">20</arg>
+    </element>
+    <element name="Article" type="life_line">
+        <arg type="line">4</arg>
+        <arg type="position_y">00232</arg>
+        <arg type="length">16</arg>
+    </element>
+    <element name="Article" type="life_line">
+        <arg type="line">8</arg>
+        <arg type="position_y">00423</arg>
+        <arg type="length">48</arg>
+    </element>
+    <element name="Main" type="life_line">
+        <arg type="line">5</arg>
+        <arg type="position_y">0075</arg>
+        <arg type="length">625</arg>
+    </element>
+    <element name="Comment" type="life_line">
+        <arg type="line">9</arg>
+        <arg type="position_y">00448</arg>
+        <arg type="length">15</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Main</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">5</arg>
+        <arg type="message_text">system</arg>
+        <arg type="position_y">643</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Administrator</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">1</arg>
+        <arg type="message_text">&lt;&lt;Create&gt;&gt; (admin_1)</arg>
+        <arg type="position_y">115</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Member</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">2</arg>
+        <arg type="message_text">changePassword(old, new)</arg>
+        <arg type="position_y">158</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Redactor</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">3</arg>
+        <arg type="message_text">publishArticle(article_1)</arg>
+        <arg type="position_y">218</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Member</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">6</arg>
+        <arg type="message_text">rateArticle(article_1)</arg>
+        <arg type="position_y">349</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Administrator</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">7</arg>
+        <arg type="message_text">approveArticle(article_1)</arg>
+        <arg type="position_y">277</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Article</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">8</arg>
+        <arg type="message_text">addComment(comment1)</arg>
+        <arg type="position_y">425</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Member</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">10</arg>
+        <arg type="message_text">resetPassword()</arg>
+        <arg type="position_y">498</arg>
+    </element>
+    <element name="System" type="message">
+        <arg type="to_entity">Administrator</arg>
+        <arg type="identificator_from">0</arg>
+        <arg type="identificator_to">11</arg>
+        <arg type="message_text">warnRedactor(redactor_1, violation)</arg>
+        <arg type="position_y">542</arg>
+    </element>
+    <element name="Administrator" type="message">
+        <arg type="to_entity">Redactor</arg>
+        <arg type="identificator_from">1</arg>
+        <arg type="identificator_to">12</arg>
+        <arg type="message_text">&lt;&lt;Create&gt;&gt; (redactor_1)</arg>
+        <arg type="position_y">117</arg>
+    </element>
+    <element name="Administrator" type="message">
+        <arg type="to_entity">System</arg>
+        <arg type="identificator_from">7</arg>
+        <arg type="identificator_to">0</arg>
+        <arg type="message_text">true</arg>
+        <arg type="position_y">301</arg>
+    </element>
+    <element name="Administrator" type="message">
+        <arg type="to_entity">System</arg>
+        <arg type="identificator_from">11</arg>
+        <arg type="identificator_to">0</arg>
+        <arg type="message_text">true</arg>
+        <arg type="position_y">575</arg>
+    </element>
+    <element name="Member" type="message">
+        <arg type="to_entity">System</arg>
+        <arg type="identificator_from">2</arg>
+        <arg type="identificator_to">0</arg>
+        <arg type="message_text">35c246d5</arg>
+        <arg type="position_y">183</arg>
+    </element>
+    <element name="Member" type="message">
+        <arg type="to_entity">System</arg>
+        <arg type="identificator_from">6</arg>
+        <arg type="identificator_to">0</arg>
+        <arg type="message_text">true</arg>
+        <arg type="position_y">374</arg>
+    </element>
+    <element name="Redactor" type="message">
+        <arg type="to_entity">Article</arg>
+        <arg type="identificator_from">3</arg>
+        <arg type="identificator_to">4</arg>
+        <arg type="message_text">&lt;&lt;Create&gt;&gt; (article_1)</arg>
+        <arg type="position_y">231</arg>
+    </element>
+    <element name="Redactor" type="message">
+        <arg type="to_entity">System</arg>
+        <arg type="identificator_from">3</arg>
+        <arg type="identificator_to">0</arg>
+        <arg type="message_text">article_1</arg>
+        <arg type="position_y">238</arg>
+    </element>
+    <element name="Article" type="message">
+        <arg type="to_entity">Comment</arg>
+        <arg type="identificator_from">8</arg>
+        <arg type="identificator_to">9</arg>
+        <arg type="message_text">&lt;&lt;Create&gt;&gt; ("comment")</arg>
+        <arg type="position_y">449</arg>
+    </element>
+    <element name="Article" type="message">
+        <arg type="to_entity">System</arg>
+        <arg type="identificator_from">8</arg>
+        <arg type="identificator_to">0</arg>
+        <arg type="message_text">comment1</arg>
+        <arg type="position_y">461</arg>
+    </element>
+    <element name="Main" type="message">
+        <arg type="to_entity">System</arg>
+        <arg type="identificator_from">5</arg>
+        <arg type="identificator_to">0</arg>
+        <arg type="message_text">Create()</arg>
+        <arg type="position_y">90</arg>
+    </element>
+</program>

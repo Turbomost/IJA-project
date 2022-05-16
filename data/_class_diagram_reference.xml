@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<program>
+    <element name="Article" type="class">
+        <arg type="primarykey">title</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">String</attr_type>
+        <arg type="attribute">rating</arg>
+        <attr_access type="attribute_access">-</attr_access>
+        <attr_type type="attribute_type">int</attr_type>
+        <arg type="function">print</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">addComment</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">bool</attr_type>
+        <arg type="function">removeComment</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">bool</attr_type>
+        <arg type="position_x">10</arg>
+        <arg type="position_y">-49</arg>
+    </element>
+    <element name="System" type="class">
+        <arg type="attribute">members</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">&lt;&lt;ArrayList&gt;&gt; Member</attr_type>
+        <arg type="attribute">articles</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">&lt;&lt;ArrayList&gt;&gt; Articles</attr_type>
+        <arg type="position_x">1136</arg>
+        <arg type="position_y">-45</arg>
+    </element>
+    <element name="Comment" type="class">
+        <arg type="attribute">date</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">DateTime</attr_type>
+        <arg type="attribute">text</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">String</attr_type>
+        <arg type="function">print</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="position_x">94</arg>
+        <arg type="position_y">221</arg>
+    </element>
+    <element name="Section" type="class">
+        <arg type="attribute">name</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">String</attr_type>
+        <arg type="function">print</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="position_x">597</arg>
+        <arg type="position_y">102</arg>
+    </element>
+    <element name="Member" type="class">
+        <arg type="attribute">nickname</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">String</attr_type>
+        <arg type="attribute">email</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">String</attr_type>
+        <arg type="attribute">password</arg>
+        <attr_access type="attribute_access">#</attr_access>
+        <attr_type type="attribute_type">Hash</attr_type>
+        <arg type="function">rateArticle</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">changePassword</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">Hash</attr_type>
+        <arg type="position_x">1137</arg>
+        <arg type="position_y">227</arg>
+    </element>
+    <element name="Redactor" type="class">
+        <arg type="function">publishArticle</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">rateArticle</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="position_x">635</arg>
+        <arg type="position_y">377</arg>
+    </element>
+    <element name="Administrator" type="class">
+        <arg type="function">approveArticle</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">declineArticle</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">warnRedactor</arg>
+        <attr_access type="attribute_access">-</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">rateArticle</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="position_x">234</arg>
+        <arg type="position_y">378</arg>
+    </element>
+    <element consType="Association" left="0 .. N" name="Articles are assigned to Sections" right="1" type="constraint">
+        <arg type="constraint_from">Article</arg>
+        <arg type="constraint_to">Section</arg>
+    </element>
+    <element consType="Aggregation" left="0 .. N" name="System have Articles" right="1" type="constraint">
+        <arg type="constraint_from">Article</arg>
+        <arg type="constraint_to">System</arg>
+    </element>
+    <element consType="Aggregation" left="0 .. N" name="Article have Comments" right="1" type="constraint">
+        <arg type="constraint_from">Comment</arg>
+        <arg type="constraint_to">Article</arg>
+    </element>
+    <element consType="Association" left="0 .. N" name="Comments are assigned to Members" right="1" type="constraint">
+        <arg type="constraint_from">Comment</arg>
+        <arg type="constraint_to">Member</arg>
+    </element>
+    <element consType="Aggregation" left="0 .. N" name="System have sections" right="1" type="constraint">
+        <arg type="constraint_from">Section</arg>
+        <arg type="constraint_to">System</arg>
+    </element>
+    <element consType="Aggregation" left="0 .. N" name="System have Members" right="1" type="constraint">
+        <arg type="constraint_from">Member</arg>
+        <arg type="constraint_to">System</arg>
+    </element>
+    <element consType="Generalization" left="" name="" right="" type="constraint">
+        <arg type="constraint_from">Redactor</arg>
+        <arg type="constraint_to">Member</arg>
+    </element>
+    <element consType="Generalization" left="" name="" right="" type="constraint">
+        <arg type="constraint_from">Administrator</arg>
+        <arg type="constraint_to">Redactor</arg>
+    </element>
+    <element name="Article" type="operation">
+        <arg type="function_name">addComment</arg>
+        <arg type="parameter_name">comment</arg>
+        <arg type="parameter_type">Comment</arg>
+    </element>
+    <element name="Article" type="operation">
+        <arg type="function_name">removeComment</arg>
+        <arg type="parameter_name">comment</arg>
+        <arg type="parameter_type">Comment</arg>
+    </element>
+    <element name="Member" type="operation">
+        <arg type="function_name">rateArticle</arg>
+        <arg type="parameter_name">article</arg>
+        <arg type="parameter_type">Article</arg>
+    </element>
+    <element name="Member" type="operation">
+        <arg type="function_name">rateArticle</arg>
+        <arg type="parameter_name">rating</arg>
+        <arg type="parameter_type">int</arg>
+    </element>
+    <element name="Member" type="operation">
+        <arg type="function_name">changePassword</arg>
+        <arg type="parameter_name">old</arg>
+        <arg type="parameter_type">String</arg>
+    </element>
+    <element name="Member" type="operation">
+        <arg type="function_name">changePassword</arg>
+        <arg type="parameter_name">new</arg>
+        <arg type="parameter_type">String</arg>
+    </element>
+    <element name="Redactor" type="operation">
+        <arg type="function_name">publishArticle</arg>
+        <arg type="parameter_name">article</arg>
+        <arg type="parameter_type">Article</arg>
+    </element>
+    <element name="Redactor" type="operation">
+        <arg type="function_name">rateArticle</arg>
+        <arg type="parameter_name">article</arg>
+        <arg type="parameter_type">Article</arg>
+    </element>
+    <element name="Redactor" type="operation">
+        <arg type="function_name">rateArticle</arg>
+        <arg type="parameter_name">rating</arg>
+        <arg type="parameter_type">int</arg>
+    </element>
+    <element name="Administrator" type="operation">
+        <arg type="function_name">approveArticle</arg>
+        <arg type="parameter_name">article</arg>
+        <arg type="parameter_type">Article</arg>
+    </element>
+    <element name="Administrator" type="operation">
+        <arg type="function_name">declineArticle</arg>
+        <arg type="parameter_name">article</arg>
+        <arg type="parameter_type">Article</arg>
+    </element>
+    <element name="Administrator" type="operation">
+        <arg type="function_name">warnRedactor</arg>
+        <arg type="parameter_name">redactor</arg>
+        <arg type="parameter_type">Redactor</arg>
+    </element>
+    <element name="Administrator" type="operation">
+        <arg type="function_name">warnRedactor</arg>
+        <arg type="parameter_name">reason</arg>
+        <arg type="parameter_type">String</arg>
+    </element>
+    <element name="Administrator" type="operation">
+        <arg type="function_name">rateArticle</arg>
+        <arg type="parameter_name">article</arg>
+        <arg type="parameter_type">Article</arg>
+    </element>
+    <element name="Administrator" type="operation">
+        <arg type="function_name">rateArticle</arg>
+        <arg type="parameter_name">rating</arg>
+        <arg type="parameter_type">int</arg>
+    </element>
+</program>

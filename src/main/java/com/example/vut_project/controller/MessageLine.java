@@ -31,6 +31,7 @@ public class MessageLine extends Line {
     LifeLine toLifeLine;
     EntityController fromEntity;
     EntityController toEntity;
+    EntityController operationCheckToEntity = null;
     String label_string;
 
     public MessageLine(SequenceDiagramController sequenceDiagramControllerReference, EntityController fromEntity, EntityController toEntity, LifeLine lifeLineFrom, LifeLine lifeLineTo, Label label) {
@@ -69,30 +70,30 @@ public class MessageLine extends Line {
         return null;
     }
 
-    public void checkForOperationAvailability() {
+    public void checkForOperationAvailability(){
+        this.operationCheckToEntity = null;
+        this.checkingForOperationAvailability();
+    }
+
+    public boolean checkingForOperationAvailability() {
+        if (this.operationCheckToEntity == null){
+            this.operationCheckToEntity = toEntity;
+        }
         System.out.println("CHECK OPERATIONS: " + this.messageType);
 
         if (label_string.toLowerCase().contains("<<create>>")) {
             this.changeMessageLineColor(Color.BLACK);
-            return;
+            return true;
         }
         if (this.messageType.equals("reply")) {
             this.changeMessageLineColor(Color.BLACK);
-            return;
+            return true;
         }
 
-        ClassController r = toEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(toEntity.getSequenceNameTextField());
+        ClassController r = operationCheckToEntity.getSequenceControllerReference().getHelloControllerReference().classDiagramController.findClass(operationCheckToEntity.getSequenceNameTextField());
         if (r == null) {
             this.changeMessageLineColor(Color.RED);
-            return;
-        }
-        if (this.messageType.equals("request")) {
-            for (BoundLine boundLine : r.getConstraintList()) {
-                if (boundLine.to.equals(r) && boundLine.getLineType().equals(BoundLine.BoundLineGeneralization())) {
-                    toEntity = sequenceDiagramControllerReference.findEntity(boundLine.from.getName());
-                    this.checkForOperationAvailability();
-                }
-            }
+            return false;
         }
 
         String function = label_string;
@@ -106,8 +107,20 @@ public class MessageLine extends Line {
 
         AttributeController a = this.FindFunction(r, function);
         if (a == null) {
-            System.out.println("operation does not exist!");
             this.changeMessageLineColor(Color.RED);
+            System.out.println("operation does not exist!");
+            for (BoundLine boundLine : r.getConstraintList()) {
+                if (boundLine.to.equals(r) && boundLine.getLineType().equals(BoundLine.BoundLineGeneralization())) {
+                    operationCheckToEntity = sequenceDiagramControllerReference.findEntity(boundLine.from.getName());
+                    System.out.println(operationCheckToEntity.getSequenceNameTextField());
+                    if (operationCheckToEntity != null) {
+                        if (this.checkingForOperationAvailability()){
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         } else {
             System.out.println("NASTAVUJEM NA BLACK");
             if (a.getType().equals("function")) {
@@ -115,6 +128,7 @@ public class MessageLine extends Line {
                 // Function without brackets
                 if (!label_string.contains("(")) {
                     this.changeMessageLineColor(Color.ORANGE);
+                    return true;
                 } else {
 
                     // Function with no parameters
@@ -122,9 +136,11 @@ public class MessageLine extends Line {
                         if (args.equals("")) {
                             System.out.println("Empty args Black");
                             this.changeMessageLineColor(Color.BLACK);
+                            return true;
                         } else {
                             System.out.println("No empty args");
                             this.changeMessageLineColor(Color.ORANGE);
+                            return true;
                         }
                     }
 
@@ -132,7 +148,7 @@ public class MessageLine extends Line {
                     else if (!args.matches("^\\w+(, ?\\w+)*$")) {
                         System.out.println("Regex error");
                         this.changeMessageLineColor(Color.ORANGE);
-                        return;
+                        return true;
                     } else {
                         // Regex do match
                         int lastIndex = 0;
@@ -147,17 +163,21 @@ public class MessageLine extends Line {
                         if (a.getOperationControllerList().size() == count + 1) {
                             System.out.println("good");
                             this.changeMessageLineColor(Color.BLACK);
+                            return true;
                         } else {
                             System.out.println("argcount mismatch a.size: " + a.getOperationControllerList().size() + "commas count -1: " + (count - 1));
                             this.changeMessageLineColor(Color.ORANGE);
+                            return true;
                         }
                     }
                 }
             }
             if (a.getType().equals("attribute")) {
                 this.changeMessageLineColor(Color.ORANGE);
+                return true;
             }
         }
+        return true;
     }
 
     public void changeMessageLineColor(Color color) {

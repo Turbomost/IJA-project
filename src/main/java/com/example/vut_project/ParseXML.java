@@ -590,8 +590,8 @@ public class ParseXML extends HelloController {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            //StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\write.xml")); // TODO edit path
-            StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\class_diagram_reference.xml"));
+            StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\_class_diagram_reference.xml")); // TODO edit path
+            //StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\class_diagram_reference.xml"));
             transformer.transform(source, result);
 
             // Output to console for testing, but its broken so vscode and format
@@ -740,8 +740,8 @@ public class ParseXML extends HelloController {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            //StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\write.xml"));
-            StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\sequence_diagram_reference.xml")); // TODO edit path
+            StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\_sequence_diagram_reference.xml"));
+            //StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\sequence_diagram_reference.xml")); // TODO edit path
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();
