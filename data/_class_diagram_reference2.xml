@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<program>
+    <element name="Element" type="class">
+        <arg type="primarykey">name</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">String</attr_type>
+        <arg type="function">Element</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">getName</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">String</attr_type>
+        <arg type="function">rename</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="position_x">500</arg>
+        <arg type="position_y">50</arg>
+    </element>
+    <element name="UMLAttribute" type="class">
+        <arg type="primarykey">type</arg>
+        <attr_access type="attribute_access">#</attr_access>
+        <attr_type type="attribute_type">UMLClassifier</attr_type>
+        <arg type="function">getType</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">UMLClassifier</attr_type>
+        <arg type="position_x">50</arg>
+        <arg type="position_y">300</arg>
+    </element>
+    <element name="UMLClassifier" type="class">
+        <arg type="function">UMLClassifier</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">void</attr_type>
+        <arg type="function">isUserDefined</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">boolean</attr_type>
+        <arg type="position_x">500</arg>
+        <arg type="position_y">300</arg>
+    </element>
+    <element name="UMLClass" type="class">
+        <arg type="attribute">attributes</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">List&lt;UMLAttributes&gt;</attr_type>
+        <arg type="function">addAttribute</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">boolean</attr_type>
+        <arg type="function">getAttrPosition</arg>
+        <attr_access type="attribute_access">+</attr_access>
+        <attr_type type="attribute_type">int</attr_type>
+        <arg type="position_x">500</arg>
+        <arg type="position_y">500</arg>
+    </element>
+    <element name="Test" type="class">
+        <arg type="position_x">1041</arg>
+        <arg type="position_y">260</arg>
+    </element>
+    <element name="class 1" type="class">
+        <arg type="position_x">835</arg>
+        <arg type="position_y">19</arg>
+    </element>
+    <element consType="Association" left="1 .. N" name=" " right="1" type="constraint">
+        <arg type="constraint_from">UMLAttribute</arg>
+        <arg type="constraint_to">UMLClassifier</arg>
+    </element>
+    <element consType="Generalization" left="" name=" " right="" type="constraint">
+        <arg type="constraint_from">UMLAttribute</arg>
+        <arg type="constraint_to">Element</arg>
+    </element>
+    <element consType="Generalization" left="" name=" " right="" type="constraint">
+        <arg type="constraint_from">UMLClassifier</arg>
+        <arg type="constraint_to">Element</arg>
+    </element>
+    <element consType="Association" left="1" name=" " right="0 .. N" type="constraint">
+        <arg type="constraint_from">UMLClass</arg>
+        <arg type="constraint_to">UMLAttribute</arg>
+    </element>
+    <element consType="Generalization" left="" name=" " right="" type="constraint">
+        <arg type="constraint_from">UMLClass</arg>
+        <arg type="constraint_to">UMLClassifier</arg>
+    </element>
+    <element consType="Generalization" left="" name="new constraint" right="" type="constraint">
+        <arg type="constraint_from">Test</arg>
+        <arg type="constraint_to">UMLClassifier</arg>
+    </element>
+    <element consType="Generalization" left="" name="new constraint" right="" type="constraint">
+        <arg type="constraint_from">class 1</arg>
+        <arg type="constraint_to">UMLClassifier</arg>
+    </element>
+    <element name="Element" type="operation">
+        <arg type="function_name">Element</arg>
+        <arg type="parameter_name">name</arg>
+        <arg type="parameter_type">String</arg>
+    </element>
+    <element name="Element" type="operation">
+        <arg type="function_name">rename</arg>
+        <arg type="parameter_name">name</arg>
+        <arg type="parameter_type">String</arg>
+    </element>
+    <element name="UMLClassifier" type="operation">
+        <arg type="function_name">UMLClassifier</arg>
+        <arg type="parameter_name">name</arg>
+        <arg type="parameter_type">String</arg>
+    </element>
+    <element name="UMLClass" type="operation">
+        <arg type="function_name">addAttribute</arg>
+        <arg type="parameter_name">attr</arg>
+        <arg type="parameter_type">UMLAttribute</arg>
+    </element>
+    <element name="UMLClass" type="operation">
+        <arg type="function_name">getAttrPosition</arg>
+        <arg type="parameter_name">attr</arg>
+        <arg type="parameter_type">UMLAttribute</arg>
+    </element>
+</program>

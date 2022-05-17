@@ -74,7 +74,7 @@ public class ParseXML extends HelloController {
                             Node mandatory = attributes.getNamedItem("mandatory");
                             Node genclass = attributes.getNamedItem("class");
                             if (arg != null && new_class != null) {
-                                //TODO -> FILL CLASS WITH ITS ATTRIBUTES
+                                //FILL CLASS WITH ITS ATTRIBUTES
                                 if (arg.getTextContent().equals("primarykey")) {
                                     System.out.println("PK> " + fieldNode.getTextContent());
                                     System.out.println("Access node " + accessNodes.getLength());
@@ -259,7 +259,7 @@ public class ParseXML extends HelloController {
                     //parsing element information
                     String elementType = eElement.getAttribute("type");  //element type such as : class || constraint || generalization
                     if (elementType.equals("sequence")) { //creating class
-                        //TODO CREATE SEQUENCE NAMED
+                        // CREATE SEQUENCE NAMED
                         new_entity = new EntityController(helloControllerReference, sequenceDiagramController, i);
                         String elementName = eElement.getAttribute("name");  //class name for example : vaškovo_fáro || kolesá
                         new_entity.setSequenceNameTextField(elementName);
@@ -334,7 +334,7 @@ public class ParseXML extends HelloController {
                             line_for_entity = sequenceDiagramController.findSequenceEntity(elementName);
                             sequenceDiagramController.setLifeLineIdentificator(Integer.parseInt(fieldNode.getTextContent()));
                             sequenceDiagramController.createLifeLineBindToEntity(null, line_for_entity);
-                            line_for_entity.getLifeLineList().get(line_for_entity.getLifeLineList().size()-1).checkForClassAvailability(sequenceDiagramController);
+                            line_for_entity.getLifeLineList().get(line_for_entity.getLifeLineList().size() - 1).checkForClassAvailability(sequenceDiagramController);
                             System.out.println("LINE FOR ENTITY: " + line_for_entity.getSequenceNameTextField());
                             System.out.println("LIFE LINE IDENTIFICATOR: " + fieldNode.getTextContent());
                         }
@@ -416,10 +416,10 @@ public class ParseXML extends HelloController {
                             }
                             System.out.println("MESSAGE TEXT" + fieldNode.getTextContent());
                         }
-                        if (arg.getTextContent().equals("position_y")){
-                            if (created_message_line != null){
+                        if (arg.getTextContent().equals("position_y")) {
+                            if (created_message_line != null) {
                                 created_message_line.update_position(Double.parseDouble(fieldNode.getTextContent()));
-                            }else{
+                            } else {
                                 System.out.println("!!! MESSAGE LINE WAS NOT CREATED, CANT SET POSITION !!!");
                             }
                         }
@@ -439,7 +439,7 @@ public class ParseXML extends HelloController {
             // root element
             Element rootElement = doc.createElement("program");
             doc.appendChild(rootElement);
-//TODO for loop from here FOR CLASS CREATING
+// for loop from here FOR CLASS CREATING
             for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
 
                 // element
@@ -453,7 +453,7 @@ public class ParseXML extends HelloController {
                 attr = doc.createAttribute("name");
                 attr.setValue(each_class.getName());                                                //inset class name
                 superElement.setAttributeNode(attr);
-//TODO for loop for CLASS ATTRIBUTES AND FUNCTIONS
+// for loop for CLASS ATTRIBUTES AND FUNCTIONS
                 for (AttributeController each_attribute : each_class.getAttributes()) {
 
                     // element
@@ -480,7 +480,7 @@ public class ParseXML extends HelloController {
                     attrTypeElement.appendChild(doc.createTextNode(each_attribute.getDatatype()));               //insert data type
                     superElement.appendChild(attrTypeElement);
                 }
-//TODO END LOOP FOR CLASS ATTRIBUTES AND FUNCTIONS
+// END LOOP FOR CLASS ATTRIBUTES AND FUNCTIONS
                 // position X
                 Element classPositionElementX = doc.createElement("arg");
                 Attr subPositionX = doc.createAttribute("type");
@@ -497,9 +497,9 @@ public class ParseXML extends HelloController {
                 classPositionElementY.appendChild(doc.createTextNode(String.valueOf((int) each_class.getPosition_y())));               //position
                 superElement.appendChild(classPositionElementY);
             }
-// TODO for LOOP for CLASS CREATING till HERE
+//  for LOOP for CLASS CREATING till HERE
 
-// TODO for LOOP for creating CONSTRAINTS
+//  for LOOP for creating CONSTRAINTS
             System.out.println("LIST: " + helloControllerReference.classDiagramController.return_list());
             for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
                 System.out.println("CLASS LIST: " + each_class.getConstraintList());
@@ -542,9 +542,9 @@ public class ParseXML extends HelloController {
                     }
                 }
             }
-// TODO end loop creating constraints
+//  end loop creating constraints
 
-//TODO operations loop
+// operations loop
             for (ClassController each_class : helloControllerReference.classDiagramController.return_list()) {
                 for (AttributeController each_attribute : each_class.getAttributes()) {
                     if (each_attribute.getType().equals("function")) {
@@ -570,27 +570,27 @@ public class ParseXML extends HelloController {
                             attrType = doc.createAttribute("type");
                             attrType.setValue("parameter_name");
                             argElement.setAttributeNode(attrType);
-                            argElement.appendChild(doc.createTextNode(each_operation.getName()));         // TODO function parameter name
+                            argElement.appendChild(doc.createTextNode(each_operation.getName()));         //  function parameter name
                             superElement.appendChild(argElement);
 
                             argElement = doc.createElement("arg");
                             attrType = doc.createAttribute("type");
                             attrType.setValue("parameter_type");
                             argElement.setAttributeNode(attrType);
-                            argElement.appendChild(doc.createTextNode(each_operation.getDataType()));         // TODO operation parameter type
+                            argElement.appendChild(doc.createTextNode(each_operation.getDataType()));         //  operation parameter type
                             superElement.appendChild(argElement);
                         }
                     }
                 }
             }
 
-//TODO END LOOP FOR OPERATIONS
+// END LOOP FOR OPERATIONS
 
             // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\_class_diagram_reference.xml")); // TODO edit path
+            StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\_class_diagram_reference2.xml")); //  edit path
             //StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\class_diagram_reference.xml"));
             transformer.transform(source, result);
 
@@ -610,41 +610,13 @@ public class ParseXML extends HelloController {
 
             Element rootElement = doc.createElement("program");
             doc.appendChild(rootElement);
-//TODO loop through all SEQUENCE DIAGRAMS
-   for (EntityController entity : sequenceDiagramController.getEntityList() ) {
-       Element superElement = doc.createElement("element");
-       rootElement.appendChild(superElement);
-
-       Attr attr = doc.createAttribute("type");
-       attr.setValue("sequence");
-       superElement.setAttributeNode(attr);
-       attr = doc.createAttribute("name");
-       attr.setValue(entity.getSequenceNameTextField());                                 // inset sequence diagram name
-       superElement.setAttributeNode(attr);
-
-       Element argElement = doc.createElement("arg");
-       Attr attrType = doc.createAttribute("type");
-       attrType.setValue("position_x");
-       argElement.setAttributeNode(attrType);
-       argElement.appendChild(doc.createTextNode(String.valueOf((int)(entity.getLayoutX()))));         //  position
-       superElement.appendChild(argElement);
-
-       argElement = doc.createElement("arg");
-       attrType = doc.createAttribute("type");
-       attrType.setValue("position_y");
-       argElement.setAttributeNode(attrType);
-       argElement.appendChild(doc.createTextNode(String.valueOf((int)(entity.getLayoutY()))));         // position
-       superElement.appendChild(argElement);
-   }
-//TODO end of loop through sequence diagrams
-//TODO loop through all sequence diagram life lines
-        for (EntityController entity : sequenceDiagramController.getEntityList() ) {
-            for (LifeLine life_line : entity.getLifeLineList()) {
+// loop through all SEQUENCE DIAGRAMS
+            for (EntityController entity : sequenceDiagramController.getEntityList()) {
                 Element superElement = doc.createElement("element");
                 rootElement.appendChild(superElement);
-                // setting attribute to element
+
                 Attr attr = doc.createAttribute("type");
-                attr.setValue("life_line");
+                attr.setValue("sequence");
                 superElement.setAttributeNode(attr);
                 attr = doc.createAttribute("name");
                 attr.setValue(entity.getSequenceNameTextField());                                 // inset sequence diagram name
@@ -652,36 +624,64 @@ public class ParseXML extends HelloController {
 
                 Element argElement = doc.createElement("arg");
                 Attr attrType = doc.createAttribute("type");
-                attrType.setValue("line");
+                attrType.setValue("position_x");
                 argElement.setAttributeNode(attrType);
-                argElement.appendChild(doc.createTextNode(String.valueOf(life_line.getLifeLineIdentificator())));         // identificator, if we gave some
+                argElement.appendChild(doc.createTextNode(String.valueOf((int) (entity.getLayoutX()))));         //  position
                 superElement.appendChild(argElement);
 
                 argElement = doc.createElement("arg");
                 attrType = doc.createAttribute("type");
                 attrType.setValue("position_y");
                 argElement.setAttributeNode(attrType);
-                argElement.appendChild(doc.createTextNode(String.valueOf((int)(life_line.getLayoutY()))));                          // position
-                argElement.appendChild(doc.createTextNode(String.valueOf((int)(life_line.getLifeLine().getLayoutY()))));
-                argElement.appendChild(doc.createTextNode(String.valueOf((int)(life_line.getAnchorPane().getLayoutY()))));
-                System.out.println("FIRST layout " + String.valueOf((int)(life_line.getLayoutY())));
-                System.out.println("SECOND life line " + String.valueOf((int)(life_line.getLifeLine().getLayoutY())));
-                System.out.println("THIRD anchor pane " + String.valueOf((int)(life_line.getAnchorPane().getLayoutY())));
-
-                superElement.appendChild(argElement);
-
-                argElement = doc.createElement("arg");
-                attrType = doc.createAttribute("type");
-                attrType.setValue("length");
-                argElement.setAttributeNode(attrType);
-                argElement.appendChild(doc.createTextNode(String.valueOf((int)(life_line.getLifeLine().getEndY() - life_line.getLifeLine().getStartY()))));                          // TODO line length, endY - startY
-                //System.out.println("LENGTH MORE " + (life_line.getLifeLine().getEndY() - life_line.getLifeLine().getStartY()));
+                argElement.appendChild(doc.createTextNode(String.valueOf((int) (entity.getLayoutY()))));         // position
                 superElement.appendChild(argElement);
             }
-        }
-//TODO end of life line loop
-//TODO start of message lines saving
-            for (EntityController entity : sequenceDiagramController.getEntityList() ) {
+// end of loop through sequence diagrams
+// loop through all sequence diagram life lines
+            for (EntityController entity : sequenceDiagramController.getEntityList()) {
+                for (LifeLine life_line : entity.getLifeLineList()) {
+                    Element superElement = doc.createElement("element");
+                    rootElement.appendChild(superElement);
+                    // setting attribute to element
+                    Attr attr = doc.createAttribute("type");
+                    attr.setValue("life_line");
+                    superElement.setAttributeNode(attr);
+                    attr = doc.createAttribute("name");
+                    attr.setValue(entity.getSequenceNameTextField());                                 // inset sequence diagram name
+                    superElement.setAttributeNode(attr);
+
+                    Element argElement = doc.createElement("arg");
+                    Attr attrType = doc.createAttribute("type");
+                    attrType.setValue("line");
+                    argElement.setAttributeNode(attrType);
+                    argElement.appendChild(doc.createTextNode(String.valueOf(life_line.getLifeLineIdentificator())));         // identificator, if we gave some
+                    superElement.appendChild(argElement);
+
+                    argElement = doc.createElement("arg");
+                    attrType = doc.createAttribute("type");
+                    attrType.setValue("position_y");
+                    argElement.setAttributeNode(attrType);
+                    argElement.appendChild(doc.createTextNode(String.valueOf((int) (life_line.getLayoutY()))));                          // position
+                    argElement.appendChild(doc.createTextNode(String.valueOf((int) (life_line.getLifeLine().getLayoutY()))));
+                    argElement.appendChild(doc.createTextNode(String.valueOf((int) (life_line.getAnchorPane().getLayoutY()))));
+                    System.out.println("FIRST layout " + String.valueOf((int) (life_line.getLayoutY())));
+                    System.out.println("SECOND life line " + String.valueOf((int) (life_line.getLifeLine().getLayoutY())));
+                    System.out.println("THIRD anchor pane " + String.valueOf((int) (life_line.getAnchorPane().getLayoutY())));
+
+                    superElement.appendChild(argElement);
+
+                    argElement = doc.createElement("arg");
+                    attrType = doc.createAttribute("type");
+                    attrType.setValue("length");
+                    argElement.setAttributeNode(attrType);
+                    argElement.appendChild(doc.createTextNode(String.valueOf((int) (life_line.getLifeLine().getEndY() - life_line.getLifeLine().getStartY()))));                          //  line length, endY - startY
+                    //System.out.println("LENGTH MORE " + (life_line.getLifeLine().getEndY() - life_line.getLifeLine().getStartY()));
+                    superElement.appendChild(argElement);
+                }
+            }
+// end of life line loop
+// start of message lines saving
+            for (EntityController entity : sequenceDiagramController.getEntityList()) {
                 for (LifeLine life_line : entity.getLifeLineList()) {
                     for (MessageLine message_line : life_line.getMessageLineList()) {
                         if (life_line.getStickToEntity().equals(message_line.getFromEntity())) {
@@ -734,14 +734,14 @@ public class ParseXML extends HelloController {
                     }
                 }
             }
-//TODO end of message lines
+// end of message lines
 
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\_sequence_diagram_reference.xml"));
-            //StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\sequence_diagram_reference.xml")); // TODO edit path
+            StreamResult result = new StreamResult(new File("C:\\Users\\xvalen29\\Documents\\GitHub\\IJA_Project\\data\\_sequence_diagram_reference2.xml"));
+            //StreamResult result = new StreamResult(new File("C:\\Users\\pindo\\OneDrive\\Documents\\GitHub\\IJA_Project\\data\\sequence_diagram_reference.xml")); //  edit path
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();
