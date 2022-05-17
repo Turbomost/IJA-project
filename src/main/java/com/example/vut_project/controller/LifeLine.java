@@ -79,7 +79,11 @@ public class LifeLine extends Line {
         //System.out.println(sequenceDiagramController.getHelloControllerReference().classDiagramController.findClass(stick_to_entity.getSequenceNameTextField()).getName());
         if (sequenceDiagramController.getHelloControllerReference().classDiagramController.findClass(stick_to_entity.getSequenceNameTextField()) == null){
             for (MessageLine messageLine : getMessageLineList()){
-                messageLine.changeMessageLineColor(Color.RED);
+                if (messageLine.label_string.toLowerCase().contains("<<create>>")){
+                    messageLine.changeMessageLineColor(Color.BLACK);
+                }else{
+                    messageLine.changeMessageLineColor(Color.RED);
+                }
             }
             life_line.setStroke(Color.RED);
         }else{
