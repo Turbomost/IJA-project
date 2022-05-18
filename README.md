@@ -1,6 +1,7 @@
-# Project for subject IJA 2021/2022 - part 3
+# IJA-project
+2021/2022 IJA projekt
 
-Project showing and editing class diagram 
-
-## Startup
-
+## Hodnocení
+2. část : 5  / 5
+3. část : 10 / 10
+4. část : 80 / 80
